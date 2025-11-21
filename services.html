@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات الإلكترونية - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
+    <meta name="description" content="خدماتنا الإلكترونية: التطوع، الانخراط، زكاة الصحة، والخدمات الرقمية المتنوعة">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-green: #10B981;
+            --secondary-green: #059669;
+            --accent-gold: #F59E0B;
+            --light-gold: #FEF3C7;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+        }
+        
+        .rtl {
+            direction: rtl;
+        }
+        
+        .ltr {
+            direction: ltr;
+        }
+        
+        .services-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('/images/bg.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-success {
+            background-color: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #10B981;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body class="rtl">
+    <!-- Navigation -->
+     <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-4">
+                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto">
+
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="about">عن الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="news">الأخبار</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="contact">الاتصال</a>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-3">
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active"
+                    data-lang="ar">العربية</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="en">EN</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="fr">FR</button>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن
+                    الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="news">الأخبار</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="contact">الاتصال</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="services-hero flex items-center justify-center text-white relative mt-20">
+        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">الخدمات الإلكترونية</h1>
+            <p class="text-xl md:text-2xl">خدمات رقمية مبتكرة لتسهيل انخراطكم ومساهمتكم في أعمالنا</p>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">خدماتنا الرقمية</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    نوفر لكم مجموعة من الخدمات الإلكترونية المصممة لتسهيل عملية التسجيل، التطوع، والمساهمة في أنشطتنا
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Volunteer Service -->
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-green-600 text-4xl mb-4">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="volunteerWithUs">التطوع معنا</h3>
+                    <p class="text-gray-600 mb-4" data-translate="volunteerDesc">
+                        كن جزءًا من فريقنا التطوعي وأسهم في خدمة المجتمع
+                    </p>
+                    <button class="btn-primary w-full" onclick="showForm('volunteer')">سجل الآن</button>
+                </div>
+                
+                <!-- Membership Service -->
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="joinUs">الانخراط في الجمعية</h3>
+                    <p class="text-gray-600 mb-4" data-translate="joinDesc">
+                        كن عضوًا في جمعيتنا وساهم في تحقيق أهدافنا التنموية
+                    </p>
+                    <button class="btn-primary w-full" onclick="showForm('membership')">انضم إلينا</button>
+                </div>
+                
+                <!-- Zakat Al-Seha Service -->
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-red-600 text-4xl mb-4">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3"> حملةالتبرع بالدم</h3>
+                    <p class="text-gray-600 mb-4">
+                        سجل للتبرع بالدم وشارك في إنقاذ الأرواح
+                    </p>
+                    <button class="btn-primary w-full" onclick="showForm('zakat')">سجل للتبرع</button>
+                </div>
+                
+                <!-- Donation Service -->
+                
+                
+                <!-- Event Registration -->
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-purple-600 text-4xl mb-4">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">التسجيل في الفعاليات</h3>
+                    <p class="text-gray-600 mb-4">
+                        سجل للمشاركة في فعالياتنا القادمة وكن جزءًا من الفريق
+                    </p>
+                    <button class="btn-primary w-full" onclick="showForm('events')">سجل الآن</button>
+                </div>
+                
+                <!-- Newsletter Subscription -->
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">النشرة الإخبارية</h3>
+                    <p class="text-gray-600 mb-4">
+                        اشترك لتصلك آخر أخبار الجمعية وأنشطتها
+                    </p>
+                    <button class="btn-primary w-full" onclick="showForm('newsletter')">اشترك الآن</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forms Section -->
+    <section class="section-padding bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Volunteer Form -->
+            <div id="volunteer-form" class="form-container p-8 mb-8 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">نموذج التطوع</h3>
+                <form onsubmit="submitForm(event, 'volunteer')">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="fullName">الاسم الكامل *</label>
+                            <input type="text" class="form-input" required data-translate="fullName" placeholder="الاسم الكامل">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="email">البريد الإلكتروني *</label>
+                            <input type="email" class="form-input" required data-translate="email" placeholder="البريد الإلكتروني">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="phone">رقم الهاتف *</label>
+                            <input type="tel" class="form-input" required data-translate="phone" placeholder="رقم الهاتف">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">العمر</label>
+                            <input type="number" class="form-input" min="16" max="80" placeholder="العمر">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">المهنة</label>
+                            <input type="text" class="form-input" placeholder="المهنة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">مجالات التطوع المفضلة</label>
+                            <select class="form-input">
+                                <option value="">اختر مجال التطوع</option>
+                                <option value="education">التعليم والتربية</option>
+                                <option value="health">الصحة والإغاثة</option>
+                                <option value="social">العمل الاجتماعي</option>
+                                <option value="environment">البيئة والتنمية المستدامة</option>
+                                <option value="culture">الثقافة والفنون</option>
+                                <option value="sports">الرياضة والأنشطة البدنية</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">الخبرات السابقة في العمل التطوعي</label>
+                        <textarea class="form-input form-textarea" placeholder="اشرح خبراتك السابقة في العمل التطوعي..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">الوقت المتاح للتطوع</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="ml-2"> أيام الأسبوع
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="ml-2"> عطلات نهاية الأسبوع
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary px-8 py-3">سجل طلبك</button>
+                        <button type="button" class="btn-secondary px-8 py-3 mr-4" onclick="hideAllForms()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Membership Form -->
+            <div id="membership-form" class="form-container p-8 mb-8 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">نموذج الانخراط</h3>
+                <form onsubmit="submitForm(event, 'membership')">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="fullName">الاسم الكامل *</label>
+                            <input type="text" class="form-input" required data-translate="fullName" placeholder="الاسم الكامل">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="email">البريد الإلكتروني *</label>
+                            <input type="email" class="form-input" required data-translate="email" placeholder="البريد الإلكتروني">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="phone">رقم الهاتف *</label>
+                            <input type="tel" class="form-input" required data-translate="phone" placeholder="رقم الهاتف">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">رقم البطاقة الوطنية</label>
+                            <input type="text" class="form-input" placeholder="رقم البطاقة الوطنية">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">تاريخ الميلاد</label>
+                            <input type="date" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">المستوى الدراسي</label>
+                            <select class="form-input">
+                                <option value="">اختر المستوى الدراسي</option>
+                                <option value="primary">تعليم ابتدائي</option>
+                                <option value="middle">تعليم متوسط</option>
+                                <option value="high">تعليم ثانوي</option>
+                                <option value="bachelor">بكالوريوس</option>
+                                <option value="master">ماستر</option>
+                                <option value="phd">دكتوراه</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">العنوان الكامل</label>
+                        <textarea class="form-input form-textarea" placeholder="العنوان الكامل..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">المهنة أو التخصص</label>
+                        <input type="text" class="form-input" placeholder="المهنة أو التخصص">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">دوافع الانخراط</label>
+                        <textarea class="form-input form-textarea" placeholder="اشرح دوافعك للانخراط في الجمعية..."></textarea>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary px-8 py-3">أرسل طلب الانخراط</button>
+                        <button type="button" class="btn-secondary px-8 py-3 mr-4" onclick="hideAllForms()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Zakat Al-Seha Form -->
+            <div id="zakat-form" class="form-container p-8 mb-8 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">التسجيل في  التبرع بالدم</h3>
+                <form onsubmit="submitForm(event, 'zakat')">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="fullName">الاسم الكامل *</label>
+                            <input type="text" class="form-input" required data-translate="fullName" placeholder="الاسم الكامل">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="phone">رقم الهاتف *</label>
+                            <input type="tel" class="form-input" required data-translate="phone" placeholder="رقم الهاتف">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">العمر</label>
+                            <input type="number" class="form-input" min="18" max="65" placeholder="العمر">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">فصيلة الدم</label>
+                            <select class="form-input">
+                                <option value="">اختر فصيلة الدم</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">الوزن (كغ)</label>
+                            <input type="number" class="form-input" min="50" placeholder="الوزن">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">تاريخ آخر تبرع</label>
+                            <input type="date" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">الحالة الصحية العامة</label>
+                        <textarea class="form-input form-textarea" placeholder="أي معلومات صحية مهمة..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="ml-2" required>
+                            أقر بأن المعلومات المقدمة صحيحة، وأوافق على التبرع بالدم حسب الشروط الصحية المطلوبة.
+                        </label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary px-8 py-3">سجل للتبرع</button>
+                        <button type="button" class="btn-secondary px-8 py-3 mr-4" onclick="hideAllForms()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Donation Form -->
+            <div id="donation-form" class="form-container p-8 mb-8 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">نموذج التبرع</h3>
+                <form onsubmit="submitForm(event, 'donation')">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="fullName">الاسم الكامل</label>
+                            <input type="text" class="form-input" data-translate="fullName" placeholder="الاسم الكامل">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="email">البريد الإلكتروني</label>
+                            <input type="email" class="form-input" data-translate="email" placeholder="البريد الإلكتروني">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="phone">رقم الهاتف</label>
+                            <input type="tel" class="form-input" data-translate="phone" placeholder="رقم الهاتف">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">مبلغ التبرع (درهم)</label>
+                            <input type="number" class="form-input" min="10" placeholder="مبلغ التبرع">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">نوع التبرع</label>
+                        <select class="form-input">
+                            <option value="">اختر نوع التبرع</option>
+                            <option value="general">تبرع عام</option>
+                            <option value="education">دعم التعليم</option>
+                            <option value="health">الصحة والإغاثة</option>
+                            <option value="food">الإطعام</option>
+                            <option value="zakat">زكاة الصحة</option>
+                            <option value="ramadan">رمضان الخير</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">طريقة الدفع</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="payment" value="bank" class="ml-2"> تحويل بنكي
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="payment" value="cash" class="ml-2"> نقدًا
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary px-8 py-3">أكمل التبرع</button>
+                        <button type="button" class="btn-secondary px-8 py-3 mr-4" onclick="hideAllForms()">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
+                    <div class="space-y-2">
+                        <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
+                        <p><i class="fas fa-phone ml-2"></i> +212 5XX XX XX XX</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@amjad-association.org</p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <div class="space-y-2">
+                        <a href="about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
+                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات
+                            الإلكترونية</a>
+                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج
+                            والخدمات</a>
+                        <a href="news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
+                    <div class="flex gap-4 justify-center">
+                        <a href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-x"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                          <a href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                          <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Additional JavaScript for Forms -->
+    <script>
+        function showForm(formType) {
+            hideAllForms();
+            document.getElementById(formType + '-form').classList.remove('hidden');
+            document.getElementById(formType + '-form').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function hideAllForms() {
+            const forms = document.querySelectorAll('.form-container');
+            forms.forEach(form => form.classList.add('hidden'));
+        }
+        
+        function submitForm(event, formType) {
+            event.preventDefault();
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'alert alert-success mt-4';
+            successMessage.textContent = currentLanguage === 'ar' ? 'تم إرسال طلبك بنجاح! سنتصل بك قريبًا.' : 
+                                       currentLanguage === 'en' ? 'Your request has been submitted successfully! We will contact you soon.' :
+                                       'Votre demande a été soumise avec succès! Nous vous contacterons bientôt.';
+            
+            event.target.appendChild(successMessage);
+            
+            // Reset form after delay
+            setTimeout(() => {
+                event.target.reset();
+                successMessage.remove();
+                hideAllForms();
+            }, 3000);
+        }
+    </script>
+
+    <!-- Main JavaScript -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

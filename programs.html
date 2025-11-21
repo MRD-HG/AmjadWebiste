@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات والبرامج - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
+    <meta name="description"
+        content="اكتشف برامجنا وخدماتنا: دفء وإطعام، إفطار الخير، زكاة الصحة، أكاديمية أمجاد، وغيرها">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-green: #10B981;
+            --secondary-green: #059669;
+            --accent-gold: #F59E0B;
+            --light-gold: #FEF3C7;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+        }
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .ltr {
+            direction: ltr;
+        }
+
+        .programs-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('/images/bg.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+        }
+
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .program-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .program-detail {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .program-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .program-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--light-gold);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 40px 0;
+            }
+        }
+    </style>
+    <base target="_blank">
+</head>
+
+<body class="rtl">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-4">
+                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto">
+
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="about">عن الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="news">الأخبار</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="contact">الاتصال</a>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-3">
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active"
+                    data-lang="ar">العربية</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="en">EN</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="fr">FR</button>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن
+                    الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="news">الأخبار</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="contact">الاتصال</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="programs-hero flex items-center justify-center text-white relative mt-20">
+        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-translate="programsTitle">خدماتنا وبرامجنا</h1>
+            <p class="text-xl md:text-2xl">مجموعة متكاملة من البرامج المصممة لخدمة المجتمع وتنمية القدرات</p>
+        </div>
+    </section>
+
+    <!-- Programs Overview -->
+    <section class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">برامجنا المجتمعية</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    نقدم لكم مجموعة متنوعة من البرامج والخدمات التي تهدف إلى تنمية المجتمع وتمكين الأفراد
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Warmth and Feeding Campaign -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-red-600 text-4xl mb-4">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">دفء وإطعام</h3>
+                    <p class="text-gray-600 mb-4">
+                        حملة موسمية تهدف إلى توفير الملابس الشتوية والوجبات الغذائية للأسر المحتاجة خلال فصل الشتاء.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showProgramDetail('warmth')">التفاصيل</button>
+                </div>
+
+                <!-- Iftar Al-Khair -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-yellow-600 text-4xl mb-4">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">إفطار الخير</h3>
+                    <p class="text-gray-600 mb-4">
+                        برنامج رمضاني يوفر وجبات الإفطار للصائمين ويقدم مساعدات غذائية للأسر المحتاجة.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showProgramDetail('iftar')">التفاصيل</button>
+                </div>
+
+                <!-- Zakat Al-Seha -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-red-600 text-4xl mb-4">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3"> حملة التبرع بالدم</h3>
+                    <p class="text-gray-600 mb-4">
+                        مبادرة للتبرع بالدم ونشر ثقافة العطاء والتضامن الإنساني في المجتمع.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showProgramDetail('zakat')">التفاصيل</button>
+                </div>
+
+                <!-- Amjad Academy -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-green-600 text-4xl mb-4">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">أكاديمية أمجاد</h3>
+                    <p class="text-gray-600 mb-4">
+                        برامج تعليمية وتدريبية لتنمية مهارات الشباب وتعزيز قدراتهم في مختلف المجالات.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showProgramDetail('academy')">التفاصيل</button>
+                </div>
+
+                <!-- Medrasti Al-Hilwa -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-pink-600 text-4xl mb-4">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">مدرستي الحلوة</h3>
+                    <p class="text-gray-600 mb-4">
+                        أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب منذ الصغر.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showProgramDetail('school')">التفاصيل</button>
+                </div>
+
+                <!-- Tabeeb Al-Ghalaba -->
+                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">طبيب الغلبة</h3>
+                    <p class="text-gray-600 mb-4">
+                        برنامج طبي يقدم خدمات صحية مجانية للفئات المحتاجة من المجتمع.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showComingSoon()">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Details -->
+    <section class="section-padding bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Warmth and Feeding Program -->
+            <div id="warmth-detail" class="program-detail hidden">
+                <div class="program-image"
+                    style="background-image: url('');">
+                    <div class="program-overlay">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-4">برنامج دفء وإطعام</h2>
+                            <p class="text-xl">حملة إنسانية لتخفيف معاناة الفقراء في فصل الشتاء</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">عن البرنامج</h3>
+                            <p class="text-gray-600 mb-4">
+                                يطلق برنامج "دفء وإطعام" كل عام خلال فصل الشتاء، ويهدف إلى توفير الملابس الشتوية الدافئة
+                                والوجبات الغذائية الساخنة للأسر المحتاجة والمشردين في مدينة سخريات وضواحيها.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                يشمل البرنامج توزيع بطانيات وملابس شتوية، بالإضافة إلى وجبات ساخنة يومية خلال فترة
+                                الذروة للبرد، مع التركيز على الأسر التي تعاني من الفقر المدقع.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">أهداف البرنامج</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 ml-2"></i> توفير
+                                    الدفء للأسر المحتاجة</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 ml-2"></i> تقديم
+                                    وجبات غذائية متوازنة</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 ml-2"></i> تخفيف
+                                    معاناة الشتاء</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 ml-2"></i> تعزيز
+                                    التضامن المجتمعي</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">إحصائيات البرنامج</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">500</div>
+                                    <div class="text-gray-600">أسرة مستفيدة</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">1500</div>
+                                    <div class="text-gray-600">بطانية موزعة</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">3000</div>
+                                    <div class="text-gray-600">وجبة غذائية</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">50</div>
+                                    <div class="text-gray-600">متطوع نشط</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button class="btn-primary w-full mb-3"
+                                    onclick="window.location.href='services.html#donation'">ساهم في البرنامج</button>
+                                <button class="btn-secondary w-full"
+                                    onclick="window.location.href='services.html#volunteer'">تطوع معنا</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iftar Al-Khair Program -->
+            <div id="iftar-detail" class="program-detail hidden">
+                <div class="program-image" style="background-image: url('/images/Siyam.jpg');">
+                    <div class="program-overlay">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-4">برنامج إفطار الخير</h2>
+                            <p class="text-xl">إفطار الصائمين ومساعدة الأسر خلال شهر رمضان المبارك</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">عن البرنامج</h3>
+                            <p class="text-gray-600 mb-4">
+                                برنامج "إفطار الخير" هو من أبرز البرامج السنوية للجمعية، حيث يتم تنظيمه خلال شهر رمضان
+                                المبارك
+                                بهدف إفطار الصائمين وتقديم المساعدات الغذائية للأسر المحتاجة.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                يشمل البرنامج توزيع وجبات إفطار يومية، بالإضافة إلى قفف رمضانية تحتوي على المواد
+                                الغذائية الأساسية
+                                التي تكفي الأسرة طوال شهر رمضان.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">مكونات البرنامج</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-utensils text-yellow-600 ml-2"></i> وجبات
+                                    إفطار يومية</li>
+                                <li class="flex items-center"><i class="fas fa-box text-yellow-600 ml-2"></i> قفف
+                                    رمضانية</li>
+                                <li class="flex items-center"><i class="fas fa-users text-yellow-600 ml-2"></i> موائد
+                                    رمضانية جماعية</li>
+                                <li class="flex items-center"><i class="fas fa-heart text-yellow-600 ml-2"></i> زكاة
+                                    الفطر</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">إنجازات البرنامج</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">800</div>
+                                    <div class="text-gray-600">صائم مُفطر</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">400</div>
+                                    <div class="text-gray-600">قفة رمضانية</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">15</div>
+                                    <div class="text-gray-600">يوم فعاليات</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">25</div>
+                                    <div class="text-gray-600">متطوع نشط</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button class="btn-primary w-full mb-3"
+                                    onclick="window.location.href='services.html#donation'">ساهم في البرنامج</button>
+                                <button class="btn-secondary w-full"
+                                    onclick="window.location.href='services.html#volunteer'">تطوع معنا</button>
+                            </div>
+                        </div>
+                        <!-- Centered, responsive video -->
+                    </div>
+                </div>
+                <div class="w-full justify-center flex mt-6">
+                    <div class="w-full max-w-2xl justify-center rounded-lg">
+                        <video width="50%" class="" bg-black" controls playsinline preload="metadata">
+                            <source src="/images/video.mp4" type="video/mp4">
+                            متصفحك لا يدعم عرض الفيديو.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zakat Al-Seha Program -->
+            <div id="zakat-detail" class="program-detail hidden">
+                <div class="program-image"
+                    style="background-image: url('/images/blood.jpeg');">
+                    <div class="program-overlay">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-4"> حملةالتبرع بالدم  </h2>
+                            <p class="text-xl">نشر ثقافة التبرع بالدم وإنقاذ الأرواح</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">عن البرنامج</h3>
+                            <p class="text-gray-600 mb-4">
+                                "زكاة الصحة" هو برنامج مستدام يهدف إلى نشر ثقافة التبرع بالدم في المجتمع،
+                                إيمانًا منا بأن الحفاظ على حياة الآخرين هو أسمى صور العطاء.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                ينظم البرنامج حملات دورية للتبرع بالدم، بالتعاون مع المركز الجهوي لتحاقن الدم،
+                                ويشمل أيضًا التوعية بأهمية التبرع بالدم وفوائده الصحية.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">فوائد البرنامج</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-heart text-red-600 ml-2"></i> إنقاذ
+                                    الأرواح</li>
+                                <li class="flex items-center"><i class="fas fa-refresh text-red-600 ml-2"></i> تجديد دم
+                                    المتبرع</li>
+                                <li class="flex items-center"><i class="fas fa-users text-red-600 ml-2"></i> تعزيز
+                                    التضامن</li>
+                                <li class="flex items-center"><i class="fas fa-graduation-cap text-red-600 ml-2"></i>
+                                    التوعية الصحية</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">إحصائيات التبرع</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">200</div>
+                                    <div class="text-gray-600">متبرع بالدم</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">180</div>
+                                    <div class="text-gray-600">وحدة دم متبرع بها</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">12</div>
+                                    <div class="text-gray-600">حملة تبرع</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">450</div>
+                                    <div class="text-gray-600">مستفيد من الدم</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button class="btn-primary w-full mb-3"
+                                    onclick="window.location.href='services.html#zakat'">سجل للتبرع</button>
+                                <button class="btn-secondary w-full"
+                                    onclick="window.location.href='services.html#volunteer'">تطوع معنا</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amjad Academy Program -->
+            <div id="academy-detail" class="program-detail hidden">
+                <div class="program-image"
+                    style="background-image: url('/images/brainwarm.jpeg');">
+                    <div class="program-overlay">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-4">أكاديمية أمجاد</h2>
+                            <p class="text-xl">تنمية مهارات الشباب وتعزيز قدراتهم</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">عن البرنامج</h3>
+                            <p class="text-gray-600 mb-4">
+                                أكاديمية أمجاد هي منصة تعليمية وتدريبية متخصصة في تنمية مهارات الشباب
+                                وتعزيز قدراتهم في مختلف المجالات، من خلال برامج تدريبية متنوعة وورش عمل تفاعلية.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                تركز الأكاديمية على المهارات الحياتية والمهنية، بالإضافة إلى التنمية الشخصية
+                                والقيادية، بهدف إعداد جيل من الشباب القادرين على المساهمة الفعالة في تنمية مجتمعهم.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">المجالات التدريبية</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-laptop text-green-600 ml-2"></i> المهارات
+                                    الرقمية</li>
+                                <li class="flex items-center"><i class="fas fa-microphone text-green-600 ml-2"></i>
+                                    التواصل والعرض</li>
+                                <li class="flex items-center"><i class="fas fa-chart-line text-green-600 ml-2"></i>
+                                    ريادة الأعمال</li>
+                                <li class="flex items-center"><i class="fas fa-users text-green-600 ml-2"></i> القيادة
+                                    والعمل الجماعي</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">إنجازات الأكاديمية</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">120</div>
+                                    <div class="text-gray-600">متدرب</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">25</div>
+                                    <div class="text-gray-600">ورشة تدريب</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">8</div>
+                                    <div class="text-gray-600">برنامج تدريبي</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">15</div>
+                                    <div class="text-gray-600">مدرب متخصص</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button class="btn-primary w-full mb-3" onclick="showComingSoon()">سجل في
+                                    البرنامج</button>
+                                <button class="btn-secondary w-full"
+                                    onclick="window.location.href='services.html#volunteer'">كن مدربًا متطوعًا</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medrasti Al-Hilwa Program -->
+            <div id="school-detail" class="program-detail hidden">
+                <div class="program-image"
+                    style="background-image: url('/images/event.jpg');">
+                    <div class="program-overlay">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-4">مدرستي الحلوة</h2>
+                            <p class="text-xl">أنشطة تعليمية ممتعة لتنمية مواهب الأطفال</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">عن البرنامج</h3>
+                            <p class="text-gray-600 mb-4">
+                                "مدرستي الحلوة" هو برنامج تعليمي ترفيهي مصمم خصيصًا للأطفال، يهدف إلى تعزيز التعليم
+                                وتنمية المواهب منذ الصغر من خلال أنشطة ممتعة وفعالة.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                يقدم البرنامج ناديًا بعد الدوام المدرسي، بالإضافة إلى أنشطة نهاية الأسبوع والعطل
+                                المدرسية،
+                                مع التركيز على تنمية المهارات الإبداعية والاجتماعية للأطفال.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">الأنشطة المقدمة</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-palette text-pink-600 ml-2"></i> الفنون
+                                    والرسم</li>
+                                <li class="flex items-center"><i class="fas fa- text-pink-600 ml-2"></i>مسابقات ثقافية </li>
+                                <li class="flex items-center"><i class="fas fa-book text-pink-600 ml-2"></i> القراءة
+                                    والقصص</li>
+                                <li class="flex items-center"><i class="fas fa-flask text-pink-600 ml-2"></i> التجارب
+                                    العلمية البسيطة</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">إحصائيات البرنامج</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">80</div>
+                                    <div class="text-gray-600">طفل مشارك</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">12</div>
+                                    <div class="text-gray-600">نشاط شهري</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">3</div>
+                                    <div class="text-gray-600">فئة عمرية</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">8</div>
+                                    <div class="text-gray-600">مشرف تربوي</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button class="btn-primary w-full mb-3" onclick="showComingSoon()">سجل طفلك</button>
+                                <button class="btn-secondary w-full"
+                                    onclick="window.location.href='services.html#volunteer'">كن مشرفًا متطوعًا</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Initiatives -->
+    <section class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">مبادرات إضافية</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    مبادرات مبتكرة تهدف إلى تنويع خدماتنا وتوسيع تأثيرنا المجتمعي
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- African Cup -->
+                <div class="program-card bg-gray-50 rounded-lg p-6 fade-in">
+                    <div class="text-green-600 text-4xl mb-4">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">كأس إفريقيا</h3>
+                    <p class="text-gray-600 mb-4">
+                        بطولة رياضية مجتمعية تجمع شباب المدينة في أجواء من المنافسة الشريفة والروح الرياضية.
+                    </p>
+                    <button class="btn-primary w-full" onclick="window.location.href ='/resources/Cup.html'">المزيد</button>
+                </div>
+
+                <!-- City Memory -->
+                <div class="program-card bg-gray-50 rounded-lg p-6 fade-in">
+                    <div class="text-purple-600 text-4xl mb-4">
+                        <i class="fas fa-monument"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">ذاكرة المدينة</h3>
+                    <p class="text-gray-600 mb-4">
+                        الاحتفال بتاريخ المدينة وتراثها العريق من خلال فعاليات ثقافية وتاريخية متنوعة.
+                    </p>
+                    <button class="btn-primary w-full" onclick="showComingSoon()">المزيد</button>
+                </div>
+
+                <!-- Environmental Initiative -->
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
+                    <div class="space-y-2">
+                        <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
+                        <p><i class="fas fa-phone ml-2"></i> +212 5XX XX XX XX</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@amjad-association.org</p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <div class="space-y-2">
+                        <a href="about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
+                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات
+                            الإلكترونية</a>
+                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج
+                            والخدمات</a>
+                        <a href="news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
+                    <div class="flex gap-4 justify-center">
+                        <a href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-x"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                          <a href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                          <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Additional JavaScript for Programs -->
+    <script>
+        function showProgramDetail(programId) {
+            // Hide all program details
+            const details = document.querySelectorAll('.program-detail');
+            details.forEach(detail => detail.classList.add('hidden'));
+
+            // Show selected program detail
+            document.getElementById(programId + '-detail').classList.remove('hidden');
+
+            // Scroll to program detail
+            document.getElementById(programId + '-detail').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    </script>
+
+    <!-- Main JavaScript -->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
