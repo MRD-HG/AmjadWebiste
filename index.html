@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <title>جمعية أمجاد للتربية والأعمال الاجتماعية</title>
     <meta
       name="description"
-      content="جمعية أمجاد للتربية والأعمال الاجتماعية - سنوات من العطاء والتميز في خدمة المجتمع"
+      content="الموقع الرسمي لجمعية أمجاد للتربية والأعمال الاجتماعية بالصخيرات: مدارس ذكية، مواكبة كأس إفريقيا 2025، دعم تربوي واجتماعي، وملف رعاية للشركاء."
     />
 
     <!-- Tailwind CSS -->
@@ -14,7 +14,7 @@
 
     <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -24,7 +24,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- Custom Styles -->
     <style>
       :root {
         --primary-green: #10b981;
@@ -41,34 +40,18 @@
         background-color: var(--bg-light);
       }
 
-      .rtl {
-        direction: rtl;
-      }
-
-      .ltr {
-        direction: ltr;
-      }
-
       .hero-section {
-        /* gradient overlay + background image */
         background-image: linear-gradient(
             135deg,
-            rgba(16, 185, 129, 0.6),
-            rgba(5, 150, 105, 0.6)
+            rgba(16, 185, 129, 0.7),
+            rgba(5, 150, 105, 0.7)
           ),
           url("images/bg.png");
         background-repeat: no-repeat;
         background-size: cover;
-        /* background-position: center; */
-        min-height: 100vh;
-        /* fixed attachment only on large screens for better mobile performance */
-        background-attachment: scroll;
-      }
-
-      @media (min-width: 992px) {
-        .hero-section {
-          background-attachment: fixed;
-        }
+        background-position: center;
+        min-height: 90vh;
+        position: relative;
       }
 
       .navbar {
@@ -76,52 +59,10 @@
         backdrop-filter: blur(10px);
       }
 
-      /* Programs section background image */
-      .programs-bg {
-        background: url("images/pg_clean.png");
-        background-color: rgb(136, 136, 136);
-        background-size: cover;
-        background-position: center;
-        position: relative;
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
-
-      .speech-bg {
-        background: url("images/pg_clean.png");
-        background-color: rgb(136, 136, 136);
-        background-size: cover;
-        background-position: center;
-        position: relative;
-      }
-
-      .speech-bg::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.85);
-        /* subtle white overlay to keep cards readable */
-        pointer-events: none;
-      }
-
-      .speech-bg .max-w-7xl {
-        position: relative;
-        z-index: 10;
-      }
-
-      .programs-bg::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.85);
-        /* subtle white overlay to keep cards readable */
-        pointer-events: none;
-      }
-
-      .programs-bg .max-w-7xl {
-        position: relative;
-        z-index: 10;
-      }
-
-      /* ensure content sits above overlay */
 
       .fade-in {
         opacity: 0;
@@ -134,39 +75,15 @@
         transform: translateY(0);
       }
 
-      .counter {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--primary-green);
-      }
-
       .program-card {
         transition: all 0.3s ease;
         border: 2px solid transparent;
       }
 
       .program-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-4px);
         border-color: var(--accent-gold);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      .news-card {
-        transition: all 0.3s ease;
-      }
-
-      .news-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .gallery-image {
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .gallery-image:hover {
-        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       }
 
       .btn-primary {
@@ -177,8 +94,8 @@
         );
         color: white;
         padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
+        border-radius: 10px;
+        font-weight: 700;
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
@@ -193,8 +110,8 @@
         background: var(--accent-gold);
         color: white;
         padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
+        border-radius: 10px;
+        font-weight: 700;
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
@@ -205,604 +122,376 @@
         box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
       }
 
-      .text-gradient {
-        background: linear-gradient(
-          135deg,
-          var(--primary-green),
-          var(--accent-gold)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
       .section-padding {
         padding: 80px 0;
-      }
-
-      @media (max-width: 768px) {
-        .counter {
-          font-size: 2rem;
-        }
-
-        .section-padding {
-          padding: 40px 0;
-        }
       }
     </style>
   </head>
 
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <!-- Logo -->
-        <div class="flex items-center gap-4">
-          <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto" />
-        </div>
+  <body class="rtl text-gray-900">
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-30">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="images/logo.png" alt="شعار جمعية أمجاد" class="h-12 w-12" />
+          <div>
+            <p class="text-sm text-green-800 font-semibold">
+              جمعية أمجاد للتربية والأعمال الاجتماعية
+            </p>
+            <p class="text-xs text-amber-600">شعلة معارف.. جذور أمجاد</p>
+          </div>
+        </a>
 
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
           <a
             href="index.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="home"
             >الرئيسية</a
           >
           <a
             href="about.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="about"
             >عن الجمعية</a
           >
           <a
             href="services.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="services"
-            >الخدمات الإلكترونية</a
+            >مجالات التدخل والشراكات</a
           >
           <a
             href="programs.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="programs"
-            >الخدمات والبرامج</a
+            >برامجنا</a
           >
           <a
             href="news.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="news"
             >الأخبار</a
           >
           <a
             href="contact.html"
-            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            class="text-gray-800 hover:text-green-700"
             data-translate="contact"
-            >الاتصال</a
+            >اتصل بنا</a
           >
+          <a href="contact.html" class="btn-primary text-sm">تواصلوا معنا</a>
         </div>
 
-        <!-- Language Switcher -->
-        <div class="flex items-center gap-3">
-          <button
-            class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active"
-            data-lang="ar"
-          >
-            العربية
-          </button>
-          <button
-            class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
-            data-lang="en"
-          >
-            EN
-          </button>
-          <button
-            class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
-            data-lang="fr"
-          >
-            FR
-          </button>
-
-          <!-- Mobile Menu Button -->
-          <button
-            class="md:hidden ml-4 text-gray-800"
-            onclick="toggleMobileMenu()"
-          >
-            <i class="fas fa-bars text-xl"></i>
-          </button>
-        </div>
+        <button
+          class="md:hidden text-gray-800 text-2xl"
+          aria-label="Toggle menu"
+          onclick="toggleMobileMenu()"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
 
-      <!-- Mobile Menu -->
-      <div class="mobile-menu hidden md:hidden mt-4 pb-4">
-        <div class="flex flex-col space-y-3">
-          <a
-            href="index.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="home"
-            >الرئيسية</a
-          >
-          <a
-            href="about.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="about"
-            >عن الجمعية</a
-          >
-          <a
-            href="services.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="services"
-            >الخدمات الإلكترونية</a
-          >
-          <a
-            href="programs.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="programs"
-            >الخدمات والبرامج</a
-          >
-          <a
-            href="news.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="news"
-            >الأخبار</a
-          >
-          <a
-            href="contact.html"
-            class="text-gray-800 hover:text-green-600 font-medium"
-            data-translate="contact"
-            >الاتصال</a
-          >
+      <div class="mobile-menu hidden md:hidden px-4 pb-4 bg-white shadow">
+        <div class="flex flex-col gap-3 text-sm font-semibold">
+          <a href="index.html" class="hover:text-green-700">الرئيسية</a>
+          <a href="about.html" class="hover:text-green-700">عن الجمعية</a>
+          <a href="services.html" class="hover:text-green-700">مجالات التدخل والشراكات</a>
+          <a href="programs.html" class="hover:text-green-700">برامجنا</a>
+          <a href="news.html" class="hover:text-green-700">الأخبار</a>
+          <a href="contact.html" class="hover:text-green-700">اتصل بنا</a>
+          <a href="contact.html" class="btn-primary text-center">تواصلوا معنا</a>
         </div>
       </div>
     </nav>
 
     <!-- Hero Section -->
-    <section
-      class="hero-section flex items-center justify-center text-white relative"
-      aria-label="Hero"
-    >
-      <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-
-      <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
-        <h1
-          class="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-          data-translate="heroTitle"
-        >
-          جمعية أمجاد للتربية والأعمال الاجتماعية
-        </h1>
-        <p
-          class="text-xl md:text-2xl mb-4 text-yellow-300"
-          data-translate="heroSubtitle"
-        >
-          سنوات من العطاء... وباقين مستمرين
-        </p>
-        <!-- <p class="text-lg mb-8 max-w-2xl mx-auto leading-relaxed" data-translate="heroDescription">
-                    نؤمن أن كل فرد قادر على إحداث فرق. انضم إلينا وساهم في بناء مجتمع يسوده التعاون والتكافل.
-                </p> -->
-        <p class="text-lg font-bold mx-auto leading-relaxed">
-          * كالشمس تعيش ضمائرنا ونحب الفرحة لسوانا نتسابق والاكرم فينا إنسان
-          يبني الإنسانا *
-        </p>
-        <br />
-        <br />
-
-        <br />
-        <hr style="height: 10px; background-color: white; border: none" />
-
-        <div class="mt-10">
-          <p class="text-3xl text-yellow-300">تربية -تطوع - ريادة - إبداع</p>
+    <section class="hero-section flex items-center text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-widest text-amber-200">
+            يقدّمها لكم «أصيل» – صديق الأطفال في أمجاد
+          </p>
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight" data-translate="heroTitle">
+            جمعية أمجاد للتربية والأعمال الاجتماعية
+          </h1>
+          <p class="text-xl text-amber-100" data-translate="heroSubtitle">
+            شعلة معارف.. جذور أمجاد
+          </p>
+          <p class="text-lg leading-relaxed max-w-2xl">
+            جمعية أمجاد (تأسست سنة 2022 بالصخيرات) ترافق الأطفال والتلاميذ والشباب والأسر ببرامج
+            المدارس الذكية، المواكبة البيئية والاجتماعية، والدعم التربوي والقيمي، بشراكات مسؤولة مع المؤسسات
+            التعليمية والقطاع الخاص.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="programs.html" class="btn-primary">اكتشف برامجنا</a>
+            <a href="contact.html" class="btn-secondary">تواصلوا معنا للشراكة</a>
+          </div>
+          <div class="text-lg font-semibold text-amber-200">
+            تطوع – تربية – إبداع – ريادة
+          </div>
+        </div>
+        <div class="hidden md:flex justify-center">
+          <img
+            src="images/charcter.png"
+            alt="أصيل تميمة جمعية أمجاد"
+            class="w-3/4 drop-shadow-2xl"
+          />
         </div>
       </div>
-      <img width="30%" src="/images/charcter.png" alt="" />
     </section>
 
     <!-- Statistics Section -->
     <section class="section-padding bg-white">
-      <div class="max-w-7xl mx-auto px-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div class="fade-in">
-            <div class="counter" data-target="4">0</div>
-            <p
-              class="text-gray-600 mt-2 text-lg"
-              data-translate="yearsOfService"
-            >
-              سنوات من العطاء
+            <div class="counter text-4xl font-bold text-green-600" data-target="4">0</div>
+            <p class="text-gray-600 mt-2 text-lg" data-translate="yearsOfService">
+              سنوات من الأثر
             </p>
           </div>
           <div class="fade-in">
-            <div class="counter" data-target="150">0</div>
-            <p
-              class="text-gray-600 mt-2 text-lg"
-              data-translate="volunteersCount"
-            >
-              متطوع
+            <div class="counter text-4xl font-bold text-green-600" data-target="150">0</div>
+            <p class="text-gray-600 mt-2 text-lg" data-translate="volunteersCount">
+              متطوع ومتطوعة
             </p>
           </div>
           <div class="fade-in">
-            <div class="counter" data-target="2500">0</div>
-            <p
-              class="text-gray-600 mt-2 text-lg"
-              data-translate="beneficiariesCount"
-            >
-              مستفيد
+            <div class="counter text-4xl font-bold text-green-600" data-target="2500">0</div>
+            <p class="text-gray-600 mt-2 text-lg" data-translate="beneficiariesCount">
+              مستفيد ومستفيدة
             </p>
           </div>
           <div class="fade-in">
-            <div class="counter" data-target="6">0</div>
-            <p
-              class="text-gray-600 mt-2 text-lg"
-              data-translate="projectsCount"
-            >
-              مشروع
+            <div class="counter text-4xl font-bold text-green-600" data-target="6">0</div>
+            <p class="text-gray-600 mt-2 text-lg" data-translate="projectsCount">
+              برامج سنوية
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section-padding bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+        <div class="space-y-4 fade-in">
+          <h2 class="text-3xl font-bold text-gray-800">قصة أمجاد في سطور</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            جمعية أمجاد للتربية والأعمال الاجتماعية، تأسست سنة 2022 بالصخيرات، لتمكين الأطفال والتلاميذ والشباب
+            والأسر من مسارات تعلم وقيم وابتكار في بيئة مدرسية ذكية وآمنة. رؤيتنا مدارس ومجتمعات إيكولوجية واجتماعية
+            تحتضن المواهب وتفتح المجال للشراكات المسؤولة.
+          </p>
+          <ul class="list-disc pr-5 text-gray-700 space-y-2">
+            <li>الفئات المستهدفة: الأطفال، التلاميذ، الشباب، الأسر.</li>
+            <li>المحاور: مدارس ذكية، مواكبة كأس إفريقيا 2025، دعم تربوي واجتماعي، رعاية وشراكات.</li>
+            <li>الهوية: تطوع – تربية – إبداع – ريادة، يرافقها أصيل تميمة الجمعية.</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-8 fade-in">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">أرقام تهم الشركاء</h3>
+          <div class="space-y-3 text-gray-700">
+            <p><b>سنة التأسيس:</b> 2022</p>
+            <p><b>المقر:</b> الصخيرات – المملكة المغربية</p>
+            <p><b>الوصل القانوني:</b> وصل إيداع قانوني (يُقدّم للشركاء عند الطلب)</p>
+            <p><b>الشعار النصي:</b> شعلة معارف.. جذور أمجاد</p>
+            <p><b>التميمة:</b> «أصيل» يعرّف الأطفال ببرامج القيم، البيئة، والرياضة.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Programs Section -->
-    <section class="section-padding programs-bg">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
-            data-translate="programsTitle"
-          >
-            برامجنا وخدماتنا
-          </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            مجموعة متنوعة من البرامج والخدمات المصممة لخدمة المجتمع وتنمية
-            القدرات
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Zakat Al-Seha -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-green-600 text-4xl mb-4">
-              <i class="fas fa-heartbeat"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="zakatHealth"
-            >
-              زكاة الصحة
-            </h3>
-            <p class="text-gray-600 mb-4">
-              مبادرة إنسانية تهدف إلى نشر ثقافة التبرع بالدم، إيمانًا منا بأن
-              الحفاظ على حياة الآخرين هو أسمى صور العطاء.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href='services.html#zakat'"
-            >
-              المزيد
-            </button>
-          </div>
-
-          <!-- Iftar Al-Khair -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-yellow-600 text-4xl mb-4">
-              <i class="fas fa-utensils"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="iftarKhair"
-            >
-              إفطار الخير
-            </h3>
-            <p class="text-gray-600 mb-4">
-              برنامج رمضاني يهدف إلى إفطار الصائمين وتقديم وجبات غذائية للأسر
-              المحتاجة خلال شهر رمضان المبارك.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href='programs.html#iftar'"
-            >
-              المزيد
-            </button>
-          </div>
-
-          <!-- African Cup -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-blue-600 text-4xl mb-4">
-              <i class="fas fa-futbol"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="africanCup"
-            >
-              كأس إفريقيا
-            </h3>
-            <p class="text-gray-600 mb-4">
-              نشاط رياضي مجتمعي يجمع شباب المدينة في أجواء من المنافسة الشريفة
-              والروح الرياضية.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href ='/resources/Cup.html'"
-            >
-              المزيد
-            </button>
-          </div>
-
-          <!-- City Memory -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-purple-600 text-4xl mb-4">
-              <i class="fas fa-monument"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="cityMemory"
-            >
-              ذاكرة المدينة
-            </h3>
-            <p class="text-gray-600 mb-4">
-              نحتفل بمسيرة مدينتنا وإنجازاتها، ونستحضر تاريخها العريق بروح الفخر
-              والانتماء.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href ='/resources/skhirat.html'"
-            >
-              المزيد
-            </button>
-          </div>
-
-          <!-- Amjad Academy -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-green-600 text-4xl mb-4">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="amjadAcademy"
-            >
-              أكاديمية أمجاد
-            </h3>
-            <p class="text-gray-600 mb-4">
-              برامج تعليمية وتدريبية مصممة لتنمية مهارات الشباب وتعزيز قدراتهم
-              في مختلف المجالات.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href='programs.html#academy'"
-            >
-              المزيد
-            </button>
-          </div>
-
-          <!-- Medrasti Al-Hilwa -->
-          <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-            <div class="text-pink-600 text-4xl mb-4">
-              <i class="fas fa-school"></i>
-            </div>
-            <h3
-              class="text-xl font-bold text-gray-800 mb-3"
-              data-translate="medrastiHilwa"
-            >
-              مدرستي الحلوة
-            </h3>
-            <p class="text-gray-600 mb-4">
-              أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب
-              منذ الصغر.
-            </p>
-            <button
-              class="btn-primary w-full"
-              onclick="window.location.href='programs.html#school'"
-            >
-              المزيد
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Latest News Section -->
-    <section class="section-padding bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
-            data-translate="latestNews"
-          >
-            آخر الأخبار
-          </h2>
-          <p class="text-lg text-gray-600">
-            تابع آخر أنشطة الجمعية ومستجداتها، وكن دائمًا على اطلاع بكل ما ننجزه
-            معًا
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- News Item 1 -->
-          <div
-            class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
-          >
-            <img
-              src="/images/jam3.jpeg"
-              alt="نشاط الجمعية"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                أمجاد تحتفي بأربع سنوات من العطاء
-              </h3>
-              <p class="text-gray-600 mb-4">
-                احتفلت جمعية أمجاد بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
-                من العطاء... وباقين مستمرين".
-              </p>
-              <button
-                class="btn-primary"
-                onclick="window.location.href='news.html#news1'"
-                data-translate="readMore"
-              >
-                إقرأ المزيد
-              </button>
-            </div>
-          </div>
-
-          <!-- News Item 2 -->
-          <div
-            class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
-          >
-            <img
-              src="/images/donationblood.jpg"
-              alt="نشاط زكاة الصحة"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                نجاح فعالية زكاة الصحة للتبرع بالدم
-              </h3>
-              <p class="text-gray-600 mb-4">
-                نظمت الجمعية حملة للتبرع بالدم شارك فيها العشرات من المتطوعين
-                والمتبرعين من مختلف شرائح المجتمع.
-              </p>
-              <button
-                class="btn-primary"
-                onclick="window.location.href='news.html#news2'"
-                data-translate="readMore"
-              >
-                إقرأ المزيد
-              </button>
-            </div>
-          </div>
-
-          <!-- News Item 3 -->
-          <div
-            class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
-          >
-            <img
-              src="/images//dokhol.jpeg"
-              alt="أنشطة تعليمية"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                تنظيم حفل الدخول المدرسي
-              </h3>
-              <p class="text-gray-600 mb-4">
-                نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من
-                أولياء الأمور والمعلمين.
-              </p>
-              <button
-                class="btn-primary"
-                onclick="window.location.href='news.html#news3'"
-                data-translate="readMore"
-              >
-                إقرأ المزيد
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-12">
-          <button
-            class="btn-secondary text-lg px-8 py-3"
-            onclick="window.location.href='news.html'"
-            data-translate="latestNews"
-          >
-            عرض جميع الأخبار
-          </button>
-        </div>
-      </div>
-    </section>
-    <!-- President Speech Section -->
-    <section class="section-padding speech-bg">
-      <div class="max-w-7xl mx-auto px-4">
+    <section id="programs" class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 fade-in">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            كلمة الرئيس
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="programsTitle">
+            برامجنا الرئيسية
           </h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            نضمن لكل زائر أن يعرف برامج أمجاد الأساسية: المدارس الذكية (إيكولوجية واجتماعية)، برنامج مواكبة كأس إفريقيا
+            2025 للأطفال والتلاميذ، منظومة الرعاية والشراكات، وفريق المتطوعين ومجلس الإدارة.
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <!-- Image (left on desktop) -->
-          <div class="flex justify-end md:justify-start">
-            <img
-              src="images/mustapha.png"
-              alt="الرئيس"
-              class="w-full max-w-sm rounded-lg object-cover"
-            />
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="program-card bg-gray-50 rounded-xl p-6">
+            <div class="text-green-600 text-3xl mb-3"><i class="fas fa-school"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="zakatHealth">
+              المدارس الذكية الإيكولوجية والاجتماعية
+            </h3>
+            <p class="text-gray-700 mb-4">
+              نموذج مدرسة صديقة للبيئة، تقدم دعماً تربوياً واجتماعياً لأبناء الأسر المعوزة، مع حدائق مدرسية وتدوير للنفايات.
+            </p>
+            <a href="programs.html#smart-schools" class="text-green-700 font-semibold">اكتشف المشروع</a>
           </div>
 
-          <!-- Speech (right on desktop) -->
-          <div class="text-right">
-            <p
-              class="text-xl tracking-widest md:text-2xl leading-relaxed font-semibold"
-              style="font-family: 'Cairo', sans-serif"
-            >
-              جمعية أمجاد للتربية والأعمال اﻹجتماعية جمعها العام التأسيسي يوم
-              الأحد 26 شتنبر 2021 وحصلت على وصلها النهائي من السلطات المحلية يوم
-              6 يناير 2022. وهي جمعية إجتماعية تنموية ثقافية تربوية، محايدة غير
-              ربحية تسعى لتكون من الجمعيات الرائدة في تقديم الخدمات الاجتماعية
-              والتربوية ذات تنمية مستدامة، وذلك عبر إنشاء ودعم مشاريع وبرامج
-              اجتماعية وثقافية وتربوية وغيرها.<br />
-
-              <br />
-              <b>الرؤية</b>: أن نكون لبنة أساسية في بناء التنمية الاجتماعية
-              والتربوية والثقافية.<br />
-              <br />
-              <b>الرسالة</b>: إرساء روح التطوع والتكافل الاجتماعي التنموي لدى
-              أفراد المجتمع وفق برامج عمل محفزة تلبي حاجيات المجتمع.
+          <div class="program-card bg-gray-50 rounded-xl p-6">
+            <div class="text-green-600 text-3xl mb-3"><i class="fas fa-futbol"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="iftarKhair">
+              برنامج كأس إفريقيا 2025 للأطفال والتلاميذ
+            </h3>
+            <p class="text-gray-700 mb-4">
+              ورشات قيم ورياضة وبيئة مرتبطة بـ CAN 2025، لنشر الروح الرياضية والمواطنة الإيكولوجية لدى الناشئة.
             </p>
+            <a href="programs.html#can-2025" class="text-green-700 font-semibold">اكتشف البرنامج</a>
+          </div>
+
+          <div class="program-card bg-gray-50 rounded-xl p-6">
+            <div class="text-green-600 text-3xl mb-3"><i class="fas fa-handshake"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="africanCup">
+              ملف الرعاية والشراكات
+            </h3>
+            <p class="text-gray-700 mb-4">
+              باقات Sponsoring للمؤسسات والشركات الداعمة لبرامج المدارس الذكية والقيم والرياضة المجتمعية.
+            </p>
+            <a href="services.html#sponsoring" class="text-green-700 font-semibold">كن شريكاً معنا</a>
+          </div>
+
+          <div class="program-card bg-gray-50 rounded-xl p-6">
+            <div class="text-green-600 text-3xl mb-3"><i class="fas fa-users"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="cityMemory">
+              فريق المتطوعين ومجلس الإدارة
+            </h3>
+            <p class="text-gray-700 mb-4">
+              حاضنة «أصيل وأصدقاؤه» لتأطير المتطوعين، وضمان حوكمة شفافة ومحاسبة دورية للبرامج.
+            </p>
+            <a href="services.html#volunteers" class="text-green-700 font-semibold">انضم لفريق التطوع</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Photo Gallery Section -->
-    <section class="section-padding bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            مجلة الصور
-          </h2>
-          <p class="text-lg text-gray-600">
-            نوثق أجمل لحظات أنشطة الجمعية في صور تعبّر عن روح العمل الجماعي
-            والعطاء
+    <!-- CTA Section -->
+    <section class="section-padding bg-green-700 text-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-2xl font-bold mb-2">هل ترغبون في دعم برامجنا؟</h3>
+          <p class="text-lg">
+            نرافق المؤسسات التعليمية، الشركاء، والرعاة في تصميم تدخلات واضحة الأثر. تواصلوا معنا للحصول على ملف الرعاية.
           </p>
         </div>
+        <div class="flex gap-3">
+          <a href="contact.html" class="btn-secondary">تواصلوا معنا</a>
+          <a href="programs.html#sponsoring" class="btn-primary">اطلع على باقات الرعاية</a>
+        </div>
+      </div>
+    </section>
 
+    <!-- Aseel Section -->
+    <section class="section-padding bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-3 fade-in">
+          <h2 class="text-3xl font-bold text-gray-800">«أصيل» تميمة أمجاد</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            أصيل هو صديق الأطفال في جمعية أمجاد. يحكي قصص مشاريعنا، يعرّف بالصحة والبيئة والروح الرياضية، ويقود
+            أنشطة القيم والتطوع داخل المدارس الذكية. ابحثوا عن بصمته في كل برنامج ومورد تعليمي نصمّمه.
+          </p>
+          <p class="text-gray-700">
+            يقدمها لكم أصيل: ملفات المشاريع، القصص المصورة، وأركان اللعب والتجريب داخل المؤسسات التعليمية.
+          </p>
+        </div>
+        <div class="flex justify-center">
+          <img src="images/charcter.png" alt="أصيل يقود برامج أمجاد" class="w-2/3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-3" data-translate="latestNews">آخر المستجدات</h2>
+          <p class="text-lg text-gray-600">نماذج من أنشطة أمجاد المرتبطة ببرامجنا الرسمية</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <article class="bg-gray-50 rounded-xl shadow p-5 flex flex-col gap-3 fade-in">
+            <div class="flex items-center gap-2 text-sm text-green-700 font-semibold">
+              <span class="px-3 py-1 rounded-full bg-green-100">المدارس الذكية</span>
+              <span class="text-gray-500">الصخيرات • 15 مارس 2025</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">إطلاق نادي المدرسة الذكية بمدرسة المرابطين</h3>
+            <p class="text-gray-700">
+              تأهيل فضاءات خضراء، ركن تدوير، وحصص دعم مدرسي لفائدة 180 تلميذاً، بشراكة مع الآباء والمتطوعين.
+            </p>
+            <a href="news.html" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+          </article>
+
+          <article class="bg-gray-50 rounded-xl shadow p-5 flex flex-col gap-3 fade-in">
+            <div class="flex items-center gap-2 text-sm text-green-700 font-semibold">
+              <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-700">CAN 2025</span>
+              <span class="text-gray-500">تمارة • 2 أبريل 2025</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">ورشات مواكبة كأس إفريقيا للأطفال</h3>
+            <p class="text-gray-700">
+              أنشطة قيم ورياضة ومواطنة إيكولوجية لفائدة 120 طفلاً، مع دليل مبسط تقدمه شخصية أصيل.
+            </p>
+            <a href="news.html" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+          </article>
+
+          <article class="bg-gray-50 rounded-xl shadow p-5 flex flex-col gap-3 fade-in">
+            <div class="flex items-center gap-2 text-sm text-green-700 font-semibold">
+              <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700">رعاية وشراكات</span>
+              <span class="text-gray-500">الصخيرات • 20 فبراير 2025</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">توقيع اتفاقية رعاية لدعم المدارس الذكية</h3>
+            <p class="text-gray-700">
+              شراكة مع مؤسسة خاصة لتجهيز مختبر مصغر بالمدرسة الذكية الاجتماعية، وتمويل 3 قوافل قيمية خلال السنة.
+            </p>
+            <a href="news.html" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section-padding bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">معرض صور أمجاد</h2>
+          <p class="text-lg text-gray-600">لحظات من المدارس الذكية، حملات البيئة، والورشات التربوية</p>
+        </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <img
             src="/images/image.jpeg"
-            alt="أنشطة التطوع"
+            alt="نشاط تربوي لأطفال جمعية أمجاد"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/image1.jpeg"
-            alt="البرامج التعليمية"
+            alt="حديقة مدرسية ضمن برنامج المدرسة الذكية"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/school.jpeg"
-            alt="أنشطة التبرع"
+            alt="تأهيل فضاء مدرسي بيئي"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/school1.jpeg"
-            alt="العمل الاجتماعي"
+            alt="ورش تطوعي لصيانة مدرسة"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/brainwarm.jpeg"
-            alt="فريق العمل"
+            alt="جلسة تنشيط للأطفال مع أصيل"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/event.jpg"
-            alt="أنشطة الأطفال"
+            alt="لقاء تعريفي ببرامج أمجاد"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="/images/presentation.jpg"
-            alt="الخدمات الخيرية"
+            alt="عرض شراكة مع إحدى المؤسسات"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
           <img
             src="images/don.jpg"
-            alt="الجمعية الخيرية"
+            alt="توزيع أدوات مدرسية على التلاميذ"
             class="gallery-image rounded-lg shadow-md h-48 w-full object-cover"
           />
         </div>
@@ -810,135 +499,88 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="section-padding bg-green-600 text-white">
+    <section class="section-padding bg-green-700 text-white">
       <div class="max-w-4xl mx-auto px-4 text-center">
-        <div class="fade-in">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
-            اشترك في نشرتنا الإخبارية
-          </h2>
-          <p class="text-lg mb-8">تابع آخر أخبار الجمعية وأنشطتها اول بأول</p>
-
-          <div class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              id="newsletter-email"
-              placeholder="أدخل بريدك الإلكتروني"
-              class="flex-1 px-4 py-3 rounded-lg text-gray-800"
-            />
-            <button class="btn-secondary" onclick="subscribeNewsletter()">
-              اشترك
-            </button>
-          </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">اشترك في نشرتنا</h2>
+        <p class="text-lg mb-8">توصّل بملفات البرامج والأخبار الرئيسية لجمعية أمجاد</p>
+        <div class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+          <input
+            type="email"
+            id="newsletter-email"
+            placeholder="أدخل بريدك الإلكتروني"
+            class="flex-1 px-4 py-3 rounded-lg text-gray-800"
+          />
+          <button class="btn-secondary" onclick="subscribeNewsletter()">اشتراك</button>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Contact Information -->
-
-          <div>
-            <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">
-              معلومات الاتصال
-            </h3>
-            <div class="space-y-2">
-              <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
-              <p>
-                <i class="fas fa-phone ml-2"></i> الهاتف: سيتم الإعلان عن الرقم
-                الرسمي للجمعية قريبًا
-              </p>
-              <p>
-                <i class="fas fa-envelope ml-2"></i>
-                contact@amjad-association.org
-              </p>
-            </div>
-          </div>
-
-          <!-- Quick Links -->
-          <div>
-            <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
-            <div class="space-y-2">
-              <a
-                href="about.html"
-                class="block hover:text-green-400 transition-colors"
-                >عن الجمعية</a
-              >
-              <a
-                href="services.html"
-                class="block hover:text-green-400 transition-colors"
-                >الخدمات الإلكترونية</a
-              >
-              <a
-                href="programs.html"
-                class="block hover:text-green-400 transition-colors"
-                >البرامج والخدمات</a
-              >
-              <a
-                href="news.html"
-                class="block hover:text-green-400 transition-colors"
-                >الأخبار</a
-              >
-            </div>
-          </div>
-
-          <!-- Social Media -->
-          <div>
-            <h3 class="text-xl font-bold mb-4" data-translate="followUs">
-              تابعونا
-            </h3>
-            <div class="flex gap-4 justify-center">
-              <a
-                href="https://www.facebook.com/association.amjad"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-facebook"></i>
-              </a>
-              <a
-                href="https://www.instagram.com/association_amjad"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a
-                href="https://x.com/associatioAmjad"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-x"></i>
-              </a>
-              <a
-                href="#"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-youtube"></i>
-              </a>
-              <a
-                href="https://tiktok.com/@amjad_association"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-tiktok"></i>
-              </a>
-              <a
-                href="https://youtube.com/@association_amjad"
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-linkedin"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p>
-            &copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق
-            محفوظة.
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">جمعية أمجاد للتربية والأعمال الاجتماعية</h3>
+          <p class="text-sm text-gray-200 leading-relaxed mb-3">
+            جمعية أمجاد (الصخيرات، 2022) ترافق الأطفال والتلاميذ والشباب والأسر عبر المدارس الذكية، برنامج كأس إفريقيا
+            2025، الدعم التربوي والاجتماعي، ومنظومة الرعاية والشراكات. شعلة معارف.. جذور أمجاد.
           </p>
+          <p class="text-sm text-amber-300">تطوع – تربية – إبداع – ريادة</p>
         </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+          <div class="space-y-2 text-sm">
+            <a href="about.html" class="block hover:text-green-300">عن الجمعية</a>
+            <a href="services.html" class="block hover:text-green-300">مجالات التدخل والشراكات</a>
+            <a href="programs.html" class="block hover:text-green-300">برامجنا</a>
+            <a href="news.html" class="block hover:text-green-300">الأخبار</a>
+            <a href="contact.html" class="block hover:text-green-300">اتصل بنا</a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
+          <div class="space-y-2 text-sm">
+            <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات – جهة الرباط سلا القنيطرة</p>
+            <p><i class="fas fa-phone ml-2"></i> +212 6 61 23 45 67</p>
+            <p><i class="fas fa-envelope ml-2"></i> contact@amjad-association.ma</p>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <a
+              href="https://www.facebook.com/association.amjad"
+              class="text-2xl hover:text-green-300 transition-colors"
+              aria-label="Facebook"
+            >
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/association_amjad"
+              class="text-2xl hover:text-green-300 transition-colors"
+              aria-label="Instagram"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://x.com/associatioAmjad"
+              class="text-2xl hover:text-green-300 transition-colors"
+              aria-label="X"
+            >
+              <i class="fab fa-x"></i>
+            </a>
+            <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-300" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-300" aria-label="TikTok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-400">
+        &copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.
       </div>
     </footer>
 
-    <!-- Main JavaScript -->
     <script src="/js/main.js"></script>
   </body>
 </html>
