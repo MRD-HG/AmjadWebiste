@@ -1,294 +1,731 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأخبار - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
-    <meta
-      name="description"
-      content="آخر أخبار جمعية أمجاد: المدارس الذكية، برنامج كأس إفريقيا 2025 للأطفال والتلاميذ، والشراكات الداعمة."
-    />
+    <meta name="description" content="تابع آخر أخبار جمعية أمجاد وأنشطتها، واستعرض أرشيفنا الإخباري">
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Styles -->
     <style>
-      :root {
-        --primary-green: #10b981;
-        --secondary-green: #059669;
-        --accent-gold: #f59e0b;
-        --bg-light: #f9fafb;
-      }
+        :root {
+            --primary-green: #10B981;
+            --secondary-green: #059669;
+            --accent-gold: #F59E0B;
+            --light-gold: #FEF3C7;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+        }
 
-      body {
-        font-family: "Cairo", sans-serif;
-        background-color: var(--bg-light);
-      }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+        }
 
-      .hero {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url("/images/bg.png");
-        background-size: cover;
-        background-position: center;
-        min-height: 50vh;
-      }
+        .rtl {
+            direction: rtl;
+        }
 
-      .navbar {
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
+        .ltr {
+            direction: ltr;
+        }
 
-      .navbar.scrolled {
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      }
+        .news-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('/images/bg.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+        }
 
-      .section-padding {
-        padding: 80px 0;
-      }
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
 
-      .news-card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-      .news-card img {
-        height: 200px;
-        object-fit: cover;
-      }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
 
-      .badge {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 999px;
-        font-size: 0.85rem;
-        font-weight: 700;
-      }
+        .animate-fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .news-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .news-detail {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .news-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .news-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+            display: flex;
+            align-items: end;
+            color: white;
+            padding: 2rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-green);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .date-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-gold);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-green);
+            background: transparent;
+            color: var(--primary-green);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 48px 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 40px 0;
+            }
+
+            .news-image {
+                height: 250px;
+            }
+        }
     </style>
-  </head>
+</head>
 
-  <body class="rtl text-gray-900">
-    <!-- Navbar -->
-    <nav class="navbar fixed w-full z-30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-3">
-          <img src="images/logo.png" alt="شعار جمعية أمجاد" class="h-12 w-12" />
-          <div>
-            <p class="text-sm text-green-800 font-semibold">جمعية أمجاد للتربية والأعمال الاجتماعية</p>
-            <p class="text-xs text-amber-600">شعلة معارف.. جذور أمجاد</p>
-          </div>
-        </a>
-        <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
-          <a href="index.html" class="text-gray-800 hover:text-green-700" data-translate="home">الرئيسية</a>
-          <a href="about.html" class="text-gray-800 hover:text-green-700" data-translate="about">عن الجمعية</a>
-          <a href="services.html" class="text-gray-800 hover:text-green-700" data-translate="services">مجالات التدخل والشراكات</a>
-          <a href="programs.html" class="text-gray-800 hover:text-green-700" data-translate="programs">برامجنا</a>
-          <a href="news.html" class="text-gray-800 hover:text-green-700" data-translate="news">الأخبار</a>
-          <a href="contact.html" class="text-gray-800 hover:text-green-700" data-translate="contact">اتصل بنا</a>
-          <a href="contact.html" class="btn-primary text-sm bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 rounded-lg text-white">تواصلوا معنا</a>
+<body class="rtl">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-4">
+                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto">
+
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="about">عن الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="news">الأخبار</a>
+                     <a href="/resources/Cup.html"
+           class="nav-highlight">
+           كأس إفريقيا 2025
+          </a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+                    data-translate="contact">الاتصال</a>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-3">
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active"
+                    data-lang="ar">العربية</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="en">EN</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
+                    data-lang="fr">FR</button>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
-        <button class="md:hidden text-gray-800 text-2xl" aria-label="Toggle menu" onclick="toggleMobileMenu()">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      <div class="mobile-menu hidden md:hidden px-4 pb-4 bg-white shadow">
-        <div class="flex flex-col gap-3 text-sm font-semibold">
-          <a href="index.html" class="hover:text-green-700">الرئيسية</a>
-          <a href="about.html" class="hover:text-green-700">عن الجمعية</a>
-          <a href="services.html" class="hover:text-green-700">مجالات التدخل والشراكات</a>
-          <a href="programs.html" class="hover:text-green-700">برامجنا</a>
-          <a href="news.html" class="hover:text-green-700">الأخبار</a>
-          <a href="contact.html" class="hover:text-green-700">اتصل بنا</a>
-          <a href="contact.html" class="btn-primary text-center bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 rounded-lg text-white">تواصلوا معنا</a>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن
+                    الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="news">الأخبار</a>
+                     <a href="/resources/Cup.html"
+           class="nav-highlight">
+           كأس إفريقيا 2025
+          </a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="contact">الاتصال</a>
+            </div>
         </div>
-      </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero text-white flex items-center">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <p class="text-sm uppercase tracking-widest text-amber-200">آخر المستجدات</p>
-        <h1 class="text-4xl md:text-5xl font-bold mb-3" data-translate="latestNews">الأخبار</h1>
-        <p class="text-lg max-w-3xl leading-relaxed">
-          أنشطة حقيقية مرتبطة ببرامج أمجاد: المدارس الذكية، مواكبة كأس إفريقيا 2025، والرعاية مع الشركاء.
-        </p>
-      </div>
-    </header>
+    <!-- Hero Section -->
+    <section class="news-hero flex items-center justify-center text-white relative mt-20">
+        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-translate="latestNews">الأخبار</h1>
+            <p class="text-xl md:text-2xl">تابع آخر أخبار الجمعية ومستجداتها، وكن دائمًا على اطلاع بكل ما ننجزه معًا</p>
+        </div>
+    </section>
 
-    <!-- News grid -->
+    <!-- Search and Filter Section -->
     <section class="section-padding bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-3 gap-6">
-          <article class="news-card">
-            <img src="/images/school1.jpeg" alt="إطلاق نادي المدرسة الذكية" />
-            <div class="p-5 space-y-2">
-              <div class="flex items-center gap-2 text-sm text-green-700 font-semibold">
-                <span class="badge bg-green-100">المدارس الذكية</span>
-                <span class="text-gray-500">الصخيرات • 15 مارس 2025</span>
-              </div>
-              <h2 class="text-xl font-bold text-gray-800">إطلاق نادي المدرسة الذكية بمدرسة المرابطين</h2>
-              <p class="text-gray-700">
-                تجهيز ركن تدوير وحديقة مدرسية، وتأطير 180 تلميذاً في ورشات القيم والبيئة، بشراكة مع جمعية الآباء.
-              </p>
-              <a href="#detail-smart" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="ابحث عن أخبار..." id="news-search">
+                <i class="fas fa-search search-icon"></i>
             </div>
-          </article>
 
-          <article class="news-card">
-            <img src="/images/event.jpg" alt="ورشات كأس إفريقيا 2025" />
-            <div class="p-5 space-y-2">
-              <div class="flex items-center gap-2 text-sm text-amber-700 font-semibold">
-                <span class="badge bg-amber-100 text-amber-700">CAN 2025</span>
-                <span class="text-gray-500">تمارة • 2 أبريل 2025</span>
-              </div>
-              <h2 class="text-xl font-bold text-gray-800">ورشات مواكبة كأس إفريقيا للأطفال</h2>
-              <p class="text-gray-700">
-                120 طفلاً شاركوا في ألعاب القيم والروح الرياضية، مع دليل مبسط يقدمه «أصيل» حول البيئة في الملاعب.
-              </p>
-              <a href="#detail-can" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterNews('all')">الكل</button>
+                <button class="filter-btn" onclick="filterNews('events')">الفعاليات</button>
+                <button class="filter-btn" onclick="filterNews('programs')">البرامج</button>
+                <button class="filter-btn" onclick="filterNews('achievements')">الإنجازات</button>
+                <button class="filter-btn" onclick="filterNews('announcements')">الإعلانات</button>
             </div>
-          </article>
+        </div>
+    </section>
 
-          <article class="news-card">
-            <img src="/images/presentation.jpg" alt="توقيع اتفاقية رعاية" />
-            <div class="p-5 space-y-2">
-              <div class="flex items-center gap-2 text-sm text-blue-700 font-semibold">
-                <span class="badge bg-blue-100 text-blue-700">رعاية وشراكات</span>
-                <span class="text-gray-500">الصخيرات • 20 فبراير 2025</span>
-              </div>
-              <h2 class="text-xl font-bold text-gray-800">توقيع اتفاقية رعاية لدعم المدارس الذكية</h2>
-              <p class="text-gray-700">
-                شراكة مع مؤسسة خاصة لتجهيز مختبر مصغر وتمويل ثلاث قوافل قيمية خلال السنة الدراسية 2025.
-              </p>
-              <a href="#detail-sponsor" class="text-green-700 font-semibold" data-translate="readMore">المزيد من التفاصيل</a>
+    <!-- News Grid -->
+    <section class="section-padding bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid">
+
+
+                <!-- News Item 4 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
+                    data-category="achievements">
+                    <img src="/images/clone.jpeg" alt="إنجاز الجمعية" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">إنجازات</span>
+                            <span class="date-badge">الأحد 19 أكتوبر 2025 </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">صبحية البهلوان</h3>
+                        <p class="text-gray-600 mb-4">
+                            بدعم من المجلس الجماعي الصخيرات وفي إطار
+                            تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد
+                            للتربية والأعمال الإجتماعية صبحية البهلوان وذلك يوم
+                            بدار الشباب الصخيرات المركز
+
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news4')">إقرأ المزيد</button>
+                    </div>
+                </div>
+
+                <!-- News Item 5 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
+                    data-category="announcements">
+                    <img src="/images/masa2.jpg" alt="إعلان جديد" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">إنجازات</span>
+
+                            <span class="date-badge"> السبت 11 أكتوبر 2025 </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3"> أمسية التنشيط التربوي</h3>
+                        <p class="text-gray-600 mb-4">
+                            بدعم من المجلس الجماعي الصخيرات <br>وفي إطار
+                            تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد
+                            للتربية والأعمال الإجتماعية أمسية التنشيط التربوي
+
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news5')">إقرأ المزيد</button>
+                    </div>
+                </div>
+                <!-- News Item 1 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
+                    <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">فعاليات</span>
+                            <span class="date-badge">15 أكتوبر 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">جمعية أمجاد تحتفي بأربع سنوات من العطاء والتميز
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
+                            من العطاء... وباقين مستمرين".
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news1')">إقرأ المزيد</button>
+                    </div>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
+                    <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">برامج</span>
+                            <span class="date-badge">8 أكتوبر 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">نجاح فعالية زكاة الصحة للتبرع بالدم</h3>
+                        <p class="text-gray-600 mb-4">
+                            نظمت الجمعية حملة للتبرع بالدم شارك فيها العشرات من المتطوعين والمتبرعين من مختلف شرائح
+                            المجتمع.
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news2')">إقرأ المزيد</button>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
+                    <img src="/images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">برامج</span>
+                            <span class="date-badge">28 سبتمبر 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">تنظيم حفل الدخول المدرسي في مدرسة المرابطين
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news3')">إقرأ المزيد</button>
+                    </div>
+                </div>
+                <!-- News Item 6 -->
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
+                    <img src="/images/Siyam.jpg" alt="فعالية المجتمع" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="category-badge">فعاليات</span>
+                            <span class="date-badge">10 سبتمبر 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">مشروع إفطار الخير رمضان</h3>
+                        <p class="text-gray-600 mb-4">
+                            إفطار الخير، هو حملة يتم من خلالها توزيع وجبة إفطار على الصائمين
+                            الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،
+                        </p>
+                        <button class="btn-primary" onclick="showNewsDetail('news6')">إقرأ المزيد</button>
+                    </div>
+                </div>
+
             </div>
-          </article>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()">عرض المزيد من الأخبار</button>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- Detailed stories -->
-    <section class="section-padding bg-gray-50" id="detail-smart">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-start">
-        <div class="space-y-3">
-          <p class="badge bg-green-100 text-green-700">المدارس الذكية</p>
-          <h2 class="text-3xl font-bold text-gray-800">مدرسة المرابطين تصبح أكثر خضرة</h2>
-          <p class="text-gray-700">
-            في إطار محور "المدارس الذكية"، قامت جمعية أمجاد بتهيئة حديقة مدرسية وأركان تدوير لفائدة 180 تلميذاً.
-            أنجز المتطوعون 6 ورشات قيم وبيئة مع إدارة المدرسة وجمعية الآباء.
-          </p>
-          <ul class="list-disc pr-5 text-gray-700 space-y-2">
-            <li>عدد المستفيدين: 180 تلميذاً.</li>
-            <li>الشركاء: إدارة المؤسسة، جمعية الآباء، متطوعو «أصيل».</li>
-            <li>الأثر: 3 أركان خضراء، 12 حصة دعم مدرسي، ونادٍ للقيم والقراءة.</li>
-          </ul>
-        </div>
-        <img src="/images/school.jpeg" alt="فضاء أخضر بمدرسة المرابطين" class="rounded-2xl shadow" />
-      </div>
-    </section>
+    <!-- News Detail Modal -->
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="news-detail max-w-4xl w-full max-h-full overflow-y-auto">
+            <div id="news1-detail" class="hidden">
+                <div class="news-image" style="background-image: url('/images/jam3.jpeg');">
+                    <div class="news-overlay">
+                        <div>
+                            <span class="category-badge">فعاليات</span>
+                            <h2 class="text-3xl font-bold mb-2">جمعية أمجاد تحتفي بأربع سنوات من العطاء والتميز</h2>
+                            <p class="text-lg">15 أكتوبر 2025</p>
+                        </div>
+                    </div>
+                </div>
 
-    <section class="section-padding bg-white" id="detail-can">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-start">
-        <div class="space-y-3">
-          <p class="badge bg-amber-100 text-amber-700">CAN 2025</p>
-          <h2 class="text-3xl font-bold text-gray-800">أصيل يقود ورشات الروح الرياضية</h2>
-          <p class="text-gray-700">
-            ضمن برنامج مواكبة كأس إفريقيا 2025، نظمت أمجاد يوماً رياضياً للأطفال شمل دليل "المشجع الإيكولوجي" وألعاباً
-            تربوية حول التنوع واحترام الآخر.
-          </p>
-          <ul class="list-disc pr-5 text-gray-700 space-y-2">
-            <li>المكان: تمارة.</li>
-            <li>عدد المستفيدين: 120 طفلاً.</li>
-            <li>الشركاء: مؤسسة تعليمية، جماعة محلية، متطوعو «أصيل».</li>
-          </ul>
-        </div>
-        <img src="/images/event.jpg" alt="ورشات رياضية ضمن برنامج أمجاد CAN 2025" class="rounded-2xl shadow" />
-      </div>
-    </section>
+                <div class="p-8">
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-600 mb-6">
+                            احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية، مساء أمس السبت، بمرور أربع سنوات على
+                            تأسيسها،
+                            وذلك تحت شعار "سنوات من العطاء... وباقين مستمرين"، في حفل بهيج أقيم بمقر الجمعية بمدينة
+                            الصخيرات.
+                        </p>
 
-    <section class="section-padding bg-gray-50" id="detail-sponsor">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-start">
-        <div class="space-y-3">
-          <p class="badge bg-blue-100 text-blue-700">رعاية وشراكات</p>
-          <h2 class="text-3xl font-bold text-gray-800">اتفاقية رعاية للمدرسة الذكية الاجتماعية</h2>
-          <p class="text-gray-700">
-            وقعت أمجاد مع شريك خاص اتفاقية تمويل تجهيز مختبر مصغر للعلوم داخل المدرسة الذكية الاجتماعية، إضافة إلى دعم
-            ثلاث قوافل قيمية في الأحياء المجاورة.
-          </p>
-          <ul class="list-disc pr-5 text-gray-700 space-y-2">
-            <li>المستفيدون: 250 تلميذاً وأسرهم.</li>
-            <li>مدة الاتفاقية: سنة قابلة للتجديد.</li>
-            <li>التزامات أمجاد: تقارير أثر شهرية وتغطية إعلامية رقمية.</li>
-          </ul>
-          <a href="contact.html" class="text-green-700 font-semibold">هل ترغبون في رعاية برنامج؟ تواصلوا معنا</a>
+                        <p class="text-gray-600 mb-6">
+                            الحفل الذي ترأسه رئيس الجمعية السيد<b>مصطفى أهواوي </b> ، عرف حضورًا مكثفًا لأعضاء الجمعية
+                            والمتطوعين
+                            والشركاء والمتعاونين، الذين التأموا لتخليد هذه الذكرى المميزة، والتي جاءت لتؤكد على التزام
+                            الجمعية بمواصلة مسيرتها في خدمة المجتمع.
+                        </p>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">كلمة رئيس الجمعية</h3>
+                        <p class="text-gray-600 mb-6">
+                            في كلمته الافتتاحية، أبرز السيد،<b> مصطفى أهواوي</b> أهم المحطات التي مرت منها الجمعية منذ
+                            تأسيسها
+                            سنة 2021،
+                            مبرزًا التطور الكمي والنوعي للخدمات والبرامج المقدمة، والتي استفاد منها ما يزيد عن 2500 شخص
+                            خلال السنوات الأربع الماضية.
+                        </p>
+
+                        <blockquote class="border-r-4 border-green-600 pr-4 italic text-gray-700 mb-6">
+                            "إن هذا الاحتفال هو مناسبة لتجديد العهد والوفاء للمجتمع الذي نخدمه، وتأكيدًا على عزمنا
+                            مواصلة العمل
+                            بروح التطوع والإخلاص، والسعي الدؤوب لتقديم خدمات نوعية تلبي تطلعات الفئات المحتاجة."
+                        </blockquote>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">إنجازات الجمعية</h3>
+                        <p class="text-gray-600 mb-6">
+                            واستعرض البكري أهم الإنجازات التي حققتها الجمعية خلال هذه الفترة، والتي تشمل:
+                        </p>
+
+                        <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2">
+                            <li>تنظيم أكثر من 25 حملة وفعالية مجتمعية</li>
+                            <li>استفادة أكثر من 2500 شخص من خدمات الجمعية</li>
+                            <li>تكوين شبكة من 150 متطوع نشط</li>
+                            <li>إطلاق 6 برامج رئيسية مستدامة</li>
+                            <li>شراكات مع عدة مؤسسات وجمعيات محلية</li>
+                        </ul>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">البرامج المستقبلية</h3>
+                        <p class="text-gray-600 mb-6">
+                            وأعلن رئيس الجمعية عن خطة العمل للسنة القادمة، والتي تتضمن توسيع نطاق البرامج الحالية
+                            وإطلاق مبادرات جديدة تستجيب لحاجيات المجتمع، مع التركيز على تمكين الشباب والمرأة.
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center mt-8">
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="news2-detail" class="hidden">
+                <div class="news-image" style="background-image: url('/images/blood.jpeg');">
+                    <div class="news-overlay">
+                        <div>
+                            <span class="category-badge">برامج</span>
+                            <h2 class="text-3xl font-bold mb-2">نجاح فعالية زكاة الصحة للتبرع بالدم</h2>
+                            <p class="text-lg">8 أكتوبر 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-600 mb-6">
+                            نظمت جمعية أمجاد للتربية والأعمال الاجتماعية، صباح يوم الأحد الماضي، حملة للتبرع بالدم
+                            ضمن برنامجها "زكاة الصحة"، وذلك بشراكة مع المركز الجهوي لتحاقن الدم بالصخيرات.
+                        </p>
+
+                        <p class="text-gray-600 mb-6">
+                            الحملة التي أقيمت بمقر الجمعية، عرفت مشاركة مكثفة لأعضاء الجمعية والمتطوعين وعدد من
+                            المواطنين
+                            من مختلف الفئات العمرية، الذين تجندوا للمشاركة في هذه المبادرة الإنسانية النبيلة.
+                        </p>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">نتائج الحملة</h3>
+                        <p class="text-gray-600 mb-6">
+                            أسفرت الحملة عن جمع 45 وحدة دم، استفاد منها مرضى المركز الجهوي لتحاقن الدم،
+                            كما تم تسجيل 60 شخصًا في قائمة المتبرعين الدائمين للجمعية.
+                        </p>
+
+                        <div class="bg-green-50 border-l-4 border-green-600 p-4 mb-6">
+                            <h4 class="font-bold text-green-800 mb-2">أرقام الحملة</h4>
+                            <ul class="text-green-700 space-y-1">
+                                <li>• 60 متبرع مسجل</li>
+                                <li>• 45 وحدة دم متبرع بها</li>
+                                <li>• 25 متطوع نشط</li>
+                                <li>• 8 ساعات مدة الحملة</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">شهادات المشاركين</h3>
+                        <p class="text-gray-600 mb-6">
+                            عبر عدد من المتبرعين عن سعادتهم بالمشاركة في هذه المبادرة، مؤكدين على أهمية التبرع بالدم
+                            في إنقاذ الأرواح وتعزيز روح التضامن بين أفراد المجتمع.
+                        </p>
+
+                        <blockquote class="border-r-4 border-red-600 pr-4 italic text-gray-700 mb-6">
+                            "التبرع بالدم هو أقل ما يمكن أن نقدمه لإخوتنا المرضى، والمبادرات مثل هذه تساهم في
+                            نشر ثقافة العطاء والتضامن في المجتمع."
+                        </blockquote>
+
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">البرامج القادمة</h3>
+                        <p class="text-gray-600 mb-6">
+                            أعلنت الجمعية عن تنظيم حملات دورية للتبرع بالدم، على الأقل كل ثلاثة أشهر،
+                            مع توسيع نطاق العملية ليشمل المناطق المجاورة لصخيرات.
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center mt-8">
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional news details would go here -->
         </div>
-        <img src="/images/presentation.jpg" alt="توقيع اتفاقية رعاية" class="rounded-2xl shadow" />
-      </div>
-    </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-xl font-bold mb-4">جمعية أمجاد للتربية والأعمال الاجتماعية</h3>
-          <p class="text-sm text-gray-200 leading-relaxed mb-3">
-            جمعية أمجاد (الصخيرات، 2022) ترافق الأطفال والتلاميذ والشباب والأسر عبر المدارس الذكية، برنامج كأس إفريقيا
-            2025، الدعم التربوي والاجتماعي، ومنظومة الرعاية والشراكات. شعلة معارف.. جذور أمجاد.
-          </p>
-          <p class="text-sm text-amber-300">تطوع – تربية – إبداع – ريادة</p>
-        </div>
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
+                    <div class="space-y-2">
+                        <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
+                        <p><i class="fas fa-phone ml-2"></i> الهاتف: سيتم الإعلان عن الرقم الرسمي للجمعية قريبًا</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@amjad-association.org</p>
+                    </div>
+                </div>
 
-        <div>
-          <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
-          <div class="space-y-2 text-sm">
-            <a href="index.html" class="block hover:text-green-300">الرئيسية</a>
-            <a href="about.html" class="block hover:text-green-300">عن الجمعية</a>
-            <a href="services.html" class="block hover:text-green-300">مجالات التدخل والشراكات</a>
-            <a href="programs.html" class="block hover:text-green-300">برامجنا</a>
-            <a href="contact.html" class="block hover:text-green-300">اتصل بنا</a>
-          </div>
-        </div>
 
-        <div>
-          <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
-          <div class="space-y-2 text-sm">
-            <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات – جهة الرباط سلا القنيطرة</p>
-            <p><i class="fas fa-phone ml-2"></i> +212 6 61 23 45 67</p>
-            <p><i class="fas fa-envelope ml-2"></i> contact@amjad-association.ma</p>
-          </div>
-          <div class="flex gap-3 mt-4">
-            <a href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-300" aria-label="Facebook">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-300" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-300" aria-label="X">
-              <i class="fab fa-x"></i>
-            </a>
-            <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-300" aria-label="YouTube">
-              <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-300" aria-label="TikTok">
-              <i class="fab fa-tiktok"></i>
-            </a>
-          </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <div class="space-y-2">
+                        <a href="about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
+                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات
+                            الإلكترونية</a>
+                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج
+                            والخدمات</a>
+                        <a href="news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
+                    <div class="flex gap-4 justify-center">
+                        <a href="https://www.facebook.com/association.amjad"
+                            class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/association_amjad"
+                            class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-x"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://tiktok.com/@amjad_association"
+                            class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://youtube.com/@association_amjad"
+                            class="text-2xl hover:text-green-400 transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.</p>
+            </div>
         </div>
-      </div>
-      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-400">
-        &copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.
-      </div>
     </footer>
 
+
+    <!-- Additional JavaScript for News -->
+    <script>
+        function filterNews(category) {
+            // Update active filter button
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter news cards
+            const cards = document.querySelectorAll('.news-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function showNewsDetail(newsId) {
+            // Hide all news details
+            const details = document.querySelectorAll('[id$="-detail"]');
+            details.forEach(detail => detail.classList.add('hidden'));
+
+            // Show selected news detail
+            document.getElementById(newsId + '-detail').classList.remove('hidden');
+            document.getElementById('news-modal').classList.remove('hidden');
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNewsModal() {
+            document.getElementById('news-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function loadMoreNews() {
+            alert(currentLanguage === 'ar' ? 'سيتم تحميل المزيد من الأخبار قريبًا!' :
+                currentLanguage === 'en' ? 'More news will be loaded soon!' :
+                    'Plus d\'actualités seront chargées bientôt!');
+        }
+
+        // Search functionality
+        document.getElementById('news-search').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.news-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const content = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Close modal on outside click
+        document.getElementById('news-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeNewsModal();
+            }
+        });
+    </script>
+
+    <!-- Main JavaScript -->
     <script src="/js/main.js"></script>
-  </body>
+</body>
+
 </html>

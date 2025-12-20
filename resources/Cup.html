@@ -1,246 +1,226 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تكريم وإنجاز — جمعية أمجاد</title>
-    <meta name="description" content="صفحة التكريم والجوائز — جمعية أمجاد للتربية والأعمال الاجتماعية" />
+  <meta charset="UTF-8" />
+  <title>برنامج أمجاد لمواكبة كأس إفريقيا 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font (اختياري لتحسين الشكل العام) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
-        rel="stylesheet" />
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <style>
-        :root {
-            --primary-green: #10B981;
-            --text-dark: #1F2937;
-            --bg-light: #F9FAFB;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-        }
-
-        .navbar {
-            transition: all .2s ease;
-            backdrop-filter: blur(6px);
-        }
-
-        .hero-cup {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('/images/bg.png');            background-size: cover;
-            background-position: center;
-            min-height: 36vh;
-            display: grid;
-            place-items: center;
-        }
-
-        /* subtle card style for content */
-        .cup-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
-            overflow: hidden;
-        }
-    </style>
+  <!-- استعمل نفس ملف الـCSS ديال الموقع -->
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body>
+  <!-- NAVBAR: نفس التركيب ديال الصفحات الأخرى، غير زِد الرابط ديال كأس إفريقيا -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <span class="brand-logo">أمجاد</span>
+          <span class="brand-subtitle">شعلة معارف.. جذور أمجاد</span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <!-- هادو خليهوم بحال ما عندك في باقي الصفحات -->
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="about.html">من نحن</a></li>
+          <li><a href="programs.html">برامجنا</a></li>
+          <li><a href="services.html">مجالات العمل</a></li>
+          <li><a href="news.html">الأخبار</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
+          <!-- الرابط الجديد -->
+          <li><a href="cup-africa.html" class="nav-highlight">كأس إفريقيا 2025</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<body class="rtl">
-    <!-- Navigation -->
-    <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <a href="/index.html" aria-label="الرئيسية">
-                    <img src="/images/logoamjad.png" alt="logo" class="h-12 w-auto" />
-                </a>
-            </div>
-
-            <div class="hidden md:flex items-center gap-8">
-                <a href="/index.html" class="text-gray-800 hover:text-green-600 font-medium">الرئيسية</a>
-                <a href="/about.html" class="text-gray-800 hover:text-green-600 font-medium">عن الجمعية</a>
-                <a href="/programs.html" class="text-gray-800 hover:text-green-600 font-medium">الخدمات والبرامج</a>
-                <a href="/news.html" class="text-gray-800 hover:text-green-600 font-medium">الأخبار</a>
-                <a href="/contact.html" class="text-gray-800 hover:text-green-600 font-medium">الاتصال</a>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
+  <!-- HERO SECTION -->
+  <section class="hero hero-africa">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1>برنامج أمجاد لمواكبة كأس إفريقيا 2025</h1>
+        <p>
+          مبادرة تربوية وترفيهية موجهة للأطفال والتلاميذ، تهدف إلى استثمار
+          أجواء كأس إفريقيا 2025 لترسيخ قيم الروح الرياضية، حب الوطن،
+          العمل الجماعي، واحترام الآخر، في فضاءات مدرسية واجتماعية آمنة
+          وممتعة.
+        </p>
+        <div class="hero-actions">
+          <a href="#about-program" class="btn btn-primary">اكتشف البرنامج</a>
+          <a href="contact.html" class="btn btn-outline">كن شريكاً في البرنامج</a>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu hidden md:hidden mt-4 pb-4">
-            <div class="flex flex-col space-y-3 max-w-7xl mx-auto px-4">
-                <a href="/index.html" class="text-gray-800 hover:text-green-600 font-medium">الرئيسية</a>
-                <a href="/about.html" class="text-gray-800 hover:text-green-600 font-medium">عن الجمعية</a>
-                <a href="/programs.html" class="text-gray-800 hover:text-green-600 font-medium">الخدمات والبرامج</a>
-                <a href="/news.html" class="text-gray-800 hover:text-green-600 font-medium">الأخبار</a>
-                <a href="/contact.html" class="text-gray-800 hover:text-green-600 font-medium">الاتصال</a>
-            </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <h2>أصيل ونجوم الملاعب</h2>
+          <p>
+            تميمة جمعية أمجاد "أصيل" ترافق الأطفال في رحلة تربوية حول كرة القدم،
+            القيم والروح الرياضية، من داخل القسم إلى ساحة المدرسة.
+          </p>
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero -->
-    <header class="hero-cup mt-20">
-        <div class="text-center text-white px-4">
-            <h1 class="text-3xl md:text-4xl font-bold">تكريم وإنجاز</h1>
-            <p class="mt-2 text-sm md:text-base max-w-xl mx-auto">مبادرات وجوائز تقديراً لمساهمات الجمعية وشركائها في خدمة المجتمع</p>
+  <!-- ABOUT PROGRAM -->
+  <section id="about-program" class="section">
+    <div class="container">
+      <h2 class="section-title">لماذا برنامج كأس إفريقيا 2025؟</h2>
+      <p class="section-text">
+        كأس إفريقيا للأمم 2025 ليس مجرد منافسة رياضية، بل فرصة ذهبية لغرس
+        قيم إيجابية في نفوس الأطفال والتلاميذ: الانتماء، احترام القواعد، تقبل
+        الهزيمة، وتشجيع النجاح الجماعي. من خلال هذا البرنامج، تعمل جمعية
+        أمجاد على تحويل الحماس الكروي إلى فضاءات تعلم، إبداع، وتربية على
+        المواطنة.
+      </p>
+
+      <div class="pill-grid">
+        <div class="pill">ترسيخ الروح الرياضية</div>
+        <div class="pill">تعزيز الانتماء للوطن</div>
+        <div class="pill">التربية على القيم</div>
+        <div class="pill">تنشيط الحياة المدرسية</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIVES -->
+  <section class="section section-soft">
+    <div class="container two-col">
+      <div>
+        <h2 class="section-title">أهداف البرنامج</h2>
+        <ul class="check-list">
+          <li>
+            تنظيم فضاءات متابعة للمباريات في أجواء تربوية آمنة داخل المؤسسات
+            التعليمية أو المراكز الاجتماعية.
+          </li>
+          <li>
+            تقديم ورشات تربوية حول قيم كرة القدم: اللعب النظيف، احترام
+            الحكم، تقبّل النتيجة، وتشجيع الفريق المنافس.
+          </li>
+          <li>
+            خلق أنشطة موازية: مسابقات في الرسم، الإنشاد، التعليق الرياضي،
+            والكتابة حول اللعبة والقيم.
+          </li>
+          <li>
+            إشراك الأسر والمربين في مرافقة الأطفال خلال فترة البطولة
+            عبر أنشطة مشتركة.
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="info-card">
+          <h3>الفئة المستهدفة</h3>
+          <p>
+            أطفال وتلاميذ التعليم الابتدائي والإعدادي، مع إمكانية إشراك
+            الشباب المتطوعين كمؤطرين ومرافقين داخل الفضاءات المدرسية
+            والجماعية.
+          </p>
+          <h3>مدة البرنامج</h3>
+          <p>
+            ينطلق الإعداد قبيل انطلاق كأس إفريقيا، ويستمر طيلة فترة
+            المباريات، مع تتويج الأنشطة بحفل "حصاد البرنامج" بعد انتهاء
+            البطولة.
+          </p>
         </div>
-    </header>
+      </div>
+    </div>
+  </section>
 
-    <!-- Main content -->
-    <main class="section-padding py-12">
-         <section id="cup-afric-2025" class="mt-12 bg-white rounded-lg p-6 md:p-8 cup-card">
-                <div class="flex flex-col md:flex-row items-center gap-6">
-                    <!-- Visual -->
-                    <div class="w-full md:w-1/2 flex items-center justify-center">
-                        <img src="/images/afcon.jpg" alt="Cup Afric Morocco 2025" class="w-full max-w-lg rounded-lg shadow-lg object-cover">
-                    </div>
+  <!-- ACTIVITIES -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">مكونات وأنشطة البرنامج</h2>
 
-                    <!-- Content -->
-                    <div class="w-full md:w-1/2 text-right">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-3">Cup Afric — المغرب 2025</h3>
-                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                            مشاركة أمجاد في Cup Afric Morocco 2025 للاحتفاء بالمبادرات المجتمعية والابتكار الاجتماعي.
-                            فعالية تجمع مؤسسات المجتمع المدني، مبادرات شبابية وشركاء من مختلف البلدان لتبادل الخبرات وبناء شراكات مستدامة.
-                        </p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Fan Zone مدرسية</h3>
+          <p>
+            تخصيص فضاءات داخل المؤسسات التعليمية أو المراكز الاجتماعية
+            لمتابعة بعض المباريات بشكل جماعي، مع تأطير تربوي وصحي يحترم
+            خصوصية الأطفال والتلاميذ.
+          </p>
+        </article>
 
-                        <div class="grid grid-cols-3 gap-3 text-center mb-4">
-                            <div>
-                                <div class="text-sm text-gray-500">المكان</div>
-                                <div class="font-semibold">الرباط، المغرب</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500">التاريخ</div>
-                                <div class="font-semibold">ماي 2025</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500">المشاركون</div>
-                                <div class="font-semibold">+120 مبادرة</div>
-                            </div>
-                        </div>
+        <article class="card">
+          <h3>ورشات القيم والروح الرياضية</h3>
+          <p>
+            تنشيط ورشات تفاعلية بقيادة مؤطرين ومتطوعين، حول مفاهيم اللعب
+            النظيف، التعاون، احترام القوانين، والعمل الجماعي داخل وخارج
+            الملعب.
+          </p>
+        </article>
 
-                        <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
-                            <a href="/contact.html" class="inline-block px-6 py-3 bg-green-600 text-white rounded-md shadow hover:bg-green-700">انضم كمشارك</a>
-                            <a href="/resources/Cup.html#gallery" class="inline-block px-6 py-3 border border-gray-200 rounded-md text-gray-800 hover:bg-gray-50">شاهد المعرض</a>
-                        </div>
-                    </div>
-                </div>
+        <article class="card">
+          <h3>مسابقات إبداعية</h3>
+          <p>
+            مسابقات في الرسم، التصوير، الكتابة، والإنشاد، حول كرة القدم،
+            المنتخب الوطني، وقيم الاحترام والتضامن بين الشعوب الإفريقية.
+          </p>
+        </article>
 
-                <!-- Mini gallery -->
-                <div id="gallery" class="mt-6 grid grid-cols-3 gap-3">
-                    <img src="/images/pg_clean.png" alt="لقطة 1" class="w-full h-32 object-cover rounded">
-                    <img src="/images/pg_clean.png" alt="لقطة 2" class="w-full h-32 object-cover rounded">
-                    <img src="/images/pg_clean.png" alt="لقطة 3" class="w-full h-32 object-cover rounded">
-                </div>
-            </section>
-            <br>
-            <br>
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="cup-card grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 items-center">
-                <!-- visual (left on desktop) -->
-                <div class="flex items-center justify-center">
-                    <img src="/images/trophy.png" alt="كأس التكريم" class="w-full max-w-md object-contain" />
-                </div>
+        <article class="card">
+          <h3>حضور "أصيل" في الأنشطة</h3>
+          <p>
+            تميمة "أصيل" تحضر في الملصقات والفقرات التربوية والفيديوهات
+            القصيرة، لتقريب الرسائل من عالم الطفل وترسيخها في ذاكرته.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-                <!-- details (right on desktop) -->
-                <div class="text-right">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-4">جائزة التميز الاجتماعي</h2>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-700">
-                        تمنح جمعية أمجاد هذه الجائزة للأفراد والمؤسسات التي قدمت مساهمات مستدامة في تنمية المجتمع
-                        ودعم الفئات المحتاجة. نحتفل بالجهود التي تحفز روح التطوع وتعزز التكافل الاجتماعي.
-                    </p>
-
-                    <ul class="mt-6 space-y-3 text-gray-700">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span>الشفافية في اختيار الفائزين ومعايير واضحة.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span>دعم المشاريع المجتمعية وتمويل مبادرات جديدة.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
-                            <span>التعاون مع شركائنا المحليين لإحداث أثر مستدام.</span>
-                        </li>
-                    </ul>
-
-                    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
-                        <a href="/contact.html" class="inline-block px-6 py-3 bg-green-600 text-white rounded-md shadow hover:bg-green-700">ترشح الآن</a>
-                        <a href="/programs.html" class="inline-block px-6 py-3 border border-gray-200 rounded-md text-gray-800 hover:bg-gray-50">اعرف المزيد</a>
-                    </div>
-
-                    <div class="mt-6 flex gap-4 justify-end">
-                        <a href="#" class="text-2xl text-gray-600 hover:text-green-500" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-2xl text-gray-600 hover:text-green-500" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-2xl text-gray-600 hover:text-green-500" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Optional: gallery or winners list -->
-            <section class="mt-10">
-                <h3 class="text-xl font-semibold text-right mb-4">الفائزون السابقون</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article class="bg-white rounded-lg p-4 shadow-sm">
-                        <img src="/images/winner1.jpg" alt="الفائز 1" class="w-full h-44 object-cover rounded" />
-                        <h4 class="mt-3 font-semibold">مبادرة مدرسة الأمل</h4>
-                        <p class="text-sm text-gray-600 mt-1">مشروع دعم التعليم المستمر</p>
-                    </article>
-
-                    <article class="bg-white rounded-lg p-4 shadow-sm">
-                        <img src="/images/winner2.jpg" alt="الفائز 2" class="w-full h-44 object-cover rounded" />
-                        <h4 class="mt-3 font-semibold">مبادرة صندوق الخير</h4>
-                        <p class="text-sm text-gray-600 mt-1">حملات إغاثة وتموين</p>
-                    </article>
-
-                    <article class="bg-white rounded-lg p-4 shadow-sm">
-                        <img src="/images/winner3.jpg" alt="الفائز 3" class="w-full h-44 object-cover rounded" />
-                        <h4 class="mt-3 font-semibold">متطوعو المدينة</h4>
-                        <p class="text-sm text-gray-600 mt-1">مبادرات تطوعية محلية</p>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Cup Afric Morocco 2025 -->
-           
+  <!-- PARTNERS -->
+  <section class="section section-accent">
+    <div class="container two-col">
+      <div>
+        <h2 class="section-title">فرص الشراكة والرعاية</h2>
+        <p class="section-text">
+          يمكن للمؤسسات والشركات والهيئات دعم برنامج أمجاد لمواكبة كأس إفريقيا
+          2025 عبر الرعاية المالية أو العينية (تجهيزات، أدوات بيداغوجية، فضاءات،
+          تغطية إعلامية...). يضمن البرنامج ظهوراً إيجابياً للشركاء ضمن أنشطة
+          تربوية ذات أثر حقيقي على الأطفال والتلاميذ.
+        </p>
+        <p class="section-text">
+          يمكن تكييف باقات الرعاية حسب نوع الشريك وحجم مساهمته، انسجاماً مع
+          ملف الرعاية العام لجمعية أمجاد.
+        </p>
+      </div>
+      <div>
+        <div class="info-card highlight">
+          <h3>هل ترغبون في أن تكونوا شركاءنا؟</h3>
+          <p>
+            يسعد فريق جمعية أمجاد استقبال مقترحات الشراكة والتعاون لإنجاح هذا
+            البرنامج، ولتقديم نموذج وطني مميز في مرافقة الأطفال والتلاميذ خلال
+            كأس إفريقيا 2025.
+          </p>
+          <a href="contact.html" class="btn btn-primary btn-full">
+            تواصلوا معنا لطلب ملف الرعاية الخاص بالبرنامج
+          </a>
         </div>
-    </main>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div class="text-sm">&copy; <strong>جمعية أمجاد</strong> — جميع الحقوق محفوظة</div>
-                <div class="flex gap-4">
-                    <a href="#" class="text-gray-300 hover:text-white">سياسة الخصوصية</a>
-                    <a href="#" class="text-gray-300 hover:text-white">الشروط</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <!-- FOOTER بسيط -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>جمعية أمجاد للتربية والأعمال الاجتماعية</p>
+      <p class="footer-sub">
+        شعلة معارف.. جذور أمجاد – برنامج مواكبة كأس إفريقيا 2025 للأطفال
+        والتلاميذ
+      </p>
+    </div>
+  </footer>
 
-    <script>
-        function toggleMobileMenu() {
-            const m = document.getElementById('mobileMenu');
-            if (!m) return;
-            m.classList.toggle('hidden');
-        }
-    </script>
+  <!-- لو كان عندك ملف JS عام، استعمل نفس المسار -->
+  <script src="js/main.js"></script>
 </body>
-
 </html>
