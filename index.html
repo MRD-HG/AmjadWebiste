@@ -50,7 +50,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             /* background-position: center; */
-            min-height: 100vh;
+            min-height: 85vh;
             /* fixed attachment only on large screens for better mobile performance */
             background-attachment: scroll;
         }
@@ -237,10 +237,9 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
                     data-translate="news">الأخبار</a>
-                     <a href="/resources/Cup.html"
-           class="nav-highlight">
-           كأس إفريقيا 2025
-          </a>
+                <a href="/resources/Cup.html" class="nav-highlight">
+                    كأس إفريقيا 2025
+                </a>
                 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
                     data-translate="contact">الاتصال</a>
             </div>
@@ -274,73 +273,160 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
                     data-translate="news">الأخبار</a>
-                     <a href="/resources/Cup.html"
-           class="nav-highlight">
-           كأس إفريقيا 2025
-          </a>
+                <a href="/resources/Cup.html" class="nav-highlight">
+                    كأس إفريقيا 2025
+                </a>
                 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
                     data-translate="contact">الاتصال</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section flex items-center justify-center text-white relative" aria-label="Hero">
-        <div class="absolute inset-0 bg-black bg-opacity-20">
+    <!-- Hero Section (100vh - Redesigned) -->
+    <section class="hero-section relative min-h-screen overflow-hidden text-white">
+        <!-- Background overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60"></div>
 
+        <!-- Decorative glow -->
+        <div
+            class="pointer-events-none absolute -top-28 -right-28 w-[520px] h-[520px] rounded-full bg-emerald-400/25 blur-3xl">
+        </div>
+        <div
+            class="pointer-events-none absolute -bottom-28 -left-28 w-[520px] h-[520px] rounded-full bg-amber-300/18 blur-3xl">
         </div>
 
+        <!-- Content wrapper (centers content within 100vh while respecting navbar) -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4">
+            <!-- This div makes the hero exactly 100vh and centers content -->
+            <div class="min-h-screen flex items-center">
+                <!-- add top padding to avoid navbar overlap -->
+                <div class="w-full pt-28 md:pt-32 pb-12">
+                    <div class="grid lg:grid-cols-12 gap-10 items-center">
+                        <!-- Left / Main -->
+                        <div class="lg:col-span-7 text-center lg:text-right">
+                            <!-- Badge -->
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
+                                <span class="inline-block w-2 h-2 rounded-full bg-emerald-300"></span>
+                                <span>جمعية مدنية غير ربحية • تربية • أعمال اجتماعية</span>
+                            </div>
 
-        <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight" data-translate="heroTitle">
-                جمعية أمجاد للتربية والأعمال الاجتماعية
-            </h1>
-            <p class="text-xl md:text-2xl mb-4 text-yellow-300" data-translate="heroSubtitle">
-                سنوات من العطاء... وباقين مستمرين
-            </p>
-            <!-- <p class="text-lg mb-8 max-w-2xl mx-auto leading-relaxed" data-translate="heroDescription">
-                    نؤمن أن كل فرد قادر على إحداث فرق. انضم إلينا وساهم في بناء مجتمع يسوده التعاون والتكافل.
-                </p> -->
-            <p class="text-lg font-bold  mx-auto leading-relaxed">*
-                كالشمس تعيش ضمائرنا ونحب الفرحة لسوانا نتسابق والاكرم فينا
-                إنسان يبني الإنسانا
-                *</p>
-            <br>
-            <br>
+                            <!-- Title -->
+                            <h1 class="text-4xl md:text-6xl font-extrabold mt-5 leading-[1.12]">
+                                جمعية أمجاد
+                                <span class="block text-emerald-50/95">للتربية والأعمال الاجتماعية</span>
+                            </h1>
 
-            <br>
-            <hr style="height:10px ; background-color: white; border: none;">
+                            <!-- Subtitle -->
+                            <p
+                                class="text-base md:text-xl mt-4 text-emerald-50/90 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                نشتغل ببرامج تربوية واجتماعية تنموية، ونؤمن أن العمل التطوعي المنظم يصنع فرقًا حقيقيًا
+                                داخل المجتمع.
+                            </p>
 
-            <div class="mt-10">
-                <p class="text-3xl text-yellow-300 ">تربية -تطوع - ريادة - إبداع</p>
+                            <!-- CTA (only one button) -->
+                            <div class="mt-7 flex justify-center lg:justify-start">
+                                <a href="contact.html" class="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white text-emerald-700 font-bold
+                       hover:bg-emerald-50 transition-all shadow-xl shadow-black/20">
+                                    <i class="fas fa-envelope"></i>
+                                    تواصل معنا
+                                    <i
+                                        class="fas fa-arrow-left text-emerald-700/70 group-hover:-translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
 
+                            <!-- Chips -->
+                            <div class="mt-8 flex flex-wrap gap-2 justify-center lg:justify-start text-sm">
+                                <span class="px-4 py-2 rounded-full bg-white/10 border border-white/15">الشفافية</span>
+                                <span class="px-4 py-2 rounded-full bg-white/10 border border-white/15">التطوع</span>
+                                <span class="px-4 py-2 rounded-full bg-white/10 border border-white/15">المواطنة</span>
+                                <span class="px-4 py-2 rounded-full bg-white/10 border border-white/15">الإبداع</span>
+                            </div>
+                        </div>
+
+                        <!-- Right / Glass Card -->
+                        <div class="lg:col-span-5">
+                            <div
+                                class="relative rounded-3xl p-6 md:p-7 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/25">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-lg">شعار الجمعية</h3>
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-white/10 border border-white/15">
+                                        <i class="fas fa-seedling text-emerald-300"></i>
+                                    </span>
+                                </div>
+
+                                <p class="text-yellow-200 font-extrabold text-lg md:text-xl text-center">
+                                    "تطوع – تربية – إبداع – ريادة"
+                                </p>
+
+                                <div class="mt-6 grid gap-3">
+                                    <div
+                                        class="flex items-start gap-3 rounded-2xl bg-white/10 border border-white/15 p-4">
+                                        <span class="mt-1 text-emerald-300"><i class="fas fa-check-circle"></i></span>
+                                        <div>
+                                            <div class="font-bold">برامج تربوية</div>
+                                            <div class="text-sm text-emerald-50/90">أنشطة، أندية، مواكبة مدرسية وتكوين
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="flex items-start gap-3 rounded-2xl bg-white/10 border border-white/15 p-4">
+                                        <span class="mt-1 text-amber-200"><i
+                                                class="fas fa-hand-holding-heart"></i></span>
+                                        <div>
+                                            <div class="font-bold">مبادرات تضامنية</div>
+                                            <div class="text-sm text-emerald-50/90">دفء الشتاء، رمضان، تبرع بالدم…</div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="flex items-start gap-3 rounded-2xl bg-white/10 border border-white/15 p-4">
+                                        <span class="mt-1 text-sky-200"><i class="fas fa-bullseye"></i></span>
+                                        <div>
+                                            <div class="font-bold">أثر ميداني</div>
+                                            <div class="text-sm text-emerald-50/90">عمل منظم بشراكات وحكامة جيدة</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="mt-6 pt-5 border-t border-white/15 text-sm text-emerald-50/90 leading-relaxed">
+                                    <span class="font-semibold text-white">رسالتنا:</span>
+                                    ترسيخ روح التطوع والتكافل الاجتماعي عبر برامج عمل محلية هادفة.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                    
+                </div>
             </div>
-
-
         </div>
-        <img width="30%" src="/images/charcter.png" alt="">
     </section>
+
+
+
 
     <!-- Statistics Section -->
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
                 <div class="fade-in">
                     <div class="counter" data-target="4">0</div>
                     <p class="text-gray-600 mt-2 text-lg" data-translate="yearsOfService">سنوات من العطاء</p>
                 </div>
                 <div class="fade-in">
-                    <div class="counter" data-target="150">0</div>
+                    <div class="counter" data-target="80">0</div>
                     <p class="text-gray-600 mt-2 text-lg" data-translate="volunteersCount">متطوع</p>
                 </div>
                 <div class="fade-in">
                     <div class="counter" data-target="2500">0</div>
                     <p class="text-gray-600 mt-2 text-lg" data-translate="beneficiariesCount">مستفيد</p>
                 </div>
-                <div class="fade-in">
-                    <div class="counter" data-target="25">0</div>
-                    <p class="text-gray-600 mt-2 text-lg" data-translate="projectsCount">مشروع</p>
-                </div>
+
             </div>
         </div>
     </section>
@@ -393,7 +479,8 @@
                     <p class="text-gray-600 mb-4">
                         نشاط رياضي مجتمعي يجمع شباب المدينة في أجواء من المنافسة الشريفة والروح الرياضية.
                     </p>
-                    <button class="btn-primary w-full" onclick="window.location.href ='/resources/Cup.html'">المزيد</button>
+                    <button class="btn-primary w-full"
+                        onclick="window.location.href ='/resources/Cup.html'">المزيد</button>
                 </div>
 
                 <!-- City Memory -->
@@ -405,7 +492,8 @@
                     <p class="text-gray-600 mb-4">
                         نحتفل بمسيرة مدينتنا وإنجازاتها، ونستحضر تاريخها العريق بروح الفخر والانتماء.
                     </p>
-                    <button class="btn-primary w-full" onclick="window.location.href ='/resources/skhirat.html'">المزيد</button>
+                    <button class="btn-primary w-full"
+                        onclick="window.location.href ='/resources/skhirat.html'">المزيد</button>
                 </div>
 
                 <!-- Amjad Academy -->
@@ -498,39 +586,146 @@
         </div>
     </section>
     <!-- President Speech Section -->
+
     <section class="section-padding speech-bg">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">كلمة الرئيس</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">كلمة الرئيس</h2>
+                <p class="text-gray-600">رسالة توجيهية تلخّص رؤية الجمعية ورسالتها وقيمها</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <!-- Image (left on desktop) -->
-                <div class="flex justify-end md:justify-start">
-                    <img src="images/mustapha.png" alt="الرئيس" class="w-full max-w-sm rounded-lg object-cover">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Image / Profile Card -->
+                <div class="lg:col-span-5 fade-in">
+                    <div
+                        class="bg-white/90 backdrop-blur rounded-3xl shadow-xl border border-gray-100 overflow-hidden h-full">
+                        <div class="p-6 pb-0">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span
+                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-sm font-semibold">
+                                        <i class="fas fa-user-tie"></i>
+                                        رئيس الجمعية
+                                    </span>
+                                </div>
+                                <div class="text-emerald-600 text-2xl">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-4">
+                            <div class="flex justify-center">
+                                <img src="images/mustapha.png" alt="الرئيس"
+                                    class="w-64 h-64 md:w-64 md:h-64 rounded-full object-contain ring-4 ring-emerald-200 " />
+                            </div>
+
+                            <div class="text-center mt-5">
+                                <h3 class="text-xl font-bold text-gray-800">رسالة الرئيس</h3>
+                                <p class="text-sm text-gray-600 mt-1">جمعية أمجاد للتربية والأعمال الاجتماعية</p>
+                            </div>
+
+                            <div class="mt-6 grid grid-cols-2 gap-3">
+                                <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-center">
+                                    <div class="text-emerald-700 font-bold">رؤية واضحة</div>
+                                    <div class="text-xs text-gray-600 mt-1">تنمية تربوية واجتماعية</div>
+                                </div>
+                                <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-center">
+                                    <div class="text-amber-700 font-bold">حكامة جيدة</div>
+                                    <div class="text-xs text-gray-600 mt-1">شفافية ونزاهة</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6">
+                            <div class="rounded-2xl bg-gray-50 border border-gray-100 p-4">
+                                <div class="text-sm text-gray-700 font-semibold mb-2">شعار الجمعية</div>
+                                <div class="text-gray-800 font-bold">
+                                    "تطوع – تربية – إبداع – ريادة"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Speech (right on desktop) -->
-                <div class="text-right">
-                    <p class="text-xl tracking-widest md:text-2xl leading-relaxed font-semibold"
-                        style="font-family: 'Cairo', sans-serif;">
-                        جمعية أمجاد للتربية والأعمال اﻹجتماعية جمعها العام التأسيسي يوم الأحد 26 شتنبر 2021
-                        وحصلت على وصلها النهائي من السلطات المحلية يوم 6 يناير 2022. وهي جمعية إجتماعية تنموية
-                        ثقافية تربوية، محايدة غير ربحية تسعى لتكون من الجمعيات الرائدة في تقديم الخدمات الاجتماعية
-                        والتربوية ذات تنمية مستدامة، وذلك عبر إنشاء ودعم مشاريع وبرامج اجتماعية وثقافية وتربوية
-                        وغيرها.<br>
+                <!-- Speech Card -->
+                <div class="lg:col-span-7 fade-in">
+                    <div
+                        class="bg-white/90 backdrop-blur rounded-3xl shadow-xl border border-gray-100 p-6 md:p-8 h-full">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="text-emerald-600 text-3xl leading-none">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
 
-                        <br>
-                        <b>الرؤية</b>: أن نكون لبنة أساسية في بناء التنمية الاجتماعية والتربوية والثقافية.<br>
-                        <br>
-                        <b>الرسالة</b>: إرساء روح التطوع والتكافل الاجتماعي التنموي لدى أفراد المجتمع وفق برامج عمل
-                        محفزة تلبي حاجيات المجتمع.
-                    </p>
+                        </div>
 
+                        <!-- Keep the CONTENT exactly (just styling changed) -->
+                        <div class="text-gray-700 leading-relaxed text-base md:text-lg space-y-4">
+                            <p>
+                                تُعد جمعية أمجاد للتربية والأعمال الاجتماعية إحدى الجمعيات الرائدة في مجال العمل التربوي
+                                والاجتماعي، إذ استطاعت أن ترسّخ مكانتها المرموقة في تعزيز قيم التربية والتكافل والعطاء،
+                                لتكون رافدًا أساسيًا من روافد التنمية المستدامة.
+                            </p>
+
+                            <p>
+                                نحرص في جمعية أمجاد على أداء رسالتنا التربوية والاجتماعية وفق رؤية واضحة نسعى لأن نكون
+                                لبنة فاعلة في بناء التنمية المجتمعية الشاملة، ورسالتنا تقوم على ترسيخ روح التطوع
+                                والتكافل الاجتماعي بين أفراد المجتمع من خلال تقديم برامج وخدمات تربوية واجتماعية محلية،
+                                تتسم بالكفاءة والفاعلية وتلبي حاجيات المواطنين.
+                            </p>
+
+                            <p>
+                                ونسعى كذلك إلى أن نُجسّد في عملنا نموذجًا للجمعية المواطِنة، ذات التدبير المؤسساتي
+                                القائم على مبادئ الحكامة الجيدة والشفافية والنزاهة، بما يعزز ثقة المحسنين وفاعلي الخير
+                                والمتطوعين الذين يشكلون السند الحقيقي لمسيرتنا في سبيل الريادة والعطاء.
+                            </p>
+
+                            <p class="font-semibold text-gray-800">
+                                وتبقى جمعيتنا دائمًا وفية لشعارها:
+                                <span class="text-emerald-700">"تطوع – تربية – إبداع – ريادة"</span>.
+                            </p>
+                        </div>
+
+                        <!-- Vision / Mission Pills -->
+                        <div class="mt-6 grid md:grid-cols-2 gap-4">
+                            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+                                <div class="flex items-center gap-2 mb-2 text-emerald-700 font-bold">
+                                    <i class="fas fa-eye"></i>
+                                    الرؤية
+                                </div>
+                                <p class="text-sm md:text-base text-gray-700">
+                                    أن نكون لبنة أساسية في بناء التنمية الاجتماعية والتربوية والثقافية.
+                                </p>
+                            </div>
+
+                            <div class="rounded-2xl border border-amber-100 bg-amber-50 p-5">
+                                <div class="flex items-center gap-2 mb-2 text-amber-700 font-bold">
+                                    <i class="fas fa-bullseye"></i>
+                                    الرسالة
+                                </div>
+                                <p class="text-sm md:text-base text-gray-700">
+                                    إرساء روح التطوع والتكافل الاجتماعي التنموي لدى أفراد المجتمع وفق برامج عمل محفزة
+                                    تلبي حاجيات المجتمع.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Signature -->
+                        <div class="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between">
+                            <div class="text-sm text-gray-600">
+                                <div class="font-semibold text-gray-800">الرئيس</div>
+                                <div>جمعية أمجاد للتربية والأعمال الاجتماعية</div>
+                            </div>
+                            <div class="text-emerald-600 text-2xl">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Photo Gallery Section -->
     <section class="section-padding bg-gray-50">
@@ -646,6 +841,6 @@
 
     <!-- Main JavaScript -->
     <script src="/js/main.js"></script>
-    </body>
+</body>
 
 </html>

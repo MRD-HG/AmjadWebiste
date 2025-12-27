@@ -27,7 +27,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- Page Styles (مثل باقي الصفحات لكن خاصة بهذه الصفحة) -->
+    <!-- 🌿 CSS مدموج خاص بهذه الصفحة -->
     <style>
       :root {
         --primary-green: #10b981;
@@ -45,8 +45,6 @@
         background-color: var(--bg-light);
         color: var(--text-dark);
       }
-
-      /* Sections */
 
       .section-padding {
         padding: 4rem 0;
@@ -70,7 +68,7 @@
         max-width: 40rem;
       }
 
-      /* Hero */
+      /* HERO */
 
       .hero-section {
         background-image: linear-gradient(
@@ -82,14 +80,12 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-        min-height: 60vh; /* أصغر من 100vh باش ما تبقاش كبيرة بزاف */
+        min-height: 60vh; /* ⇦ أصغر من 100vh باش مايبقاش كبير بزاف */
       }
 
       .hero-overlay {
         background: rgba(15, 23, 42, 0.35);
       }
-
-      /* Navbar helpers */
 
       .lang-btn {
         border-radius: 9999px;
@@ -103,7 +99,7 @@
         border-color: var(--primary-green);
       }
 
-      /* Stats */
+      /* STATS – أرقام ثابتة بلا JS → ماكينش NaN */
 
       .stats-grid {
         display: grid;
@@ -128,7 +124,7 @@
         color: var(--text-light);
       }
 
-      /* Cards */
+      /* CARDS */
 
       .info-card {
         background: #ffffff;
@@ -154,7 +150,7 @@
         border-color: var(--accent-gold);
       }
 
-      /* Partnership background */
+      /* خلفية الشراكات */
 
       .speech-bg {
         position: relative;
@@ -176,7 +172,7 @@
         z-index: 1;
       }
 
-      /* Footer */
+      /* FOOTER */
 
       .site-footer {
         background-color: #1f2937;
@@ -195,15 +191,13 @@
   </head>
 
   <body class="bg-gray-50">
-    <!-- Navbar (نفس ستايل باقي الصفحات + روابط شغالة من resources) -->
+    <!-- 🧭 NAVBAR نفس الشكل ديال الصفحات الأخرى -->
     <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white shadow-sm">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <!-- Logo -->
         <div class="flex items-center gap-4">
           <img src="/images/logoamjad.png" alt="Logo" class="h-12 w-auto" />
         </div>
 
-        <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center gap-8">
           <a
             href="/index.html"
@@ -248,7 +242,6 @@
           >
         </div>
 
-        <!-- Language Switcher -->
         <div class="flex items-center gap-3">
           <button
             class="lang-btn px-3 py-1 active"
@@ -264,7 +257,6 @@
             FR
           </button>
 
-          <!-- Mobile Menu Button -->
           <button
             class="md:hidden ml-4 text-gray-800"
             type="button"
@@ -275,7 +267,6 @@
         </div>
       </div>
 
-      <!-- Mobile Menu -->
       <div class="mobile-menu hidden md:hidden mt-4 pb-4">
         <div class="flex flex-col space-y-3 px-4">
           <a
@@ -324,7 +315,7 @@
     </nav>
 
     <main>
-      <!-- Hero -->
+      <!-- HERO أصغر -->
       <section
         class="hero-section pt-32 pb-16 text-white relative"
         aria-label="برنامج كأس إفريقيا"
@@ -334,7 +325,6 @@
         <div
           class="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center"
         >
-          <!-- Text -->
           <div class="space-y-5">
             <h1 class="text-3xl md:text-4xl font-bold leading-relaxed">
               برنامج أمجاد لمواكبة كأس الأمم الإفريقية 2025
@@ -377,7 +367,6 @@
             </div>
           </div>
 
-          <!-- Side card -->
           <div>
             <div
               class="bg-emerald-900/90 text-white rounded-2xl shadow-2xl p-6 md:p-7 max-w-md mx-auto"
@@ -411,7 +400,7 @@
         </div>
       </section>
 
-      <!-- Stats (ثابتة بدون JS → لن يظهر NaN) -->
+      <!-- STATS ثابتة (لا JS) -->
       <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
           <div class="stats-grid text-center">
@@ -431,7 +420,7 @@
         </div>
       </section>
 
-      <!-- About program -->
+      <!-- ABOUT -->
       <section
         id="about-program"
         class="section-padding bg-gray-50"
@@ -484,7 +473,7 @@
         </div>
       </section>
 
-      <!-- Components & activities -->
+      <!-- COMPONENTS -->
       <section
         class="section-padding bg-white"
         aria-label="مكوّنات وأنشطة البرنامج"
@@ -512,8 +501,7 @@
               <h3 class="font-semibold mb-2">ورشات القيم والروح الرياضية</h3>
               <p class="text-sm text-gray-700 leading-relaxed">
                 ورشات تفاعلية حول اللعب النظيف، التعاون، احترام القوانين
-                وتقبّل النتيجة داخل وخارج الملعب، يؤطرها متطوعون شباب وأطر
-                تربوية.
+                وتقبّل النتيجة، يؤطرها متطوعون شباب وأطر تربوية.
               </p>
             </article>
 
@@ -538,7 +526,7 @@
         </div>
       </section>
 
-      <!-- Partnership & Sponsorship -->
+      <!-- PARTNERSHIP -->
       <section class="speech-bg section-padding" aria-label="الشراكات والرعاية">
         <div
           class="speech-content max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-start"
@@ -584,11 +572,10 @@
       </section>
     </main>
 
-    <!-- Footer (نفس الموجود في index) -->
+    <!-- FOOTER (نفس ستايل باقي الصفحات) -->
     <footer class="site-footer">
       <div class="max-w-7xl mx-auto px-4">
         <div class="grid md:grid-cols-3 gap-8">
-          <!-- Contact -->
           <div>
             <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">
               معلومات الاتصال
@@ -597,12 +584,12 @@
               <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
               <p><i class="fas fa-phone ml-2"></i> +212 5XX XX XX XX</p>
               <p>
-                <i class="fas fa-envelope ml-2"></i> contact@amjad-association.org
+                <i class="fas fa-envelope ml-2"></i>
+                contact@amjad-association.org
               </p>
             </div>
           </div>
 
-          <!-- Quick links -->
           <div>
             <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
             <div class="space-y-2 text-sm">
@@ -629,7 +616,6 @@
             </div>
           </div>
 
-          <!-- Social -->
           <div>
             <h3 class="text-xl font-bold mb-4" data-translate="followUs">
               تابعونا
@@ -678,7 +664,7 @@
       </div>
     </footer>
 
-    <!-- Main JS (نفس الملف العام) -->
+    <!-- سكريبت عام للموقع (menu + ترجمة...) -->
     <script src="/js/main.js"></script>
   </body>
 </html>
