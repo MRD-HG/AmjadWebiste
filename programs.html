@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الخدمات والبرامج - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
     <meta name="description"
-        content="اكتشف برامجنا وخدماتنا: دفء وإطعام، إفطار الخير، حملات التبرع بالدم، أكاديمية أمجاد، مدرستي الحلوة، وغيرها">
+        content="اكتشف برامج جمعية أمجاد: البرنامج التربوي والتكويني، والبرنامج الاجتماعي والتضامني، ومشاريعنا الميدانية المتنوعة.">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,7 @@
         }
 
         .programs-hero {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('/images/bg.png');
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('images/bg.png');
             background-size: cover;
             background-position: center;
             min-height: 60vh;
@@ -170,8 +170,78 @@
                 padding: 40px 0;
             }
         }
+
+        /* Mini program cards inside the 2 main programs */
+        .btn-sm {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .mini-program-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 14px;
+            background: #F9FAFB;
+            border: 1px solid rgba(17, 24, 39, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .mini-program-card:hover {
+            background: #FFFFFF;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .mini-program-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .mini-program-title {
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .mini-program-desc {
+            color: #4B5563;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        /* ===== Programs Accordion (single-open + consistent style) ===== */
+        details[data-accordion="programs"]>summary {
+            list-style: none;
+            outline: none !important;
+            border: 1px solid rgba(16, 185, 129, 0.18) !important;
+            box-shadow: none !important;
+        }
+
+        details[data-accordion="programs"]>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[data-accordion="programs"]>summary:focus,
+        details[data-accordion="programs"]>summary:focus-visible {
+            outline: none !important;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18) !important;
+        }
+
+        details[data-accordion="programs"][open]>summary {
+            border-color: rgba(16, 185, 129, 0.35) !important;
+        }
     </style>
-    <base target="_blank">
 </head>
 
 <body class="rtl">
@@ -196,7 +266,7 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
                     data-translate="news">الأخبار</a>
-                <a href="/resources/Cup.html"
+                <a href="resources/Cup.html"
                     class="text-gray-800 hover:text-green-600 font-medium transition-colors">
                     كأس إفريقيا 2025
                 </a>
@@ -234,7 +304,7 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
                     data-translate="news">الأخبار</a>
-                <a href="/resources/Cup.html"
+                <a href="resources/Cup.html"
                     class="text-gray-800 hover:text-green-600 font-medium">
                     كأس إفريقيا 2025
                 </a>
@@ -253,92 +323,6 @@
         </div>
     </section>
 
-    <!-- Programs Overview -->
-    <section class="section-padding bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">برامجنا المجتمعية</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    نقدم لكم مجموعة متنوعة من البرامج والخدمات التي تهدف إلى تنمية المجتمع وتمكين الأفراد
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Warmth and Feeding Campaign -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-red-600 text-4xl mb-4">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">دفء وإطعام</h3>
-                    <p class="text-gray-600 mb-4">
-                        حملة موسمية تهدف إلى توفير الملابس الشتوية والوجبات الغذائية للأسر المحتاجة خلال فصل الشتاء.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showProgramDetail('warmth')">التفاصيل</button>
-                </div>
-
-                <!-- Iftar Al-Khair -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-yellow-600 text-4xl mb-4">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">إفطار الخير</h3>
-                    <p class="text-gray-600 mb-4">
-                        برنامج رمضاني يوفر وجبات الإفطار للصائمين ويقدم مساعدات غذائية للأسر المحتاجة.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showProgramDetail('iftar')">التفاصيل</button>
-                </div>
-
-                <!-- Blood Donation / Zakat Al-Seha -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-red-600 text-4xl mb-4">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">حملة التبرع بالدم</h3>
-                    <p class="text-gray-600 mb-4">
-                        مبادرة للتبرع بالدم ونشر ثقافة العطاء والتضامن الإنساني في المجتمع.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showProgramDetail('zakat')">التفاصيل</button>
-                </div>
-
-                <!-- Amjad Academy -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-green-600 text-4xl mb-4">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">أكاديمية أمجاد</h3>
-                    <p class="text-gray-600 mb-4">
-                        برامج تعليمية وتدريبية لتنمية مهارات الشباب وتعزيز قدراتهم في مختلف المجالات.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showProgramDetail('academy')">التفاصيل</button>
-                </div>
-
-                <!-- Medrasti Al-Hilwa -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-pink-600 text-4xl mb-4">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">مدرستي الحلوة</h3>
-                    <p class="text-gray-600 mb-4">
-                        أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب منذ الصغر.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showProgramDetail('school')">التفاصيل</button>
-                </div>
-
-                <!-- Tabeeb Al-Ghalaba -->
-                <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-blue-600 text-4xl mb-4">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">طبيب الغلبة</h3>
-                    <p class="text-gray-600 mb-4">
-                        برنامج طبي يقدم خدمات صحية مجانية للفئات المحتاجة من المجتمع.
-                    </p>
-                    <button class="btn-primary w-full" onclick="showComingSoon()">التفاصيل</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- New: Official Program Structure (Educational & Social) -->
     <section class="section-padding bg-gray-50" id="programs-structure">
         <div class="max-w-7xl mx-auto px-4">
@@ -348,88 +332,359 @@
                 </h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                     تشتغل جمعية أمجاد عبر برنامجين رئيسيين متكاملين، يضمان مجموعة من المشاريع التربوية
-                    والاجتماعية الميدانية.
+                    والاجتماعية الميدانية. اختر أي برنامج لتصفح مشاريعه بسهولة.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
+            <!-- ✅ IMPORTANT FIX: items-start stops both cards stretching -->
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+
                 <!-- Educational & Training Program -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-2xl font-semibold mb-3 text-emerald-700">
-                        البرنامج التربوي والتكويني
-                    </h3>
-                    <p class="text-sm text-gray-700 mb-3">
-                        برنامج يركز على تنمية شخصية الطفل واليافع، ودعم التعلمات، وتأهيل الأطر والمتطوعين،
-                        عبر أنشطة تربوية، ثقافية وتكوينية منتظمة.
-                    </p>
-                    <h4 class="text-sm font-semibold text-gray-800 mb-2">أهم مشاريعه:</h4>
-                    <ul class="space-y-1 text-sm text-gray-700">
-                        <li>• مشروع «أنشطة أمجاد»</li>
-                        <li>• مشروع «صبحيات المرح»</li>
-                        <li>• مشروع «مخيم أمجاد»</li>
-                        <li>• مشروع «مدرستي الحلوة»</li>
-                        <li>• مشروع «أكاديمية أمجاد»</li>
-                    </ul>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 self-start">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2 text-emerald-700">
+                                البرنامج التربوي والتكويني
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                برنامج يركز على تنمية شخصية الطفل واليافع، ودعم التعلمات، وتأهيل الأطر والمتطوعين،
+                                عبر أنشطة تربوية، ثقافية وتكوينية منتظمة.
+                            </p>
+                        </div>
+                        <div class="text-emerald-600 text-3xl shrink-0">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">محاور البرنامج:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">دعم التعلمات</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">تنمية المهارات</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">أنشطة ثقافية</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">نوادي تربوية</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">تأهيل الأطر والمتطوعين</span>
+                        </div>
+                        <p class="mt-3 text-sm text-gray-600 leading-relaxed">
+                            تُعرض المشاريع التطبيقية المرتبطة بهذا البرنامج داخل قسم <span class="font-semibold text-gray-800">«مشاريع هذا البرنامج»</span> أدناه.
+                        </p>
+                    </div>
+
+                    <details class="mt-6 group" data-accordion="programs">
+                        <summary class="cursor-pointer select-none flex items-center justify-between gap-3 rounded-xl bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">
+                            <span>مشاريع هذا البرنامج</span>
+                            <i class="fas fa-chevron-down transition-transform duration-200 group-open:rotate-180"></i>
+                        </summary>
+
+                        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-green-600"><i class="fas fa-graduation-cap"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">أكاديمية أمجاد</h4>
+                                    <p class="mini-program-desc">برامج تعليمية وتدريبية لتنمية مهارات الشباب وتعزيز قدراتهم.</p>
+                                    <button class="btn-primary btn-sm" onclick="showProgramDetail('academy')">التفاصيل</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-pink-600"><i class="fas fa-school"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">مدرستي الحلوة</h4>
+                                    <p class="mini-program-desc">أنشطة مدرسية ونوادٍ للأطفال لتعزيز التعلم وتنمية المواهب.</p>
+                                    <button class="btn-primary btn-sm" onclick="showProgramDetail('school')">التفاصيل</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-purple-600"><i class="fas fa-puzzle-piece"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">أنشطة أمجاد</h4>
+                                    <p class="mini-program-desc">أنشطة تربوية وتفاعلية منتظمة داخل فضاءات المؤسسة التربوية.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-yellow-600"><i class="fas fa-smile-beam"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">صبحيات المرح</h4>
+                                    <p class="mini-program-desc">صبحيات تنشيطية تجمع بين المتعة والتربية والقيم.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card sm:col-span-2">
+                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-campground"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">مخيم أمجاد</h4>
+                                    <p class="mini-program-desc">مخيمات تربوية لتنمية الاعتماد على النفس، القيم، والمهارات الاجتماعية.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Social & Solidarity Program -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-2xl font-semibold mb-3 text-emerald-700">
-                        البرنامج الاجتماعي والتضامني
-                    </h3>
-                    <p class="text-sm text-gray-700 mb-3">
-                        برنامج يواكب الأسر في وضعية هشاشة، ويجسد قيم التكافل والتضامن من خلال مبادرات
-                        موسمية ومستدامة، موجهة للفئات الأكثر احتياجاً.
-                    </p>
-                    <h4 class="text-sm font-semibold text-gray-800 mb-2">أهم مشاريعه:</h4>
-                    <ul class="space-y-1 text-sm text-gray-700">
-                        <li>• مشروع الشتاء الدافئ»</li>
-                        <li>• مشروع «بسمة يتيم»</li>
-                        <li>• مشروع «زكاة الصحة»</li>
-                        <li>• مشروع «سفراء الخير» للمبادرات التطوعية</li>
-                        <li>• مشروع «رمضان أهل الخير» (إفطار الخير والقفف الرمضانية)</li>
-                        <li>• مشروع «تفريج كربة» لدعم الأسر في الأزمات</li>
-                    </ul>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 self-start">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2 text-emerald-700">
+                                البرنامج الاجتماعي والتضامني
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                برنامج يواكب الأسر في وضعية هشاشة، ويجسد قيم التكافل والتضامن من خلال مبادرات
+                                موسمية ومستدامة، موجهة للفئات الأكثر احتياجاً.
+                            </p>
+                        </div>
+                        <div class="text-emerald-600 text-3xl shrink-0">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-2">محاور البرنامج:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">مواكبة الأسر الهشة</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">مبادرات موسمية</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">الصحة والتوعية</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">تفريج الكرب</span>
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100">مبادرات تطوعية</span>
+                        </div>
+                        <p class="mt-3 text-sm text-gray-600 leading-relaxed">
+                            تُعرض المشاريع التطبيقية المرتبطة بهذا البرنامج داخل قسم <span class="font-semibold text-gray-800">«مشاريع هذا البرنامج»</span> أدناه.
+                        </p>
+                    </div>
+
+                    <details class="mt-6 group" data-accordion="programs">
+                        <summary class="cursor-pointer select-none flex items-center justify-between gap-3 rounded-xl bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">
+                            <span>مشاريع هذا البرنامج</span>
+                            <i class="fas fa-chevron-down transition-transform duration-200 group-open:rotate-180"></i>
+                        </summary>
+
+                        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-red-600"><i class="fas fa-fire"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">دفء وإطعام</h4>
+                                    <p class="mini-program-desc">حملة موسمية لتوفير الدفء والوجبات للأسر المحتاجة خلال الشتاء.</p>
+                                    <button class="btn-primary btn-sm" onclick="showProgramDetail('warmth')">التفاصيل</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-yellow-600"><i class="fas fa-moon"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">إفطار الخير</h4>
+                                    <p class="mini-program-desc">برنامج رمضاني لإفطار الصائمين ودعم الأسر بالقفف الرمضانية.</p>
+                                    <button class="btn-primary btn-sm" onclick="showProgramDetail('iftar')">التفاصيل</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-red-600"><i class="fas fa-heartbeat"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">زكاة الصحة (التبرع بالدم + طبيب الغلبة)</h4>
+                                    <p class="mini-program-desc">مبادرات صحية تشمل حملات التبرع بالدم، وقوافل/خدمات طبية لفائدة الفئات المحتاجة.</p>
+                                    <button class="btn-primary btn-sm" onclick="showProgramDetail('zakat')">التفاصيل</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-hand-holding-heart"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">سفراء الخير</h4>
+                                    <p class="mini-program-desc">مبادرات تطوعية ميدانية لتعزيز روح العطاء وخدمة المجتمع.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-child"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">بسمة يتيم</h4>
+                                    <p class="mini-program-desc">مبادرات اجتماعية لمرافقة الأيتام وإدخال الفرحة عليهم.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+
+                            <div class="mini-program-card">
+                                <div class="mini-program-icon text-purple-600"><i class="fas fa-people-carry"></i></div>
+                                <div class="mini-program-body">
+                                    <h4 class="mini-program-title">تفريج كربة</h4>
+                                    <p class="mini-program-desc">دعم الأسر في الأزمات والمواقف الطارئة وفق الإمكانيات المتاحة.</p>
+                                    <button class="btn-secondary btn-sm" onclick="showComingSoon()">قريباً</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- New: Smart Eco-School – short info block in its own section -->
-    <section class="section-padding bg-emerald-50" id="smart-eco-school">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-start">
-            <div>
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-                    مشروع المدرسة الذكية الإيكولوجية (نموذج)
-                </h2>
-                <p class="text-sm md:text-base text-gray-700 mb-3">
-                    تعمل جمعية أمجاد على تطوير نموذج مدرسة ذكية إيكولوجية يجمع بين التعليم الرقمي،
-                    البعد البيئي، والقيم التربوية داخل فضاء مدرسي واحد، في انسجام مع توجهات المدرسة
-                    المغربية الحديثة.
-                </p>
-                <p class="text-sm md:text-base text-gray-700">
-                    يهدف هذا النموذج إلى خلق بيئة تعليمية حديثة، خضراء ومحفزة، يمكن تكييفها واعتمادها
-                    في مؤسسات تعليمية مختلفة، بشراكة مع المديرية الإقليمية، الجماعات الترابية،
-                    والفاعلين التربويين والخواص.
-                </p>
-            </div>
+    <!-- New: Smart Eco-School – enhanced UX/UI block -->
+    <section class="section-padding bg-gray-50" id="smart-eco-school">
+        <div class="max-w-7xl mx-auto px-4">
+            <div
+                class="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-6 md:p-10 shadow-sm">
+                <!-- Soft blobs -->
+                <div class="absolute -top-24 -left-24 w-72 h-72 bg-emerald-200/40 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-amber-200/40 rounded-full blur-3xl"></div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-emerald-100 p-6">
-                <h3 class="text-lg font-semibold mb-3 text-emerald-700">محاور النموذج</h3>
-                <ul class="space-y-2 text-sm text-gray-700 mb-4">
-                    <li>• فضاء مدرسي أخضر (حدائق مدرسية، تدوير بسيط، سلوكات إيكولوجية).</li>
-                    <li>• استعمال الوسائط الرقمية في التعلم والأنشطة.</li>
-                    <li>• أندية تربوية وقيمية لقيادة التغيير داخل المدرسة.</li>
-                    <li>• انفتاح المدرسة على الشركاء والمجتمع المحلي.</li>
-                </ul>
-                <p class="text-xs text-gray-500 mb-4">
-                    للمؤسسات أو الشركاء الراغبين في اكتشاف هذا النموذج أو دعمه، يمكنكم التواصل معنا
-                    عبر صفحة الاتصال أو طلب ملف الشراكة الخاص بالمشروع.
-                </p>
-                <a href="contact.html"
-                    class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-sm font-semibold text-white shadow-md">
-                    تواصلوا معنا حول مشروع المدرسة الذكية
-                </a>
+                <div class="relative grid lg:grid-cols-2 gap-10 items-start">
+                    <!-- Text side -->
+                    <div>
+                        <div
+                            class="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-2 text-xs font-bold text-emerald-800 border border-emerald-100 shadow-sm">
+                            <i class="fas fa-leaf text-emerald-600"></i>
+                            نموذج قابل للتعميم
+                        </div>
+
+                        <h2 class="mt-4 text-2xl md:text-3xl font-extrabold text-gray-900 leading-snug">
+                            مشروع المدرسة الذكية الإيكولوجية (نموذج)
+                        </h2>
+
+                        <p class="mt-4 text-sm md:text-base text-gray-700 leading-relaxed">
+                            تعمل جمعية أمجاد على تطوير نموذج مدرسة ذكية إيكولوجية يجمع بين التعليم الرقمي،
+                            البعد البيئي، والقيم التربوية داخل فضاء مدرسي واحد، في انسجام مع توجهات المدرسة
+                            المغربية الحديثة.
+                        </p>
+
+                        <p class="mt-3 text-sm md:text-base text-gray-700 leading-relaxed">
+                            يهدف هذا النموذج إلى خلق بيئة تعليمية حديثة، خضراء ومحفزة، يمكن تكييفها واعتمادها
+                            في مؤسسات تعليمية مختلفة، بشراكة مع المديرية الإقليمية، الجماعات الترابية،
+                            والفاعلين التربويين والخواص.
+                        </p>
+
+                        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                            <div class="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-sm">
+                                <h3 class="text-sm font-extrabold text-emerald-800 flex items-center gap-2">
+                                    <i class="fas fa-sitemap text-emerald-600"></i>
+                                    محاور النموذج
+                                </h3>
+                                <ul class="mt-3 space-y-2 text-sm text-gray-700">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span> فضاء مدرسي
+                                        أخضر (حدائق مدرسية، تدوير بسيط، سلوكات إيكولوجية).</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span> استعمال
+                                        الوسائط الرقمية في التعلم والأنشطة.</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span> أندية تربوية
+                                        وقيمية لقيادة التغيير داخل المدرسة.</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span> انفتاح
+                                        المدرسة على الشركاء والمجتمع المحلي.</li>
+                                </ul>
+                            </div>
+
+                            <div class="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-sm">
+                                <h3 class="text-sm font-extrabold text-emerald-800 flex items-center gap-2">
+                                    <i class="fas fa-route text-emerald-600"></i>
+                                    كيف نطبقه داخل مدرسة رائدة؟
+                                </h3>
+                                <ol class="mt-3 space-y-2 text-sm text-gray-700 list-decimal pr-5">
+                                    <li>تشخيص بسيط لاحتياجات المؤسسة وتحديد فضاء التنفيذ (حديقة/نادي).</li>
+                                    <li>تنزيل أنشطة تطبيقية (تكوينات + ورشات + نموذج إيكولوجي داخل المدرسة).</li>
+                                    <li>تتبع وتوثيق النتائج وإعداد تقرير أثر قابل للمشاركة مع الشركاء.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <a href="contact.html"
+                                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-sm font-semibold text-white shadow-md">
+                                تواصلوا معنا حول المشروع
+                            </a>
+                            <a href="news.html"
+                                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-white/80 hover:bg-white text-sm font-semibold text-emerald-800 border border-emerald-100 shadow-sm">
+                                تابعوا آخر الأخبار
+                            </a>
+                        </div>
+
+                        <p class="mt-3 text-xs text-gray-500 leading-relaxed">
+                            للمؤسسات أو الشركاء الراغبين في اكتشاف هذا النموذج أو دعمه، يمكنكم التواصل معنا عبر صفحة
+                            الاتصال أو طلب ملف الشراكة الخاص بالمشروع.
+                        </p>
+                    </div>
+
+                    <!-- Visual side -->
+                    <div class="rounded-3xl bg-white/85 border border-emerald-100 p-6 shadow-sm">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg font-extrabold text-gray-900">لماذا هذا النموذج؟</h3>
+                                <p class="mt-1 text-sm text-gray-600 leading-relaxed">
+                                    لأنه يجمع بين التربية، القيم، والبعد الإيكولوجي في تجربة مدرسية واحدة قابلة للتكرار.
+                                </p>
+                            </div>
+                            <div class="text-emerald-600 text-3xl shrink-0">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 grid sm:grid-cols-2 gap-4">
+                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-sm">فضاء مدرسي أخضر</div>
+                                    <div class="text-xs text-gray-600 leading-relaxed">حدائق مدرسية وسلوكات بيئية بسيطة
+                                        داخل المؤسسة.</div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
+                                    <i class="fas fa-tablet-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-sm">وسائط رقمية</div>
+                                    <div class="text-xs text-gray-600 leading-relaxed">دعم التعلم والأنشطة باستعمال حلول
+                                        رقمية بسيطة.</div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-sm">أندية تربوية وقيمية</div>
+                                    <div class="text-xs text-gray-600 leading-relaxed">أندية وأنشطة تقود التغيير الإيجابي
+                                        داخل المدرسة.</div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gray-900 text-sm">انفتاح على الشركاء</div>
+                                    <div class="text-xs text-gray-600 leading-relaxed">شراكات مع الفاعلين التربويين
+                                        والمحليين والخواص.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 rounded-2xl bg-white border border-emerald-100 p-4">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="text-sm font-bold text-gray-900">هل ترغبون في دعم النموذج؟</div>
+                                <div class="text-emerald-600"><i class="fas fa-arrow-left"></i></div>
+                            </div>
+                            <p class="mt-2 text-xs text-gray-600 leading-relaxed">
+                                يمكنكم التواصل معنا لطلب ملف الشراكة الخاص بالمشروع والتعرف على احتياجات التنفيذ.
+                            </p>
+                            <a href="contact.html"
+                                class="mt-3 inline-flex w-full items-center justify-center px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-sm font-semibold text-white shadow-md">
+                                طلب ملف الشراكة / تواصل
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -508,7 +763,7 @@
 
             <!-- Iftar Al-Khair Program -->
             <div id="iftar-detail" class="program-detail hidden">
-                <div class="program-image" style="background-image: url('/images/Siyam.jpg');">
+                <div class="program-image" style="background-image: url('images/Siyam.jpg');">
                     <div class="program-overlay">
                         <div>
                             <h2 class="text-4xl font-bold mb-4">برنامج إفطار الخير</h2>
@@ -571,13 +826,13 @@
                                     onclick="window.location.href='services.html#volunteer'">تطوع معنا</button>
                             </div>
                         </div>
-                        <!-- Centered, responsive video -->
                     </div>
                 </div>
+
                 <div class="w-full justify-center flex mt-6">
                     <div class="w-full max-w-2xl justify-center rounded-lg">
-                        <video width="50%" class="" bg-black" controls playsinline preload="metadata">
-                            <source src="/images/video.mp4" type="video/mp4">
+                        <video class="w-full bg-black rounded-lg" controls playsinline preload="metadata">
+                            <source src="images/video.mp4" type="video/mp4">
                             متصفحك لا يدعم عرض الفيديو.
                         </video>
                     </div>
@@ -586,11 +841,11 @@
 
             <!-- Zakat Al-Seha Program -->
             <div id="zakat-detail" class="program-detail hidden">
-                <div class="program-image" style="background-image: url('/images/blood.jpeg');">
+                <div class="program-image" style="background-image: url('images/blood.jpeg');">
                     <div class="program-overlay">
                         <div>
-                            <h2 class="text-4xl font-bold mb-4">حملة التبرع بالدم</h2>
-                            <p class="text-xl">نشر ثقافة التبرع بالدم وإنقاذ الأرواح</p>
+                            <h2 class="text-4xl font-bold mb-4">زكاة الصحة</h2>
+                            <p class="text-xl">مبادرات صحية: التبرع بالدم + طبيب الغلبة</p>
                         </div>
                     </div>
                 </div>
@@ -608,16 +863,30 @@
                                 ويشمل أيضًا التوعية بأهمية التبرع بالدم وفوائده الصحية.
                             </p>
 
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">فوائد البرنامج</h4>
+                            <hr class="my-6">
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">من أنشطة البرنامج</h4>
+                            <p class="text-gray-600 mb-4">
+                                في إطار برامجها الاجتماعية، وتنزيلاً لأهداف <span class="font-semibold">برنامج زكاة الصحة</span>، تنظم جمعية أمجاد حملات دورية للتبرع بالدم
+                                بشراكة مع الجهات الصحية المختصة. وقد عرفت سنة 2025 تنظيم النسخة الثامنة من حملة التبرع بالدم بمدينة الصخيرات، يوم 27 نونبر 2025 بالمركز الصحي 2.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                تهدف هذه المبادرة إلى تعزيز ثقافة التبرع بالدم والمساهمة في دعم المخزون الجهوي من هذه المادة الحيوية لإنقاذ الأرواح وتلبية حاجيات المؤسسات الصحية.
+                                وقد شارك في النسخة الثامنة حوالي <span class="font-semibold">45</span> متبرعاً ومتبرعة، في أجواء يسودها الحس الإنساني وروح التضامن.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">طبيب الغلبة (ضمن زكاة الصحة)</h4>
+                            <p class="text-gray-600 mb-0">
+                                إلى جانب حملات التبرع بالدم، يشمل البرنامج مبادرات طبية موجهة للفئات المحتاجة (قوافل صحية، توجيه واستشارات أولية)،
+                                بهدف تقريب الخدمة الصحية وتعزيز الوقاية داخل المجتمع.
+                            </p>
+
+                            <h4 class="text-xl font-bold text-gray-800 mb-3 mt-6">فوائد البرنامج</h4>
                             <ul class="space-y-2 text-gray-600">
-                                <li class="flex items-center"><i class="fas fa-heart text-red-600 ml-2"></i> إنقاذ
-                                    الأرواح</li>
-                                <li class="flex items-center"><i class="fas fa-refresh text-red-600 ml-2"></i> تجديد دم
-                                    المتبرع</li>
-                                <li class="flex items-center"><i class="fas fa-users text-red-600 ml-2"></i> تعزيز
-                                    التضامن</li>
-                                <li class="flex items-center"><i class="fas fa-graduation-cap text-red-600 ml-2"></i>
-                                    التوعية الصحية</li>
+                                <li class="flex items-center"><i class="fas fa-heart text-red-600 ml-2"></i> إنقاذ الأرواح</li>
+                                <li class="flex items-center"><i class="fas fa-refresh text-red-600 ml-2"></i> تجديد دم المتبرع</li>
+                                <li class="flex items-center"><i class="fas fa-users text-red-600 ml-2"></i> تعزيز التضامن</li>
+                                <li class="flex items-center"><i class="fas fa-graduation-cap text-red-600 ml-2"></i> التوعية الصحية</li>
                             </ul>
                         </div>
 
@@ -655,7 +924,7 @@
 
             <!-- Amjad Academy Program -->
             <div id="academy-detail" class="program-detail hidden">
-                <div class="program-image" style="background-image: url('/images/brainwarm.jpeg');">
+                <div class="program-image" style="background-image: url('images/brainwarm.jpeg');">
                     <div class="program-overlay">
                         <div>
                             <h2 class="text-4xl font-bold mb-4">أكاديمية أمجاد</h2>
@@ -679,14 +948,10 @@
 
                             <h4 class="text-xl font-bold text-gray-800 mb-3">المجالات التدريبية</h4>
                             <ul class="space-y-2 text-gray-600">
-                                <li class="flex items-center"><i class="fas fa-laptop text-green-600 ml-2"></i>
-                                    المهارات الرقمية</li>
-                                <li class="flex items-center"><i class="fas fa-microphone text-green-600 ml-2"></i>
-                                    التواصل والعرض</li>
-                                <li class="flex items-center"><i class="fas fa-chart-line text-green-600 ml-2"></i>
-                                    ريادة الأعمال</li>
-                                <li class="flex items-center"><i class="fas fa-users text-green-600 ml-2"></i> القيادة
-                                    والعمل الجماعي</li>
+                                <li class="flex items-center"><i class="fas fa-laptop text-green-600 ml-2"></i> المهارات الرقمية</li>
+                                <li class="flex items-center"><i class="fas fa-microphone text-green-600 ml-2"></i> التواصل والعرض</li>
+                                <li class="flex items-center"><i class="fas fa-chart-line text-green-600 ml-2"></i> ريادة الأعمال</li>
+                                <li class="flex items-center"><i class="fas fa-users text-green-600 ml-2"></i> القيادة والعمل الجماعي</li>
                             </ul>
                         </div>
 
@@ -712,8 +977,7 @@
                             </div>
 
                             <div class="mt-6">
-                                <button class="btn-primary w-full mb-3" onclick="showComingSoon()">سجل في
-                                    البرنامج</button>
+                                <button class="btn-primary w-full mb-3" onclick="showComingSoon()">سجل في البرنامج</button>
                                 <button class="btn-secondary w-full"
                                     onclick="window.location.href='services.html#volunteer'">كن مدربًا متطوعًا</button>
                             </div>
@@ -724,7 +988,7 @@
 
             <!-- Medrasti Al-Hilwa Program -->
             <div id="school-detail" class="program-detail hidden">
-                <div class="program-image" style="background-image: url('/images/event.jpg');">
+                <div class="program-image" style="background-image: url('images/event.jpg');">
                     <div class="program-overlay">
                         <div>
                             <h2 class="text-4xl font-bold mb-4">مدرستي الحلوة</h2>
@@ -749,14 +1013,10 @@
 
                             <h4 class="text-xl font-bold text-gray-800 mb-3">الأنشطة المقدمة</h4>
                             <ul class="space-y-2 text-gray-600">
-                                <li class="flex items-center"><i class="fas fa-palette text-pink-600 ml-2"></i> الفنون
-                                    والرسم</li>
-                                <li class="flex items-center"><i class="fas fa-book text-pink-600 ml-2"></i> مسابقات
-                                    ثقافية</li>
-                                <li class="flex items-center"><i class="fas fa-book text-pink-600 ml-2"></i> القراءة
-                                    والقصص</li>
-                                <li class="flex items-center"><i class="fas fa-flask text-pink-600 ml-2"></i> التجارب
-                                    العلمية البسيطة</li>
+                                <li class="flex items-center"><i class="fas fa-palette text-pink-600 ml-2"></i> الفنون والرسم</li>
+                                <li class="flex items-center"><i class="fas fa-book text-pink-600 ml-2"></i> مسابقات ثقافية</li>
+                                <li class="flex items-center"><i class="fas fa-book text-pink-600 ml-2"></i> القراءة والقصص</li>
+                                <li class="flex items-center"><i class="fas fa-flask text-pink-600 ml-2"></i> التجارب العلمية البسيطة</li>
                             </ul>
                         </div>
 
@@ -790,6 +1050,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -814,8 +1075,7 @@
                         برنامج تربوي وتفاعلي يواكب أجواء كأس الأمم الإفريقية 2025 بأنشطة قيمية وترفيهية
                         داخل المؤسسات التربوية.
                     </p>
-                    <button class="btn-primary w-full"
-                        onclick="window.location.href ='/resources/Cup.html'">اكتشف البرنامج</button>
+                    <button class="btn-primary w-full" onclick="window.location.href ='resources/Cup.html'">اكتشف البرنامج</button>
                 </div>
 
                 <!-- City Memory -->
@@ -830,8 +1090,6 @@
                     </p>
                     <button class="btn-primary w-full" onclick="showComingSoon()">المزيد</button>
                 </div>
-
-                <!-- (يمكن إضافة مبادرة بيئية لاحقاً هنا) -->
             </div>
         </div>
     </section>
@@ -855,10 +1113,8 @@
                     <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
                     <div class="space-y-2">
                         <a href="about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
-                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات
-                            الإلكترونية</a>
-                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج
-                            والخدمات</a>
+                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات الإلكترونية</a>
+                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
                     </div>
                 </div>
@@ -879,14 +1135,14 @@
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="#" class="text-2xl hover:text-green-400 transition-colors">
+                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
                         <a href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad"
+                        <a href=""
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-linkedin"></i>
                         </a>
@@ -903,23 +1159,39 @@
     <!-- Additional JavaScript for Programs -->
     <script>
         function showProgramDetail(programId) {
-            // Hide all program details
             const details = document.querySelectorAll('.program-detail');
             details.forEach(detail => detail.classList.add('hidden'));
 
-            // Show selected program detail
-            document.getElementById(programId + '-detail').classList.remove('hidden');
+            const target = document.getElementById(programId + '-detail');
+            if (!target) return;
+            target.classList.remove('hidden');
 
-            // Scroll to program detail
-            document.getElementById(programId + '-detail').scrollIntoView({
+            target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
+
+        // ✅ Single-open accordion (only one open at a time)
+        (function () {
+            const items = Array.from(document.querySelectorAll('details[data-accordion="programs"]'));
+            if (!items.length) return;
+
+            items.forEach((d) => {
+                d.addEventListener('toggle', () => {
+                    requestAnimationFrame(() => {
+                        if (!d.open) return;
+                        items.forEach((other) => {
+                            if (other !== d) other.open = false;
+                        });
+                    });
+                });
+            });
+        })();
     </script>
 
     <!-- Main JavaScript -->
-    <script src="/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
