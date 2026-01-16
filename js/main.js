@@ -209,31 +209,89 @@ function initializeLanguageSwitcher() {
             if (lang === 'ar') {
                 document.documentElement.dir = 'rtl';
                 document.body.classList.add('rtl');
+                document.body.classList.remove('ltr');
             } else {
                 document.documentElement.dir = 'ltr';
                 document.body.classList.remove('rtl');
+                document.body.classList.add('ltr');
             }
         });
     });
 }
 
 function updateLanguage(lang) {
+    const htmlElements = document.querySelectorAll('[data-translate-html]');
+    htmlElements.forEach(element => {
+        if (!element.dataset.originalHtml) {
+            element.dataset.originalHtml = element.innerHTML;
+        }
+        const key = element.dataset.translateHtml;
+        const value = translations[lang] && translations[lang][key];
+        if (value) {
+            element.innerHTML = value;
+        } else if (lang === 'ar' && element.dataset.originalHtml) {
+            element.innerHTML = element.dataset.originalHtml;
+        }
+    });
+
     const elements = document.querySelectorAll('[data-translate]');
     elements.forEach(element => {
         const key = element.dataset.translate;
-        if (translations[lang] && translations[lang][key]) {
-            if (element.tagName === 'INPUT' && element.type !== 'submit') {
-                element.placeholder = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
+        const value = translations[lang] && translations[lang][key];
+        const attrName = element.dataset.translateAttr;
+
+        if (attrName) {
+            if (!element.dataset.originalAttr) {
+                element.dataset.originalAttr = element.getAttribute(attrName) || '';
             }
+            if (value) {
+                attrName.split(',').map(item => item.trim()).forEach(attr => {
+                    if (attr) {
+                        element.setAttribute(attr, value);
+                    }
+                });
+            } else if (lang === 'ar' && element.dataset.originalAttr) {
+                element.setAttribute(attrName, element.dataset.originalAttr);
+            }
+            return;
+        }
+
+        if ((element.tagName === 'INPUT' && element.type !== 'submit') || element.tagName === 'TEXTAREA') {
+            if (!element.dataset.originalPlaceholder) {
+                element.dataset.originalPlaceholder = element.placeholder || '';
+            }
+            if (value) {
+                element.placeholder = value;
+            } else if (lang === 'ar') {
+                element.placeholder = element.dataset.originalPlaceholder;
+            }
+            return;
+        }
+
+        if (!element.dataset.originalText) {
+            element.dataset.originalText = element.textContent;
+        }
+
+        if (value) {
+            element.textContent = value;
+        } else if (lang === 'ar') {
+            element.textContent = element.dataset.originalText;
         }
     });
-    
-    // Update page title
-    const titleElement = document.querySelector('title');
-    if (titleElement && translations[lang].heroTitle) {
-        titleElement.textContent = translations[lang].heroTitle;
+
+    // Update page title when it uses a translation key
+    const titleElement = document.querySelector('title[data-translate]');
+    if (titleElement) {
+        if (!titleElement.dataset.originalText) {
+            titleElement.dataset.originalText = titleElement.textContent;
+        }
+        const key = titleElement.dataset.translate;
+        const value = translations[lang] && translations[lang][key];
+        if (value) {
+            titleElement.textContent = value;
+        } else if (lang === 'ar') {
+            titleElement.textContent = titleElement.dataset.originalText || titleElement.textContent;
+        }
     }
 }
 

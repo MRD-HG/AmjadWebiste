@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الأخبار - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
-    <meta name="description" content="تابع آخر أخبار جمعية أمجاد وأنشطتها، واستعرض أرشيفنا الإخباري">
+    <title data-translate="news_title">الأخبار - جمعية أمجاد للتربية والأعمال الاجتماعية</title>
+    <meta name="description" data-translate="news_meta_description" data-translate-attr="content"
+        content="تابع آخر أخبار جمعية أمجاد وأنشطتها، واستعرض أرشيفنا الإخباري">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -236,7 +237,8 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Logo -->
             <div class="flex items-center gap-4">
-                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto">
+                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto" data-translate="news_logo_alt"
+                    data-translate-attr="alt">
 
             </div>
 
@@ -252,10 +254,9 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
                     data-translate="news">الأخبار</a>
-                     <a href="resources/Cup.html"
-           class="nav-highlight">
-           كأس إفريقيا 2025
-          </a>
+                <a href="resources/Cup.html" class="nav-highlight" data-translate="nav_afcon_2025">
+                    كأس إفريقيا 2025
+                </a>
                 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
                     data-translate="contact">الاتصال</a>
             </div>
@@ -289,10 +290,9 @@
                     data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
                     data-translate="news">الأخبار</a>
-                     <a href="resources/Cup.html"
-           class="nav-highlight">
-           كأس إفريقيا 2025
-          </a>
+                <a href="resources/Cup.html" class="nav-highlight" data-translate="nav_afcon_2025">
+                    كأس إفريقيا 2025
+                </a>
                 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
                     data-translate="contact">الاتصال</a>
             </div>
@@ -304,7 +304,8 @@
         <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
             <h1 class="text-4xl md:text-5xl font-bold mb-4" data-translate="latestNews">الأخبار</h1>
-            <p class="text-xl md:text-2xl">تابع آخر أخبار الجمعية ومستجداتها، وكن دائمًا على اطلاع بكل ما ننجزه معًا</p>
+            <p class="text-xl md:text-2xl" data-translate="news_hero_subtitle">تابع آخر أخبار الجمعية ومستجداتها، وكن
+                دائمًا على اطلاع بكل ما ننجزه معًا</p>
         </div>
     </section>
 
@@ -313,17 +314,23 @@
         <div class="max-w-7xl mx-auto px-4">
             <!-- Search Box -->
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="ابحث عن أخبار..." id="news-search">
+                <input type="text" class="search-input" placeholder="ابحث عن أخبار..." id="news-search"
+                    data-translate="news_search_placeholder">
                 <i class="fas fa-search search-icon"></i>
             </div>
 
             <!-- Filter Buttons -->
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterNews('all', this)">الكل</button>
-                <button class="filter-btn" onclick="filterNews('news', this)">الأخبار</button>
-                <button class="filter-btn" onclick="filterNews('events', this)">الفعاليات</button>
-                <button class="filter-btn" onclick="filterNews('programs', this)">البرامج</button>
-                <button class="filter-btn" onclick="filterNews('announcements', this)">الإعلانات</button>
+                <button class="filter-btn active" onclick="filterNews('all', this)"
+                    data-translate="news_filter_all">الكل</button>
+                <button class="filter-btn" onclick="filterNews('news', this)"
+                    data-translate="news_filter_news">الأخبار</button>
+                <button class="filter-btn" onclick="filterNews('events', this)"
+                    data-translate="news_filter_events">الفعاليات</button>
+                <button class="filter-btn" onclick="filterNews('programs', this)"
+                    data-translate="news_filter_programs">البرامج</button>
+                <button class="filter-btn" onclick="filterNews('announcements', this)"
+                    data-translate="news_filter_announcements">الإعلانات</button>
             </div>
         </div>
     </section>
@@ -335,17 +342,20 @@
 
                 <!-- News Item 7 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="news">
-                    <img src="images/jam3.jpeg" alt="الجمع العام" class="w-full h-48 object-cover">
+                    <img src="images/jam3.jpeg" alt="الجمع العام" class="w-full h-48 object-cover"
+                        data-translate="news_card7_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">أخبار</span>
-                            <span class="date-badge">سنة 2025</span>
+                            <span class="category-badge" data-translate="news_category_news">أخبار</span>
+                            <span class="date-badge" data-translate="news_date_2025_year">سنة 2025</span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">جمعية أمجاد تعقد الجمع العام لمراجعة خطتها الاستراتيجية</h3>
-                        <p class="text-gray-600 mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card7_title">جمعية أمجاد
+                            تعقد الجمع العام لمراجعة خطتها الاستراتيجية</h3>
+                        <p class="text-gray-600 mb-4" data-translate="news_card7_desc">
                             محطة تنظيمية لتقييم المسار، والمصادقة على التقريرين الأدبي والمالي، واعتماد البرنامج السنوي ضمن رؤية تطوير العمل الجمعوي.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news7')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news7')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
@@ -354,108 +364,126 @@
                 <!-- News Item 4 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
                     data-category="events">
-                    <img src="images/clone.jpeg" alt="إنجاز الجمعية" class="w-full h-48 object-cover">
+                    <img src="images/clone.jpeg" alt="إنجاز الجمعية" class="w-full h-48 object-cover"
+                        data-translate="news_card4_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">فعاليات</span>
-                            <span class="date-badge">الأحد 19 أكتوبر 2025 </span>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <span class="date-badge" data-translate="news_date_oct_19_2025">الأحد 19 أكتوبر 2025 </span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">صبحية البهلوان</h3>
-                        <p class="text-gray-600 mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card4_title">صبحية
+                            البهلوان</h3>
+                        <p class="text-gray-600 mb-4" data-translate="news_card4_desc">
                             بدعم من المجلس الجماعي الصخيرات وفي إطار
                             تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد
                             للتربية والأعمال الإجتماعية صبحية البهلوان وذلك يوم
                             بدار الشباب الصخيرات المركز
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news4')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news4')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 5 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
                     data-category="announcements">
-                    <img src="images/masa2.jpg" alt="إعلان جديد" class="w-full h-48 object-cover">
+                    <img src="images/masa2.jpg" alt="إعلان جديد" class="w-full h-48 object-cover"
+                        data-translate="news_card5_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">إعلانات</span>
+                            <span class="category-badge" data-translate="news_category_announcements">إعلانات</span>
 
-                            <span class="date-badge"> السبت 11 أكتوبر 2025 </span>
+                            <span class="date-badge" data-translate="news_date_oct_11_2025"> السبت 11 أكتوبر 2025 </span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3"> أمسية التنشيط التربوي</h3>
-                        <p class="text-gray-600 mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card5_title"> أمسية
+                            التنشيط التربوي</h3>
+                        <p class="text-gray-600 mb-4" data-translate-html="news_card5_desc">
                             بدعم من المجلس الجماعي الصخيرات <br>وفي إطار
                             تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد
                             للتربية والأعمال الإجتماعية أمسية التنشيط التربوي
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news5')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news5')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
                 <!-- News Item 1 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
-                    <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover">
+                    <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover"
+                        data-translate="news_card1_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">فعاليات</span>
-                            <span class="date-badge">15 أكتوبر 2025</span>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <span class="date-badge" data-translate="news_date_oct_15_2025">15 أكتوبر 2025</span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">جمعية أمجاد تحتفي بأربع سنوات من العطاء والتميز
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card1_title">جمعية أمجاد
+                            تحتفي بأربع سنوات من العطاء والتميز
                         </h3>
-                        <p class="text-gray-600 mb-4">
+                        <p class="text-gray-600 mb-4" data-translate="news_card1_desc">
                             احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
                             من العطاء... وباقين مستمرين".
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news1')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news1')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 2 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
-                    <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover">
+                    <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover"
+                        data-translate="news_card2_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">برامج</span>
-                            <span class="date-badge">27 نونبر 2025</span>
+                            <span class="category-badge" data-translate="news_category_programs">برامج</span>
+                            <span class="date-badge" data-translate="news_date_nov_27_2025">27 نونبر 2025</span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">جمعية أمجاد تنظم النسخة الثامنة من حملة التبرع بالدم بالصخيرات</h3>
-                        <p class="text-gray-600 mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card2_title">جمعية أمجاد
+                            تنظم النسخة الثامنة من حملة التبرع بالدم بالصخيرات</h3>
+                        <p class="text-gray-600 mb-4" data-translate="news_card2_desc">
                             نظمت جمعية أمجاد حملة التبرع بالدم في نسختها الثامنة بمدينة الصخيرات، بشراكة مع الجهات الصحية المختصة، بمشاركة حوالي 45 متبرعاً ومتطوعة.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news2')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news2')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 3 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
-                    <img src="images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover">
+                    <img src="images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover"
+                        data-translate="news_card3_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">برامج</span>
-                            <span class="date-badge">28 سبتمبر 2025</span>
+                            <span class="category-badge" data-translate="news_category_programs">برامج</span>
+                            <span class="date-badge" data-translate="news_date_sep_28_2025">28 سبتمبر 2025</span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">تنظيم حفل الدخول المدرسي في مدرسة المرابطين
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card3_title">تنظيم حفل
+                            الدخول المدرسي في مدرسة المرابطين
                         </h3>
-                        <p class="text-gray-600 mb-4">
+                        <p class="text-gray-600 mb-4" data-translate="news_card3_desc">
                             نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news3')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news3')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
                 <!-- News Item 6 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
-                    <img src="images/Siyam.jpg" alt="فعالية المجتمع" class="w-full h-48 object-cover">
+                    <img src="images/Siyam.jpg" alt="فعالية المجتمع" class="w-full h-48 object-cover"
+                        data-translate="news_card6_alt" data-translate-attr="alt">
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="category-badge">فعاليات</span>
-                            <span class="date-badge">10 سبتمبر 2025</span>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <span class="date-badge" data-translate="news_date_sep_10_2025">10 سبتمبر 2025</span>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">مشروع إفطار الخير رمضان</h3>
-                        <p class="text-gray-600 mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="news_card6_title">مشروع إفطار
+                            الخير رمضان</h3>
+                        <p class="text-gray-600 mb-4" data-translate="news_card6_desc">
                             إفطار الخير، هو حملة يتم من خلالها توزيع وجبة إفطار على الصائمين
                             الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news6')">إقرأ المزيد</button>
+                        <button class="btn-primary" onclick="showNewsDetail('news6')"
+                            data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
@@ -463,7 +491,8 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()">عرض المزيد من الأخبار</button>
+                <button class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
+                    data-translate="news_load_more">عرض المزيد من الأخبار</button>
             </div>
         </div>
     </section>
@@ -475,31 +504,33 @@
                 <div class="news-image" style="background-image: url('images/jam3.jpeg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">فعاليات</span>
-                            <h2 class="text-3xl font-bold mb-2">جمعية أمجاد تحتفي بأربع سنوات من العطاء والتميز</h2>
-                            <p class="text-lg">15 أكتوبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card1_title">جمعية أمجاد تحتفي بأربع
+                                سنوات من العطاء والتميز</h2>
+                            <p class="text-lg" data-translate="news_date_oct_15_2025">15 أكتوبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-lg text-gray-600 mb-6">
+                        <p class="text-lg text-gray-600 mb-6" data-translate="news_detail1_intro">
                             احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية، مساء أمس السبت، بمرور أربع سنوات على
                             تأسيسها،
                             وذلك تحت شعار "سنوات من العطاء... وباقين مستمرين"، في حفل بهيج أقيم بمقر الجمعية بمدينة
                             الصخيرات.
                         </p>
 
-                        <p class="text-gray-600 mb-6">
+                        <p class="text-gray-600 mb-6" data-translate-html="news_detail1_attendance">
                             الحفل الذي ترأسه رئيس الجمعية السيد<b>مصطفى أهواوي </b> ، عرف حضورًا مكثفًا لأعضاء الجمعية
                             والمتطوعين
                             والشركاء والمتعاونين، الذين التأموا لتخليد هذه الذكرى المميزة، والتي جاءت لتؤكد على التزام
                             الجمعية بمواصلة مسيرتها في خدمة المجتمع.
                         </p>
 
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">كلمة رئيس الجمعية</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="news_detail1_speech_title">
+                            كلمة رئيس الجمعية</h3>
+                        <p class="text-gray-600 mb-6" data-translate-html="news_detail1_speech_text">
                             في كلمته الافتتاحية، أبرز السيد،<b> مصطفى أهواوي</b> أهم المحطات التي مرت منها الجمعية منذ
                             تأسيسها
                             سنة 2021،
@@ -507,34 +538,38 @@
                             خلال السنوات الأربع الماضية.
                         </p>
 
-                        <blockquote class="border-r-4 border-green-600 pr-4 italic text-gray-700 mb-6">
+                        <blockquote class="border-r-4 border-green-600 pr-4 italic text-gray-700 mb-6"
+                            data-translate="news_detail1_quote">
                             "إن هذا الاحتفال هو مناسبة لتجديد العهد والوفاء للمجتمع الذي نخدمه، وتأكيدًا على عزمنا
                             مواصلة العمل
                             بروح التطوع والإخلاص، والسعي الدؤوب لتقديم خدمات نوعية تلبي تطلعات الفئات المحتاجة."
                         </blockquote>
 
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">فعاليات الجمعية</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="news_detail1_events_title">
+                            فعاليات الجمعية</h3>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail1_events_intro">
                             واستعرض البكري أهم الفعاليات التي حققتها الجمعية خلال هذه الفترة، والتي تشمل:
                         </p>
 
                         <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2">
-                            <li>تنظيم أكثر من 25 حملة وفعالية مجتمعية</li>
-                            <li>استفادة أكثر من 2500 شخص من خدمات الجمعية</li>
-                            <li>تكوين شبكة من 150 متطوع نشط</li>
-                            <li>إطلاق 6 برامج رئيسية مستدامة</li>
-                            <li>شراكات مع عدة مؤسسات وجمعيات محلية</li>
+                            <li data-translate="news_detail1_event_1">تنظيم أكثر من 25 حملة وفعالية مجتمعية</li>
+                            <li data-translate="news_detail1_event_2">استفادة أكثر من 2500 شخص من خدمات الجمعية</li>
+                            <li data-translate="news_detail1_event_3">تكوين شبكة من 150 متطوع نشط</li>
+                            <li data-translate="news_detail1_event_4">إطلاق 6 برامج رئيسية مستدامة</li>
+                            <li data-translate="news_detail1_event_5">شراكات مع عدة مؤسسات وجمعيات محلية</li>
                         </ul>
 
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">البرامج المستقبلية</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="news_detail1_future_title">
+                            البرامج المستقبلية</h3>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail1_future_desc">
                             وأعلن رئيس الجمعية عن خطة العمل للسنة القادمة، والتي تتضمن توسيع نطاق البرامج الحالية
                             وإطلاق مبادرات جديدة تستجيب لحاجيات المجتمع، مع التركيز على تمكين الشباب والمرأة.
                         </p>
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -543,24 +578,33 @@
                 <div class="news-image" style="background-image: url('images/blood.jpeg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">برامج</span>
-                            <h2 class="text-3xl font-bold mb-2">جمعية أمجاد تنظم النسخة الثامنة من حملة التبرع بالدم بالصخيرات</h2>
-                            <p class="text-lg">27 نونبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_programs">برامج</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card2_title">جمعية أمجاد تنظم النسخة
+                                الثامنة من حملة التبرع بالدم بالصخيرات</h2>
+                            <p class="text-lg" data-translate="news_date_nov_27_2025">27 نونبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">في إطار برامجها الاجتماعية وتنزيلاً لأهداف برنامج «زكاة الصحة»، نظمت جمعية أمجاد للتربية والأعمال الاجتماعية النسخة الثامنة من حملة التبرع بالدم بمدينة الصخيرات، وذلك يوم 27 نونبر 2025 بالمركز الصحي 2.</p>
-<p class="text-gray-600 mb-6">تندرج هذه المبادرة ضمن تعزيز ثقافة التبرع بالدم والمساهمة في دعم المخزون الجهوي من هذه المادة الحيوية، لما لها من دور أساسي في إنقاذ الأرواح وتلبية حاجيات المؤسسات الصحية.</p>
-<p class="text-gray-600 mb-6">عرفت هذه الحملة مشاركة حوالي 45 متبرعاً ومتبرعة، في أجواء يسودها الحس الإنساني وروح التضامن والتكافل الاجتماعي.</p>
-<p class="text-gray-600 mb-6">وتتقدم جمعية أمجاد بجزيل الشكر والتقدير لكافة المتبرعين والمتطوعين، وكذا للأطر الصحية والإدارية والجهات الشريكة على تعاونهم ومجهوداتهم لإنجاح هذه المبادرة.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail2_p1">في إطار برامجها الاجتماعية وتنزيلاً
+                            لأهداف برنامج «زكاة الصحة»، نظمت جمعية أمجاد للتربية والأعمال الاجتماعية النسخة الثامنة من
+                            حملة التبرع بالدم بمدينة الصخيرات، وذلك يوم 27 نونبر 2025 بالمركز الصحي 2.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail2_p2">تندرج هذه المبادرة ضمن تعزيز ثقافة
+                            التبرع بالدم والمساهمة في دعم المخزون الجهوي من هذه المادة الحيوية، لما لها من دور أساسي في
+                            إنقاذ الأرواح وتلبية حاجيات المؤسسات الصحية.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail2_p3">عرفت هذه الحملة مشاركة حوالي 45
+                            متبرعاً ومتبرعة، في أجواء يسودها الحس الإنساني وروح التضامن والتكافل الاجتماعي.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail2_p4">وتتقدم جمعية أمجاد بجزيل الشكر
+                            والتقدير لكافة المتبرعين والمتطوعين، وكذا للأطر الصحية والإدارية والجهات الشريكة على تعاونهم
+                            ومجهوداتهم لإنجاح هذه المبادرة.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -569,22 +613,26 @@
                 <div class="news-image" style="background-image: url('images/dokhol.jpeg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">برامج</span>
-                            <h2 class="text-3xl font-bold mb-2">تنظيم حفل الدخول المدرسي في مدرسة المرابطين</h2>
-                            <p class="text-lg">28 سبتمبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_programs">برامج</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card3_title">تنظيم حفل الدخول
+                                المدرسي في مدرسة المرابطين</h2>
+                            <p class="text-lg" data-translate="news_date_sep_28_2025">28 سبتمبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.</p>
-<p class="text-gray-600 mb-6">تفاصيل إضافية حول هذه الفعالية سيتم نشرها قريباً على موقع الجمعية.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail3_p1">نظمت الجمعية حفل الدخول المدرسي
+                            في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail3_p2">تفاصيل إضافية حول هذه الفعالية
+                            سيتم نشرها قريباً على موقع الجمعية.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -593,22 +641,26 @@
                 <div class="news-image" style="background-image: url('images/clone.jpeg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">فعاليات</span>
-                            <h2 class="text-3xl font-bold mb-2">صبحية البهلوان</h2>
-                            <p class="text-lg">الأحد 19 أكتوبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card4_title">صبحية البهلوان</h2>
+                            <p class="text-lg" data-translate="news_date_oct_19_2025">الأحد 19 أكتوبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">بدعم من المجلس الجماعي الصخيرات وفي إطار تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد للتربية والأعمال الإجتماعية صبحية البهلوان وذلك يوم بدار الشباب الصخيرات المركز</p>
-<p class="text-gray-600 mb-6">سيتم تحديث هذا الخبر بالتفاصيل والصور الكاملة قريباً.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail4_p1">بدعم من المجلس الجماعي الصخيرات
+                            وفي إطار تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد للتربية والأعمال الإجتماعية
+                            صبحية البهلوان وذلك يوم بدار الشباب الصخيرات المركز</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail4_p2">سيتم تحديث هذا الخبر بالتفاصيل
+                            والصور الكاملة قريباً.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -617,22 +669,27 @@
                 <div class="news-image" style="background-image: url('images/masa2.jpg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">إعلانات</span>
-                            <h2 class="text-3xl font-bold mb-2">أمسية التنشيط التربوي</h2>
-                            <p class="text-lg">السبت 11 أكتوبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_announcements">إعلانات</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card5_title">أمسية التنشيط التربوي
+                            </h2>
+                            <p class="text-lg" data-translate="news_date_oct_11_2025">السبت 11 أكتوبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">بدعم من المجلس الجماعي الصخيرات وفي إطار تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد للتربية والأعمال الإجتماعية أمسية التنشيط التربوي</p>
-<p class="text-gray-600 mb-6">تابعوا صفحة الأخبار للاطلاع على التقرير الكامل والتفاصيل قريباً.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail5_p1">بدعم من المجلس الجماعي الصخيرات
+                            وفي إطار تنزيل برنامج قافلة أمجاد التربوية نظمت جمعية أمجاد للتربية والأعمال الإجتماعية
+                            أمسية التنشيط التربوي</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail5_p2">تابعوا صفحة الأخبار للاطلاع على
+                            التقرير الكامل والتفاصيل قريباً.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -641,22 +698,26 @@
                 <div class="news-image" style="background-image: url('images/Siyam.jpg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">فعاليات</span>
-                            <h2 class="text-3xl font-bold mb-2">مشروع إفطار الخير رمضان</h2>
-                            <p class="text-lg">10 سبتمبر 2025</p>
+                            <span class="category-badge" data-translate="news_category_events">فعاليات</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_card6_title">مشروع إفطار الخير رمضان
+                            </h2>
+                            <p class="text-lg" data-translate="news_date_sep_10_2025">10 سبتمبر 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">إفطار الخير، هو حملة يتم من خلالها توزيع وجبة إفطار على الصائمين الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،</p>
-<p class="text-gray-600 mb-6">تفاصيل البرنامج (أماكن/مواعيد) سيتم الإعلان عنها عند توفرها.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail6_p1">إفطار الخير، هو حملة يتم من خلالها
+                            توزيع وجبة إفطار على الصائمين الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail6_p2">تفاصيل البرنامج (أماكن/مواعيد)
+                            سيتم الإعلان عنها عند توفرها.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -665,24 +726,34 @@
                 <div class="news-image" style="background-image: url('images/jam3.jpeg');">
                     <div class="news-overlay">
                         <div>
-                            <span class="category-badge">أخبار</span>
-                            <h2 class="text-3xl font-bold mb-2">جمعية أمجاد تعقد الجمع العام لمراجعة خطتها الاستراتيجية والمصادقة على التقرير الأدبي والمالي</h2>
-                            <p class="text-lg">سنة 2025</p>
+                            <span class="category-badge" data-translate="news_category_news">أخبار</span>
+                            <h2 class="text-3xl font-bold mb-2" data-translate="news_detail7_title">جمعية أمجاد تعقد الجمع
+                                العام لمراجعة خطتها الاستراتيجية والمصادقة على التقرير الأدبي والمالي</h2>
+                            <p class="text-lg" data-translate="news_date_2025_year">سنة 2025</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div class="prose max-w-none">
-                        <p class="text-gray-600 mb-6">في إطار سعيها المتواصل إلى تطوير أدائها التنظيمي والتربوي وتعزيز حكامتها الداخلية، دأبت جمعية أمجاد للتربية والأعمال الاجتماعية على تنظيم جمعها العام كل سنة.</p>
-<p class="text-gray-600 mb-6">خصص هذا الجمع العام لمراجعة الخطة الاستراتيجية والمصادقة على التقرير الأدبي والمالي والبرنامج السنوي، ضمن رؤية ترمي إلى الارتقاء بالعمل الجمعوي وخدمة الفئات المستهدفة وعلى رأسها الأطفال والأسر.</p>
-<p class="text-gray-600 mb-6">انعقد الجمع العام بمشاركة أعضاء المكتب المركزي والمنخرطين، وشكّل محطة تشاورية لتقييم مسار الجمعية وتشخيص واقعها التنظيمي والبرامجي.</p>
-<p class="text-gray-600 mb-6">وتضمن برنامج الجمع العام لحفل مرور أربع سنوات تم خلاله تكريم بعض أطر الجمعية، واختتم بالتأكيد على أهمية التخطيط الاستراتيجي وضرورة تضافر الجهود لتنزيل مضامين الخطة على أرض الواقع.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail7_p1">في إطار سعيها المتواصل إلى تطوير
+                            أدائها التنظيمي والتربوي وتعزيز حكامتها الداخلية، دأبت جمعية أمجاد للتربية والأعمال
+                            الاجتماعية على تنظيم جمعها العام كل سنة.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail7_p2">خصص هذا الجمع العام لمراجعة الخطة
+                            الاستراتيجية والمصادقة على التقرير الأدبي والمالي والبرنامج السنوي، ضمن رؤية ترمي إلى
+                            الارتقاء بالعمل الجمعوي وخدمة الفئات المستهدفة وعلى رأسها الأطفال والأسر.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail7_p3">انعقد الجمع العام بمشاركة أعضاء
+                            المكتب المركزي والمنخرطين، وشكّل محطة تشاورية لتقييم مسار الجمعية وتشخيص واقعها التنظيمي
+                            والبرامجي.</p>
+                        <p class="text-gray-600 mb-6" data-translate="news_detail7_p4">وتضمن برنامج الجمع العام لحفل مرور
+                            أربع سنوات تم خلاله تكريم بعض أطر الجمعية، واختتم بالتأكيد على أهمية التخطيط الاستراتيجي
+                            وضرورة تضافر الجهود لتنزيل مضامين الخطة على أرض الواقع.</p>
                         
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()">إغلاق</button>
+                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                            data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
             </div>
@@ -699,8 +770,10 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
                     <div class="space-y-2">
-                        <p><i class="fas fa-map-marker-alt ml-2"></i> الصخيرات المغرب</p>
-                        <p><i class="fas fa-phone ml-2"></i> الهاتف: سيتم الإعلان عن الرقم الرسمي للجمعية قريبًا</p>
+                        <p><i class="fas fa-map-marker-alt ml-2"></i> <span
+                                data-translate="news_footer_address">الصخيرات المغرب</span></p>
+                        <p><i class="fas fa-phone ml-2"></i> <span data-translate="news_footer_phone">الهاتف: سيتم الإعلان
+                                عن الرقم الرسمي للجمعية قريبًا</span></p>
                         <p><i class="fas fa-envelope ml-2"></i> a.amjad.eos@gmail.com</p>
                     </div>
                 </div>
@@ -708,14 +781,16 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <h3 class="text-xl font-bold mb-4" data-translate="footer_quick_links_title">روابط سريعة</h3>
                     <div class="space-y-2">
-                        <a href="about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
-                        <a href="services.html" class="block hover:text-green-400 transition-colors">الخدمات
-                            الإلكترونية</a>
-                        <a href="programs.html" class="block hover:text-green-400 transition-colors">البرامج
-                            والخدمات</a>
-                        <a href="news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
+                        <a href="about.html" class="block hover:text-green-400 transition-colors"
+                            data-translate="about">عن الجمعية</a>
+                        <a href="services.html" class="block hover:text-green-400 transition-colors"
+                            data-translate="services">الخدمات الإلكترونية</a>
+                        <a href="programs.html" class="block hover:text-green-400 transition-colors"
+                            data-translate="programs">البرامج والخدمات</a>
+                        <a href="news.html" class="block hover:text-green-400 transition-colors"
+                            data-translate="news">الأخبار</a>
                     </div>
                 </div>
 
@@ -750,7 +825,8 @@
             </div>
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>&copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.</p>
+                <p data-translate="footer_rights">&copy; 2025 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق
+                    محفوظة.</p>
             </div>
         </div>
     </footer>

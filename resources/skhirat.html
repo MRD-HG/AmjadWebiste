@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>الصخيرات — تعريف المدينة | جمعية أمجاد</title>
-    <meta name="description" content="معلومات عامة عن مدينة الصخيرات: الموقع، التاريخ، المعالم، المناخ والاقتصاد." />
+    <title data-translate="skhirat_title">الصخيرات — تعريف المدينة | جمعية أمجاد</title>
+    <meta name="description" content="معلومات عامة عن مدينة الصخيرات: الموقع، التاريخ، المعالم، المناخ والاقتصاد."
+        data-translate="skhirat_meta_description" data-translate-attr="content" />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -71,18 +72,25 @@
     <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="../index.html" class="flex items-center gap-3">
-                <img src="../images/logoamjad.png" alt="logo" class="h-10 w-auto">
+                <img src="../images/logoamjad.png" alt="logo" class="h-10 w-auto" data-translate="skhirat_logo_alt"
+                    data-translate-attr="alt">
             </a>
 
             <div class="hidden md:flex items-center gap-6">
-                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium">الرئيسية</a>
-                <a href="Cup.html" class="text-gray-800 hover:text-green-600 font-medium">تكريم</a>
-                <a href="skhirat.html" class="text-green-600 font-medium">الصخيرات</a>
-                <a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium">اتصل بنا</a>
+                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="home">الرئيسية</a>
+                <a href="Cup.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="skhirat_nav_honor">تكريم</a>
+                <a href="skhirat.html" class="text-green-600 font-medium"
+                    data-translate="skhirat_nav_city">الصخيرات</a>
+                <a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium"
+                    data-translate="contact">اتصل بنا</a>
             </div>
 
             <div class="flex items-center gap-3">
                 <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="ar">العربية</button>
+                <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="en">EN</button>
+                <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="fr">FR</button>
                 <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -92,10 +100,10 @@
         <!-- mobile menu -->
         <div id="mobileMenu" class="mobile-menu hidden md:hidden mt-4 pb-4">
             <div class="max-w-7xl mx-auto px-4 flex flex-col gap-3">
-                <a href="../index.html" class="py-2">الرئيسية</a>
-                <a href="Cup.html" class="py-2">تكريم</a>
-                <a href="skhirat.html" class="py-2">الصخيرات</a>
-                <a href="../contact.html" class="py-2">اتصل بنا</a>
+                <a href="../index.html" class="py-2" data-translate="home">الرئيسية</a>
+                <a href="Cup.html" class="py-2" data-translate="skhirat_nav_honor">تكريم</a>
+                <a href="skhirat.html" class="py-2" data-translate="skhirat_nav_city">الصخيرات</a>
+                <a href="../contact.html" class="py-2" data-translate="contact">اتصل بنا</a>
             </div>
         </div>
     </nav>
@@ -103,9 +111,9 @@
     <!-- Hero -->
     <header class="hero mt-20 text-center px-4">
         <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl md:text-4xl font-bold">الصخيرات</h1>
-            <p class="mt-3 text-sm md:text-base max-w-2xl mx-auto">مدينة ساحلية مغربية ذات طابع سياحي وترفيهي، تتميز
-                بشواطئها ومرافقها القريبة من العاصمة.</p>
+            <h1 class="text-3xl md:text-4xl font-bold" data-translate="skhirat_hero_title">الصخيرات</h1>
+            <p class="mt-3 text-sm md:text-base max-w-2xl mx-auto" data-translate="skhirat_hero_subtitle">
+                مدينة ساحلية مغربية ذات طابع سياحي وترفيهي، تتميز بشواطئها ومرافقها القريبة من العاصمة.</p>
         </div>
     </header>
 
@@ -116,8 +124,8 @@
             <section class="info-card p-6 md:p-8">
                 <div class="grid md:grid-cols-3 gap-6 items-start">
                     <div class="md:col-span-2 text-right">
-                        <h2 class="text-2xl font-bold mb-3">نظرة عامة</h2>
-                        <p class="text-gray-700 leading-relaxed">
+                        <h2 class="text-2xl font-bold mb-3" data-translate="skhirat_overview_title">نظرة عامة</h2>
+                        <p class="text-gray-700 leading-relaxed" data-translate="skhirat_overview_text">
                             الصخيرات تقع على ساحل المحيط الأطلسي قرب العاصمة، وتعرف بمزيج من النشاط السياحي، السكني
                             والمشاريع التنموية.
                             تتميز ببيئة حضرية هادئة وشواطئ مناسبة للأنشطة العائلية والفعاليات الثقافية والرياضية.
@@ -126,16 +134,17 @@
 
                     <div class="text-right">
                         <div class="mb-4">
-                            <div class="text-sm text-gray-500">المنطقة</div>
-                            <div class="stat-number">ساحل شمالي المغرب</div>
+                            <div class="text-sm text-gray-500" data-translate="skhirat_stat_region_label">المنطقة</div>
+                            <div class="stat-number" data-translate="skhirat_stat_region_value">ساحل شمالي المغرب</div>
                         </div>
                         <div class="mb-4">
-                            <div class="text-sm text-gray-500">اللغة</div>
-                            <div class="stat-number">العربية، أمازيغية وفرنسية مستخدمة</div>
+                            <div class="text-sm text-gray-500" data-translate="skhirat_stat_language_label">اللغة</div>
+                            <div class="stat-number" data-translate="skhirat_stat_language_value">العربية، أمازيغية وفرنسية
+                                مستخدمة</div>
                         </div>
                         <div>
-                            <div class="text-sm text-gray-500">الطابع</div>
-                            <div class="stat-number">سياحي/سكني</div>
+                            <div class="text-sm text-gray-500" data-translate="skhirat_stat_character_label">الطابع</div>
+                            <div class="stat-number" data-translate="skhirat_stat_character_value">سياحي/سكني</div>
                         </div>
                     </div>
                 </div>
@@ -144,19 +153,21 @@
             <!-- History & Culture -->
             <section class="grid md:grid-cols-2 gap-6">
                 <article class="info-card p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-right">التاريخ والثقافة</h3>
-                    <p class="text-gray-700 leading-relaxed text-right">
+                    <h3 class="text-xl font-semibold mb-3 text-right" data-translate="skhirat_history_title">التاريخ والثقافة
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed text-right" data-translate="skhirat_history_text">
                         تتمتع المنطقة بخلفية تاريخية مرتبطة بتطور السواحل والقرب من المراكز الحضرية الكبرى. ثقافياً،
                         تزخر بمزيج من التقاليد المحلية والأنشطة المعاصرة التي تستقطب زواراً خلال فترات العطل والفعاليات.
                     </p>
                 </article>
 
                 <article class="info-card p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-right">المعالم والأنشطة</h3>
+                    <h3 class="text-xl font-semibold mb-3 text-right" data-translate="skhirat_landmarks_title">المعالم
+                        والأنشطة</h3>
                     <ul class="list-disc list-inside text-gray-700 text-right space-y-2">
-                        <li>شواطئ واسعة مناسبة للسباحة والنزهات.</li>
-                        <li>مرافق للفنادق والمنتجعات والخدمات السياحية.</li>
-                        <li>فعاليات ومهرجانات محلية موسمية.</li>
+                        <li data-translate="skhirat_landmarks_item_1">شواطئ واسعة مناسبة للسباحة والنزهات.</li>
+                        <li data-translate="skhirat_landmarks_item_2">مرافق للفنادق والمنتجعات والخدمات السياحية.</li>
+                        <li data-translate="skhirat_landmarks_item_3">فعاليات ومهرجانات محلية موسمية.</li>
                     </ul>
                 </article>
             </section>
@@ -164,8 +175,8 @@
             <!-- Climate & Transport -->
             <section class="grid md:grid-cols-2 gap-6">
                 <div class="info-card p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-right">المناخ</h3>
-                    <p class="text-gray-700 leading-relaxed text-right">
+                    <h3 class="text-xl font-semibold mb-3 text-right" data-translate="skhirat_climate_title">المناخ</h3>
+                    <p class="text-gray-700 leading-relaxed text-right" data-translate="skhirat_climate_text">
                         مناخ متوسطي معتدل مع فصول صيف دافئة وجافة وشتاء معتدل. درجات الحرارة مناسبة للأنشطة الخارجية
                         معظم السنة،
                         مع فترات رطوبة أقل مقارنة بالمناطق الداخلية.
@@ -173,8 +184,9 @@
                 </div>
 
                 <div class="info-card p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-right">الوصول والنقل</h3>
-                    <p class="text-gray-700 leading-relaxed text-right">
+                    <h3 class="text-xl font-semibold mb-3 text-right" data-translate="skhirat_transport_title">الوصول والنقل
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed text-right" data-translate="skhirat_transport_text">
                         الوصول ممكن عبر الطرق السريعة ووسائل النقل من العاصمة والمناطق المجاورة. قربها من المراكز
                         الحضرية يسهل الوصول إلى
                         مطارات وخدمات نقل بين المدن.
@@ -184,8 +196,9 @@
 
             <!-- Economy & Opportunities -->
             <section class="info-card p-6">
-                <h3 class="text-xl font-semibold mb-3 text-right">الاقتصاد والفرص</h3>
-                <p class="text-gray-700 leading-relaxed text-right">
+                <h3 class="text-xl font-semibold mb-3 text-right" data-translate="skhirat_economy_title">الاقتصاد والفرص
+                </h3>
+                <p class="text-gray-700 leading-relaxed text-right" data-translate="skhirat_economy_text">
                     يعتمد الاقتصاد المحلي على السياحة، الخدمات، وبعض الأنشطة الزراعية والتجارية المحيطة. المنطقة تفتح
                     فرصاً للمشاريع
                     السياحية الصغيرة، المبادرات الثقافية وبرامج التدريب المهني للشباب المحلي.
@@ -194,12 +207,15 @@
 
             <!-- Gallery -->
             <section class="info-card p-6">
-                <h3 class="text-xl font-semibold mb-4 text-right">معرض الصور</h3>
+                <h3 class="text-xl font-semibold mb-4 text-right" data-translate="skhirat_gallery_title">معرض الصور</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <img src="../images/skhirat.jpg" alt="ساحة أو شاطئ في الصخيرات"
+                        data-translate="skhirat_gallery_alt_1" data-translate-attr="alt"
                         class="w-full h-40 object-cover rounded">
-                    <img src="../images/skhirat.jpg" alt="منظر حضري في الصخيرات" class="w-full h-40 object-cover rounded">
-                    <img src="../images/skhirat.jpg" alt="فعالية محلية" class="w-full h-40 object-cover rounded">
+                    <img src="../images/skhirat.jpg" alt="منظر حضري في الصخيرات" class="w-full h-40 object-cover rounded"
+                        data-translate="skhirat_gallery_alt_2" data-translate-attr="alt">
+                    <img src="../images/skhirat.jpg" alt="فعالية محلية" class="w-full h-40 object-cover rounded"
+                        data-translate="skhirat_gallery_alt_3" data-translate-attr="alt">
                 </div>
             </section>
 
@@ -207,12 +223,15 @@
             <section class="info-card p-6">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div class="text-right">
-                        <h4 class="font-semibold">تحتاج مساعدة أو مزيد من المعلومات؟</h4>
-                        <p class="text-sm text-gray-600">تواصل معنا للحصول على دعم أو شراكات محلية في الصخيرات.</p>
+                        <h4 class="font-semibold" data-translate="skhirat_help_title">تحتاج مساعدة أو مزيد من المعلومات؟</h4>
+                        <p class="text-sm text-gray-600" data-translate="skhirat_help_text">تواصل معنا للحصول على دعم أو
+                            شراكات محلية في الصخيرات.</p>
                     </div>
                     <div class="flex gap-3 justify-end">
-                        <a href="../contact.html" class="px-4 py-2 bg-green-600 text-white rounded-md">اتصل بنا</a>
-                        <a href="Cup.html" class="px-4 py-2 border rounded-md">الفعاليات</a>
+                        <a href="../contact.html" class="px-4 py-2 bg-green-600 text-white rounded-md"
+                            data-translate="skhirat_help_cta_contact">اتصل بنا</a>
+                        <a href="Cup.html" class="px-4 py-2 border rounded-md"
+                            data-translate="skhirat_help_cta_events">الفعاليات</a>
                     </div>
                 </div>
             </section>
@@ -222,18 +241,13 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="mb-3">&copy; جمعية أمجاد — جميع الحقوق محفوظة</div>
-            <div class="text-sm text-gray-300">تصميم متوافق مع واجهة الموقع الرئيسية</div>
+            <div class="mb-3" data-translate="skhirat_footer_rights">&copy; جمعية أمجاد — جميع الحقوق محفوظة</div>
+            <div class="text-sm text-gray-300" data-translate="skhirat_footer_design">تصميم متوافق مع واجهة الموقع الرئيسية
+            </div>
         </div>
     </footer>
 
-    <script>
-        function toggleMobileMenu() {
-            const m = document.getElementById('mobileMenu');
-            if (!m) return;
-            m.classList.toggle('hidden');
-        }
-    </script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>
