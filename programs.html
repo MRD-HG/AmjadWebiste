@@ -19,229 +19,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Custom Styles -->
-    <style>
-        :root {
-            --primary-green: #10B981;
-            --secondary-green: #059669;
-            --accent-gold: #F59E0B;
-            --light-gold: #FEF3C7;
-            --text-dark: #1F2937;
-            --text-light: #6B7280;
-            --bg-light: #F9FAFB;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-light);
-        }
-
-        .rtl {
-            direction: rtl;
-        }
-
-        .ltr {
-            direction: ltr;
-        }
-
-        .programs-hero {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)), url('images/bg.png');
-            background-size: cover;
-            background-position: center;
-            min-height: 60vh;
-        }
-
-        .navbar {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .animate-fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .program-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .program-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--accent-gold);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-        }
-
-        .section-padding {
-            padding: 80px 0;
-        }
-
-        .program-detail {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .program-image {
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .program-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-            background: var(--light-gold);
-            border-radius: 8px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-green);
-        }
-
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 40px 0;
-            }
-        }
-
-        /* Mini program cards inside the 2 main programs */
-        .btn-sm {
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-
-        .mini-program-card {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 14px;
-            border-radius: 14px;
-            background: #F9FAFB;
-            border: 1px solid rgba(17, 24, 39, 0.06);
-            transition: all 0.2s ease;
-        }
-
-        .mini-program-card:hover {
-            background: #FFFFFF;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .mini-program-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.10);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .mini-program-title {
-            font-weight: 800;
-            color: #111827;
-            margin-bottom: 4px;
-        }
-
-        .mini-program-desc {
-            color: #4B5563;
-            font-size: 13px;
-            line-height: 1.7;
-            margin-bottom: 10px;
-        }
-
-        /* ===== Programs Accordion (single-open + consistent style) ===== */
-        details[data-accordion="programs"]>summary {
-            list-style: none;
-            outline: none !important;
-            border: 1px solid rgba(16, 185, 129, 0.18) !important;
-            box-shadow: none !important;
-        }
-
-        details[data-accordion="programs"]>summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details[data-accordion="programs"]>summary:focus,
-        details[data-accordion="programs"]>summary:focus-visible {
-            outline: none !important;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18) !important;
-        }
-
-        details[data-accordion="programs"][open]>summary {
-            border-color: rgba(16, 185, 129, 0.35) !important;
-        }
-    </style>
+   <link rel="stylesheet" href="css/programs.css">
 </head>
 
 <body class="rtl">
@@ -285,7 +63,8 @@
                     data-lang="fr">FR</button>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()">
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button"
+                    aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
@@ -1349,6 +1128,7 @@
     </script>
 
     <!-- Main JavaScript -->
+    <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 </body>
 

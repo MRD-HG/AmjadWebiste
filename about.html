@@ -25,164 +25,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-
+    <link rel="stylesheet" href="/css/about.css">
     <!-- Custom Styles -->
-    <style>
-      :root {
-        --primary-green: #10b981;
-        --secondary-green: #059669;
-        --accent-gold: #f59e0b;
-        --light-gold: #fef3c7;
-        --text-dark: #1f2937;
-        --text-light: #6b7280;
-        --bg-light: #f9fafb;
-      }
-
-      body {
-        font-family: "Cairo", sans-serif;
-        background-color: var(--bg-light);
-      }
-
-      .rtl {
-        direction: rtl;
-      }
-
-      .ltr {
-        direction: ltr;
-      }
-
-      .about-hero {
-        background: linear-gradient(
-            135deg,
-            rgba(16, 185, 129, 0.9),
-            rgba(5, 150, 105, 0.9)
-          ),
-          url("images/bg.png");
-        background-size: cover;
-        background-position: center;
-        min-height: 60vh;
-      }
-
-      .navbar {
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .navbar.scrolled {
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.6s ease;
-      }
-
-      .animate-fade-in {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .btn-primary {
-        background: linear-gradient(
-          135deg,
-          var(--primary-green),
-          var(--secondary-green)
-        );
-        color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
-      }
-
-      .btn-secondary {
-        background: var(--accent-gold);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-      }
-
-      .btn-secondary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-      }
-
-      .text-gradient {
-        background: linear-gradient(
-          135deg,
-          var(--primary-green),
-          var(--accent-gold)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .section-padding {
-        padding: 80px 0;
-      }
-
-      .timeline-item {
-        position: relative;
-        padding-right: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      .timeline-item::before {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 12px;
-        height: 12px;
-        background: var(--primary-green);
-        border-radius: 50%;
-      }
-
-      .timeline-item::after {
-        content: "";
-        position: absolute;
-        right: 5px;
-        top: 12px;
-        width: 2px;
-        height: calc(100% + 1rem);
-        background: var(--light-gold);
-      }
-
-      .timeline-item:last-child::after {
-        display: none;
-      }
-
-      .value-card {
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-      }
-
-      .value-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--accent-gold);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      @media (max-width: 768px) {
-        .section-padding {
-          padding: 40px 0;
-        }
-      }
-    </style>
+    
   </head>
   <body class="rtl">
     <!-- Navigation -->
@@ -265,6 +110,9 @@
           <button
             class="md:hidden ml-4 text-gray-800"
             onclick="toggleMobileMenu()"
+            type="button"
+            aria-label="Open menu"
+            title="Open menu"
           >
             <i class="fas fa-bars text-xl"></i>
           </button>
@@ -782,6 +630,7 @@
     </footer>
 
     <!-- Main JavaScript -->
+    <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html> 

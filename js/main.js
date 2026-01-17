@@ -1,184 +1,52 @@
 ﻿// Amjad Association Website - Main JavaScript File
 
 // Language Management
-let currentLanguage = 'ar'; // Default to Arabic
+const LANGUAGE_STORAGE_KEY = 'amjad_language';
+const DEFAULT_LANGUAGE = 'ar';
 
-const translations = {
-    ar: {
-        // Navigation
-        home: 'الرئيسية',
-        about: 'عن الجمعية',
-        services: 'الخدمات الإلكترونية',
-        programs: 'الخدمات والبرامج',
-        news: 'الأخبار',
-        contact: 'الاتصال',
-        volunteer: 'التطوع',
-        join: 'الإنخراط',
-        
-        // Hero Section
-        heroTitle: 'جمعية أمجاد للتربية والأعمال الاجتماعية',
-        heroSubtitle: 'سنوات من العطاء... وباقين مستمرين',
-        heroDescription: 'نؤمن أن كل فرد قادر على إحداث فرق. انضم إلينا وساهم في بناء مجتمع يسوده التعاون والتكافل.',
-        
-        // Quick Actions
-        zakatHealth: 'زكاة الصحة',
-        warmthFeeding: 'دفء وإطعام',
-        amjadAcademy: 'أكاديمية أمجاد',
-        medrastiHilwa: 'مدرستي الحلوة',
-        
-        // Statistics
-        yearsOfService: 'سنوات من العطاء',
-        volunteersCount: 'متطوع',
-        beneficiariesCount: 'مستفيد',
-        projectsCount: 'مشروع',
-        
-        // Programs
-        programsTitle: 'برامجنا وخدماتنا',
-        iftarKhair: 'إفطار الخير',
-        africanCup: 'كأس إفريقيا',
-        cityMemory: 'ذاكرة المدينة',
-        tabeebGhalaba: 'طبيب الغلبة',
-        
-        // News Section
-        latestNews: 'آخر الأخبار',
-        readMore: 'إقرأ المزيد',
-        
-        // Footer
-        followUs: 'تابعونا',
-        contactInfo: 'معلومات الاتصال',
-        
-        // Contact Form
-        fullName: 'الاسم الكامل',
-        email: 'البريد الإلكتروني',
-        phone: 'رقم الهاتف',
-        message: 'الرسالة',
-        sendMessage: 'إرسال الرسالة',
-        
-        // Volunteer Form
-        volunteerWithUs: 'تطوع معنا',
-        volunteerDesc: 'كن جزءًا من فريقنا التطوعي وأسهم في خدمة المجتمع',
-        
-        // Membership Form
-        joinUs: 'انضم إلينا',
-        joinDesc: 'كن عضوًا في جمعيتنا وساهم في تحقيق أهدافنا التنموية'
-    },
-    en: {
-        // Navigation
-        home: 'Home',
-        about: 'About Us',
-        services: 'E-Services',
-        programs: 'Programs',
-        news: 'News',
-        contact: 'Contact',
-        volunteer: 'Volunteer',
-        join: 'Join Us',
-        
-        // Hero Section
-        heroTitle: 'Amjad Association for Education and Social Work',
-        heroSubtitle: 'Years of Giving... And We Continue',
-        heroDescription: 'We believe every individual can make a difference. Join us and help build a community of cooperation and solidarity.',
-        
-        // Quick Actions
-        zakatHealth: 'Zakat Health',
-        warmthFeeding: 'Warmth & Feeding',
-        amjadAcademy: 'Amjad Academy',
-        medrastiHilwa: 'My Sweet School',
-        
-        // Statistics
-        yearsOfService: 'Years of Service',
-        volunteersCount: 'Volunteers',
-        beneficiariesCount: 'Beneficiaries',
-        projectsCount: 'Projects',
-        
-        // Programs
-        programsTitle: 'Our Programs & Services',
-        iftarKhair: 'Iftar Al-Khair',
-        africanCup: 'African Cup',
-        cityMemory: 'City Memory',
-        tabeebGhalaba: 'Doctor for All',
-        
-        // News Section
-        latestNews: 'Latest News',
-        readMore: 'Read More',
-        
-        // Footer
-        followUs: 'Follow Us',
-        contactInfo: 'Contact Information',
-        
-        // Contact Form
-        fullName: 'Full Name',
-        email: 'Email',
-        phone: 'Phone Number',
-        message: 'Message',
-        sendMessage: 'Send Message',
-        
-        // Volunteer Form
-        volunteerWithUs: 'Volunteer With Us',
-        volunteerDesc: 'Join our volunteer team and contribute to community service',
-        
-        // Membership Form
-        joinUs: 'Join Us',
-        joinDesc: 'Become a member of our association and contribute to our development goals'
-    },
-    fr: {
-        // Navigation
-        home: 'Accueil',
-        about: 'À Propos',
-        services: 'Services Numériques',
-        programs: 'Programmes',
-        news: 'Actualités',
-        contact: 'Contact',
-        volunteer: 'Bénévolat',
-        join: 'Rejoignez-nous',
-        
-        // Hero Section
-        heroTitle: 'Association Amjad pour l\'Éducation et le Travail Social',
-        heroSubtitle: 'Des années de don... Et nous continuons',
-        heroDescription: 'Nous croyons que chaque individu peut faire une différence. Rejoignez-nous et aidons à construire une communauté de coopération et de solidarité.',
-        
-        // Quick Actions
-        zakatHealth: 'Zakat Santé',
-        warmthFeeding: 'Chaleur et Nourriture',
-        amjadAcademy: 'Académie Amjad',
-        medrastiHilwa: 'Mon École Douce',
-        
-        // Statistics
-        yearsOfService: 'Années de Service',
-        volunteersCount: 'Bénévoles',
-        beneficiariesCount: 'Bénéficiaires',
-        projectsCount: 'Projets',
-        
-        // Programs
-        programsTitle: 'Nos Programmes et Services',
-        iftarKhair: 'Iftar Al-Khair',
-        africanCup: 'Coupe d\'Afrique',
-        cityMemory: 'Mémoire de la Ville',
-        tabeebGhalaba: 'Médecin pour Tous',
-        
-        // News Section
-        latestNews: 'Dernières Actualités',
-        readMore: 'Lire Plus',
-        
-        // Footer
-        followUs: 'Suivez-nous',
-        contactInfo: 'Informations de Contact',
-        
-        // Contact Form
-        fullName: 'Nom Complet',
-        email: 'Email',
-        phone: 'Numéro de Téléphone',
-        message: 'Message',
-        sendMessage: 'Envoyer le Message',
-        
-        // Volunteer Form
-        volunteerWithUs: 'Bénévole Avec Nous',
-        volunteerDesc: 'Rejoignez notre équipe de bénévoles et contribuez au service communautaire',
-        
-        // Membership Form
-        joinUs: 'Rejoignez-nous',
-        joinDesc: 'Devenez membre de notre association et contribuez à nos objectifs de développement'
+const translations = window.TRANSLATIONS || { ar: {}, en: {}, fr: {} };
+const supportedLanguages = Object.keys(translations);
+
+function getStoredLanguage() {
+    try {
+        return localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    } catch (error) {
+        return null;
     }
-};
+}
+
+function storeLanguage(lang) {
+    try {
+        localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    } catch (error) {
+        // Ignore storage errors (private mode, disabled storage, etc.).
+    }
+}
+
+function normalizeLanguage(lang) {
+    return supportedLanguages.includes(lang) ? lang : DEFAULT_LANGUAGE;
+}
+
+function setDocumentDirection(lang) {
+    if (lang === 'ar') {
+        document.documentElement.dir = 'rtl';
+        document.body.classList.add('rtl');
+        document.body.classList.remove('ltr');
+    } else {
+        document.documentElement.dir = 'ltr';
+        document.body.classList.remove('rtl');
+        document.body.classList.add('ltr');
+    }
+}
+
+function setActiveLangButton(lang) {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.lang === lang);
+    });
+}
+
+let currentLanguage = normalizeLanguage(getStoredLanguage() || DEFAULT_LANGUAGE);
 
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
@@ -189,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePhotoGallery();
     
     // Set initial language
+    setDocumentDirection(currentLanguage);
+    setActiveLangButton(currentLanguage);
     updateLanguage(currentLanguage);
 });
 
@@ -198,23 +68,12 @@ function initializeLanguageSwitcher() {
     langButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const lang = this.dataset.lang;
-            currentLanguage = lang;
+            currentLanguage = normalizeLanguage(lang);
+            storeLanguage(currentLanguage);
             updateLanguage(lang);
             
-            // Update button states
-            langButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update HTML direction for Arabic
-            if (lang === 'ar') {
-                document.documentElement.dir = 'rtl';
-                document.body.classList.add('rtl');
-                document.body.classList.remove('ltr');
-            } else {
-                document.documentElement.dir = 'ltr';
-                document.body.classList.remove('rtl');
-                document.body.classList.add('ltr');
-            }
+            setActiveLangButton(currentLanguage);
+            setDocumentDirection(currentLanguage);
         });
     });
 }
