@@ -27,7 +27,7 @@
 
         .hero-section {
             /* gradient overlay + background image */
-            background-image: linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(5, 150, 105, 0.6)), url('/images/bg.png');
+            background-image: linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(5, 150, 105, 0.6)), url('/images/ramadan.png');
             background-repeat: no-repeat;
             background-size: cover;
             /* background-position: center; */
@@ -159,7 +159,7 @@
         }
 
         .btn-secondary {
-            background: var(--accent-gold);
+            background: var( --primary-green);
             color: white;
             padding: 12px 24px;
             border-radius: 8px;

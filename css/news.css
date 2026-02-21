@@ -82,7 +82,7 @@
         }
 
         .btn-secondary {
-            background: var(--accent-gold);
+            background: var(--primary-green);
             color: white;
             padding: 12px 24px;
             border-radius: 8px;

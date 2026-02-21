@@ -70,46 +70,61 @@
             }
         }
     </style>
+    <link rel="icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="جمعية أمجاد">
+    <meta property="og:image" content="../images/og-image.png">
+    <link rel="stylesheet" href="../css/agent.css">
 </head>
 
 <body class="rtl">
     <!-- Navigation (simple, consistent with site) -->
     <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
             <a href="../index.html" class="flex items-center gap-3">
-                <img src="../images/logoamjad.png" alt="logo" class="h-10 w-auto" data-translate="skhirat_logo_alt"
-                    data-translate-attr="alt">
+                <img src="../images/logoamjad.png" alt="شعار جمعية أمجاد" class="h-12 w-auto" data-translate="logo_alt" data-translate-attr="alt">
             </a>
 
-            <div class="hidden md:flex items-center gap-6">
-                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="home">الرئيسية</a>
-                <a href="Cup.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="skhirat_nav_honor">تكريم</a>
-                <a href="skhirat.html" class="text-green-600 font-medium"
-                    data-translate="skhirat_nav_city">الصخيرات</a>
-                <a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="contact">اتصل بنا</a>
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
+                <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
+                <a href="../services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="../programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
+                <a href="../news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
+                <a href="../index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
+                <a href="../shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+<a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
+            <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="ar">العربية</button>
-                <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="en">EN</button>
-                <button class="lang-btn text-sm px-3 py-1 rounded" data-lang="fr">FR</button>
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button"
-                    aria-label="Open menu" title="Open menu">
-                    <i class="fas fa-bars"></i>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- mobile menu -->
-        <div id="mobileMenu" class="mobile-menu hidden md:hidden mt-4 pb-4">
-            <div class="max-w-7xl mx-auto px-4 flex flex-col gap-3">
-                <a href="../index.html" class="py-2" data-translate="home">الرئيسية</a>
-                <a href="Cup.html" class="py-2" data-translate="skhirat_nav_honor">تكريم</a>
-                <a href="skhirat.html" class="py-2" data-translate="skhirat_nav_city">الصخيرات</a>
-                <a href="../contact.html" class="py-2" data-translate="contact">اتصل بنا</a>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
+                <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
+                <a href="../services.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="../programs.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="programs">الخدمات والبرامج</a>
+                <a href="../news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
+                <a href="../index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
+                <a href="../shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+<a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
     </nav>
@@ -236,7 +251,7 @@
                     <div class="flex gap-3 justify-end">
                         <a href="../contact.html" class="px-4 py-2 bg-green-600 text-white rounded-md"
                             data-translate="skhirat_help_cta_contact">اتصل بنا</a>
-                        <a href="Cup.html" class="px-4 py-2 border rounded-md"
+                        <a href="../programs.html" class="px-4 py-2 border rounded-md"
                             data-translate="skhirat_help_cta_events">الفعاليات</a>
                     </div>
                 </div>
@@ -255,6 +270,7 @@
 
     <script src="../js/translations.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/agent.js" defer></script>
 </body>
 
 </html>

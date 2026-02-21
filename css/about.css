@@ -26,12 +26,8 @@
       }
 
       .about-hero {
-        background: linear-gradient(
-            135deg,
-            rgba(16, 185, 129, 0.9),
-            rgba(5, 150, 105, 0.9)
-          ),
-          url("images/bg.png");
+        background: 
+          url("/images/ramadan.png");
         background-size: cover;
         background-position: center;
         min-height: 60vh;
@@ -80,7 +76,7 @@
       }
 
       .btn-secondary {
-        background: var(--accent-gold);
+        background: var(--primary-green);
         color: white;
         padding: 12px 24px;
         border-radius: 8px;

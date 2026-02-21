@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace https://example.com/ with your real domain -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/index.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/about.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/services.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/programs.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/news.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/contact.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>  <url>
+    <loc>https://example.com/shop.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>  <url>
+    <loc>https://example.com/404.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/resources/skhirat.html</loc>
+    <lastmod>2026-02-18</lastmod>
+  </url>
+</urlset>

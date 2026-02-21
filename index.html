@@ -20,8 +20,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/index.css">
   
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="جمعية أمجاد">
+    <meta property="og:image" content="images/og-image.png">
+    <link rel="stylesheet" href="css/agent.css">
 </head>
 
 <body>
@@ -29,44 +38,28 @@
     <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Logo -->
-            <div class="flex items-center gap-4">
-                <img src="images/logoamjad.png" alt="Logo" class="h-12 w-auto" data-translate="index_logo_alt"
-                    data-translate-attr="alt">
-
-            </div>
-            .
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="images/logoamjad.png" alt="شعار جمعية أمجاد" class="h-12 w-auto" data-translate="logo_alt" data-translate-attr="alt">
+            </a>
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="home">الرئيسية</a>
-                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="about">عن الجمعية</a>
-                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="services">الخدمات الإلكترونية</a>
-                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="programs">الخدمات والبرامج</a>
-                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="news">الأخبار</a>
-                <a href="resources/Cup.html" class="nav-highlight" data-translate="nav_afcon_2025">
-                    كأس إفريقيا 2025
-                </a>
-                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors"
-                    data-translate="contact">الاتصال</a>
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
+                <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+<a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
-            <!-- Language Switcher -->
+            <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active"
-                    data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
-                    data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors"
-                    data-lang="fr">FR</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button"
-                    aria-label="Open menu" title="Open menu">
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
@@ -75,21 +68,14 @@
         <!-- Mobile Menu -->
         <div class="mobile-menu hidden md:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
-                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="home">الرئيسية</a>
-                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن
-                    الجمعية</a>
-                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="services">الخدمات الإلكترونية</a>
-                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="programs">الخدمات والبرامج</a>
-                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="news">الأخبار</a>
-                <a href="resources/Cup.html" class="nav-highlight" data-translate="nav_afcon_2025">
-                    كأس إفريقيا 2025
-                </a>
-                <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium"
-                    data-translate="contact">الاتصال</a>
+                <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
+                <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="programs">الخدمات والبرامج</a>
+                <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
+                <a href="index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
+                <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+<a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
     </nav>
@@ -97,7 +83,7 @@
     <!-- Hero Section (100vh - Redesigned) -->
     <section class="hero-section relative min-h-screen overflow-hidden text-white">
         <!-- Background overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60"></div>
 
         <!-- Decorative glow -->
         <div
@@ -223,13 +209,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                   
-                    
+                    </div>                    
                 </div>
             </div>
         </div>
+       <img src="./images/ramadan2.png" alt="">
     </section>
 
 
@@ -252,6 +236,101 @@
                     <p class="text-gray-600 mt-2 text-lg" data-translate="beneficiariesCount">مستفيد</p>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Zakat Calculator & Prayer Times -->
+    <section id="islamic-tools" class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-translate="home_tools_subtitle">أدوات سريعة تساعدك في حساب زكاتك ومعرفة مواقيت الصلاة في مدينتك.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                <!-- Prayer Times -->
+                <div class="feature-card p-6 md:p-8 shadow-lg fade-in">
+                    <div class="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800" data-translate="pt_title">مواقيت الصلاة (المغرب)</h3>
+                            <p class="text-gray-600 mt-1 text-sm" data-translate="pt_subtitle">اختر المدينة ثم اعرض مواقيت اليوم.</p>
+                        </div>
+                        <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1 rounded-full text-xs">
+                            <i class="fas fa-clock"></i>
+                            <span data-translate="pt_badge">تحديث سريع</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" id="pt-city-label" data-translate="pt_city_label">اختر المدينة</label>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <select id="pt-city" class="border rounded-xl px-3 py-2 flex-1"></select>
+                            <button id="pt-fetch" class="btn-primary btn-sm sm:w-auto" type="button" data-translate="pt_fetch">جلب أوقات اليوم</button>
+                        </div>
+                        <div id="pt-status" class="text-sm text-gray-500 mt-3"></div>
+
+                        <div id="pt-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5"></div>
+
+                        <p class="text-xs text-gray-500 mt-4" data-translate="pt_note">* المواقيت تقديرية وقد تختلف حسب تقويم مدينتك.</p>
+                    </div>
+                </div>
+
+                <!-- Zakat Calculator -->
+                <div class="feature-card p-6 md:p-8 shadow-lg fade-in">
+                    <div class="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800" data-translate="zakat_title">حاسبة الزكاة (زكاة المال)</h3>
+                            <p class="text-gray-600 mt-1 text-sm" data-translate="zakat_subtitle">احسب 2.5% إذا بلغ مالك النصاب بعد خصم الديون.</p>
+                        </div>
+                        <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-xs">
+                            <i class="fas fa-calculator"></i>
+                            <span data-translate="zakat_badge">تقدير تقريبي</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 grid gap-3">
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <input id="z-assets" placeholder="المجموع (نقد/مدخرات/مداخيل...)" data-translate="z_assets_ph" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2" />
+                            <input id="z-debts" placeholder="الديون المستحقة" data-translate="z_debts_ph" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2" />
+                        </div>
+
+                        <div class="bg-gray-50 border rounded-2xl p-4">
+                            <div class="flex items-center justify-between flex-wrap gap-3">
+                                <div class="font-semibold text-gray-800" data-translate="z_nisab_label">حساب النصاب حسب</div>
+                                <div class="flex gap-2">
+                                    <label class="inline-flex items-center gap-2 px-3 py-1 rounded-full border bg-white text-sm cursor-pointer">
+                                        <input type="radio" name="z-nisab-base" value="gold" checked>
+                                        <span data-translate="z_gold">الذهب</span>
+                                    </label>
+                                    <label class="inline-flex items-center gap-2 px-3 py-1 rounded-full border bg-white text-sm cursor-pointer">
+                                        <input type="radio" name="z-nisab-base" value="silver">
+                                        <span data-translate="z_silver">الفضة</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                                <div>
+                                    <label class="block text-xs text-gray-600 mb-1" data-translate="z_grams_label">عدد الغرامات</label>
+                                    <input id="z-grams" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2 w-full" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-600 mb-1" data-translate="z_price_label">سعر الغرام (درهم)</label>
+                                    <input id="z-price" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2 w-full" />
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2" data-translate="z_hint">💡 أدخل سعر الغرام الحالي لتحصل على قيمة النصاب بدقة.</p>
+                        </div>
+
+                        <button id="z-compute" class="btn-primary btn-sm w-full" type="button" data-translate="z_compute">احسب</button>
+
+                        <div id="z-result" class=""></div>
+
+                        <p class="text-xs text-gray-500" data-translate="z_note">* هذه الحاسبة للتقدير فقط. للاستفسار الشرعي تواصل مع أهل العلم.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -295,17 +374,17 @@
                         onclick="window.location.href='programs.html#iftar'">المزيد</button>
                 </div>
 
-                <!-- African Cup -->
+                <!-- Shop -->
                 <div class="program-card bg-white rounded-lg p-6 shadow-lg fade-in">
-                    <div class="text-blue-600 text-4xl mb-4">
-                        <i class="fas fa-futbol"></i>
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-store"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="africanCup">كأس إفريقيا</h3>
-                    <p class="text-gray-600 mb-4" data-translate="index_program_afcon_desc">
-                        نشاط رياضي مجتمعي يجمع شباب المدينة في أجواء من المنافسة الشريفة والروح الرياضية.
+                    <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="home_shop_card_title">متجر أمجاد</h3>
+                    <p class="text-gray-600 mb-4" data-translate="home_shop_card_desc">
+                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — الطلب يتم مباشرة عبر واتساب.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href ='/resources/Cup.html'">المزيد</button>
+                    <button class="btn-primary w-full" data-translate="home_shop_card_cta"
+                        onclick="window.location.href='shop.html'">اذهب إلى المتجر</button>
                 </div>
 
                 <!-- City Memory -->
@@ -318,7 +397,7 @@
                         نحتفل بمسيرة مدينتنا وإنجازاتها، ونستحضر تاريخها العريق بروح الفخر والانتماء.
                     </p>
                     <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href ='/resources/skhirat.html'">المزيد</button>
+                        onclick="window.location.href ='resources/skhirat.html'">المزيد</button>
                 </div>
 
                 <!-- Amjad Academy -->
@@ -503,7 +582,7 @@
                         <!-- Keep the CONTENT exactly (just styling changed) -->
                         <div class="text-gray-700 leading-relaxed text-base md:text-lg space-y-4">
                             <p data-translate="index_president_paragraph_1">
-                                تُعد جمعية أمجاد للتربية والأعمال الاجتماعية إحدى الجمعيات الرائدة في مجال العمل التربوي
+                                تعد جمعية أمجاد للتربية والأعمال الاجتماعية إحدى الجمعيات الرائدة في مجال العمل التربوي
                                 والاجتماعي، إذ استطاعت أن ترسّخ مكانتها المرموقة في تعزيز قيم التربية والتكافل والعطاء،
                                 لتكون رافدًا أساسيًا من روافد التنمية المستدامة.
                             </p>
@@ -659,7 +738,11 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    </div>
+                    
+                        <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
+                        <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+<a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
+</div>
                 </div>
 
                 <!-- Social Media -->
@@ -702,6 +785,8 @@
     <!-- Main JavaScript -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/islamic-tools.js" defer></script>
+    <script src="js/agent.js" defer></script>
 </body>
 
 </html>
