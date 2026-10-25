@@ -16,10 +16,6 @@
     color: var(--amjad-ink);
 }
 
-.amjad-page-body ~ section {
-    display: none !important;
-}
-
 .amjad-band {
     padding: 72px 0;
 }

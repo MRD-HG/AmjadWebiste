@@ -27,28 +27,13 @@
         }
 
         .hero-section {
-            /* gradient overlay + background image */
-            background-image:  url('/images/ramadan.png');
+            background-color: #174f3b;
+            background-image: url('../images/bg.png');
             background-repeat: no-repeat;
             background-size: cover;
-            /* background-position: center; */
+            background-position: center center;
             min-height: 85vh;
-            /* fixed attachment only on large screens for better mobile performance */
             background-attachment: scroll;
-        }
-
-        .hero-ramadan-img {
-            display: block;
-            width: min(1200px, 96%);
-            height: auto;
-            opacity: 0.98;
-            filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.3));
-        }
-
-        @media (min-width: 992px) {
-            .hero-section {
-                background-attachment: fixed;
-            }
         }
 
         .navbar {
@@ -59,7 +44,7 @@
 
         /* Programs section background image */
         .programs-bg {
-            background: url('/images/pg_clean.png');
+            background: url('../images/pg_clean.png');
             background-color: rgb(136, 136, 136);
             background-size: cover;
             background-position: center;
@@ -67,7 +52,7 @@
         }
 
         .speech-bg {
-            background: url('/images/pg_clean.png');
+            background: url('../images/pg_clean.png');
             background-color: rgb(136, 136, 136);
             background-size: cover;
             background-position: center;
@@ -201,6 +186,10 @@
         }
 
         @media (max-width: 768px) {
+            .hero-section {
+                background-position: center top;
+            }
+
             .counter {
                 font-size: 2rem;
             }

@@ -28,6 +28,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body class="rtl">
     <!-- Navigation -->
@@ -39,7 +40,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -51,18 +52,18 @@
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -99,7 +100,7 @@
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Volunteer Service -->
-                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in" id="volunteer">
                     <div class="text-green-600 text-4xl mb-4">
                         <i class="fas fa-hands-helping"></i>
                     </div>
@@ -107,12 +108,12 @@
                     <p class="text-gray-600 mb-4" data-translate="volunteerDesc">
                         كن جزءًا من فريقنا التطوعي وأسهم في خدمة المجتمع
                     </p>
-                    <button class="btn-primary w-full" onclick="showForm('volunteer')"
+                    <button type="button" class="btn-primary w-full" onclick="showForm('volunteer')"
                         data-translate="services_volunteer_cta">سجل الآن</button>
                 </div>
                 
                 <!-- Membership Service -->
-                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in" id="join">
                     <div class="text-blue-600 text-4xl mb-4">
                         <i class="fas fa-user-plus"></i>
                     </div>
@@ -120,12 +121,12 @@
                     <p class="text-gray-600 mb-4" data-translate="joinDesc">
                         كن عضوًا في جمعيتنا وساهم في تحقيق أهدافنا التنموية
                     </p>
-                    <button class="btn-primary w-full" onclick="showForm('membership')"
+                    <button type="button" class="btn-primary w-full" onclick="showForm('membership')"
                         data-translate="services_membership_cta">انضم إلينا</button>
                 </div>
                 
                 <!-- Zakat Al-Seha Service -->
-                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in">
+                <div class="service-card bg-white rounded-lg p-6 shadow-lg fade-in" id="zakat">
                     <div class="text-red-600 text-4xl mb-4">
                         <i class="fas fa-heartbeat"></i>
                     </div>
@@ -134,7 +135,7 @@
                     <p class="text-gray-600 mb-4" data-translate="services_blood_desc">
                         سجل للتبرع بالدم وشارك في إنقاذ الأرواح
                     </p>
-                    <button class="btn-primary w-full" onclick="showForm('zakat')"
+                    <button type="button" class="btn-primary w-full" onclick="showForm('zakat')"
                         data-translate="services_blood_cta">سجل للتبرع</button>
                 </div>
                 
@@ -151,7 +152,7 @@
                     <p class="text-gray-600 mb-4" data-translate="services_events_desc">
                         سجل للمشاركة في فعالياتنا القادمة وكن جزءًا من الفريق
                     </p>
-                    <button class="btn-primary w-full" onclick="showForm('events')"
+                    <button type="button" class="btn-primary w-full" onclick="window.location.href='contact.html'"
                         data-translate="services_events_cta">سجل الآن</button>
                 </div>
                 
@@ -165,7 +166,7 @@
                     <p class="text-gray-600 mb-4" data-translate="services_newsletter_desc">
                         اشترك لتصلك آخر أخبار الجمعية وأنشطتها
                     </p>
-                    <button class="btn-primary w-full" onclick="showForm('newsletter')"
+                    <button type="button" class="btn-primary w-full" onclick="window.location.href='index.html#newsletter'"
                         data-translate="services_newsletter_cta">اشترك الآن</button>
                 </div>
             </div>
@@ -445,7 +446,7 @@
                     <div class="space-y-2">
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span data-translate="services_footer_address">الصخيرات المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> </p>
-                        <p><i class="fas fa-envelope ml-2"></i>  a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i>  contact@associationamjad.ma</p>
                     </div>
                 </div>
 
@@ -468,23 +469,20 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                          <a href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-400 transition-colors">
+                          <a aria-label="TikTok" href="https://tiktok.com/@amjad_association" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                          <a href="" class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -501,8 +499,12 @@
     <script>
         function showForm(formType) {
             hideAllForms();
-            document.getElementById(formType + '-form').classList.remove('hidden');
-            document.getElementById(formType + '-form').scrollIntoView({ behavior: 'smooth' });
+            const formContainer = document.getElementById(formType + '-form');
+            if (!formContainer) return;
+            formContainer.classList.remove('hidden');
+            formContainer.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+            });
         }
         
         function hideAllForms() {
@@ -511,23 +513,7 @@
         }
         
         function submitForm(event, formType) {
-            event.preventDefault();
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'alert alert-success mt-4';
-            successMessage.textContent = currentLanguage === 'ar' ? 'تم إرسال طلبك بنجاح! سنتصل بك قريبًا.' : 
-                                       currentLanguage === 'en' ? 'Your request has been submitted successfully! We will contact you soon.' :
-                                       'Votre demande a été soumise avec succès! Nous vous contacterons bientôt.';
-            
-            event.target.appendChild(successMessage);
-            
-            // Reset form after delay
-            setTimeout(() => {
-                event.target.reset();
-                successMessage.remove();
-                hideAllForms();
-            }, 3000);
+            return submitEmailFallback(event, formType);
         }
     </script>
 

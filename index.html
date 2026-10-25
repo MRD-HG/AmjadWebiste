@@ -31,6 +31,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 
 <body>
@@ -43,7 +44,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -55,18 +56,18 @@
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -80,10 +81,9 @@
         </div>
     </nav>
 
-    <!-- Hero Section (100vh - Redesigned) -->
+    <!-- Homepage cover -->
     <section class="hero-section relative min-h-screen overflow-hidden text-white">
-        <!-- Background overlay -->
-          <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/40"></div>
 
         <!-- Decorative glow -->
         <div
@@ -93,15 +93,6 @@
             class="pointer-events-none absolute -bottom-28 -left-28 w-[520px] h-[520px] rounded-full bg-amber-300/18 blur-3xl">
         </div>
 
-        <!-- Content wrapper (centers content within 100vh while respecting navbar) -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4">
-            <!-- This div makes the hero exactly 100vh and centers content -->
-            <div class="min-h-screen flex items-center">
-                <!-- add top padding to avoid navbar overlap -->
-               
-                <img src="./images/ramadan2.png" alt="" class="hero-ramadan-img mx-auto">
-            </div>
-        </div>
     </section>
 
 
@@ -245,7 +236,7 @@
                         مبادرة إنسانية تهدف إلى نشر ثقافة التبرع بالدم، إيمانًا منا بأن الحفاظ على حياة الآخرين هو أسمى
                         صور العطاء.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
                         onclick="window.location.href='services.html#zakat'">المزيد</button>
                 </div>
 
@@ -258,8 +249,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_iftar_desc">
                         برنامج رمضاني يهدف إلى إفطار الصائمين وتقديم وجبات غذائية للأسر المحتاجة خلال شهر رمضان المبارك.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#iftar'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='programs.html#iftar-profile'">المزيد</button>
                 </div>
 
                 <!-- Shop -->
@@ -269,9 +260,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="home_shop_card_title">متجر أمجاد</h3>
                     <p class="text-gray-600 mb-4" data-translate="home_shop_card_desc">
-                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — الطلب يتم مباشرة عبر واتساب.
+                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — تواصل معنا عبر البريد الإلكتروني لتأكيد الطلب.
                     </p>
-                    <button class="btn-primary w-full" data-translate="home_shop_card_cta"
+                    <button type="button" class="btn-primary w-full" data-translate="home_shop_card_cta"
                         onclick="window.location.href='shop.html'">اذهب إلى المتجر</button>
                 </div>
 
@@ -284,8 +275,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_city_desc">
                         نحتفل بمسيرة مدينتنا وإنجازاتها، ونستحضر تاريخها العريق بروح الفخر والانتماء.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href ='resources/skhirat.html'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='resources/skhirat-memory.html'">المزيد</button>
                 </div>
 
                 <!-- Amjad Academy -->
@@ -297,8 +288,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_academy_desc">
                         برامج تعليمية وتدريبية مصممة لتنمية مهارات الشباب وتعزيز قدراتهم في مختلف المجالات.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#academy'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='programs.html#academy-profile'">المزيد</button>
                 </div>
 
                 <!-- Medrasti Al-Hilwa -->
@@ -310,7 +301,7 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_school_desc">
                         أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب منذ الصغر.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
                         onclick="window.location.href='programs.html#school'">المزيد</button>
                 </div>
             </div>
@@ -340,7 +331,7 @@
                             احتفلت جمعية أمجاد بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
                             من العطاء... وباقين مستمرين".
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news1'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news1'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -356,7 +347,7 @@
                             نظمت الجمعية حملة للتبرع بالدم شارك فيها العشرات من المتطوعين والمتبرعين من مختلف شرائح
                             المجتمع.
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news2'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news2'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -371,14 +362,14 @@
                         <p class="text-gray-600 mb-4" data-translate="index_news3_desc">
                             نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news3'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news3'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
             </div>
 
             <div class="text-center mt-12">
-                <button class="btn-secondary text-lg px-8 py-3" onclick="window.location.href='news.html'"
+                <button type="button" class="btn-secondary text-lg px-8 py-3" onclick="window.location.href='news.html'"
                     data-translate="index_news_all">عرض جميع الأخبار</button>
             </div>
         </div>
@@ -579,7 +570,7 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="section-padding Newsletter text-white">
+    <section class="section-padding Newsletter text-white" id="newsletter">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="fade-in">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" data-translate="index_newsletter_title">اشترك في نشرتنا
@@ -588,13 +579,14 @@
                     تابع آخر أخبار الجمعية وأنشطتها اول بأول
                 </p>
 
-                <div class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto" onsubmit="subscribeNewsletter(event)">
+                    <label class="sr-only" for="newsletter-email" data-translate="index_newsletter_placeholder">أدخل بريدك الإلكتروني</label>
                     <input type="email" id="newsletter-email" placeholder="أدخل بريدك الإلكتروني"
                         data-translate="index_newsletter_placeholder"
-                        class="flex-1 px-4 py-3 rounded-lg text-gray-800">
-                    <button class="btn-secondary" onclick="subscribeNewsletter()"
+                        class="flex-1 px-4 py-3 rounded-lg text-gray-800" required autocomplete="email">
+                    <button type="submit" class="btn-secondary"
                         data-translate="index_newsletter_cta">اشترك</button>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -610,7 +602,7 @@
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span data-translate="index_footer_address">الصخيرات
                                 المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> </p>
-                        <p><i class="fas fa-envelope ml-2"></i>  a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i>  contact@associationamjad.ma</p>
                     </div>
                 </div>
 
@@ -637,27 +629,23 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>

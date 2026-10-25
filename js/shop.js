@@ -1,7 +1,5 @@
 // Amjad Shop - Enhanced UX
 
-const WHATSAPP_NUMBER = '212600000000'; // TODO: replace with the association WhatsApp number
-
 const STORAGE_KEY = 'amjad_language';
 
 const I18N = {
@@ -10,7 +8,7 @@ const I18N = {
     cityPh: 'المدينة',
     phonePh: 'رقم الهاتف (اختياري)',
     notePh: 'ملاحظة (اختياري): اللون/المقاس/تفاصيل إضافية...',
-    orderBtn: 'إرسال الطلب عبر واتساب',
+    orderBtn: 'تجهيز الطلب عبر البريد',
     chooseBtn: 'اختيار هذا المنتج',
     selected: 'المنتج المختار',
     size: 'المقاس',
@@ -29,7 +27,7 @@ const I18N = {
     cityPh: 'City',
     phonePh: 'Phone (optional)',
     notePh: 'Note (optional): color/size/extra details...',
-    orderBtn: 'Send order on WhatsApp',
+    orderBtn: 'Prepare order email',
     chooseBtn: 'Choose this product',
     selected: 'Selected product',
     size: 'Size',
@@ -48,7 +46,7 @@ const I18N = {
     cityPh: 'Ville',
     phonePh: 'Téléphone (optionnel)',
     notePh: 'Note (optionnel) : couleur/taille/détails...',
-    orderBtn: 'Envoyer la commande sur WhatsApp',
+    orderBtn: 'Préparer l’e-mail de commande',
     chooseBtn: 'Choisir ce produit',
     selected: 'Produit sélectionné',
     size: 'Taille',
@@ -98,6 +96,10 @@ function syncLanguagePlaceholders(){
   const note = $('#shop-note');
   const btn = $('#shop-order-btn');
   const search = $('#shop-search');
+  const nameLabel = $('#shop-name-label');
+  const cityLabel = $('#shop-city-label');
+  const phoneLabel = $('#shop-phone-label');
+  const noteLabel = $('#shop-note-label');
 
   if (name) name.placeholder = d.namePh;
   if (city) city.placeholder = d.cityPh;
@@ -105,6 +107,10 @@ function syncLanguagePlaceholders(){
   if (note) note.placeholder = d.notePh;
   if (btn) btn.textContent = d.orderBtn;
   if (search && !search.dataset.translate) search.placeholder = d.searchPh;
+  if (nameLabel) nameLabel.textContent = d.namePh;
+  if (cityLabel) cityLabel.textContent = d.cityPh;
+  if (phoneLabel) phoneLabel.textContent = d.phonePh;
+  if (noteLabel) noteLabel.textContent = d.notePh;
 
   // buttons on cards
   $all('.select-product').forEach(b => {
@@ -177,7 +183,7 @@ function updateSummary(){
   if (q) q.textContent = qty;
 }
 
-function buildWhatsAppMessage(form){
+function buildOrderMessage(form){
   const labels = currentLabels();
   const dict = tr();
 
@@ -298,15 +304,18 @@ function init(){
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // basic validation
-    if (!form.name.value.trim() || !form.city.value.trim()) {
-      form.name.focus();
+    if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
 
-    const message = buildWhatsAppMessage(form);
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    const message = buildOrderMessage(form);
+    const subjects = {
+      ar: 'طلب من متجر جمعية أمجاد',
+      en: 'Amjad shop order request',
+      fr: 'Demande de commande — Boutique Amjad'
+    };
+    renderEmailFallback(form, subjects[getLang()] || subjects.ar, message);
   });
 
   // When language changes

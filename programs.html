@@ -30,6 +30,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 
 <body class="rtl">
@@ -42,7 +43,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -54,18 +55,18 @@
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -133,12 +134,12 @@
                     <p>بطاقات موجزة تساعد الزائر على معرفة طبيعة كل برنامج وحالته، دون الدخول في نصوص طويلة أو أرقام غير موثقة.</p>
                 </div>
                 <div class="amjad-filterbar" data-filter-scope="programs">
-                    <button class="amjad-filter is-active" data-filter="all">الكل</button>
-                    <button class="amjad-filter" data-filter="education">التربية والتكوين</button>
-                    <button class="amjad-filter" data-filter="social">العمل الاجتماعي</button>
-                    <button class="amjad-filter" data-filter="health">الصحة</button>
-                    <button class="amjad-filter" data-filter="ramadan">رمضان</button>
-                    <button class="amjad-filter" data-filter="soon">قريباً</button>
+                    <button type="button" class="amjad-filter is-active" data-filter="all">الكل</button>
+                    <button type="button" class="amjad-filter" data-filter="education">التربية والتكوين</button>
+                    <button type="button" class="amjad-filter" data-filter="social">العمل الاجتماعي</button>
+                    <button type="button" class="amjad-filter" data-filter="health">الصحة</button>
+                    <button type="button" class="amjad-filter" data-filter="ramadan">رمضان</button>
+                    <button type="button" class="amjad-filter" data-filter="soon">قريباً</button>
                 </div>
                 <div class="amjad-grid amjad-grid-4" data-amjad-list="programs">
                     <article class="amjad-card amjad-program-card modern-program-card" data-filter-item="education" data-amjad-program="academy">
@@ -270,7 +271,7 @@
                     <h2>برامج ومبادرات في طور التطوير أو التفعيل</h2>
                 </div>
                 <div class="amjad-grid amjad-grid-3 compact-program-grid">
-                    <article class="amjad-card compact-program-card">
+                    <article class="amjad-card compact-program-card" id="school">
                         <h3>مدرستي الحلوة</h3>
                         <p>أنشطة تربوية للأطفال، تجمع بين التعلم والمرح والقيم داخل فضاءات آمنة.</p>
                         <span class="program-status active">نشط</span>
@@ -337,7 +338,7 @@
                         <p><i class="fas fa-phone ml-2"></i> <span
                                 data-translate="programs_footer_phone">الهاتف: سيتم الإعلان عن الرقم الرسمي للجمعية
                                 قريبًا</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@associationamjad.ma</p>
                     </div>
                 </div>
 
@@ -364,28 +365,24 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad"
+                        <a aria-label="X" href="https://x.com/associatioAmjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>

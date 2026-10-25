@@ -62,9 +62,9 @@
     },
     shop: {
       kw: ["متجر","shop","boutique","t-shirt","cap","قبعة","تيشرت","تي شيرت"],
-      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس/اللون والكمية، ثم اضغط «طلب عبر واتساب».",
-      en: "Amjad Shop: open the Shop page, choose product/size/color/qty, then “Order via WhatsApp”.",
-      fr: "Boutique Amjad : ouvrez la page Boutique, choisissez produit/taille/couleur/quantité, puis “Commander via WhatsApp”."
+      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس واللون والكمية، ثم جهّز رسالة بريد لتأكيد الطلب مع الجمعية.",
+      en: "Amjad Shop: open the Shop page, choose the product, size, color and quantity, then prepare an email to confirm the request with the association.",
+      fr: "Boutique Amjad : ouvrez la page Boutique, choisissez le produit, la taille, la couleur et la quantité, puis préparez un e-mail pour confirmer la demande avec l’association."
     },
     sponsorship: {
       kw: ["رعاية","شراكة","sponsor","sponsorship","partenariat","sponsoring","csr"],
@@ -74,9 +74,9 @@
     },
     contact: {
       kw: ["تواصل","اتصال","contact","adresse","email","phone","هاتف","بريد"],
-      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: a.amjad.eos@gmail.com",
-      en: "Contact: open the Contact page. Email: a.amjad.eos@gmail.com",
-      fr: "Contact : ouvrez la page Contact. E-mail : a.amjad.eos@gmail.com"
+      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: contact@associationamjad.ma",
+      en: "Contact: open the Contact page. Email: contact@associationamjad.ma",
+      fr: "Contact : ouvrez la page Contact. E-mail : contact@associationamjad.ma"
     }
   };
 

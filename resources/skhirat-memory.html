@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/content-architecture.css">
     <link rel="stylesheet" href="../css/skhirat-memory.css">
     <link rel="stylesheet" href="../css/agent.css">
+    <link rel="stylesheet" href="../css/accessibility.css">
     <link rel="icon" href="../images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
@@ -30,7 +31,7 @@
                 <img src="../images/logoamjad.png" alt="شعار جمعية أمجاد" class="h-12 w-auto" data-translate="logo_alt" data-translate-attr="alt">
             </a>
 
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-8">
                 <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="../services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -41,16 +42,16 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -294,7 +295,7 @@
                     <div class="space-y-2">
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span>الصخيرات المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> <span data-amjad="contact-phone">الهاتف: سيتم الإعلان عن الرقم الرسمي قريباً</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">a.amjad.eos@gmail.com</span></p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
                 <div>
@@ -309,9 +310,9 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-youtube"></i></a>
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>

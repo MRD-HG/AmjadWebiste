@@ -29,6 +29,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 
 <body class="rtl">
@@ -41,7 +42,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -53,18 +54,18 @@
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -88,129 +89,6 @@
         </div>
     </section>
 
-    <!-- Previous replacement body disabled; original working news sections below are active.
-    <main class="amjad-page-body hidden" aria-hidden="true">
-        <section class="amjad-band amjad-band-white">
-            <div class="amjad-container">
-                <div class="amjad-feature">
-                    <div class="amjad-feature-content">
-                        <span class="amjad-kicker"><i class="fas fa-newspaper"></i> الخبر المميز</span>
-                        <h2 class="text-3xl font-bold">حملة زكاة الصحة: التبرع بالدم مسؤولية جماعية</h2>
-                        <p class="amjad-lead">تواصل جمعية أمجاد توثيق مبادراتها الصحية والاجتماعية والتربوية حتى يطلع المتطوعون والداعمون على أثر العمل الميداني بوضوح.</p>
-                        <div class="amjad-card-meta">
-                            <span class="amjad-badge">الصحة</span>
-                            <span class="amjad-chip">2025</span>
-                            <span class="amjad-chip">الصخيرات</span>
-                        </div>
-                        <div class="amjad-actions">
-                            <a class="amjad-btn amjad-btn-primary" href="#news-grid">قراءة الأخبار</a>
-                            <a class="amjad-btn amjad-btn-outline" href="contact.html">إرسال صور نشاط</a>
-                        </div>
-                    </div>
-                    <img src="images/blood.jpeg" alt="خبر مميز عن حملة صحية">
-                </div>
-            </div>
-        </section>
-
-        <section class="amjad-band" id="news-redesign-disabled">
-            <div class="amjad-container">
-                <div class="amjad-section-head">
-                    <span class="amjad-kicker"><i class="fas fa-filter"></i> البحث والتصفية</span>
-                    <h2>آخر أخبار جمعية أمجاد</h2>
-                    <p>واجهة أخبار قابلة للربط لاحقاً بلوحة التحكم، مع بحث وتصنيفات واضحة للزائر.</p>
-                </div>
-                <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between mb-6">
-                    <input class="amjad-search" type="search" placeholder="ابحث في الأخبار..." aria-label="ابحث في الأخبار" data-news-search>
-                    <div class="amjad-filterbar mb-0" data-filter-scope="news">
-                        <button class="amjad-filter is-active" data-filter="all">الكل</button>
-                        <button class="amjad-filter" data-filter="social">اجتماعي</button>
-                        <button class="amjad-filter" data-filter="education">تربوي</button>
-                        <button class="amjad-filter" data-filter="health">صحي</button>
-                        <button class="amjad-filter" data-filter="events">أنشطة</button>
-                    </div>
-                </div>
-                <div class="amjad-grid amjad-grid-3">
-                    <article class="amjad-card amjad-news-card" data-filter-item="health" data-news-title="زكاة الصحة التبرع بالدم">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/blood.jpeg" alt="حملة التبرع بالدم">
-                        <span class="amjad-badge">صحي</span>
-                        <h3>زكاة الصحة: حملة التبرع بالدم</h3>
-                        <p>مبادرة صحية لترسيخ ثقافة التبرع بالدم والتضامن مع المرضى.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="programs.html#health-program">التفاصيل</a>
-                    </article>
-                    <article class="amjad-card amjad-news-card" data-filter-item="social" data-news-title="إفطار الخير رمضان">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/Siyam.jpg" alt="إفطار الخير">
-                        <span class="amjad-badge">اجتماعي</span>
-                        <h3>إفطار الخير خلال شهر رمضان</h3>
-                        <p>تعبئة المتطوعين والشركاء لدعم الأسر والصائمين في الشهر الفضيل.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="programs.html#iftar-program">التفاصيل</a>
-                    </article>
-                    <article class="amjad-card amjad-news-card" data-filter-item="education events" data-news-title="مدرستي الحلوة الأطفال">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/event.jpg" alt="نشاط تربوي للأطفال">
-                        <span class="amjad-badge">تربوي</span>
-                        <h3>أنشطة مدرستي الحلوة</h3>
-                        <p>ورشات تربوية وثقافية تساعد الأطفال على التعلم والمشاركة.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="programs.html#school-program">التفاصيل</a>
-                    </article>
-                    <article class="amjad-card amjad-news-card" data-filter-item="social events" data-news-title="دفء وإطعام الشتاء">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/don.jpg" alt="مبادرة دفء وإطعام">
-                        <span class="amjad-badge">اجتماعي</span>
-                        <h3>دفء وإطعام في فصل الشتاء</h3>
-                        <p>حملة لتوفير الدعم الغذائي والدفء للأسر في وضعية هشاشة.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="programs.html#warmth-program">التفاصيل</a>
-                    </article>
-                    <article class="amjad-card amjad-news-card" data-filter-item="education" data-news-title="أكاديمية أمجاد الشباب">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/brainwarm.jpeg" alt="أكاديمية أمجاد">
-                        <span class="amjad-badge">تربوي</span>
-                        <h3>ورشات أكاديمية أمجاد</h3>
-                        <p>تكوينات في المهارات الشخصية والقيادة والعمل الجماعي.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="programs.html#academy-program">التفاصيل</a>
-                    </article>
-                    <article class="amjad-card amjad-news-card" data-filter-item="events" data-news-title="ذاكرة الصخيرات">
-                        <img class="w-full h-48 object-cover rounded mb-4" src="images/skhirat.jpg" alt="ذاكرة الصخيرات">
-                        <span class="amjad-badge">أنشطة</span>
-                        <h3>ذاكرة الصخيرات</h3>
-                        <p>دعوة لجمع الصور والحكايات التي تحفظ ذاكرة المدينة.</p>
-                        <a class="amjad-btn amjad-btn-outline mt-auto" href="resources/skhirat-memory.html">التفاصيل</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="amjad-band amjad-band-white">
-            <div class="amjad-container">
-                <div class="amjad-section-head">
-                    <span class="amjad-kicker"><i class="fas fa-box-archive"></i> الأرشيف</span>
-                    <h2>الأرشيف حسب السنة</h2>
-                    <p>تقسيم واضح يساعد لاحقاً على ربط الأخبار بلوحة التحكم حسب السنة والتصنيف.</p>
-                </div>
-                <div class="amjad-archive">
-                    <a href="#news-grid">2026</a>
-                    <a href="#news-grid">2025</a>
-                    <a href="#news-grid">2024</a>
-                    <a href="#news-grid">2023</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="amjad-band">
-            <div class="amjad-container">
-                <div class="amjad-card">
-                    <div class="grid md:grid-cols-2 gap-6 items-center">
-                        <div>
-                            <span class="amjad-kicker"><i class="fas fa-camera"></i> شاركنا التوثيق</span>
-                            <h2 class="text-3xl font-bold">هل لديك صور أو خبر عن نشاط أمجاد؟</h2>
-                            <p>أرسل لنا صور الأنشطة أو الأخبار المحلية المرتبطة بالجمعية حتى نوثقها بطريقة مهنية في الموقع.</p>
-                        </div>
-                        <div class="amjad-actions md:justify-end">
-                            <a class="amjad-btn amjad-btn-primary" href="news.html">تابع أخبار الجمعية</a>
-                            <a class="amjad-btn amjad-btn-burgundy" href="contact.html">إرسال صور نشاط</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    -->
 
     <!-- Search and Filter Section -->
     <section class="section-padding bg-white">
@@ -224,15 +102,15 @@
 
             <!-- Filter Buttons -->
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterNews('all', this)"
+                <button type="button" class="filter-btn active" onclick="filterNews('all', this)"
                     data-translate="news_filter_all">الكل</button>
-                <button class="filter-btn" onclick="filterNews('news', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('news', this)"
                     data-translate="news_filter_news">الأخبار</button>
-                <button class="filter-btn" onclick="filterNews('events', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('events', this)"
                     data-translate="news_filter_events">الفعاليات</button>
-                <button class="filter-btn" onclick="filterNews('programs', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('programs', this)"
                     data-translate="news_filter_programs">البرامج</button>
-                <button class="filter-btn" onclick="filterNews('announcements', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('announcements', this)"
                     data-translate="news_filter_announcements">الإعلانات</button>
             </div>
         </div>
@@ -257,7 +135,7 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card7_desc">
                             محطة تنظيمية لتقييم المسار، والمصادقة على التقريرين الأدبي والمالي، واعتماد البرنامج السنوي ضمن رؤية تطوير العمل الجمعوي.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news7')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news7')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -283,7 +161,7 @@
                             بدار الشباب الصخيرات المركز
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news4')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news4')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -307,12 +185,12 @@
                             للتربية والأعمال الإجتماعية أمسية التنشيط التربوي
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news5')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news5')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
                 <!-- News Item 1 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="events" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news1" data-category="events" data-amjad-news-card>
                     <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover"
                         data-translate="news_card1_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -327,13 +205,13 @@
                             احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
                             من العطاء... وباقين مستمرين".
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news1')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news1')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 2 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="programs" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news2" data-category="programs" data-amjad-news-card>
                     <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover"
                         data-translate="news_card2_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -346,13 +224,13 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card2_desc">
                             نظمت جمعية أمجاد حملة التبرع بالدم في نسختها الثامنة بمدينة الصخيرات، بشراكة مع الجهات الصحية المختصة، بمشاركة حوالي 45 متبرعاً ومتطوعة.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news2')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news2')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 3 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="programs" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news3" data-category="programs" data-amjad-news-card>
                     <img src="images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover"
                         data-translate="news_card3_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -366,7 +244,7 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card3_desc">
                             نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news3')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news3')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -385,7 +263,7 @@
                             إفطار الخير، هو حملة يتم من خلالها توزيع وجبة إفطار على الصائمين
                             الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news6')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news6')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -394,14 +272,14 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
+                <button type="button" id="load-more-news" class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
                     data-translate="news_load_more">عرض المزيد من الأخبار</button>
             </div>
         </div>
     </section>
 
     <!-- News Detail Modal -->
-    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="تفاصيل الخبر">
         <div class="news-detail max-w-4xl w-full max-h-full overflow-y-auto">
             <button class="news-modal-close" onclick="closeNewsModal()" type="button" aria-label="إغلاق النافذة" title="إغلاق">
                 <i class="fas fa-times"></i>
@@ -474,7 +352,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -509,7 +387,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -537,7 +415,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -565,7 +443,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -594,7 +472,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -622,7 +500,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -658,7 +536,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -680,7 +558,7 @@
                                 data-translate="news_footer_address">الصخيرات المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> <span data-translate="news_footer_phone">الهاتف: سيتم الإعلان
                                 عن الرقم الرسمي للجمعية قريبًا</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@associationamjad.ma</p>
                     </div>
                 </div>
 
@@ -708,27 +586,23 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -744,24 +618,39 @@
 
     <!-- Additional JavaScript for News -->
     <script>
+        let activeNewsCategory = 'all';
+        let currentNewsSearch = '';
+        let newsExpanded = false;
+        let newsModalTrigger = null;
+
+        function updateNewsVisibility() {
+            const cards = Array.from(document.querySelectorAll('.news-card'));
+            cards.forEach((card, index) => {
+                const matchesCategory = activeNewsCategory === 'all' || card.dataset.category === activeNewsCategory;
+                const searchable = card.textContent.toLowerCase();
+                const matchesSearch = !currentNewsSearch || searchable.includes(currentNewsSearch);
+                const withinInitialSet = newsExpanded || index < 6 || activeNewsCategory !== 'all' || currentNewsSearch;
+                card.hidden = !(matchesCategory && matchesSearch && withinInitialSet);
+            });
+
+            const loadMoreButton = document.getElementById('load-more-news');
+            if (loadMoreButton) {
+                loadMoreButton.hidden = newsExpanded || activeNewsCategory !== 'all' || Boolean(currentNewsSearch) || cards.length <= 6;
+            }
+        }
+
         function filterNews(category, btn) {
             // Update active filter button
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
 
-            // Filter news cards
-            const cards = document.querySelectorAll('.news-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            activeNewsCategory = category;
+            updateNewsVisibility();
         }
 
         function showNewsDetail(newsId) {
+            newsModalTrigger = document.activeElement;
             // Hide all news details
             const details = document.querySelectorAll('[id$="-detail"]');
             details.forEach(detail => detail.classList.add('hidden'));
@@ -780,34 +669,24 @@
 
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
+            document.querySelector('.news-modal-close').focus();
         }
 
         function closeNewsModal() {
             document.getElementById('news-modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            if (newsModalTrigger && typeof newsModalTrigger.focus === 'function') newsModalTrigger.focus();
         }
 
         function loadMoreNews() {
-            alert(currentLanguage === 'ar' ? 'سيتم تحميل المزيد من الأخبار قريبًا!' :
-                currentLanguage === 'en' ? 'More news will be loaded soon!' :
-                    'Plus d\'actualités seront chargées bientôt!');
+            newsExpanded = true;
+            updateNewsVisibility();
         }
 
         // Search functionality
         document.getElementById('news-search').addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.news-card');
-
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const content = card.querySelector('p').textContent.toLowerCase();
-
-                if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            currentNewsSearch = e.target.value.trim().toLowerCase();
+            updateNewsVisibility();
         });
 
         // Close modal on outside click
@@ -815,6 +694,18 @@
             if (e.target === this) {
                 closeNewsModal();
             }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !document.getElementById('news-modal').classList.contains('hidden')) {
+                closeNewsModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateNewsVisibility();
+            const articleId = window.location.hash.slice(1);
+            if (/^news[1-7]$/.test(articleId)) showNewsDetail(articleId);
         });
     </script>
 

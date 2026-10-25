@@ -26,7 +26,7 @@
         }
         
         .contact-hero {
-            background: url('/images/ramadan.png');
+            background: url('../images/ramadan.png');
             background-size: cover;
             background-position: center;
             min-height: 60vh;
@@ -142,18 +142,6 @@
         .form-textarea {
             min-height: 120px;
             resize: vertical;
-        }
-        
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        
-        .alert-success {
-            background-color: #D1FAE5;
-            color: #065F46;
-            border: 1px solid #10B981;
         }
         
         .map-container {
