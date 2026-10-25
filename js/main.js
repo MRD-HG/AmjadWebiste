@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializeForms();
     initializePhotoGallery();
+    initializeAmjadArchitecture();
     
     // Set initial language
     setDocumentDirection(currentLanguage);
@@ -281,6 +282,42 @@ function initializePhotoGallery() {
             });
         });
     });
+}
+
+// Shared body-architecture controls for program and news pages.
+function initializeAmjadArchitecture() {
+    document.querySelectorAll('[data-filter-scope]').forEach(scope => {
+        const buttons = scope.querySelectorAll('[data-filter]');
+        const section = scope.closest('section');
+        const items = section ? section.querySelectorAll('[data-filter-item]') : [];
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const selected = button.dataset.filter;
+                buttons.forEach(btn => btn.classList.toggle('is-active', btn === button));
+
+                items.forEach(item => {
+                    const values = (item.dataset.filterItem || '').split(/\s+/);
+                    const shouldShow = selected === 'all' || values.includes(selected);
+                    item.hidden = !shouldShow;
+                });
+            });
+        });
+    });
+
+    const newsSearch = document.querySelector('[data-news-search]');
+    if (newsSearch) {
+        const newsSection = newsSearch.closest('section');
+        const cards = newsSection ? newsSection.querySelectorAll('[data-news-title]') : [];
+
+        newsSearch.addEventListener('input', () => {
+            const term = newsSearch.value.trim().toLowerCase();
+            cards.forEach(card => {
+                const searchable = `${card.dataset.newsTitle || ''} ${card.textContent || ''}`.toLowerCase();
+                card.hidden = term.length > 0 && !searchable.includes(term);
+            });
+        });
+    }
 }
 
 // Utility functions
