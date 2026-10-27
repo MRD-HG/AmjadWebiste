@@ -42,7 +42,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden xl:flex items-center gap-8">
+            <div class="hidden md:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -58,14 +58,14 @@
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -88,7 +88,6 @@
                 دائمًا على اطلاع بكل ما ننجزه معًا</p>
         </div>
     </section>
-
 
     <!-- Search and Filter Section -->
     <section class="section-padding bg-white">
@@ -119,10 +118,10 @@
     <!-- News Grid -->
     <section class="section-padding bg-gray-50">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid" data-amjad-list="news">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid">
 
                 <!-- News Item 7 -->
-                <div class="news-card featured-news-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="news" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="news">
                     <img src="images/jam3.jpeg" alt="الجمع العام" class="w-full h-48 object-cover"
                         data-translate="news_card7_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -143,8 +142,8 @@
 
 
                 <!-- News Item 4 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden"
-                    data-category="events" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
+                    data-category="events">
                     <img src="images/clone.jpeg" alt="إنجاز الجمعية" class="w-full h-48 object-cover"
                         data-translate="news_card4_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -167,8 +166,8 @@
                 </div>
 
                 <!-- News Item 5 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden"
-                    data-category="announcements" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
+                    data-category="announcements">
                     <img src="images/masa2.jpg" alt="إعلان جديد" class="w-full h-48 object-cover"
                         data-translate="news_card5_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -190,7 +189,7 @@
                     </div>
                 </div>
                 <!-- News Item 1 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news1" data-category="events" data-amjad-news-card>
+                <div id="news1" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
                     <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover"
                         data-translate="news_card1_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -211,7 +210,7 @@
                 </div>
 
                 <!-- News Item 2 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news2" data-category="programs" data-amjad-news-card>
+                <div id="news2" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
                     <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover"
                         data-translate="news_card2_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -230,7 +229,7 @@
                 </div>
 
                 <!-- News Item 3 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" id="news3" data-category="programs" data-amjad-news-card>
+                <div id="news3" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
                     <img src="images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover"
                         data-translate="news_card3_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -249,7 +248,7 @@
                     </div>
                 </div>
                 <!-- News Item 6 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="events" data-amjad-news-card>
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
                     <img src="images/Siyam.jpg" alt="فعالية المجتمع" class="w-full h-48 object-cover"
                         data-translate="news_card6_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -272,18 +271,16 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button type="button" id="load-more-news" class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
+                <button type="button" class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
                     data-translate="news_load_more">عرض المزيد من الأخبار</button>
             </div>
         </div>
     </section>
 
     <!-- News Detail Modal -->
-    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="تفاصيل الخبر">
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+        role="dialog" aria-modal="true" aria-label="تفاصيل الخبر" tabindex="-1">
         <div class="news-detail max-w-4xl w-full max-h-full overflow-y-auto">
-            <button class="news-modal-close" onclick="closeNewsModal()" type="button" aria-label="إغلاق النافذة" title="إغلاق">
-                <i class="fas fa-times"></i>
-            </button>
             <div id="news1-detail" class="hidden">
                 <div class="news-image" style="background-image: url('images/jam3.jpeg');">
                     <div class="news-overlay">
@@ -383,7 +380,7 @@
                         <p class="text-gray-600 mb-6" data-translate="news_detail2_p4">وتتقدم جمعية أمجاد بجزيل الشكر
                             والتقدير لكافة المتبرعين والمتطوعين، وكذا للأطر الصحية والإدارية والجهات الشريكة على تعاونهم
                             ومجهوداتهم لإنجاح هذه المبادرة.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -411,7 +408,7 @@
                             في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail3_p2">تفاصيل إضافية حول هذه الفعالية
                             سيتم نشرها قريباً على موقع الجمعية.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -439,7 +436,7 @@
                             صبحية البهلوان وذلك يوم بدار الشباب الصخيرات المركز</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail4_p2">سيتم تحديث هذا الخبر بالتفاصيل
                             والصور الكاملة قريباً.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -468,7 +465,7 @@
                             أمسية التنشيط التربوي</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail5_p2">تابعوا صفحة الأخبار للاطلاع على
                             التقرير الكامل والتفاصيل قريباً.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -496,7 +493,7 @@
                             توزيع وجبة إفطار على الصائمين الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail6_p2">تفاصيل البرنامج (أماكن/مواعيد)
                             سيتم الإعلان عنها عند توفرها.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -532,7 +529,7 @@
                         <p class="text-gray-600 mb-6" data-translate="news_detail7_p4">وتضمن برنامج الجمع العام لحفل مرور
                             أربع سنوات تم خلاله تكريم بعض أطر الجمعية، واختتم بالتأكيد على أهمية التخطيط الاستراتيجي
                             وضرورة تضافر الجهود لتنزيل مضامين الخطة على أرض الواقع.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
@@ -575,7 +572,7 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -619,24 +616,15 @@
     <!-- Additional JavaScript for News -->
     <script>
         let activeNewsCategory = 'all';
-        let currentNewsSearch = '';
-        let newsExpanded = false;
-        let newsModalTrigger = null;
 
-        function updateNewsVisibility() {
-            const cards = Array.from(document.querySelectorAll('.news-card'));
-            cards.forEach((card, index) => {
-                const matchesCategory = activeNewsCategory === 'all' || card.dataset.category === activeNewsCategory;
-                const searchable = card.textContent.toLowerCase();
-                const matchesSearch = !currentNewsSearch || searchable.includes(currentNewsSearch);
-                const withinInitialSet = newsExpanded || index < 6 || activeNewsCategory !== 'all' || currentNewsSearch;
-                card.hidden = !(matchesCategory && matchesSearch && withinInitialSet);
+        function applyNewsVisibility() {
+            const searchInput = document.getElementById('news-search');
+            const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            document.querySelectorAll('.news-card').forEach(card => {
+                const categoryMatches = activeNewsCategory === 'all' || card.dataset.category === activeNewsCategory;
+                const searchMatches = !searchTerm || card.textContent.toLowerCase().includes(searchTerm);
+                card.hidden = !(categoryMatches && searchMatches);
             });
-
-            const loadMoreButton = document.getElementById('load-more-news');
-            if (loadMoreButton) {
-                loadMoreButton.hidden = newsExpanded || activeNewsCategory !== 'all' || Boolean(currentNewsSearch) || cards.length <= 6;
-            }
         }
 
         function filterNews(category, btn) {
@@ -646,11 +634,10 @@
             if (btn) btn.classList.add('active');
 
             activeNewsCategory = category;
-            updateNewsVisibility();
+            applyNewsVisibility();
         }
 
         function showNewsDetail(newsId) {
-            newsModalTrigger = document.activeElement;
             // Hide all news details
             const details = document.querySelectorAll('[id$="-detail"]');
             details.forEach(detail => detail.classList.add('hidden'));
@@ -665,28 +652,31 @@
 
             // Show selected news detail
             selected.classList.remove('hidden');
-            document.getElementById('news-modal').classList.remove('hidden');
+            const modal = document.getElementById('news-modal');
+            modal.classList.remove('hidden');
+            modal.focus();
 
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
-            document.querySelector('.news-modal-close').focus();
         }
 
         function closeNewsModal() {
             document.getElementById('news-modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-            if (newsModalTrigger && typeof newsModalTrigger.focus === 'function') newsModalTrigger.focus();
         }
 
         function loadMoreNews() {
-            newsExpanded = true;
-            updateNewsVisibility();
+            const button = document.querySelector('[onclick="loadMoreNews()"]');
+            if (!button) return;
+            button.disabled = true;
+            button.textContent = currentLanguage === 'ar' ? 'كل الأخبار المنشورة معروضة' :
+                currentLanguage === 'en' ? 'All published news is displayed' :
+                    'Toutes les actualités publiées sont affichées';
         }
 
         // Search functionality
         document.getElementById('news-search').addEventListener('input', function (e) {
-            currentNewsSearch = e.target.value.trim().toLowerCase();
-            updateNewsVisibility();
+            applyNewsVisibility();
         });
 
         // Close modal on outside click
@@ -703,9 +693,10 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            updateNewsVisibility();
-            const articleId = window.location.hash.slice(1);
-            if (/^news[1-7]$/.test(articleId)) showNewsDetail(articleId);
+            const newsId = window.location.hash.slice(1);
+            if (/^news\d+$/.test(newsId) && document.getElementById(newsId + '-detail')) {
+                showNewsDetail(newsId);
+            }
         });
     </script>
 

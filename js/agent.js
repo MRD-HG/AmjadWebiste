@@ -62,9 +62,9 @@
     },
     shop: {
       kw: ["متجر","shop","boutique","t-shirt","cap","قبعة","تيشرت","تي شيرت"],
-      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس واللون والكمية، ثم جهّز رسالة بريد لتأكيد الطلب مع الجمعية.",
-      en: "Amjad Shop: open the Shop page, choose the product, size, color and quantity, then prepare an email to confirm the request with the association.",
-      fr: "Boutique Amjad : ouvrez la page Boutique, choisissez le produit, la taille, la couleur et la quantité, puis préparez un e-mail pour confirmer la demande avec l’association."
+      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس واللون والكمية، ثم تابع الطلب عبر البريد الإلكتروني.",
+      en: "Amjad Shop: open the Shop page, choose the product, size, color and quantity, then continue the order by email.",
+      fr: "Boutique Amjad : ouvrez la boutique, choisissez le produit, la taille, la couleur et la quantité, puis continuez la commande par e-mail."
     },
     sponsorship: {
       kw: ["رعاية","شراكة","sponsor","sponsorship","partenariat","sponsoring","csr"],

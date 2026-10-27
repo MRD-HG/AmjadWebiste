@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializeFormAccessibility();
     initializePhotoGallery();
-    initializeAmjadArchitecture();
     
     // Set initial language
     setDocumentDirection(currentLanguage);
@@ -84,7 +83,7 @@ function initializeLanguageSwitcher() {
 
 function initializeNavigationAccessibility() {
     const mobileMenu = document.querySelector('.mobile-menu');
-    const toggle = document.querySelector('button[onclick="toggleMobileMenu()"]');
+    const toggle = document.querySelector('button[onclick*="toggleMobileMenu"]');
     if (!mobileMenu || !toggle) return;
 
     if (!mobileMenu.id) mobileMenu.id = 'mobile-navigation';
@@ -104,6 +103,7 @@ function initializeIconLinkAccessibility() {
         'fa-facebook': 'Facebook',
         'fa-instagram': 'Instagram',
         'fa-x': 'X',
+        'fa-twitter': 'X',
         'fa-youtube': 'YouTube',
         'fa-tiktok': 'TikTok'
     };
@@ -334,7 +334,7 @@ function collectFormLines(form) {
         const explicitLabel = control.id ? form.querySelector(`label[for="${CSS.escape(control.id)}"]`) : null;
         const wrappingLabel = control.closest('label');
         const groupLabel = control.parentElement && control.parentElement.querySelector('.form-label, .variant-label');
-        const label = (explicitLabel || wrappingLabel || groupLabel);
+        const label = explicitLabel || wrappingLabel || groupLabel;
         const labelText = label ? label.textContent.trim() : (control.placeholder || control.name || control.type);
         const value = control.type === 'checkbox' || control.type === 'radio'
             ? (wrappingLabel ? wrappingLabel.textContent.trim() : control.value)
@@ -379,20 +379,7 @@ function submitEmailFallback(event, formType) {
     const copy = getFallbackCopy();
     const type = formType ? ` — ${formType}` : '';
     const body = collectFormLines(form).join('\n');
-    if (!body) {
-        const previous = form.querySelector('.form-status');
-        if (previous) previous.remove();
-        const status = document.createElement('div');
-        status.className = 'form-status';
-        status.setAttribute('role', 'alert');
-        status.textContent = currentLanguage === 'en'
-            ? 'Enter your information before continuing.'
-            : currentLanguage === 'fr'
-                ? 'Saisissez vos informations avant de continuer.'
-                : 'أدخل معلوماتك قبل المتابعة.';
-        form.appendChild(status);
-        return false;
-    }
+    if (!body) return false;
     renderEmailFallback(form, `${copy.subject}${type}`, body);
     return false;
 }
@@ -437,42 +424,6 @@ function initializePhotoGallery() {
     });
 }
 
-// Shared body-architecture controls for program and news pages.
-function initializeAmjadArchitecture() {
-    document.querySelectorAll('[data-filter-scope]').forEach(scope => {
-        const buttons = scope.querySelectorAll('[data-filter]');
-        const section = scope.closest('section');
-        const items = section ? section.querySelectorAll('[data-filter-item]') : [];
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const selected = button.dataset.filter;
-                buttons.forEach(btn => btn.classList.toggle('is-active', btn === button));
-
-                items.forEach(item => {
-                    const values = (item.dataset.filterItem || '').split(/\s+/);
-                    const shouldShow = selected === 'all' || values.includes(selected);
-                    item.hidden = !shouldShow;
-                });
-            });
-        });
-    });
-
-    const newsSearch = document.querySelector('[data-news-search]');
-    if (newsSearch) {
-        const newsSection = newsSearch.closest('section');
-        const cards = newsSection ? newsSection.querySelectorAll('[data-news-title]') : [];
-
-        newsSearch.addEventListener('input', () => {
-            const term = newsSearch.value.trim().toLowerCase();
-            cards.forEach(card => {
-                const searchable = `${card.dataset.newsTitle || ''} ${card.textContent || ''}`.toLowerCase();
-                card.hidden = term.length > 0 && !searchable.includes(term);
-            });
-        });
-    }
-}
-
 // Utility functions
 function showComingSoon() {
     const message = currentLanguage === 'ar' ? 'سيتم إطلاق هذه الصفحة قريباً' :
@@ -486,7 +437,7 @@ function toggleMobileMenu() {
     const mobileMenu = document.querySelector('.mobile-menu');
     if (mobileMenu) {
         mobileMenu.classList.toggle('hidden');
-        const button = document.querySelector('button[onclick="toggleMobileMenu()"]');
+        const button = document.querySelector('button[onclick*="toggleMobileMenu"]');
         if (button) button.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden')));
     }
 }

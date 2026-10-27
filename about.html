@@ -26,9 +26,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/content-architecture.css">
     <!-- Custom Styles -->
-    
+
       <link rel="icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -50,7 +49,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden xl:flex items-center gap-8">
+            <div class="hidden md:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -66,14 +65,14 @@
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -99,125 +98,350 @@
       </div>
     </section>
 
-    <main class="amjad-page-body">
-      <section class="amjad-band amjad-band-white">
-        <div class="amjad-container">
-          <div class="amjad-feature">
-            <div class="amjad-feature-content">
-              <span class="amjad-kicker"><i class="fas fa-mosque"></i> جمعية مغربية بروح محلية</span>
-              <h2 class="text-3xl font-bold">تعريف مختصر بالجمعية</h2>
-              <p class="amjad-lead">جمعية أمجاد للتربية والأعمال الاجتماعية إطار مدني يشتغل على التربية، التضامن، الصحة، والتنمية المحلية، من خلال مبادرات ميدانية تخدم ساكنة الصخيرات ومحيطها بروح تطوعية ومسؤولة.</p>
-              <div class="amjad-actions">
-                <a class="amjad-btn amjad-btn-primary" href="programs.html">اكتشف البرامج</a>
-                <a class="amjad-btn amjad-btn-outline" href="contact.html">تواصل معنا</a>
-              </div>
+    <!-- Association Definition -->
+    <section class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              <span data-translate="about_who_title">من نحن؟</span>
+            </h2>
+
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed" data-translate="about_who_para_1">
+              جمعية أمجاد للتربية والأعمال الاجتماعية هي منظمة غير حكومية تأسست
+              في سنة 2021 بمدينة الصخيرات، وتسعى إلى المساهمة في التنمية
+              المجتمعية الشاملة من خلال برامج تربوية وتعليمية واجتماعية تستهدف
+              مختلف شرائح المجتمع، مع التركيز الخاص على تمكين الشباب والأطفال.
+            </p>
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed" data-translate="about_who_para_2">
+              نؤمن بأن التنمية المستدامة تبدأ بالإنسان، ولهذا نعمل جاهدين على
+              خلق بيئة محفزة للنمو والإبداع، من خلال برامجنا المتنوعة التي تهدف
+              إلى تعزيز قيم المواطنة والتعاون والمسؤولية الاجتماعية.
+            </p>
+            <button type="button"
+              class="btn-primary"
+              onclick="window.location.href='services.html#membership-form'"
+              data-translate="about_who_cta"
+            >
+              انضم إلينا
+            </button>
+          </div>
+
+          <div class="fade-in">
+            <img
+              src="images/amjad.jpg"
+              alt="فريق الجمعية"
+              data-translate="about_image_alt"
+              data-translate-attr="alt"
+              class="rounded-lg shadow-lg w-full"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision and Mission -->
+    <section class="section-padding bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Vision -->
+          <div class="bg-white rounded-lg p-8 shadow-lg fade-in">
+            <div class="text-green-600 text-5xl mb-6">
+              <i class="fas fa-eye"></i>
             </div>
-            <img src="images/about-image.jpg" alt="جمعية أمجاد">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="about_vision_title">رؤيتنا</h3>
+            <p class="text-gray-600 text-lg leading-relaxed" data-translate="about_vision_text">
+              نطمح إلى بناء مجتمع متكافل ومتعاون، يتمتع فيه كل فرد بالفرص
+              المتساوية للنمو والتطور، ويساهم في التنمية المستدامة لمجتمعه من
+              خلال التعليم والعمل الجماعي والمبادرات الاجتماعية.
+            </p>
+          </div>
+
+          <!-- Mission -->
+          <div class="bg-white rounded-lg p-8 shadow-lg fade-in">
+            <div class="text-yellow-600 text-5xl mb-6">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="about_mission_title">رسالتنا</h3>
+            <p class="text-gray-600 text-lg leading-relaxed" data-translate="about_mission_text">
+              العمل على تمكين الأفراد والمجتمعات من خلال برامج تربوية وتعليمية
+              واجتماعية متنوعة، وتعزيز قيم التعاون والتكافل والمسؤولية
+              الاجتماعية، مع التركيز على الاستدامة والتأثير المستدام.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="amjad-band">
-        <div class="amjad-container">
-          <div class="amjad-grid amjad-grid-2">
-            <article class="amjad-card">
-              <span class="amjad-kicker"><i class="fas fa-seedling"></i> الدافع</span>
-              <h2 class="text-3xl font-bold">لماذا تأسست أمجاد؟</h2>
-              <p>تأسست أمجاد استجابة لحاجة محلية إلى إطار منظم يجمع بين التربية والعمل الاجتماعي، ويحول نية الخير إلى برامج قابلة للتنفيذ والتوثيق والتطوير.</p>
-            </article>
-            <article class="amjad-card">
-              <span class="amjad-kicker"><i class="fas fa-compass"></i> الاتجاه</span>
-              <h2 class="text-3xl font-bold">الرؤية والرسالة</h2>
-              <div class="amjad-grid mt-4">
-                <div>
-                  <h3>الرؤية</h3>
-                  <p data-amjad="about-vision">مجتمع محلي متضامن، متعلم، ومشارك في صناعة أثر إيجابي مستدام.</p>
-                </div>
-                <div>
-                  <h3>الرسالة</h3>
-                  <p data-amjad="about-mission">تنظيم مبادرات تربوية واجتماعية وصحية بشراكة مع المتطوعين والمؤسسات لخدمة الإنسان وتقوية الروابط المجتمعية.</p>
-                </div>
-              </div>
-            </article>
+    <!-- Core Values -->
+    <section class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="about_values_title">
+            قيمنا الأساسية
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-translate="about_values_subtitle">
+            المبادئ التي نؤمن بها وتوجه عملنا اليومي في خدمة المجتمع
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Value 1: Cooperation -->
+          <div class="value-card bg-gray-50 rounded-lg p-6 text-center fade-in">
+            <div class="text-green-600 text-4xl mb-4">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="about_value_cooperation_title">التعاون</h3>
+            <p class="text-gray-600" data-translate="about_value_cooperation_text">
+              نؤمن بقوة العمل الجماعي والتعاون في تحقيق الأهداف المشتركة وبناء
+              مجتمع متكافل.
+            </p>
+          </div>
+
+          <!-- Value 2: Responsibility -->
+          <div class="value-card bg-gray-50 rounded-lg p-6 text-center fade-in">
+            <div class="text-blue-600 text-4xl mb-4">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="about_value_responsibility_title">المسؤولية</h3>
+            <p class="text-gray-600" data-translate="about_value_responsibility_text">
+              نتحمل مسؤولية أفعالنا وقراراتنا تجاه مجتمعنا ونسعى لتحقيق الأثر
+              الإيجابي المستدام.
+            </p>
+          </div>
+
+          <!-- Value 3: Transparency -->
+          <div class="value-card bg-gray-50 rounded-lg p-6 text-center fade-in">
+            <div class="text-yellow-600 text-4xl mb-4">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="about_value_transparency_title">الشفافية</h3>
+            <p class="text-gray-600" data-translate="about_value_transparency_text">
+              نلتزم بالشفافية في جميع عملياتنا واتخاذ القرارات ونحرص على إشراك
+              المجتمع في خططنا.
+            </p>
+          </div>
+
+          <!-- Value 5: Innovation -->
+          <div class="value-card bg-gray-50 rounded-lg p-6 text-center fade-in">
+            <div class="text-red-600 text-4xl mb-4">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="about_value_innovation_title">الابتكار</h3>
+            <p class="text-gray-600" data-translate="about_value_innovation_text">
+              نبحث دائمًا عن حلول مبتكرة وفعالة لتحديات المجتمع ونسعى لتطوير
+              أساليبنا باستمرار.
+            </p>
+          </div>
+
+          <!-- Value 6: Sustainability -->
+          <div class="value-card bg-gray-50 rounded-lg p-6 text-center fade-in">
+            <div class="text-green-600 text-4xl mb-4">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="about_value_sustainability_title">الاستدامة</h3>
+            <p class="text-gray-600" data-translate="about_value_sustainability_text">
+              نعمل على إنشاء برامج ومشاريع مستدامة تحقق تأثيرًا طويل الأمد في
+              المجتمع.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="amjad-band amjad-band-white">
-        <div class="amjad-container">
-          <div class="amjad-section-head center">
-            <span class="amjad-kicker"><i class="fas fa-heart"></i> قيمنا</span>
-            <h2>القيم التي توجه العمل</h2>
-          </div>
-          <div class="amjad-grid amjad-grid-4">
-            <article class="amjad-card amjad-card-flat"><div class="amjad-icon"><i class="fas fa-hands-helping"></i></div><h3>التضامن</h3><p>نخدم الناس بروح التكافل والمسؤولية.</p></article>
-            <article class="amjad-card amjad-card-flat"><div class="amjad-icon"><i class="fas fa-book-open"></i></div><h3>التربية</h3><p>نعتبر التعلم مدخلاً للتنمية والثقة.</p></article>
-            <article class="amjad-card amjad-card-flat"><div class="amjad-icon"><i class="fas fa-scale-balanced"></i></div><h3>الشفافية</h3><p>نوثق المبادرات ونوضح مجالات الدعم.</p></article>
-            <article class="amjad-card amjad-card-flat"><div class="amjad-icon"><i class="fas fa-people-group"></i></div><h3>الشراكة</h3><p>نشتغل مع المتطوعين والمؤسسات والفاعلين المحليين.</p></article>
-          </div>
+    <!-- Timeline -->
+    <section class="section-padding bg-gray-50">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="about_timeline_title">
+            مسيرتنا
+          </h2>
+          <p class="text-lg text-gray-600" data-translate="about_timeline_subtitle">
+            محطات مهمة في مسيرة الجمعية منذ التأسيس حتى اليوم
+          </p>
         </div>
-      </section>
 
-      <section class="amjad-band">
-        <div class="amjad-container">
-          <div class="amjad-section-head">
-            <span class="amjad-kicker"><i class="fas fa-timeline"></i> مسار الجمعية</span>
-            <h2>الخط الزمني للجمعية</h2>
+        <div class="space-y-8">
+          <div class="timeline-item fade-in">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_1_title">التأسيس</h3>
+                <span class="text-green-600 font-semibold">2021</span>
+              </div>
+              <p class="text-gray-600" data-translate="about_timeline_1_text">
+                تأسيس جمعية أمجاد للتربية والأعمال الاجتماعية بمدينة الصخيرات ,
+                مع تحديد الرؤية والرسالة والأهداف العامة.
+              </p>
+            </div>
           </div>
-          <div class="amjad-timeline">
-            <article class="amjad-timeline-item"><h3>البدايات</h3><p>تبلورت فكرة العمل الجمعوي حول التربية والتضامن وخدمة القرب.</p></article>
-            <article class="amjad-timeline-item"><h3>تنظيم البرامج</h3><p>تم ترتيب المبادرات ضمن برنامج تربوي وتكويني وبرنامج اجتماعي وتضامني.</p></article>
-            <article class="amjad-timeline-item"><h3>توسيع الشراكات</h3><p>فتح قنوات التعاون مع المتطوعين والمؤسسات والفاعلين المحليين.</p></article>
-            <article class="amjad-timeline-item"><h3>التوثيق والرقمنة</h3><p>تطوير الموقع ليصبح واجهة رسمية للأخبار والبرامج والذاكرة المحلية.</p></article>
-          </div>
-        </div>
-      </section>
 
-      <section class="amjad-band amjad-band-white">
-        <div class="amjad-container">
-          <div class="amjad-grid amjad-grid-2">
-            <article class="amjad-card">
-              <span class="amjad-kicker"><i class="fas fa-user-tie"></i> المكتب / الفريق</span>
-              <h2 class="text-3xl font-bold">فريق يعمل بروح التطوع</h2>
-              <p>يعتمد عمل الجمعية على مكتب منظم ومتطوعين ومؤطرين وشركاء يساهمون كل حسب خبرته ووقته وإمكاناته.</p>
-              <div class="amjad-chip-row">
-                <span class="amjad-chip">التنسيق</span>
-                <span class="amjad-chip">التأطير</span>
-                <span class="amjad-chip">التواصل</span>
-                <span class="amjad-chip">الدعم الميداني</span>
+          <div class="timeline-item fade-in">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_2_title">أولى المبادرات</h3>
+                <span class="text-green-600 font-semibold">2022</span>
               </div>
-            </article>
-            <article class="amjad-card">
-              <span class="amjad-kicker"><i class="fas fa-chart-simple"></i> الأرقام والثقة</span>
-              <h2 class="text-3xl font-bold">مؤشرات تساعد على بناء الثقة</h2>
-              <div class="amjad-stats">
-                <div class="amjad-stat"><strong>2</strong><span>محاور برامج</span></div>
-                <div class="amjad-stat"><strong>8+</strong><span>مشاريع ومبادرات</span></div>
-                <div class="amjad-stat"><strong>100%</strong><span>روح تطوعية</span></div>
-              </div>
-            </article>
+              <p class="text-gray-600" data-translate="about_timeline_2_text">
+                إطلاق أولى البرامج المجتمعية بما في ذلك برنامج "مدرستي الحلوة"
+                وفعاليات "زكاة الصحة" الأولى.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      <section class="amjad-band">
-        <div class="amjad-container">
-          <div class="amjad-card">
-            <div class="grid md:grid-cols-2 gap-6 items-center">
-              <div>
-                <span class="amjad-kicker"><i class="fas fa-door-open"></i> شارك في الأثر</span>
-                <h2 class="text-3xl font-bold">انضم إلينا / تواصل معنا</h2>
-                <p>يمكنك الانضمام كمتطوع، دعم برنامج محدد، أو اقتراح شراكة تخدم التربية والعمل الاجتماعي بالصخيرات ومحيطها.</p>
+          <div class="timeline-item fade-in">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_3_title">التوسع</h3>
+                <span class="text-green-600 font-semibold">2023</span>
               </div>
-              <div class="amjad-actions md:justify-end">
-                <a class="amjad-btn amjad-btn-primary" href="services.html#volunteer">انضم إلينا</a>
-                <a class="amjad-btn amjad-btn-burgundy" href="contact.html">تواصل معنا</a>
+              <p class="text-gray-600" data-translate="about_timeline_3_text">
+                توسيع نطاق البرامج ليشمل أكاديمية أمجاد وإفطار الخير، وتوسيع
+                قاعدة المشاركة التطوعية.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_4_title">التطوير والاستمرار</h3>
+                <span class="text-green-600 font-semibold">2024</span>
               </div>
+              <p class="text-gray-600" data-translate="about_timeline_4_text">
+                توسيع الأنشطة التربوية والاجتماعية وإطلاق مبادرة رياضية مجتمعية.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_5_title">
+                  الاحتفال بالذكرى الرابعة
+                </h3>
+                <span class="text-green-600 font-semibold">2025</span>
+              </div>
+              <p class="text-gray-600" data-translate="about_timeline_5_text">
+                الاحتفال بمرور أربع سنوات على التأسيس تحت شعار "سنوات من
+                العطاء... وباقين مستمرين"، مع إطلاق خطة التطوير الخمسية.
+              </p>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+
+    <!-- Strategic Goals -->
+    <section class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="about_goals_title">
+            أهدافنا الاستراتيجية
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-translate="about_goals_subtitle">
+            الأهداف التي نسعى لتحقيقها في المدى القريب والبعيد
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="fade-in">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6" data-translate="about_goals_short_title">
+              الأهداف قصيرة المدى (2025-2026)
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_short_1"
+                  >توسيع الوصول إلى المستفيدين من برامجنا</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_short_2"
+                  >توسيع شبكة المتطوعين وتعزيز تأطيرهم</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_short_3"
+                  >تطوير برامج جديدة في مجالات متنوعة</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_short_4"
+                  >تحسين البنية التحتية الرقمية للجمعية</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="fade-in">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6" data-translate="about_goals_long_title">
+              الأهداف طويلة المدى (2027-2030)
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_long_1"
+                  >توسيع الأثر المجتمعي للبرامج بشكل مستدام</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_long_2"
+                  >إنشاء مركز تدريب وتنمية مستدام</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_long_3"
+                  >توسيع أنشطتنا إلى المدن المجاورة</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
+                <span class="text-gray-600" data-translate="about_goals_long_4"
+                  >تعزيز جودة العمل الاجتماعي وبناء شراكات مستدامة</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section-padding bg-green-600 text-white">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <div class="fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <span data-translate="about_join_title">كن جزءًا من مسيرتنا</span>
+          </h2>
+          <p class="text-xl mb-8" data-translate="about_join_subtitle">
+            انضم إلينا وساهم في بناء مجتمع أفضل من خلال العمل التطوعي والمشاركة
+            في برامجنا
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4">
+            <button type="button"
+              class="btn-secondary text-lg px-8 py-3"
+              onclick="window.location.href='services.html#volunteer-form'"
+              data-translate="about_join_volunteer"
+            >
+              تطوع معنا
+            </button>
+            <button type="button"
+              class="bg-white text-green-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-lg font-semibold transition-colors"
+              onclick="window.location.href='services.html#membership-form'"
+              data-translate="about_join_cta"
+            >
+              انضم إلينا
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
@@ -270,7 +494,7 @@
                 data-translate="news"
                 >الأخبار</a
               >
-            
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -331,4 +555,4 @@
     <script src="js/main.js"></script>
       <script src="js/agent.js" defer></script>
 </body>
-</html> 
+</html>

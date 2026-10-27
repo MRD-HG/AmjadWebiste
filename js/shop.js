@@ -8,7 +8,7 @@ const I18N = {
     cityPh: 'المدينة',
     phonePh: 'رقم الهاتف (اختياري)',
     notePh: 'ملاحظة (اختياري): اللون/المقاس/تفاصيل إضافية...',
-    orderBtn: 'تجهيز الطلب عبر البريد',
+    orderBtn: 'متابعة الطلب عبر البريد الإلكتروني',
     chooseBtn: 'اختيار هذا المنتج',
     selected: 'المنتج المختار',
     size: 'المقاس',
@@ -27,7 +27,7 @@ const I18N = {
     cityPh: 'City',
     phonePh: 'Phone (optional)',
     notePh: 'Note (optional): color/size/extra details...',
-    orderBtn: 'Prepare order email',
+    orderBtn: 'Continue order by email',
     chooseBtn: 'Choose this product',
     selected: 'Selected product',
     size: 'Size',
@@ -46,7 +46,7 @@ const I18N = {
     cityPh: 'Ville',
     phonePh: 'Téléphone (optionnel)',
     notePh: 'Note (optionnel) : couleur/taille/détails...',
-    orderBtn: 'Préparer l’e-mail de commande',
+    orderBtn: 'Continuer la commande par e-mail',
     chooseBtn: 'Choisir ce produit',
     selected: 'Produit sélectionné',
     size: 'Taille',
@@ -96,10 +96,6 @@ function syncLanguagePlaceholders(){
   const note = $('#shop-note');
   const btn = $('#shop-order-btn');
   const search = $('#shop-search');
-  const nameLabel = $('#shop-name-label');
-  const cityLabel = $('#shop-city-label');
-  const phoneLabel = $('#shop-phone-label');
-  const noteLabel = $('#shop-note-label');
 
   if (name) name.placeholder = d.namePh;
   if (city) city.placeholder = d.cityPh;
@@ -107,10 +103,6 @@ function syncLanguagePlaceholders(){
   if (note) note.placeholder = d.notePh;
   if (btn) btn.textContent = d.orderBtn;
   if (search && !search.dataset.translate) search.placeholder = d.searchPh;
-  if (nameLabel) nameLabel.textContent = d.namePh;
-  if (cityLabel) cityLabel.textContent = d.cityPh;
-  if (phoneLabel) phoneLabel.textContent = d.phonePh;
-  if (noteLabel) noteLabel.textContent = d.notePh;
 
   // buttons on cards
   $all('.select-product').forEach(b => {
@@ -185,7 +177,6 @@ function updateSummary(){
 
 function buildOrderMessage(form){
   const labels = currentLabels();
-  const dict = tr();
 
   const product = form.product.value || 'T-shirt';
   const size = form.size.value || 'M';

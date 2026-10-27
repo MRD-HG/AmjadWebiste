@@ -36,6 +36,18 @@
             background-attachment: scroll;
         }
 
+        @media (max-width: 767px) {
+            .hero-section {
+                background-position: 58% center;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .hero-section {
+                background-position: 55% center;
+            }
+        }
+
         .navbar {
             transition: all 0.3s ease;
             -webkit-backdrop-filter: blur(10px);
@@ -186,10 +198,6 @@
         }
 
         @media (max-width: 768px) {
-            .hero-section {
-                background-position: center top;
-            }
-
             .counter {
                 font-size: 2rem;
             }

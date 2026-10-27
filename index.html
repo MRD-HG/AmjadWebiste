@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/index.css">
-  
+
     <link rel="icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -44,7 +44,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden xl:flex items-center gap-8">
+            <div class="hidden md:flex items-center gap-8">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
@@ -60,14 +60,14 @@
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
                 <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -237,7 +237,7 @@
                         صور العطاء.
                     </p>
                     <button type="button" class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='services.html#zakat'">المزيد</button>
+                        onclick="window.location.href='services.html#zakat-form'">المزيد</button>
                 </div>
 
                 <!-- Iftar Al-Khair -->
@@ -250,7 +250,7 @@
                         برنامج رمضاني يهدف إلى إفطار الصائمين وتقديم وجبات غذائية للأسر المحتاجة خلال شهر رمضان المبارك.
                     </p>
                     <button type="button" class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#iftar-profile'">المزيد</button>
+                        onclick="window.location.href='programs.html#iftar-detail'">المزيد</button>
                 </div>
 
                 <!-- Shop -->
@@ -260,7 +260,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="home_shop_card_title">متجر أمجاد</h3>
                     <p class="text-gray-600 mb-4" data-translate="home_shop_card_desc">
-                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — تواصل معنا عبر البريد الإلكتروني لتأكيد الطلب.
+                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — أكمل الطلب عبر البريد الإلكتروني.
                     </p>
                     <button type="button" class="btn-primary w-full" data-translate="home_shop_card_cta"
                         onclick="window.location.href='shop.html'">اذهب إلى المتجر</button>
@@ -289,7 +289,7 @@
                         برامج تعليمية وتدريبية مصممة لتنمية مهارات الشباب وتعزيز قدراتهم في مختلف المجالات.
                     </p>
                     <button type="button" class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#academy-profile'">المزيد</button>
+                        onclick="window.location.href='programs.html#academy-detail'">المزيد</button>
                 </div>
 
                 <!-- Medrasti Al-Hilwa -->
@@ -302,7 +302,7 @@
                         أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب منذ الصغر.
                     </p>
                     <button type="button" class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#school'">المزيد</button>
+                        onclick="window.location.href='programs.html#school-detail'">المزيد</button>
                 </div>
             </div>
         </div>
@@ -582,8 +582,8 @@
                 <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto" onsubmit="subscribeNewsletter(event)">
                     <label class="sr-only" for="newsletter-email" data-translate="index_newsletter_placeholder">أدخل بريدك الإلكتروني</label>
                     <input type="email" id="newsletter-email" placeholder="أدخل بريدك الإلكتروني"
-                        data-translate="index_newsletter_placeholder"
-                        class="flex-1 px-4 py-3 rounded-lg text-gray-800" required autocomplete="email">
+                        name="email" required data-translate="index_newsletter_placeholder"
+                        class="flex-1 px-4 py-3 rounded-lg text-gray-800">
                     <button type="submit" class="btn-secondary"
                         data-translate="index_newsletter_cta">اشترك</button>
                 </form>
@@ -602,7 +602,7 @@
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span data-translate="index_footer_address">الصخيرات
                                 المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> </p>
-                        <p><i class="fas fa-envelope ml-2"></i>  contact@associationamjad.ma</p>
+                        <p><i class="fas fa-envelope ml-2"></i> contact@associationamjad.ma</p>
                     </div>
                 </div>
 
@@ -618,7 +618,7 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
