@@ -206,3 +206,583 @@
                 padding: 40px 0;
             }
         }
+
+        /* Islamic tools */
+        .islamic-tools {
+            background: #f5f2ec;
+            border-block: 1px solid #e5e0d7;
+        }
+
+        .islamic-tools__intro {
+            margin: 0 auto 2.25rem;
+            max-width: 760px;
+            text-align: center;
+        }
+
+        .islamic-tools__eyebrow {
+            color: #900c31;
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .07em;
+            margin-bottom: .55rem;
+            text-transform: uppercase;
+        }
+
+        .islamic-tools__intro h2 {
+            color: #202b27;
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .islamic-tools__intro>p:last-child {
+            color: #626d68;
+            line-height: 1.85;
+            margin-top: .65rem;
+        }
+
+        .islamic-tools__grid {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .islamic-card {
+            background: #fff;
+            border: 1px solid #ded9d0;
+            border-radius: 20px;
+            box-shadow: 0 16px 38px rgba(41, 50, 45, .07);
+            min-width: 0;
+            padding: clamp(1rem, 3vw, 1.6rem);
+        }
+
+        .islamic-card__header {
+            align-items: flex-start;
+            border-bottom: 1px solid #ebe7df;
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-bottom: 1.15rem;
+            padding-bottom: 1rem;
+        }
+
+        .islamic-card__number {
+            color: #b78831;
+            font-size: .72rem;
+            font-weight: 800;
+            margin-bottom: .25rem;
+        }
+
+        .islamic-card__header h3 {
+            color: #202b27;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .islamic-card__header p:last-child {
+            color: #6b746f;
+            font-size: .8rem;
+            line-height: 1.65;
+            margin-top: .25rem;
+        }
+
+        .islamic-card__header>i {
+            align-items: center;
+            background: #edf4ef;
+            border-radius: 13px;
+            color: #176b49;
+            display: flex;
+            flex: 0 0 auto;
+            font-size: 1.15rem;
+            height: 44px;
+            justify-content: center;
+            width: 44px;
+        }
+
+        .prayer-controls>label,
+        .zakat-step>label {
+            color: #35413b;
+            display: block;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: .38rem;
+        }
+
+        .prayer-controls__row {
+            display: grid;
+            gap: .55rem;
+            grid-template-columns: minmax(0, 1fr) auto;
+        }
+
+        .prayer-controls select,
+        .money-input input {
+            background: #fff;
+            border: 1px solid #cbc7bf;
+            border-radius: 10px;
+            color: #202b27;
+            min-height: 44px;
+            padding: .65rem .75rem;
+            width: 100%;
+        }
+
+        .prayer-controls select:focus,
+        .money-input input:focus {
+            border-color: #176b49;
+            box-shadow: 0 0 0 3px rgba(23, 107, 73, .13);
+            outline: none;
+        }
+
+        .prayer-refresh,
+        .zakat-compute {
+            align-items: center;
+            background: #176b49;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: .8rem;
+            font-weight: 800;
+            gap: .45rem;
+            justify-content: center;
+            min-height: 44px;
+            padding: .65rem 1rem;
+        }
+
+        .prayer-refresh:disabled,
+        .zakat-compute:disabled {
+            cursor: wait;
+            opacity: .65;
+        }
+
+        .prayer-refresh:focus-visible,
+        .zakat-compute:focus-visible,
+        .nisab-selector input:focus-visible+span {
+            outline: 3px solid rgba(144, 12, 49, .25);
+            outline-offset: 3px;
+        }
+
+        #pt-city-context {
+            color: #777f7b;
+            font-size: .72rem;
+            margin-top: .4rem;
+        }
+
+        #pt-city-context strong {
+            color: #176b49;
+        }
+
+        .prayer-status {
+            color: #5d6762;
+            font-size: .78rem;
+            min-height: 1.6rem;
+            padding-top: .6rem;
+        }
+
+        .prayer-status.is-error {
+            color: #8f2538;
+        }
+
+        .prayer-date-row {
+            background: #f7f5f1;
+            border: 1px solid #e5e0d7;
+            border-radius: 12px;
+            display: grid;
+            gap: .7rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin: .3rem 0 .8rem;
+            padding: .7rem .85rem;
+        }
+
+        .prayer-date-row div {
+            display: flex;
+            flex-direction: column;
+            gap: .1rem;
+        }
+
+        .prayer-date-row span,
+        .next-prayer span,
+        .prayer-update {
+            color: #717a75;
+            font-size: .68rem;
+        }
+
+        .prayer-date-row strong {
+            color: #29352f;
+            font-size: .78rem;
+        }
+
+        .next-prayer {
+            align-items: center;
+            background: #243a31;
+            border-radius: 14px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: .8rem;
+            padding: .85rem 1rem;
+        }
+
+        .next-prayer>div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .next-prayer span {
+            color: #cdd9d3;
+        }
+
+        .next-prayer strong {
+            font-size: 1.2rem;
+        }
+
+        .next-prayer__countdown {
+            text-align: end;
+        }
+
+        .next-prayer__countdown strong {
+            color: #f3d99b;
+            direction: ltr;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .prayer-grid {
+            display: grid;
+            gap: .5rem;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .prayer-time {
+            background: #faf9f6;
+            border: 1px solid #e3ded6;
+            border-radius: 11px;
+            padding: .65rem .45rem;
+            text-align: center;
+        }
+
+        .prayer-time.is-next {
+            background: #edf4ef;
+            border-color: #176b49;
+            box-shadow: inset 0 0 0 1px #176b49;
+        }
+
+        .prayer-time__name {
+            color: #68716d;
+            display: block;
+            font-size: .69rem;
+            margin-bottom: .18rem;
+        }
+
+        .prayer-time__value {
+            color: #202b27;
+            direction: ltr;
+            display: block;
+            font-size: 1rem;
+            font-variant-numeric: tabular-nums;
+            font-weight: 800;
+        }
+
+        .sunrise-row {
+            align-items: center;
+            background: #fff8e8;
+            border: 1px solid #ead9ad;
+            border-radius: 10px;
+            color: #6f5b2e;
+            display: flex;
+            font-size: .76rem;
+            justify-content: space-between;
+            margin-top: .55rem;
+            padding: .55rem .75rem;
+        }
+
+        .sunrise-row strong {
+            direction: ltr;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .prayer-update {
+            margin-top: .55rem;
+        }
+
+        .prayer-method-note {
+            border-top: 1px solid #ebe7df;
+            color: #737b77;
+            font-size: .68rem;
+            line-height: 1.65;
+            margin-top: .85rem;
+            padding-top: .75rem;
+        }
+
+        #zakat-form {
+            display: grid;
+            gap: .7rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .zakat-step {
+            background: #faf9f6;
+            border: 1px solid #e2ded6;
+            border-radius: 13px;
+            min-width: 0;
+            padding: .8rem;
+        }
+
+        .zakat-step:nth-of-type(3),
+        .zakat-review,
+        .zakat-compute {
+            grid-column: 1 / -1;
+        }
+
+        .zakat-step legend {
+            align-items: center;
+            color: #26352e;
+            display: flex;
+            font-size: .78rem;
+            font-weight: 800;
+            gap: .45rem;
+            margin-bottom: .65rem;
+            padding: 0;
+            width: 100%;
+        }
+
+        .zakat-step legend>span,
+        .zakat-review>span {
+            align-items: center;
+            background: #176b49;
+            border-radius: 50%;
+            color: #fff;
+            display: inline-flex;
+            flex: 0 0 auto;
+            font-size: .68rem;
+            height: 25px;
+            justify-content: center;
+            width: 25px;
+        }
+
+        .money-input {
+            position: relative;
+        }
+
+        .money-input input {
+            direction: ltr;
+            font-variant-numeric: tabular-nums;
+            padding-inline-end: 3.2rem;
+            text-align: start;
+        }
+
+        .money-input>span {
+            color: #777f7b;
+            font-size: .68rem;
+            font-weight: 800;
+            inset-inline-end: .7rem;
+            pointer-events: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .field-help {
+            color: #777f7b;
+            font-size: .66rem;
+            line-height: 1.55;
+            margin-top: .35rem;
+        }
+
+        .field-error {
+            color: #9a223d;
+            font-size: .68rem;
+            font-weight: 700;
+            margin-top: .25rem;
+            min-height: 1em;
+        }
+
+        .money-input input[aria-invalid="true"] {
+            border-color: #a92845;
+        }
+
+        .nisab-selector {
+            display: grid;
+            gap: .5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-bottom: .75rem;
+        }
+
+        .nisab-selector label {
+            cursor: pointer;
+            min-width: 0;
+        }
+
+        .nisab-selector input {
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .nisab-selector label>span {
+            background: #fff;
+            border: 1px solid #d8d3ca;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            min-height: 48px;
+            padding: .5rem .7rem;
+        }
+
+        .nisab-selector input:checked+span {
+            background: #edf4ef;
+            border-color: #176b49;
+            box-shadow: inset 0 0 0 1px #176b49;
+        }
+
+        .nisab-selector strong {
+            color: #28352f;
+            font-size: .78rem;
+        }
+
+        .nisab-selector small {
+            color: #737b77;
+            font-size: .66rem;
+        }
+
+        .zakat-review {
+            align-items: center;
+            background: #f3ead7;
+            border-radius: 12px;
+            display: flex;
+            gap: .65rem;
+            padding: .7rem .8rem;
+        }
+
+        .zakat-review>span {
+            background: #b78831;
+        }
+
+        .zakat-review strong {
+            color: #3f3523;
+            font-size: .78rem;
+        }
+
+        .zakat-review p {
+            color: #75684e;
+            font-size: .66rem;
+        }
+
+        .zakat-result {
+            background: #edf4ef;
+            border: 1px solid #b8cbbf;
+            border-radius: 14px;
+            margin-top: .85rem;
+            padding: 1rem;
+        }
+
+        .zakat-result.is-below {
+            background: #fff8e8;
+            border-color: #e4d1a3;
+        }
+
+        .zakat-result h4 {
+            color: #26352e;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: .65rem;
+        }
+
+        .zakat-result dl {
+            display: grid;
+            gap: .45rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .zakat-result dl>div {
+            background: rgba(255, 255, 255, .7);
+            border-radius: 9px;
+            padding: .55rem .65rem;
+        }
+
+        .zakat-result dt {
+            color: #6a736e;
+            font-size: .65rem;
+        }
+
+        .zakat-result dd {
+            color: #202b27;
+            font-size: .82rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .zakat-result__status {
+            color: #176b49;
+            font-size: .78rem;
+            font-weight: 800;
+            grid-column: 1 / -1;
+            margin-top: .35rem;
+        }
+
+        .zakat-result.is-below .zakat-result__status {
+            color: #7b5b1c;
+        }
+
+        .zakat-guidance {
+            border-top: 1px solid #ebe7df;
+            color: #727a76;
+            display: grid;
+            font-size: .67rem;
+            gap: .35rem;
+            line-height: 1.65;
+            margin-top: .85rem;
+            padding-top: .75rem;
+        }
+
+        .zakat-guidance a {
+            color: #176b49;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        @media (max-width: 1050px) {
+            .islamic-tools__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .islamic-card {
+                border-radius: 16px;
+                padding: .9rem;
+            }
+
+            .prayer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .prayer-time:last-child {
+                grid-column: 1 / -1;
+            }
+
+            #zakat-form {
+                grid-template-columns: 1fr;
+            }
+
+            .zakat-step:nth-of-type(3),
+            .zakat-review,
+            .zakat-compute {
+                grid-column: auto;
+            }
+
+            .zakat-result dl {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .islamic-tools .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }

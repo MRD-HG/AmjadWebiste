@@ -89,446 +89,165 @@
         </div>
     </section>
 
-    <!-- New: Official Program Structure (Educational & Social) -->
-    <section class="section-padding bg-gray-50" id="programs-structure">
+    <!-- Program families and their projects -->
+    <section class="section-padding programs-browser" id="programs-structure" aria-labelledby="programs-structure-title">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="programs_structure_title">
-                    هيكلة برامج جمعية أمجاد
-                </h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-translate="programs_structure_desc">
-                    تشتغل جمعية أمجاد عبر برنامجين رئيسيين متكاملين، يضمان مجموعة من المشاريع التربوية
-                    والاجتماعية الميدانية. اختر أي برنامج لتصفح مشاريعه بسهولة.
-                </p>
+            <header class="programs-browser__intro">
+                <p class="programs-browser__eyebrow" data-translate="programs_browser_eyebrow">برامجنا في مسارين متكاملين</p>
+                <h2 id="programs-structure-title" data-translate="programs_structure_title">هيكلة برامج جمعية أمجاد</h2>
+                <p data-translate="programs_structure_desc">تشتغل جمعية أمجاد عبر برنامجين رئيسيين متكاملين، يضمان مجموعة من المشاريع التربوية والاجتماعية الميدانية. اختر أي برنامج لتصفح مشاريعه بسهولة.</p>
+            </header>
+
+            <div class="program-family-tabs" role="tablist" aria-label="عائلات البرامج" data-translate="programs_family_tabs_label" data-translate-attr="aria-label">
+                <button class="program-family-tab is-selected" id="education-family-tab" type="button" role="tab"
+                    aria-selected="true" aria-controls="education-projects" tabindex="0" data-program-family="education">
+                    <span class="program-family-tab__icon" aria-hidden="true"><i class="fas fa-chalkboard-teacher"></i></span>
+                    <span class="program-family-tab__body">
+                        <span class="program-family-tab__title" data-translate="programs_edu_title">البرنامج التربوي والتكويني</span>
+                        <span class="program-family-tab__description" data-translate="programs_edu_desc">برنامج يركز على تنمية شخصية الطفل واليافع، ودعم التعلمات، وتأهيل الأطر والمتطوعين، عبر أنشطة تربوية، ثقافية وتكوينية منتظمة.</span>
+                        <span class="program-family-tab__areas" data-translate="programs_edu_areas_compact">التعلم · المهارات · الثقافة · التأطير</span>
+                    </span>
+                    <span class="program-family-tab__count" data-translate="programs_edu_count">5 مشاريع</span>
+                </button>
+
+                <button class="program-family-tab" id="social-family-tab" type="button" role="tab"
+                    aria-selected="false" aria-controls="social-projects" tabindex="-1" data-program-family="social">
+                    <span class="program-family-tab__icon" aria-hidden="true"><i class="fas fa-hands-helping"></i></span>
+                    <span class="program-family-tab__body">
+                        <span class="program-family-tab__title" data-translate="programs_social_title">البرنامج الاجتماعي والتضامني</span>
+                        <span class="program-family-tab__description" data-translate="programs_social_desc">برنامج يواكب الأسر في وضعية هشاشة، ويجسد قيم التكافل والتضامن من خلال مبادرات موسمية ومستدامة، موجهة للفئات الأكثر احتياجاً.</span>
+                        <span class="program-family-tab__areas" data-translate="programs_social_areas_compact">التضامن · الصحة · المبادرات الموسمية · التطوع</span>
+                    </span>
+                    <span class="program-family-tab__count" data-translate="programs_social_count">6 مشاريع</span>
+                </button>
             </div>
 
-            <!-- ✅ IMPORTANT FIX: items-start stops both cards stretching -->
-            <div class="grid md:grid-cols-2 gap-8 items-start">
-
-                <!-- Educational & Training Program -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 self-start">
-                    <div class="flex items-start justify-between gap-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2 text-emerald-700"
-                                data-translate="programs_edu_title">
-                                البرنامج التربوي والتكويني
-                            </h3>
-                            <p class="text-sm text-gray-700 leading-relaxed" data-translate="programs_edu_desc">
-                                برنامج يركز على تنمية شخصية الطفل واليافع، ودعم التعلمات، وتأهيل الأطر والمتطوعين،
-                                عبر أنشطة تربوية، ثقافية وتكوينية منتظمة.
-                            </p>
-                        </div>
-                        <div class="text-emerald-600 text-3xl shrink-0">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
+            <div class="program-projects" aria-live="polite">
+                <div class="program-projects__heading">
+                    <div>
+                        <p class="programs-browser__eyebrow" data-translate="programs_projects_eyebrow">المشاريع المرتبطة</p>
+                        <h3 data-translate="programs_projects_gallery_title">تعرّفوا على مشاريع البرنامج</h3>
                     </div>
-
-                    <div class="mt-5">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-2" data-translate="programs_axes_title">محاور
-                            البرنامج:</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_edu_axis_learning">دعم التعلمات</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_edu_axis_skills">تنمية المهارات</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_edu_axis_culture">أنشطة ثقافية</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_edu_axis_clubs">نوادي تربوية</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_edu_axis_training">تأهيل الأطر والمتطوعين</span>
-                        </div>
-                        <p class="mt-3 text-sm text-gray-600 leading-relaxed"
-                            data-translate-html="programs_projects_hint">
-                            تُعرض المشاريع التطبيقية المرتبطة بهذا البرنامج داخل قسم <span class="font-semibold text-gray-800">«مشاريع هذا البرنامج»</span> أدناه.
-                        </p>
-                    </div>
-
-                    <details class="mt-6 group" data-accordion="programs">
-                        <summary
-                            class="cursor-pointer select-none flex items-center justify-between gap-3 rounded-xl bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">
-                            <span data-translate="programs_projects_summary">مشاريع هذا البرنامج</span>
-                            <i class="fas fa-chevron-down transition-transform duration-200 group-open:rotate-180"></i>
-                        </summary>
-
-                        <div class="mt-4 grid sm:grid-cols-2 gap-4">
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-green-600"><i class="fas fa-graduation-cap"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_edu_project_academy_title">
-                                        أكاديمية أمجاد</h4>
-                                    <p class="mini-program-desc" data-translate="programs_edu_project_academy_desc">
-                                        برامج تعليمية وتدريبية لتنمية مهارات الشباب وتعزيز قدراتهم.</p>
-                                    <button type="button" class="btn-primary btn-sm" onclick="showProgramDetail('academy')"
-                                        data-translate="programs_details_cta">التفاصيل</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-pink-600"><i class="fas fa-school"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_edu_project_school_title">
-                                        مدرستي الحلوة</h4>
-                                    <p class="mini-program-desc" data-translate="programs_edu_project_school_desc">
-                                        أنشطة مدرسية ونوادٍ للأطفال لتعزيز التعلم وتنمية المواهب.</p>
-                                    <button type="button" class="btn-primary btn-sm" onclick="showProgramDetail('school')"
-                                        data-translate="programs_details_cta">التفاصيل</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-purple-600"><i class="fas fa-puzzle-piece"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_edu_project_activities_title">
-                                        أنشطة أمجاد</h4>
-                                    <p class="mini-program-desc" data-translate="programs_edu_project_activities_desc">
-                                        أنشطة تربوية وتفاعلية منتظمة داخل فضاءات المؤسسة التربوية.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-yellow-600"><i class="fas fa-smile-beam"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_edu_project_mornings_title">
-                                        صبحيات المرح</h4>
-                                    <p class="mini-program-desc" data-translate="programs_edu_project_mornings_desc">
-                                        صبحيات تنشيطية تجمع بين المتعة والتربية والقيم.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card sm:col-span-2">
-                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-campground"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_edu_project_camp_title">مخيم
-                                        أمجاد</h4>
-                                    <p class="mini-program-desc" data-translate="programs_edu_project_camp_desc">مخيمات
-                                        تربوية لتنمية الاعتماد على النفس، القيم، والمهارات الاجتماعية.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-                        </div>
-                    </details>
+                    <p data-translate="programs_projects_gallery_note">المشاريع المتاحة تقود إلى تفاصيلها، أما المبادرات قيد الإعداد فموسومة بوضوح.</p>
                 </div>
 
-                <!-- Social & Solidarity Program -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 self-start">
-                    <div class="flex items-start justify-between gap-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2 text-emerald-700"
-                                data-translate="programs_social_title">
-                                البرنامج الاجتماعي والتضامني
-                            </h3>
-                            <p class="text-sm text-gray-700 leading-relaxed" data-translate="programs_social_desc">
-                                برنامج يواكب الأسر في وضعية هشاشة، ويجسد قيم التكافل والتضامن من خلال مبادرات
-                                موسمية ومستدامة، موجهة للفئات الأكثر احتياجاً.
-                            </p>
-                        </div>
-                        <div class="text-emerald-600 text-3xl shrink-0">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <h4 class="text-sm font-semibold text-gray-800 mb-2" data-translate="programs_axes_title">محاور
-                            البرنامج:</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_social_axis_support">مواكبة الأسر الهشة</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_social_axis_seasonal">مبادرات موسمية</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_social_axis_health">الصحة والتوعية</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_social_axis_relief">تفريج الكرب</span>
-                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-100"
-                                data-translate="programs_social_axis_volunteer">مبادرات تطوعية</span>
-                        </div>
-                        <p class="mt-3 text-sm text-gray-600 leading-relaxed"
-                            data-translate-html="programs_projects_hint">
-                            تُعرض المشاريع التطبيقية المرتبطة بهذا البرنامج داخل قسم <span class="font-semibold text-gray-800">«مشاريع هذا البرنامج»</span> أدناه.
-                        </p>
-                    </div>
-
-                    <details class="mt-6 group" data-accordion="programs">
-                        <summary
-                            class="cursor-pointer select-none flex items-center justify-between gap-3 rounded-xl bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">
-                            <span data-translate="programs_projects_summary">مشاريع هذا البرنامج</span>
-                            <i class="fas fa-chevron-down transition-transform duration-200 group-open:rotate-180"></i>
-                        </summary>
-
-                        <div class="mt-4 grid sm:grid-cols-2 gap-4">
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-red-600"><i class="fas fa-fire"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_social_project_warmth_title">
-                                        دفء وإطعام</h4>
-                                    <p class="mini-program-desc" data-translate="programs_social_project_warmth_desc">
-                                        حملة موسمية لتوفير الدفء والوجبات للأسر المحتاجة خلال الشتاء.</p>
-                                    <button type="button" class="btn-primary btn-sm" onclick="showProgramDetail('warmth')"
-                                        data-translate="programs_details_cta">التفاصيل</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-yellow-600"><i class="fas fa-moon"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_social_project_iftar_title">
-                                        إفطار الخير</h4>
-                                    <p class="mini-program-desc" data-translate="programs_social_project_iftar_desc">
-                                        برنامج رمضاني لإفطار الصائمين ودعم الأسر بالقفف الرمضانية.</p>
-                                    <button type="button" class="btn-primary btn-sm" onclick="showProgramDetail('iftar')"
-                                        data-translate="programs_details_cta">التفاصيل</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-red-600"><i class="fas fa-heartbeat"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_social_project_zakat_title">
-                                        زكاة الصحة (التبرع بالدم + طبيب الغلبة)</h4>
-                                    <p class="mini-program-desc" data-translate="programs_social_project_zakat_desc">
-                                        مبادرات صحية تشمل حملات التبرع بالدم، وقوافل/خدمات طبية لفائدة الفئات المحتاجة.
-                                    </p>
-                                    <button type="button" class="btn-primary btn-sm" onclick="showProgramDetail('zakat')"
-                                        data-translate="programs_details_cta">التفاصيل</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-hand-holding-heart"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title"
-                                        data-translate="programs_social_project_ambassadors_title">سفراء الخير</h4>
-                                    <p class="mini-program-desc"
-                                        data-translate="programs_social_project_ambassadors_desc">مبادرات تطوعية ميدانية
-                                        لتعزيز روح العطاء وخدمة المجتمع.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-emerald-600"><i class="fas fa-child"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_social_project_orphans_title">
-                                        بسمة يتيم</h4>
-                                    <p class="mini-program-desc" data-translate="programs_social_project_orphans_desc">
-                                        مبادرات اجتماعية لمرافقة الأيتام وإدخال الفرحة عليهم.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-
-                            <div class="mini-program-card">
-                                <div class="mini-program-icon text-purple-600"><i class="fas fa-people-carry"></i></div>
-                                <div class="mini-program-body">
-                                    <h4 class="mini-program-title" data-translate="programs_social_project_relief_title">
-                                        تفريج كربة</h4>
-                                    <p class="mini-program-desc" data-translate="programs_social_project_relief_desc">دعم
-                                        الأسر في الأزمات والمواقف الطارئة وفق الإمكانيات المتاحة.</p>
-                                    <button type="button" class="btn-secondary btn-sm" onclick="showComingSoon()"
-                                        data-translate="programs_coming_soon">قريباً</button>
-                                </div>
-                            </div>
-                        </div>
-                    </details>
+                <div class="project-gallery" id="education-projects" role="tabpanel" aria-labelledby="education-family-tab" data-family-panel="education">
+                    <article class="project-card">
+                        <div class="project-card__media"><img src="images/brainwarm.jpeg" alt="نشاط من أكاديمية أمجاد" loading="lazy" data-translate="programs_academy_card_alt" data-translate-attr="alt"><span class="project-card__status" data-translate="programs_status_details">معلومات متاحة</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span><h4 data-translate="programs_edu_project_academy_title">أكاديمية أمجاد</h4><p data-translate="programs_edu_project_academy_desc">برامج تعليمية وتدريبية لتنمية مهارات الشباب وتعزيز قدراتهم.</p><a class="project-card__action" href="#academy-detail" data-project-detail="academy"><span data-translate="programs_discover_cta">اكتشف المشروع</span><i class="fas fa-arrow-left" aria-hidden="true"></i></a></div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card__media"><img src="images/event.jpg" alt="نشاط تربوي للأطفال" loading="lazy" data-translate="programs_school_card_alt" data-translate-attr="alt"><span class="project-card__status" data-translate="programs_status_details">معلومات متاحة</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-school"></i></span><h4 data-translate="programs_edu_project_school_title">مدرستي الحلوة</h4><p data-translate="programs_edu_project_school_desc">أنشطة مدرسية ونوادٍ للأطفال لتعزيز التعلم وتنمية المواهب.</p><a class="project-card__action" href="#school-detail" data-project-detail="school"><span data-translate="programs_discover_cta">اكتشف المشروع</span><i class="fas fa-arrow-left" aria-hidden="true"></i></a></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-puzzle-piece" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-puzzle-piece"></i></span><h4 data-translate="programs_edu_project_activities_title">أنشطة أمجاد</h4><p data-translate="programs_edu_project_activities_desc">أنشطة تربوية وتفاعلية منتظمة داخل فضاءات المؤسسة التربوية.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-smile-beam" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-smile-beam"></i></span><h4 data-translate="programs_edu_project_mornings_title">صبحيات المرح</h4><p data-translate="programs_edu_project_mornings_desc">صبحيات تنشيطية تجمع بين المتعة والتربية والقيم.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-campground" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-campground"></i></span><h4 data-translate="programs_edu_project_camp_title">مخيم أمجاد</h4><p data-translate="programs_edu_project_camp_desc">مخيمات تربوية لتنمية الاعتماد على النفس، القيم، والمهارات الاجتماعية.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
                 </div>
 
+                <div class="project-gallery" id="social-projects" role="tabpanel" aria-labelledby="social-family-tab" data-family-panel="social" hidden>
+                    <article class="project-card">
+                        <div class="project-card__media project-card__illustration project-card__illustration--warmth"><i class="fas fa-fire" aria-hidden="true"></i><span class="project-card__status" data-translate="programs_status_details">معلومات متاحة</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-fire"></i></span><h4 data-translate="programs_social_project_warmth_title">دفء وإطعام</h4><p data-translate="programs_social_project_warmth_desc">حملة موسمية لتوفير الدفء والوجبات للأسر المحتاجة خلال الشتاء.</p><a class="project-card__action" href="#warmth-detail" data-project-detail="warmth"><span data-translate="programs_discover_cta">اكتشف المشروع</span><i class="fas fa-arrow-left" aria-hidden="true"></i></a></div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card__media"><img src="images/Siyam.jpg" alt="مبادرة إفطار الخير" loading="lazy" data-translate="programs_iftar_card_alt" data-translate-attr="alt"><span class="project-card__status" data-translate="programs_status_details">معلومات متاحة</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-moon"></i></span><h4 data-translate="programs_social_project_iftar_title">إفطار الخير</h4><p data-translate="programs_social_project_iftar_desc">برنامج رمضاني لإفطار الصائمين ودعم الأسر بالقفف الرمضانية.</p><a class="project-card__action" href="#iftar-detail" data-project-detail="iftar"><span data-translate="programs_discover_cta">اكتشف المشروع</span><i class="fas fa-arrow-left" aria-hidden="true"></i></a></div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card__media"><img src="images/blood.jpeg" alt="حملة للتبرع بالدم ضمن زكاة الصحة" loading="lazy" data-translate="programs_zakat_card_alt" data-translate-attr="alt"><span class="project-card__status" data-translate="programs_status_details">معلومات متاحة</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-heartbeat"></i></span><h4 data-translate="programs_social_project_zakat_title">زكاة الصحة (التبرع بالدم + طبيب الغلبة)</h4><p data-translate="programs_social_project_zakat_desc">مبادرات صحية تشمل حملات التبرع بالدم، وقوافل وخدمات طبية لفائدة الفئات المحتاجة.</p><a class="project-card__action" href="#zakat-detail" data-project-detail="zakat"><span data-translate="programs_discover_cta">اكتشف المشروع</span><i class="fas fa-arrow-left" aria-hidden="true"></i></a></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-hand-holding-heart"></i></span><h4 data-translate="programs_social_project_ambassadors_title">سفراء الخير</h4><p data-translate="programs_social_project_ambassadors_desc">مبادرات تطوعية ميدانية لتعزيز روح العطاء وخدمة المجتمع.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-child" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-child"></i></span><h4 data-translate="programs_social_project_orphans_title">بسمة يتيم</h4><p data-translate="programs_social_project_orphans_desc">مبادرات اجتماعية لمرافقة الأيتام وإدخال الفرحة عليهم.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
+                    <article class="project-card project-card--planned">
+                        <div class="project-card__media project-card__illustration"><i class="fas fa-people-carry" aria-hidden="true"></i><span class="project-card__status project-card__status--planned" data-translate="programs_coming_soon">قريباً</span></div>
+                        <div class="project-card__content"><span class="project-card__icon" aria-hidden="true"><i class="fas fa-people-carry"></i></span><h4 data-translate="programs_social_project_relief_title">تفريج كربة</h4><p data-translate="programs_social_project_relief_desc">دعم الأسر في الأزمات والمواقف الطارئة وفق الإمكانيات المتاحة.</p><span class="project-card__unavailable" data-translate="programs_preparation_note">المشروع قيد الإعداد</span></div>
+                    </article>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- New: Smart Eco-School – enhanced UX/UI block -->
-    <section class="section-padding bg-gray-50" id="smart-eco-school">
+    <!-- Smart Eco-School conceptual showcase -->
+    <section class="section-padding eco-school" id="smart-eco-school" aria-labelledby="eco-school-title">
         <div class="max-w-7xl mx-auto px-4">
-            <div
-                class="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-6 md:p-10 shadow-sm">
-                <!-- Soft blobs -->
-                <div class="absolute -top-24 -left-24 w-72 h-72 bg-emerald-200/40 rounded-full blur-3xl"></div>
-                <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-amber-200/40 rounded-full blur-3xl"></div>
+            <header class="eco-school__intro">
+                <div>
+                    <p class="eco-school__status"><i class="fas fa-seedling" aria-hidden="true"></i><span data-translate="programs_eco_proposal_badge">مقترح قيد التطوير</span></p>
+                    <h2 id="eco-school-title" data-translate="programs_eco_title">مشروع المدرسة الذكية الإيكولوجية</h2>
+                </div>
+                <div class="eco-school__summary">
+                    <p class="eco-school__subtitle" data-translate="programs_eco_subtitle">تصور تربوي مقترح يجمع البيئة والتعلم الرقمي والقيم والشراكة داخل فضاء مدرسي مغربي.</p>
+                    <p data-translate="programs_eco_desc_1">تعمل جمعية أمجاد على تطوير نموذج مدرسة ذكية إيكولوجية يجمع بين التعليم الرقمي، البعد البيئي، والقيم التربوية داخل فضاء مدرسي واحد، في انسجام مع توجهات المدرسة المغربية الحديثة.</p>
+                </div>
+            </header>
 
-                <div class="relative grid lg:grid-cols-2 gap-10 items-start">
-                    <!-- Text side -->
-                    <div>
-                        <div
-                            class="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-2 text-xs font-bold text-emerald-800 border border-emerald-100 shadow-sm">
-                            <i class="fas fa-leaf text-emerald-600"></i>
-                            <span data-translate="programs_eco_badge">نموذج قابل للتعميم</span>
+            <div class="eco-school__experience">
+                <div class="eco-visual" id="eco-school-visual">
+                    <div class="eco-visual__stage">
+                        <div class="eco-visual__fallback" id="eco-school-fallback" role="img" aria-label="رسم تصوري لمدرسة مغربية إيكولوجية ذكية" data-translate="programs_eco_visual_alt" data-translate-attr="aria-label">
+                            <span class="eco-building eco-building--main"><i class="fas fa-school" aria-hidden="true"></i></span>
+                            <span class="eco-building eco-building--garden"><i class="fas fa-leaf" aria-hidden="true"></i></span>
+                            <span class="eco-building eco-building--digital"><i class="fas fa-laptop" aria-hidden="true"></i></span>
+                            <span class="eco-building eco-building--club"><i class="fas fa-users" aria-hidden="true"></i></span>
+                            <span class="eco-building eco-building--community"><i class="fas fa-handshake" aria-hidden="true"></i></span>
                         </div>
+                        <canvas id="eco-school-canvas" class="eco-visual__canvas" aria-hidden="true"></canvas>
+                        <p class="eco-visual__label"><span data-translate="programs_eco_visual_label">تصور بصري للمشروع</span><small data-translate="programs_eco_visual_not_real">ليس تمثيلاً لمؤسسة قائمة</small></p>
+                    </div>
+                    <p class="eco-visual__status" id="eco-visual-status" role="status" aria-live="polite" data-translate="programs_eco_visual_loading">يُعرض التصور المبسط الآن؛ سيتم تحميل النموذج التفاعلي عند توفره.</p>
+                </div>
 
-                        <h2 class="mt-4 text-2xl md:text-3xl font-extrabold text-gray-900 leading-snug"
-                            data-translate="programs_eco_title">
-                            مشروع المدرسة الذكية الإيكولوجية (نموذج)
-                        </h2>
-
-                        <p class="mt-4 text-sm md:text-base text-gray-700 leading-relaxed"
-                            data-translate="programs_eco_desc_1">
-                            تعمل جمعية أمجاد على تطوير نموذج مدرسة ذكية إيكولوجية يجمع بين التعليم الرقمي،
-                            البعد البيئي، والقيم التربوية داخل فضاء مدرسي واحد، في انسجام مع توجهات المدرسة
-                            المغربية الحديثة.
-                        </p>
-
-                        <p class="mt-3 text-sm md:text-base text-gray-700 leading-relaxed"
-                            data-translate="programs_eco_desc_2">
-                            يهدف هذا النموذج إلى خلق بيئة تعليمية حديثة، خضراء ومحفزة، يمكن تكييفها واعتمادها
-                            في مؤسسات تعليمية مختلفة، بشراكة مع المديرية الإقليمية، الجماعات الترابية،
-                            والفاعلين التربويين والخواص.
-                        </p>
-
-                        <div class="mt-6 grid sm:grid-cols-2 gap-4">
-                            <div class="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-sm">
-                                <h3 class="text-sm font-extrabold text-emerald-800 flex items-center gap-2">
-                                    <i class="fas fa-sitemap text-emerald-600"></i>
-                                    <span data-translate="programs_eco_axes_title">محاور النموذج</span>
-                                </h3>
-                                <ul class="mt-3 space-y-2 text-sm text-gray-700">
-                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span><span
-                                            data-translate="programs_eco_axis_space">فضاء مدرسي أخضر (حدائق مدرسية،
-                                            تدوير بسيط، سلوكات إيكولوجية).</span></li>
-                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span><span
-                                            data-translate="programs_eco_axis_digital">استعمال الوسائط الرقمية في التعلم
-                                            والأنشطة.</span></li>
-                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span><span
-                                            data-translate="programs_eco_axis_clubs">أندية تربوية وقيمية لقيادة التغيير
-                                            داخل المدرسة.</span></li>
-                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">•</span><span
-                                            data-translate="programs_eco_axis_partners">انفتاح المدرسة على الشركاء
-                                            والمجتمع المحلي.</span></li>
-                                </ul>
-                            </div>
-
-                            <div class="rounded-2xl bg-white/80 border border-emerald-100 p-5 shadow-sm">
-                                <h3 class="text-sm font-extrabold text-emerald-800 flex items-center gap-2">
-                                    <i class="fas fa-route text-emerald-600"></i>
-                                    <span data-translate="programs_eco_apply_title">كيف نطبقه داخل مدرسة رائدة؟</span>
-                                </h3>
-                                <ol class="mt-3 space-y-2 text-sm text-gray-700 list-decimal pr-5">
-                                    <li data-translate="programs_eco_apply_step_1">تشخيص بسيط لاحتياجات المؤسسة وتحديد
-                                        فضاء التنفيذ (حديقة/نادي).</li>
-                                    <li data-translate="programs_eco_apply_step_2">تنزيل أنشطة تطبيقية (تكوينات + ورشات +
-                                        نموذج إيكولوجي داخل المدرسة).</li>
-                                    <li data-translate="programs_eco_apply_step_3">تتبع وتوثيق النتائج وإعداد تقرير أثر
-                                        قابل للمشاركة مع الشركاء.</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex flex-wrap gap-3">
-                            <a href="contact.html"
-                                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-sm font-semibold text-white shadow-md"
-                                data-translate="programs_eco_cta_contact">
-                                تواصلوا معنا حول المشروع
-                            </a>
-                            <a href="news.html"
-                                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-white/80 hover:bg-white text-sm font-semibold text-emerald-800 border border-emerald-100 shadow-sm"
-                                data-translate="programs_eco_cta_news">
-                                تابعوا آخر الأخبار
-                            </a>
-                        </div>
-
-                        <p class="mt-3 text-xs text-gray-500 leading-relaxed" data-translate="programs_eco_note">
-                            للمؤسسات أو الشركاء الراغبين في اكتشاف هذا النموذج أو دعمه، يمكنكم التواصل معنا عبر صفحة
-                            الاتصال أو طلب ملف الشراكة الخاص بالمشروع.
-                        </p>
+                <div class="eco-pillars">
+                    <p class="eco-school__eyebrow" data-translate="programs_eco_axes_title">محاور النموذج</p>
+                    <h3 data-translate="programs_eco_explore_title">اختاروا محوراً لاستكشاف دوره</h3>
+                    <div class="eco-pillar-tabs" role="tablist" aria-label="محاور مشروع المدرسة الذكية الإيكولوجية" data-translate="programs_eco_tabs_label" data-translate-attr="aria-label">
+                        <button type="button" class="eco-pillar-tab is-selected" id="eco-green-tab" role="tab" aria-selected="true" aria-controls="eco-green-panel" tabindex="0" data-eco-pillar="green"><span>01</span><i class="fas fa-tree" aria-hidden="true"></i><strong data-translate="programs_eco_feature_green_title">البيئة المدرسية الخضراء</strong></button>
+                        <button type="button" class="eco-pillar-tab" id="eco-digital-tab" role="tab" aria-selected="false" aria-controls="eco-digital-panel" tabindex="-1" data-eco-pillar="digital"><span>02</span><i class="fas fa-tablet-alt" aria-hidden="true"></i><strong data-translate="programs_eco_feature_digital_title">التعلم والوسائط الرقمية</strong></button>
+                        <button type="button" class="eco-pillar-tab" id="eco-clubs-tab" role="tab" aria-selected="false" aria-controls="eco-clubs-panel" tabindex="-1" data-eco-pillar="clubs"><span>03</span><i class="fas fa-users" aria-hidden="true"></i><strong data-translate="programs_eco_feature_clubs_title">الأندية التربوية والقيمية</strong></button>
+                        <button type="button" class="eco-pillar-tab" id="eco-community-tab" role="tab" aria-selected="false" aria-controls="eco-community-panel" tabindex="-1" data-eco-pillar="community"><span>04</span><i class="fas fa-handshake" aria-hidden="true"></i><strong data-translate="programs_eco_feature_partners_title">الشراكات والمجتمع المحلي</strong></button>
                     </div>
 
-                    <!-- Visual side -->
-                    <div class="rounded-3xl bg-white/85 border border-emerald-100 p-6 shadow-sm">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <h3 class="text-lg font-extrabold text-gray-900"
-                                    data-translate="programs_eco_why_title">لماذا هذا النموذج؟</h3>
-                                <p class="mt-1 text-sm text-gray-600 leading-relaxed"
-                                    data-translate="programs_eco_why_desc">
-                                    لأنه يجمع بين التربية، القيم، والبعد الإيكولوجي في تجربة مدرسية واحدة قابلة للتكرار.
-                                </p>
-                            </div>
-                            <div class="text-emerald-600 text-3xl shrink-0">
-                                <i class="fas fa-seedling"></i>
-                            </div>
-                        </div>
-
-                        <div class="mt-5 grid sm:grid-cols-2 gap-4">
-                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
-                                    <i class="fas fa-tree"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-900 text-sm"
-                                        data-translate="programs_eco_feature_green_title">فضاء مدرسي أخضر</div>
-                                    <div class="text-xs text-gray-600 leading-relaxed"
-                                        data-translate="programs_eco_feature_green_desc">حدائق مدرسية وسلوكات بيئية بسيطة
-                                        داخل المؤسسة.</div>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
-                                    <i class="fas fa-tablet-alt"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-900 text-sm"
-                                        data-translate="programs_eco_feature_digital_title">وسائط رقمية</div>
-                                    <div class="text-xs text-gray-600 leading-relaxed"
-                                        data-translate="programs_eco_feature_digital_desc">دعم التعلم والأنشطة باستعمال
-                                        حلول رقمية بسيطة.</div>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-900 text-sm"
-                                        data-translate="programs_eco_feature_clubs_title">أندية تربوية وقيمية</div>
-                                    <div class="text-xs text-gray-600 leading-relaxed"
-                                        data-translate="programs_eco_feature_clubs_desc">أندية وأنشطة تقود التغيير
-                                        الإيجابي داخل المدرسة.</div>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-700 border border-emerald-100">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-900 text-sm"
-                                        data-translate="programs_eco_feature_partners_title">انفتاح على الشركاء</div>
-                                    <div class="text-xs text-gray-600 leading-relaxed"
-                                        data-translate="programs_eco_feature_partners_desc">شراكات مع الفاعلين التربويين
-                                        والمحليين والخواص.</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 rounded-2xl bg-white border border-emerald-100 p-4">
-                            <div class="flex items-center justify-between gap-3">
-                                <div class="text-sm font-bold text-gray-900"
-                                    data-translate="programs_eco_support_title">هل ترغبون في دعم النموذج؟</div>
-                                <div class="text-emerald-600"><i class="fas fa-arrow-left"></i></div>
-                            </div>
-                            <p class="mt-2 text-xs text-gray-600 leading-relaxed"
-                                data-translate="programs_eco_support_desc">
-                                يمكنكم التواصل معنا لطلب ملف الشراكة الخاص بالمشروع والتعرف على احتياجات التنفيذ.
-                            </p>
-                            <a href="contact.html"
-                                class="mt-3 inline-flex w-full items-center justify-center px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-sm font-semibold text-white shadow-md"
-                                data-translate="programs_eco_support_cta">
-                                طلب ملف الشراكة / تواصل
-                            </a>
-                        </div>
+                    <div class="eco-pillar-detail" aria-live="polite">
+                        <div id="eco-green-panel" role="tabpanel" aria-labelledby="eco-green-tab" data-eco-panel="green"><h4 data-translate="programs_eco_feature_green_title">البيئة المدرسية الخضراء</h4><p data-translate="programs_eco_feature_green_desc">حدائق مدرسية وسلوكات بيئية بسيطة داخل المؤسسة.</p></div>
+                        <div id="eco-digital-panel" role="tabpanel" aria-labelledby="eco-digital-tab" data-eco-panel="digital" hidden><h4 data-translate="programs_eco_feature_digital_title">التعلم والوسائط الرقمية</h4><p data-translate="programs_eco_feature_digital_desc">دعم التعلم والأنشطة باستعمال حلول رقمية بسيطة.</p></div>
+                        <div id="eco-clubs-panel" role="tabpanel" aria-labelledby="eco-clubs-tab" data-eco-panel="clubs" hidden><h4 data-translate="programs_eco_feature_clubs_title">الأندية التربوية والقيمية</h4><p data-translate="programs_eco_feature_clubs_desc">أندية وأنشطة تقود التغيير الإيجابي داخل المدرسة.</p></div>
+                        <div id="eco-community-panel" role="tabpanel" aria-labelledby="eco-community-tab" data-eco-panel="community" hidden><h4 data-translate="programs_eco_feature_partners_title">الشراكات والمجتمع المحلي</h4><p data-translate="programs_eco_feature_partners_desc">شراكات مع الفاعلين التربويين والمحليين والخواص.</p></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="eco-timeline" aria-labelledby="eco-timeline-title">
+                <div class="eco-timeline__heading">
+                    <p class="eco-school__eyebrow" data-translate="programs_eco_process_eyebrow">مسار مقترح للتنفيذ</p>
+                    <h3 id="eco-timeline-title" data-translate="programs_eco_apply_title">كيف يمكن تطبيقه داخل مؤسسة نموذجية؟</h3>
+                </div>
+                <ol class="eco-timeline__steps">
+                    <li><span>01</span><div><h4 data-translate="programs_eco_step_1_title">تشخيص احتياجات المؤسسة</h4><p data-translate="programs_eco_apply_step_1">تشخيص بسيط لاحتياجات المؤسسة وتحديد فضاء التنفيذ (حديقة أو نادٍ).</p></div></li>
+                    <li><span>02</span><div><h4 data-translate="programs_eco_step_2_title">تنفيذ الأنشطة والورشات والنموذج التجريبي</h4><p data-translate="programs_eco_apply_step_2">تنفيذ أنشطة تطبيقية تشمل التكوينات والورشات والنموذج الإيكولوجي داخل المؤسسة.</p></div></li>
+                    <li><span>03</span><div><h4 data-translate="programs_eco_step_3_title">تتبع النتائج وتوثيق الأثر</h4><p data-translate="programs_eco_apply_step_3">تتبع النتائج وتوثيقها وإعداد خلاصة أثر قابلة للمشاركة مع الشركاء.</p></div></li>
+                </ol>
+            </div>
+
+            <div class="eco-school__cta">
+                <div><h3 data-translate="programs_eco_cta_heading">هل تودون معرفة المزيد عن المقترح؟</h3><p data-translate="programs_eco_note">للمؤسسات أو الشركاء الراغبين في اكتشاف هذا النموذج، يمكنكم التواصل معنا عبر صفحة الاتصال لطلب معلومات إضافية.</p></div>
+                <div class="eco-school__actions"><a href="contact.html" class="eco-school__primary-action" data-translate="programs_eco_cta_contact">تواصلوا معنا حول المشروع</a><a href="news.html" class="eco-school__secondary-action" data-translate="programs_eco_cta_news">تابعوا آخر الأخبار</a></div>
             </div>
         </div>
     </section>
@@ -1071,48 +790,118 @@
 
     <!-- Additional JavaScript for Programs -->
     <script>
-        function showProgramDetail(programId) {
+        const programFamilies = {
+            academy: 'education',
+            school: 'education',
+            warmth: 'social',
+            iftar: 'social',
+            zakat: 'social'
+        };
+
+        function showProgramFamily(family, focusTab = false) {
+            const tabs = Array.from(document.querySelectorAll('[data-program-family]'));
+            const panels = document.querySelectorAll('[data-family-panel]');
+
+            tabs.forEach((tab) => {
+                const selected = tab.dataset.programFamily === family;
+                tab.classList.toggle('is-selected', selected);
+                tab.setAttribute('aria-selected', String(selected));
+                tab.tabIndex = selected ? 0 : -1;
+                if (selected && focusTab) tab.focus();
+            });
+
+            panels.forEach((panel) => {
+                panel.hidden = panel.dataset.familyPanel !== family;
+            });
+        }
+
+        function hideProgramDetails() {
+            document.querySelectorAll('.program-detail').forEach((detail) => detail.classList.add('hidden'));
+        }
+
+        function showProgramDetail(programId, updateHistory = true) {
             const details = document.querySelectorAll('.program-detail');
             details.forEach(detail => detail.classList.add('hidden'));
 
             const target = document.getElementById(programId + '-detail');
             if (!target) return;
+            showProgramFamily(programFamilies[programId] || 'education');
             target.classList.remove('hidden');
+            target.tabIndex = -1;
+
+            if (updateHistory && window.location.hash !== '#' + target.id) {
+                window.history.pushState({ programId }, '', '#' + target.id);
+            }
 
             target.scrollIntoView({
                 behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
                 block: 'start'
             });
+            target.focus({ preventScroll: true });
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            const detailId = window.location.hash.slice(1);
-            if (!detailId.endsWith('-detail')) return;
-            const programId = detailId.replace(/-detail$/, '');
-            showProgramDetail(programId);
-        });
-
-        // ✅ Single-open accordion (only one open at a time)
-        (function () {
-            const items = Array.from(document.querySelectorAll('details[data-accordion="programs"]'));
-            if (!items.length) return;
-
-            items.forEach((d) => {
-                d.addEventListener('toggle', () => {
-                    requestAnimationFrame(() => {
-                        if (!d.open) return;
-                        items.forEach((other) => {
-                            if (other !== d) other.open = false;
-                        });
-                    });
+            const tabs = Array.from(document.querySelectorAll('[data-program-family]'));
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => showProgramFamily(tab.dataset.programFamily));
+                tab.addEventListener('keydown', (event) => {
+                    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                    event.preventDefault();
+                    let nextIndex = index;
+                    if (event.key === 'Home') nextIndex = 0;
+                    if (event.key === 'End') nextIndex = tabs.length - 1;
+                    if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+                    if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+                    showProgramFamily(tabs[nextIndex].dataset.programFamily, true);
                 });
             });
-        })();
+
+            document.querySelectorAll('[data-project-detail]').forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    showProgramDetail(link.dataset.projectDetail);
+                });
+            });
+
+            document.querySelectorAll('.program-detail').forEach((detail) => {
+                const back = document.createElement('a');
+                back.href = '#programs-structure';
+                back.className = 'program-detail__back';
+                back.dataset.projectBack = '';
+                back.dataset.translate = 'programs_back_to_gallery';
+                back.textContent = 'العودة إلى معرض المشاريع';
+                back.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    hideProgramDetails();
+                    window.history.pushState({}, '', '#programs-structure');
+                    document.getElementById('programs-structure').scrollIntoView({
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                        block: 'start'
+                    });
+                });
+                detail.prepend(back);
+            });
+
+            const detailId = window.location.hash.slice(1);
+            if (detailId.endsWith('-detail')) {
+                showProgramDetail(detailId.replace(/-detail$/, ''), false);
+            }
+        });
+
+        window.addEventListener('hashchange', () => {
+            const detailId = window.location.hash.slice(1);
+            if (detailId.endsWith('-detail')) {
+                showProgramDetail(detailId.replace(/-detail$/, ''), false);
+            } else {
+                hideProgramDetails();
+            }
+        });
     </script>
 
     <!-- Main JavaScript -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/eco-school.js" defer></script>
     <script src="js/agent.js" defer></script>
 </body>
 
