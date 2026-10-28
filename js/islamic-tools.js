@@ -95,6 +95,7 @@
   let requestSequence = 0;
   let countdownTimer = null;
   let lastZakatResult = null;
+  let prayerStarted = false;
 
   function getLang() {
     let stored = 'ar';
@@ -422,10 +423,21 @@
   }
 
   function attach() {
-    if (!$('#islamic-tools')) return;
+    const toolsSection = $('#islamic-tools');
+    if (!toolsSection) return;
     fillCities();
-    $('#pt-city').addEventListener('change', fetchTimes);
-    $('#pt-fetch').addEventListener('click', fetchTimes);
+    const startPrayerTools = () => {
+      if (prayerStarted) return false;
+      prayerStarted = true;
+      countdownTimer = window.setInterval(updateCountdown, 30000);
+      fetchTimes();
+      return true;
+    };
+    const requestTimes = () => {
+      if (!startPrayerTools()) fetchTimes();
+    };
+    $('#pt-city').addEventListener('change', requestTimes);
+    $('#pt-fetch').addEventListener('click', requestTimes);
     $('#zakat-form').addEventListener('submit', computeZakat);
     ['z-assets', 'z-debts', 'z-price'].forEach((id) => {
       $(`#${id}`).addEventListener('input', (event) => {
@@ -441,8 +453,16 @@
       });
     });
     document.querySelectorAll('.lang-btn').forEach((button) => button.addEventListener('click', handleLanguageChange));
-    countdownTimer = window.setInterval(updateCountdown, 30000);
-    fetchTimes();
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        startPrayerTools();
+      }, { rootMargin: '500px 0px' });
+      observer.observe(toolsSection);
+    } else {
+      startPrayerTools();
+    }
   }
 
   window.addEventListener('pagehide', () => {

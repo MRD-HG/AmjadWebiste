@@ -8,7 +8,9 @@
   const canvas = document.getElementById('eco-school-canvas');
   const status = document.getElementById('eco-visual-status');
   const tabs = Array.from(section.querySelectorAll('[data-eco-pillar]'));
+  const hotspots = Array.from(section.querySelectorAll('[data-eco-hotspot]'));
   const panels = Array.from(section.querySelectorAll('[data-eco-panel]'));
+  const activeTitle = document.getElementById('eco-visual-active-title');
   const fallbackAreas = {
     green: section.querySelector('.eco-building--garden'),
     digital: section.querySelector('.eco-building--digital'),
@@ -39,6 +41,17 @@
     panels.forEach((panel) => {
       panel.hidden = panel.dataset.ecoPanel !== pillar;
     });
+    hotspots.forEach((hotspot) => {
+      const selected = hotspot.dataset.ecoHotspot === pillar;
+      hotspot.classList.toggle('is-selected', selected);
+      hotspot.setAttribute('aria-pressed', String(selected));
+    });
+    const selectedPanel = panels.find((panel) => panel.dataset.ecoPanel === pillar);
+    const selectedTitle = selectedPanel && selectedPanel.querySelector('h4');
+    if (activeTitle && selectedTitle) {
+      activeTitle.dataset.translate = selectedTitle.dataset.translate;
+      activeTitle.textContent = selectedTitle.textContent;
+    }
     Object.entries(fallbackAreas).forEach(([name, element]) => {
       if (element) element.classList.toggle('is-highlighted', name === pillar);
     });
@@ -57,6 +70,10 @@
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % tabs.length;
       selectPillar(tabs[nextIndex].dataset.ecoPillar, true);
     });
+  });
+
+  hotspots.forEach((hotspot) => {
+    hotspot.addEventListener('click', () => selectPillar(hotspot.dataset.ecoHotspot));
   });
 
   selectPillar(activePillar);
@@ -78,7 +95,7 @@
       model = createEcoSchoolModel(THREE, canvas, showFallback);
       model.select(activePillar);
       visual.classList.add('is-three-ready');
-      setStatus('programs_eco_visual_ready', 'النموذج التصوري التفاعلي جاهز. استخدموا الأزرار الأربعة لإبراز كل فضاء.');
+      setStatus('programs_eco_visual_ready', 'النموذج التصوري التفاعلي جاهز. اختاروا نقطة مرقمة على المخطط أو محوراً من القائمة لإبراز فضائه.');
     } catch (error) {
       showFallback();
     }
@@ -181,6 +198,25 @@
       mesh(new THREE.CylinderGeometry(.06, .06, 1.35, 8), palette.darkGreen, [x, .7, z], areas.community);
     });
 
+    const markerPositions = {
+      green: [-3.7, .16, 2.1],
+      digital: [3.75, .16, -1.75],
+      clubs: [2.85, .16, 2.45],
+      community: [-3.65, .16, -2.6]
+    };
+    const focusMarkers = {};
+    Object.entries(markerPositions).forEach(([name, position]) => {
+      const marker = new THREE.Mesh(
+        new THREE.RingGeometry(.72, .94, 32),
+        new THREE.MeshBasicMaterial({ color: palette.gold, transparent: true, opacity: .95, side: THREE.DoubleSide })
+      );
+      marker.position.set(position[0], position[1], position[2]);
+      marker.rotation.x = -Math.PI / 2;
+      marker.visible = false;
+      scene.add(marker);
+      focusMarkers[name] = marker;
+    });
+
     let selected = 'green';
 
     function resize() {
@@ -205,12 +241,17 @@
       selected = name;
       Object.entries(areas).forEach(([areaName, group]) => {
         const active = areaName === selected;
-        group.scale.setScalar(active ? 1.06 : 1);
+        group.scale.setScalar(active ? 1.08 : 1);
         group.traverse((object) => {
           if (!object.isMesh || !object.material || !('emissive' in object.material)) return;
           object.material.emissive.set(active ? palette.gold : 0x000000);
-          object.material.emissiveIntensity = active ? .22 : 0;
+          object.material.emissiveIntensity = active ? .28 : 0;
+          object.material.transparent = !active;
+          object.material.opacity = active ? 1 : .32;
         });
+      });
+      Object.entries(focusMarkers).forEach(([areaName, marker]) => {
+        marker.visible = areaName === selected;
       });
       render();
     }

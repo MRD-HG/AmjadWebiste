@@ -120,91 +120,26 @@
     </section>
 
 
-    <!-- Prayer Times & Zakat Calculator -->
-    <section id="islamic-tools" class="section-padding islamic-tools" aria-labelledby="islamic-tools-title">
+    <!-- Compact Islamic Tools Gateway -->
+    <section class="islamic-gateway" aria-labelledby="islamic-gateway-title">
         <div class="max-w-7xl mx-auto px-4">
-            <header class="islamic-tools__intro fade-in">
-                <p class="islamic-tools__eyebrow" data-translate="home_tools_eyebrow">أدوات إرشادية واضحة وشفافة</p>
-                <h2 id="islamic-tools-title" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
-                <p data-translate="home_tools_subtitle">اطّلع على مواقيت الصلاة المحسوبة لمدينتك، وقدّر زكاة المال وفق المعطيات التي تدخلها.</p>
-            </header>
-
-            <div class="islamic-tools__grid">
-                <!-- Prayer Times -->
-                <article class="islamic-card prayer-dashboard fade-in" aria-labelledby="pt-title">
-                    <header class="islamic-card__header">
-                        <div><p class="islamic-card__number">01</p><h3 id="pt-title" data-translate="pt_title">مواقيت الصلاة في المغرب</h3><p data-translate="pt_subtitle">مواقيت محسوبة بحسب المدينة والتاريخ المحلي.</p></div>
-                        <i class="fas fa-mosque" aria-hidden="true"></i>
-                    </header>
-
-                    <div class="prayer-controls">
-                        <label for="pt-city" data-translate="pt_city_label">المدينة</label>
-                        <div class="prayer-controls__row">
-                            <select id="pt-city" aria-describedby="pt-city-context"></select>
-                            <button id="pt-fetch" class="prayer-refresh" type="button"><i class="fas fa-rotate" aria-hidden="true"></i><span data-translate="pt_refresh">تحديث</span></button>
-                        </div>
-                        <p id="pt-city-context"><span data-translate="pt_city_context">المواقيت المعروضة تخص</span> <strong id="pt-city-name">—</strong></p>
-                    </div>
-
-                    <div id="pt-status" class="prayer-status" role="status" aria-live="polite"></div>
-
-                    <div id="pt-content" hidden>
-                        <div class="prayer-date-row"><div><span data-translate="pt_today_label">تاريخ اليوم</span><strong id="pt-date">—</strong></div><div><span data-translate="pt_data_date_label">تاريخ البيانات</span><strong id="pt-data-date">—</strong></div></div>
-
-                        <div class="next-prayer" id="pt-next"><div><span data-translate="pt_next_label">الصلاة القادمة</span><strong id="pt-next-name">—</strong></div><div class="next-prayer__countdown"><span data-translate="pt_remaining_label">الوقت المتبقي</span><strong id="pt-countdown">—</strong></div></div>
-
-                        <div id="pt-grid" class="prayer-grid" aria-label="الصلوات الخمس" data-translate="pt_grid_label" data-translate-attr="aria-label"></div>
-                        <div id="pt-sunrise" class="sunrise-row"></div>
-                        <div class="prayer-update"><span><span data-translate="pt_last_update_label">آخر تحديث ناجح</span>: <strong id="pt-last-update">—</strong></span></div>
-                    </div>
-
-                    <p class="prayer-method-note" data-translate="pt_note">المصدر: AlAdhan، طريقة الحساب المغربية رقم 21، بتوقيت Africa/Casablanca. هذه حسابات تقريبية وليست مواقيت رسمية منشورة من وزارة الأوقاف والشؤون الإسلامية.</p>
-                </article>
-
-                <!-- Zakat Calculator -->
-                <article class="islamic-card zakat-calculator fade-in" aria-labelledby="zakat-title">
-                    <header class="islamic-card__header">
-                        <div><p class="islamic-card__number">02</p><h3 id="zakat-title" data-translate="zakat_title">حاسبة تقديرية لزكاة المال</h3><p data-translate="zakat_subtitle">أدخل معطياتك المالية لمراجعة تقدير مبسط بنسبة 2.5%.</p></div>
-                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
-                    </header>
-
-                    <form id="zakat-form" novalidate>
-                        <fieldset class="zakat-step">
-                            <legend><span>1</span><strong data-translate="z_step_assets">أدخل الأموال والموجودات المؤهلة</strong></legend>
-                            <label for="z-assets" data-translate="z_assets_label">إجمالي الموجودات</label>
-                            <div class="money-input"><input id="z-assets" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-assets-help z-assets-error"><span>MAD</span></div>
-                            <p id="z-assets-help" class="field-help" data-translate="z_assets_help">أدخل المبلغ الإجمالي الذي ترى أنه يدخل في وعاء الزكاة.</p><p id="z-assets-error" class="field-error" aria-live="polite"></p>
-                        </fieldset>
-
-                        <fieldset class="zakat-step">
-                            <legend><span>2</span><strong data-translate="z_step_debts">أدخل الديون القابلة للخصم</strong></legend>
-                            <label for="z-debts" data-translate="z_debts_label">الديون ذات الصلة</label>
-                            <div class="money-input"><input id="z-debts" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-debts-help z-debts-error"><span>MAD</span></div>
-                            <p id="z-debts-help" class="field-help" data-translate="z_debts_help">أدخل فقط الديون التي تعتمدها في هذا التقدير.</p><p id="z-debts-error" class="field-error" aria-live="polite"></p>
-                        </fieldset>
-
-                        <fieldset class="zakat-step">
-                            <legend><span>3</span><strong data-translate="z_step_nisab">حدد مرجع النصاب وسعر الغرام</strong></legend>
-                            <div class="nisab-selector" role="radiogroup" aria-label="مرجع النصاب" data-translate="z_nisab_group_label" data-translate-attr="aria-label">
-                                <label><input type="radio" name="z-nisab-base" value="gold" checked><span><strong data-translate="z_gold">الذهب</strong><small data-translate="z_gold_weight">85 غراماً</small></span></label>
-                                <label><input type="radio" name="z-nisab-base" value="silver"><span><strong data-translate="z_silver">الفضة</strong><small data-translate="z_silver_weight">595 غراماً</small></span></label>
-                            </div>
-                            <label for="z-price" data-translate="z_price_label">سعر الغرام الذي أدخلته</label>
-                            <div class="money-input"><input id="z-price" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-price-help z-price-error"><span>MAD</span></div>
-                            <p id="z-price-help" class="field-help" data-translate="z_price_help">لا تجلب الحاسبة سعراً مباشراً للذهب أو الفضة؛ استخدم سعراً موثوقاً وحديثاً من اختيارك.</p><p id="z-price-error" class="field-error" aria-live="polite"></p>
-                        </fieldset>
-
-                        <div class="zakat-review"><span>4</span><div><strong data-translate="z_step_review">راجع التقدير والافتراضات</strong><p data-translate="z_review_help">يعتمد التقدير على صافي المبلغ ومرجع النصاب المحدد فقط.</p></div></div>
-                        <button id="z-compute" class="zakat-compute" type="submit" data-translate="z_compute">احسب التقدير</button>
-                    </form>
-
-                    <div id="z-result" class="zakat-result" role="status" aria-live="polite" hidden></div>
-                    <div class="zakat-guidance"><p data-translate="z_note">هذا تقدير معلوماتي وليس فتوى. تتوقف الزكاة على شروط شرعية أخرى، ومنها تحقق الحول القمري عند انطباقه. استشر أهل العلم في حالتك.</p><p><span data-translate="z_health_distinction">هذه الحاسبة تخص زكاة المال، وهي منفصلة عن مبادرة الجمعية «زكاة الصحة» للتبرع بالدم.</span> <a href="programs.html#zakat-detail" data-translate="z_health_link">تعرّف على المبادرة</a></p><p data-translate="z_privacy_note">لا تُحفظ المدخلات المالية أو تُرسل إلى الجمعية.</p></div>
-                </article>
+            <div class="islamic-gateway__card fade-in">
+                <div class="islamic-gateway__identity" aria-hidden="true">
+                    <span><i class="fas fa-mosque"></i></span>
+                    <span><i class="fas fa-scale-balanced"></i></span>
+                </div>
+                <div class="islamic-gateway__copy">
+                    <p class="islamic-gateway__eyebrow" data-translate="home_tools_gateway_eyebrow">خدمات عملية بمعلومات واضحة</p>
+                    <h2 id="islamic-gateway-title" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
+                    <p data-translate="home_tools_gateway_desc">مواقيت محسوبة حسب المدينة، وحاسبة تقديرية تحترم خصوصية معطياتك.</p>
+                </div>
+                <div class="islamic-gateway__links">
+                    <a href="#prayer-times"><i class="fas fa-clock" aria-hidden="true"></i><span data-translate="home_tools_gateway_prayer">عرض مواقيت الصلاة</span></a>
+                    <a href="#zakat-calculator"><i class="fas fa-calculator" aria-hidden="true"></i><span data-translate="home_tools_gateway_zakat">فتح حاسبة الزكاة</span></a>
+                </div>
             </div>
         </div>
     </section>
-
     <!-- Programs Section -->
     <section class="section-padding programs-bg">
         <div class="max-w-7xl mx-auto px-4">
@@ -556,6 +491,91 @@
                 <img src="images/don.jpg" alt="الجمعية الخيرية" data-translate="index_gallery_alt_8"
                     data-translate-attr="alt"
                     class="gallery-image rounded-lg shadow-md h-48 w-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Prayer Times & Zakat Calculator -->
+    <section id="islamic-tools" class="section-padding islamic-tools" aria-labelledby="islamic-tools-title">
+        <div class="max-w-7xl mx-auto px-4">
+            <header class="islamic-tools__intro fade-in">
+                <p class="islamic-tools__eyebrow" data-translate="home_tools_eyebrow">أدوات إرشادية واضحة وشفافة</p>
+                <h2 id="islamic-tools-title" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
+                <p data-translate="home_tools_subtitle">اطّلع على مواقيت الصلاة المحسوبة لمدينتك، وقدّر زكاة المال وفق المعطيات التي تدخلها.</p>
+            </header>
+
+            <div class="islamic-tools__grid">
+                <!-- Prayer Times -->
+                <article id="prayer-times" class="islamic-card prayer-dashboard fade-in" aria-labelledby="pt-title">
+                    <header class="islamic-card__header">
+                        <div><p class="islamic-card__number">01</p><h3 id="pt-title" data-translate="pt_title">مواقيت الصلاة في المغرب</h3><p data-translate="pt_subtitle">مواقيت محسوبة بحسب المدينة والتاريخ المحلي.</p></div>
+                        <i class="fas fa-mosque" aria-hidden="true"></i>
+                    </header>
+
+                    <div class="prayer-controls">
+                        <label for="pt-city" data-translate="pt_city_label">المدينة</label>
+                        <div class="prayer-controls__row">
+                            <select id="pt-city" aria-describedby="pt-city-context"></select>
+                            <button id="pt-fetch" class="prayer-refresh" type="button"><i class="fas fa-rotate" aria-hidden="true"></i><span data-translate="pt_refresh">تحديث</span></button>
+                        </div>
+                        <p id="pt-city-context"><span data-translate="pt_city_context">المواقيت المعروضة تخص</span> <strong id="pt-city-name">—</strong></p>
+                    </div>
+
+                    <div id="pt-status" class="prayer-status" role="status" aria-live="polite"></div>
+
+                    <div id="pt-content" hidden>
+                        <div class="prayer-date-row"><div><span data-translate="pt_today_label">تاريخ اليوم</span><strong id="pt-date">—</strong></div><div><span data-translate="pt_data_date_label">تاريخ البيانات</span><strong id="pt-data-date">—</strong></div></div>
+
+                        <div class="next-prayer" id="pt-next"><div><span data-translate="pt_next_label">الصلاة القادمة</span><strong id="pt-next-name">—</strong></div><div class="next-prayer__countdown"><span data-translate="pt_remaining_label">الوقت المتبقي</span><strong id="pt-countdown">—</strong></div></div>
+
+                        <div id="pt-grid" class="prayer-grid" aria-label="الصلوات الخمس" data-translate="pt_grid_label" data-translate-attr="aria-label"></div>
+                        <div id="pt-sunrise" class="sunrise-row"></div>
+                        <div class="prayer-update"><span><span data-translate="pt_last_update_label">آخر تحديث ناجح</span>: <strong id="pt-last-update">—</strong></span></div>
+                    </div>
+
+                    <p class="prayer-method-note" data-translate="pt_note">المصدر: AlAdhan، طريقة الحساب المغربية رقم 21، بتوقيت Africa/Casablanca. هذه حسابات تقريبية وليست مواقيت رسمية منشورة من وزارة الأوقاف والشؤون الإسلامية.</p>
+                </article>
+
+                <!-- Zakat Calculator -->
+                <article id="zakat-calculator" class="islamic-card zakat-calculator fade-in" aria-labelledby="zakat-title">
+                    <header class="islamic-card__header">
+                        <div><p class="islamic-card__number">02</p><h3 id="zakat-title" data-translate="zakat_title">حاسبة تقديرية لزكاة المال</h3><p data-translate="zakat_subtitle">أدخل معطياتك المالية لمراجعة تقدير مبسط بنسبة 2.5%.</p></div>
+                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                    </header>
+
+                    <form id="zakat-form" novalidate>
+                        <fieldset class="zakat-step">
+                            <legend><span>1</span><strong data-translate="z_step_assets">أدخل الأموال والموجودات المؤهلة</strong></legend>
+                            <label for="z-assets" data-translate="z_assets_label">إجمالي الموجودات</label>
+                            <div class="money-input"><input id="z-assets" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-assets-help z-assets-error"><span>MAD</span></div>
+                            <p id="z-assets-help" class="field-help" data-translate="z_assets_help">أدخل المبلغ الإجمالي الذي ترى أنه يدخل في وعاء الزكاة.</p><p id="z-assets-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <fieldset class="zakat-step">
+                            <legend><span>2</span><strong data-translate="z_step_debts">أدخل الديون القابلة للخصم</strong></legend>
+                            <label for="z-debts" data-translate="z_debts_label">الديون ذات الصلة</label>
+                            <div class="money-input"><input id="z-debts" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-debts-help z-debts-error"><span>MAD</span></div>
+                            <p id="z-debts-help" class="field-help" data-translate="z_debts_help">أدخل فقط الديون التي تعتمدها في هذا التقدير.</p><p id="z-debts-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <fieldset class="zakat-step">
+                            <legend><span>3</span><strong data-translate="z_step_nisab">حدد مرجع النصاب وسعر الغرام</strong></legend>
+                            <div class="nisab-selector" role="radiogroup" aria-label="مرجع النصاب" data-translate="z_nisab_group_label" data-translate-attr="aria-label">
+                                <label><input type="radio" name="z-nisab-base" value="gold" checked><span><strong data-translate="z_gold">الذهب</strong><small data-translate="z_gold_weight">85 غراماً</small></span></label>
+                                <label><input type="radio" name="z-nisab-base" value="silver"><span><strong data-translate="z_silver">الفضة</strong><small data-translate="z_silver_weight">595 غراماً</small></span></label>
+                            </div>
+                            <label for="z-price" data-translate="z_price_label">سعر الغرام الذي أدخلته</label>
+                            <div class="money-input"><input id="z-price" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-price-help z-price-error"><span>MAD</span></div>
+                            <p id="z-price-help" class="field-help" data-translate="z_price_help">لا تجلب الحاسبة سعراً مباشراً للذهب أو الفضة؛ استخدم سعراً موثوقاً وحديثاً من اختيارك.</p><p id="z-price-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <div class="zakat-review"><span>4</span><div><strong data-translate="z_step_review">راجع التقدير والافتراضات</strong><p data-translate="z_review_help">يعتمد التقدير على صافي المبلغ ومرجع النصاب المحدد فقط.</p></div></div>
+                        <button id="z-compute" class="zakat-compute" type="submit" data-translate="z_compute">احسب التقدير</button>
+                    </form>
+
+                    <div id="z-result" class="zakat-result" role="status" aria-live="polite" hidden></div>
+                    <div class="zakat-guidance"><p data-translate="z_note">هذا تقدير معلوماتي وليس فتوى. تتوقف الزكاة على شروط شرعية أخرى، ومنها تحقق الحول القمري عند انطباقه. استشر أهل العلم في حالتك.</p><p><span data-translate="z_health_distinction">هذه الحاسبة تخص زكاة المال، وهي منفصلة عن مبادرة الجمعية «زكاة الصحة» للتبرع بالدم.</span> <a href="programs.html#zakat-detail" data-translate="z_health_link">تعرّف على المبادرة</a></p><p data-translate="z_privacy_note">لا تُحفظ المدخلات المالية أو تُرسل إلى الجمعية.</p></div>
+                </article>
             </div>
         </div>
     </section>

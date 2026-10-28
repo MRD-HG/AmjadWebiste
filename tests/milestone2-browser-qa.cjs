@@ -48,7 +48,7 @@ async function collectPageErrors(page) {
 
 async function switchLanguage(page, language) {
   await page.locator(`.lang-btn[data-lang="${language}"]`).first().click();
-  await page.waitForTimeout(80);
+  await page.waitForFunction((expected) => document.documentElement.lang === expected, language);
   assert(await page.locator('html').getAttribute('lang') === language, `Language did not switch to ${language}`);
   assert(await page.locator('html').getAttribute('dir') === (language === 'ar' ? 'rtl' : 'ltr'), `Direction is wrong for ${language}`);
 }
@@ -84,7 +84,11 @@ async function testPrograms(page, viewportName) {
   for (const pillar of ['green', 'digital', 'clubs', 'community']) {
     await page.locator(`[data-eco-pillar="${pillar}"]`).click();
     assert(await page.locator(`[data-eco-panel="${pillar}"]`).isVisible(), `Eco-School pillar ${pillar} did not disclose its HTML content`);
+    assert(await page.locator(`[data-eco-hotspot="${pillar}"]`).getAttribute('aria-pressed') === 'true', `Eco-School hotspot ${pillar} did not synchronize`);
   }
+  await page.locator('[data-eco-hotspot="digital"]').click();
+  assert(await page.locator('#eco-digital-tab').getAttribute('aria-selected') === 'true', 'Eco-School map hotspot did not control the explanatory panel');
+  assert((await page.locator('#eco-visual-active-title').textContent()).trim().length > 0, 'Eco-School active area is not identified');
   assert(await page.locator('#eco-school-canvas').evaluate((element) => getComputedStyle(element).pointerEvents) === 'none', 'Eco-School canvas blocks touch input');
   assert(!await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth), `Programs overflow at ${viewportName}`);
   assert(errors.length === 0, `Programs console errors at ${viewportName}: ${errors.join(' | ')}`);
@@ -95,6 +99,15 @@ async function testIslamicTools(page, viewportName) {
   const prayerRequests = [];
   page.on('request', (request) => { if (request.url().includes('api.aladhan.com')) prayerRequests.push(request.url()); });
   await page.goto(`${baseUrl}/index.html#islamic-tools`, { waitUntil: 'domcontentloaded' });
+  assert(await page.locator('.islamic-gateway').count() === 1, 'Compact Islamic tools gateway is missing');
+  assert(await page.evaluate(() => {
+    const gateway = document.querySelector('.islamic-gateway');
+    const programs = document.querySelector('.programs-bg');
+    const tools = document.querySelector('#islamic-tools');
+    const gallery = document.querySelector('.gallery-image').closest('section');
+    return gateway.compareDocumentPosition(programs) & Node.DOCUMENT_POSITION_FOLLOWING
+      && gallery.compareDocumentPosition(tools) & Node.DOCUMENT_POSITION_FOLLOWING;
+  }), 'Islamic tools were not moved below the homepage content');
   await page.locator('#pt-content:not([hidden])').waitFor({ timeout: 30000 });
   assert(await page.locator('#pt-grid .prayer-time').count() === 5, 'Prayer dashboard must show five obligatory prayers');
   assert(await page.locator('#pt-sunrise').isVisible(), 'Sunrise must be separate and visible');
