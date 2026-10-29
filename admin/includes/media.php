@@ -9,7 +9,7 @@ function media_item(string $id): ?array
 function media_is_referenced(string $mediaId, bool $publishedOnly = true): array
 {
     $references = array();
-    foreach (array('programs', 'news', 'gallery', 'pages') as $collection) {
+    foreach (array('programs', 'news', 'gallery', 'pages', 'products', 'memory', 'sections') as $collection) {
         $document = read_collection($collection);
         foreach ($document['items'] as $item) {
             if ($publishedOnly && ($item['status'] ?? '') !== 'published') {

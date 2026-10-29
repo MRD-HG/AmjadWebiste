@@ -38,6 +38,7 @@ img { max-width: 100%; }
 .sidebar a.is-active { background: var(--green); box-shadow: 0 7px 16px rgba(23, 107, 73, .18); color: #fff; font-weight: 800; }
 .sidebar i { align-items: center; display: inline-flex; font-style: normal; justify-content: center; width: 20px; }
 .fa-house::before { content: '⌂'; }.fa-wand-magic-sparkles::before { content: '✦'; }.fa-diagram-project::before { content: '▦'; }.fa-newspaper::before { content: '▤'; }.fa-images::before, .fa-photo-film::before { content: '▧'; }.fa-quote-right::before { content: '❞'; }.fa-address-book::before { content: '▣'; }.fa-clock-rotate-left::before { content: '↶'; }.fa-gear::before { content: '⚙'; }.fa-arrow-up-right-from-square::before { content: '↗'; }.fa-right-from-bracket::before { content: '⇥'; }.fa-bars::before { content: '☰'; }
+.fa-pen-to-square::before { content: '✎'; }.fa-store::before { content: '▰'; }.fa-landmark::before { content: '⌘'; }
 .sidebar-footer { border-top: 1px solid var(--line); display: grid; gap: .2rem; margin-top: auto; padding-top: .85rem; }
 .sidebar-footer form { margin: 0; }
 

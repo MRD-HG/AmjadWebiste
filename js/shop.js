@@ -240,6 +240,21 @@ function applyFilter(){
   });
 }
 
+function bindProductCards(){
+  $all('.product-card-v2').forEach(card => {
+    const button = card.querySelector('.select-product');
+    if (!button || button.dataset.shopBound === 'true') return;
+    button.dataset.shopBound = 'true';
+    button.addEventListener('click', () => {
+      setSelected(card.dataset.product);
+      const panel = $('.order-panel');
+      if (window.innerWidth < 1024 && panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+}
+
 function init(){
   const form = $('#amjad-shop-form');
   if (!form) return;
@@ -251,17 +266,7 @@ function init(){
   setColor('Black');
   setQty(1);
 
-  // Card selection
-  $all('.product-card-v2').forEach(card => {
-    card.querySelector('.select-product')?.addEventListener('click', () => {
-      setSelected(card.dataset.product);
-      // scroll to order panel on small screens
-      const panel = $('.order-panel');
-      if (window.innerWidth < 1024 && panel) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  bindProductCards();
 
   // Size pills
   const sizePills = $('#size-pills');
@@ -321,3 +326,7 @@ function init(){
 }
 
 document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('amjad:productsrendered', () => {
+  bindProductCards();
+  applyFilter();
+});

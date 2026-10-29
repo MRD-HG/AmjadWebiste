@@ -38,6 +38,30 @@ $restored = restore_revision('programs',$revisions[count($revisions)-1],2); $ass
 $invalid = $program; $invalid['id']='BAD ID';
 try { validate_content_item('programs',$invalid); $assert(false,'invalid stable ID rejected'); } catch (InvalidArgumentException $expected) { $assert(true,'invalid stable ID rejected'); }
 
+$section = record_base_for_test('section-about-qa', empty_translations(collection_definition('sections')['translation_fields']));
+$section['translations']['ar']['text'] = '<script>alert(1)</script> نص آمن';
+$section += array('page'=>'about.html','group'=>'about','binding_key'=>'about_who_title','binding_kind'=>'text','url'=>'');
+validate_content_item('sections',$section);
+$sectionDocument = write_collection('sections',array($section),0,'test-section');
+$assert($sectionDocument['_meta']['revision'] === 1,'section collection writes successfully');
+$section['url']='javascript:alert(1)';
+try { validate_content_item('sections',$section); $assert(false,'unsafe section URL rejected'); } catch (InvalidArgumentException $expected) { $assert(true,'unsafe section URL rejected'); }
+
+$product = record_base_for_test('product-qa', empty_translations(collection_definition('products')['translation_fields']));
+$product['translations']['ar']['title']='منتج اختبار'; $product['translations']['ar']['summary']='ملخص المنتج';
+$product += array('kind'=>'bag','product_code'=>'QA-BAG','price'=>90,'currency'=>'MAD','sizes'=>array(),'colors'=>array('Green'),'available'=>true);
+validate_content_item('products',$product); write_collection('products',array($product),0,'test-product-draft');
+$productPublic = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/products.json'),true);
+$assert(count($productPublic['items']) === 0,'draft product excluded from projection');
+$product['status']='published'; write_collection('products',array($product),1,'test-product-publish');
+$productPublic = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/products.json'),true);
+$assert(($productPublic['items'][0]['product_code'] ?? '') === 'QA-BAG','published product projection includes allowlisted fields');
+
+$memory = record_base_for_test('memory-qa', empty_translations(collection_definition('memory')['translation_fields']));
+$memory['translations']['ar']['title']='ذاكرة اختبار'; $memory['translations']['ar']['summary']='ملخص موثق';
+$memory += array('content_type'=>'article','source_url'=>'https://example.org/source','event_date'=>'2020-01-01','page_ref'=>'skhirat-memory');
+validate_content_item('memory',$memory); $assert(true,'memory content validates');
+
 ensure_private_directory($sandbox . '/fixtures');
 $png = $sandbox . '/fixtures/tiny.png'; file_put_contents($png,base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='));
 $meta = image_metadata($png); $assert($meta['mime'] === 'image/png' && $meta['width'] === 1,'valid PNG accepted');
@@ -61,3 +85,8 @@ $_SESSION['last_activity_at'] = time() - AMJAD_SESSION_IDLE - 1;
 $assert(session_is_valid() === false,'expired session rejected');
 
 fwrite(STDOUT, "CMS functional checks passed: {$checks}\nSandbox: {$sandbox}\n");
+
+function record_base_for_test(string $id, array $translations): array
+{
+    return array('id'=>$id,'translations'=>$translations,'status'=>'draft','order'=>1,'image_id'=>'','created_at'=>date(DATE_ATOM),'updated_at'=>date(DATE_ATOM),'revision'=>1);
+}

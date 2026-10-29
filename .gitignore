@@ -1,0 +1,8 @@
+/admin/storage/
+/data/cms/*.json
+/images/uploads/*
+!/images/uploads/.htaccess
+/artifacts/
+/release/
+/.playwright/
+

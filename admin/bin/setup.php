@@ -33,6 +33,10 @@ if ($password === '') {
 }
 try {
     save_admin_credentials($username, $password);
+    foreach (allowed_collections() as $collection) {
+        $projection = AMJAD_PUBLIC_DATA_DIR . '/' . $collection . '.json';
+        if (!is_file($projection)) write_public_projection($collection, default_collection_document($collection));
+    }
     fwrite(STDOUT, "CMS administrator configured in private storage.\n");
 } catch (Throwable $error) {
     fwrite(STDERR, 'Setup failed: ' . $error->getMessage() . "\n");

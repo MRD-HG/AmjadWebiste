@@ -20,4 +20,4 @@ The current Git checkout was preserved as the frontend authority. A historical `
 
 Before production: serve only through HTTPS; place private storage outside the web root; reproduce all deny rules in the real web server; restrict filesystem ownership; configure backups and restore drills; set upload/body limits at the server layer; and review CSP/error logging with the hosting provider. The built-in PHP server is not a production server.
 
-Known Milestone 1 boundary: the public frontend is not yet connected to CMS projections, and legacy image paths require manual review/upload.
+Milestone 2 closes the frontend boundary with published-only projections, language fallback, safe DOM text assignment, same-origin upload paths, and URL allowlists. Deployment still requires host-level deny rules, external private storage, rotated credentials, backup validation, and owner approval.

@@ -73,10 +73,9 @@ function initializeLanguageSwitcher() {
             const lang = this.dataset.lang;
             currentLanguage = normalizeLanguage(lang);
             storeLanguage(currentLanguage);
-            updateLanguage(lang);
-            
             setActiveLangButton(currentLanguage);
             setDocumentDirection(currentLanguage);
+            updateLanguage(currentLanguage);
         });
     });
 }
@@ -191,6 +190,10 @@ function updateLanguage(lang) {
             titleElement.textContent = titleElement.dataset.originalText || titleElement.textContent;
         }
     }
+
+    document.dispatchEvent(new CustomEvent('amjad:languagechange', {
+        detail: { language: normalizeLanguage(lang) }
+    }));
 }
 
 // Initialize animations
@@ -391,15 +394,24 @@ function initializePhotoGallery() {
         image.tabIndex = 0;
         image.setAttribute('role', 'button');
         image.addEventListener('click', function() {
-            // Simple lightbox effect
             const lightbox = document.createElement('div');
             lightbox.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
-            lightbox.innerHTML = `
-                <div class="relative max-w-4xl max-h-full p-4">
-                    <img src="${this.src}" alt="${this.alt}" class="max-w-full max-h-full object-contain">
-                    <button type="button" aria-label="Close image" class="absolute top-2 right-2 text-white text-2xl hover:text-gray-300" onclick="this.parentElement.parentElement.remove()">&times;</button>
-                </div>
-            `;
+            lightbox.setAttribute('role', 'dialog');
+            lightbox.setAttribute('aria-modal', 'true');
+            const frame = document.createElement('div');
+            frame.className = 'relative max-w-4xl max-h-full p-4';
+            const expanded = document.createElement('img');
+            expanded.src = this.src;
+            expanded.alt = this.alt;
+            expanded.className = 'max-w-full max-h-full object-contain';
+            const close = document.createElement('button');
+            close.type = 'button';
+            close.setAttribute('aria-label', currentLanguage === 'ar' ? 'إغلاق الصورة' : currentLanguage === 'fr' ? 'Fermer l’image' : 'Close image');
+            close.className = 'absolute top-2 right-2 text-white text-2xl hover:text-gray-300';
+            close.textContent = '×';
+            close.addEventListener('click', () => lightbox.remove());
+            frame.append(expanded, close);
+            lightbox.append(frame);
             document.body.appendChild(lightbox);
             
             // Close on background click
@@ -409,8 +421,7 @@ function initializePhotoGallery() {
                 }
             });
 
-            const closeButton = lightbox.querySelector('button');
-            closeButton.focus();
+            close.focus();
             lightbox.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') lightbox.remove();
             });

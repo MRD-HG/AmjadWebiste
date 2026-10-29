@@ -19,7 +19,7 @@ function initialize_storage_directories(): void
 
 function allowed_collections(): array
 {
-    return array('programs', 'news', 'gallery', 'pages', 'media');
+    return array('programs', 'news', 'gallery', 'pages', 'media', 'sections', 'products', 'memory');
 }
 
 function assert_collection(string $collection): string
@@ -169,6 +169,9 @@ function public_item_projection(string $collection, array $item): array
         'gallery' => array('page_ref'),
         'pages' => array('settings'),
         'media' => array('path', 'thumbnail_path', 'mime', 'width', 'height'),
+        'sections' => array('page', 'group', 'binding_key', 'binding_kind', 'url'),
+        'products' => array('kind', 'product_code', 'price', 'currency', 'sizes', 'colors', 'available'),
+        'memory' => array('content_type', 'source_url', 'event_date', 'page_ref'),
     );
     $result = array();
     foreach (array_merge($common, $specific[$collection] ?? array()) as $key) {

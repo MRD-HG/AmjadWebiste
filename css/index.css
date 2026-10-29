@@ -36,6 +36,40 @@
             background-attachment: scroll;
         }
 
+        .hero-content-shell {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding-top: 7rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-copy-card {
+            width: min(100%, 42rem);
+            padding: clamp(1.4rem, 4vw, 2.5rem);
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 1.75rem;
+            background: linear-gradient(135deg, rgba(10, 42, 34, .84), rgba(10, 42, 34, .54));
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .28);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero-reference { display: inline-flex; margin-bottom: 1rem; padding: .45rem .8rem; border-radius: 999px; color: #fef3c7; background: rgba(255, 255, 255, .1); font-size: .86rem; font-weight: 700; }
+        .hero-copy-card h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.08; font-weight: 800; text-wrap: balance; }
+        .hero-lead { margin-top: 1.25rem; max-width: 38rem; color: rgba(255, 255, 255, .88); font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.9; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.7rem; }
+        .hero-actions a { padding: .78rem 1.2rem; border-radius: .9rem; font-weight: 800; transition: transform .2s ease, background .2s ease; }
+        .hero-actions a:hover { transform: translateY(-2px); }
+        .hero-primary-action { color: #123d31; background: #fff; }
+        .hero-secondary-action { color: #fff; border: 1px solid rgba(255,255,255,.48); background: rgba(255,255,255,.08); }
+
+        @media (max-width: 640px) {
+            .hero-content-shell { align-items: end; padding-bottom: 2rem; }
+            .hero-copy-card { border-radius: 1.25rem; }
+            .hero-actions a { flex: 1 1 10rem; text-align: center; }
+        }
+
         @media (max-width: 767px) {
             .hero-section {
                 background-position: 58% center;

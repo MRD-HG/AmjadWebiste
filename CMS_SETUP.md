@@ -46,6 +46,17 @@ php admin/bin/import-legacy.php C:\path\to\legacy\data --apply
 
 It validates JSON, preserves originals plus SHA-256 checksums under private import storage, does not overwrite stable IDs, and imports singleton pages as drafts for review. Images are not copied automatically; upload them through the media library and attach them after review.
 
+## Frontend reconciliation and publishing
+
+The public connector overlays published JSON onto stable DOM keys and IDs. Static HTML remains the complete fallback. Generate and review a report first:
+
+```powershell
+php admin/bin/reconcile-frontend.php --report=artifacts/reconciliation-dry-run.json
+php admin/bin/reconcile-frontend.php --apply
+```
+
+Normal apply creates drafts only and never overwrites an existing ID. `--publish-verified` is reserved for an operator who has verified facts, dates, translations, links, and image rights. See `CMS_FRONTEND_MAPPING.md`.
+
 ## Backup and recovery
 
 Back up private storage and `images/uploads` together. Every successful collection write creates a snapshot. Restore from **النسخ السابقة**; restoration itself creates a new revision, so history remains recoverable.

@@ -30,6 +30,9 @@ Schema version: 1. UTF-8 JSON. Stable IDs use lowercase Latin letters, numbers, 
 | `gallery` | caption, alt | page_ref, order |
 | `pages` | depends on singleton | settings |
 | `media` | caption, alt | path, thumbnail_path, MIME, dimensions; private record also keeps size/replacement history |
+| `sections` | text | page, group, binding_key, binding_kind, optional URL |
+| `products` | title, summary, availability_label | kind, product_code, price, currency, sizes, colors, available |
+| `memory` | title, summary, body, caption, source_label | content_type, source_url, event_date, page_ref |
 
 Required Arabic fields are `title` and `summary` for programs/news, and `caption` plus `alt` for gallery. Other translations and long body fields are optional. Contact values and statistics remain empty until an authorized administrator enters approved information.
 
@@ -60,6 +63,6 @@ All future records must receive explicit stable IDs during migration. Existing h
 
 ## Public boundary
 
-`data/cms/*.json` is generated from published records and an explicit per-collection field allowlist. Audit metadata, original upload names, old file paths, credentials, throttling data, and draft content remain private. Milestone 1 intentionally leaves the current public HTML/JS unchanged; Milestone 2 can consume these projections without rewriting live files from the backoffice.
+`data/cms/*.json` is generated from published records and an explicit per-collection field allowlist. Audit metadata, original upload names, old file paths, credentials, throttling data, and draft content remain private. Milestone 2 consumes these projections through `js/cms-connector.js` without rewriting live files from the backoffice.
 
-If a requested `fr` or `en` value is empty, a future frontend client may display the Arabic value for that field but must not write that fallback back into storage. Existing translated static content remains unchanged until each record is explicitly reconciled in Milestone 2.
+If a requested `fr` or `en` value is empty, the frontend displays Arabic, then preserves its static fallback. Component IDs and binding rules are documented in `CMS_FRONTEND_MAPPING.md`; fallbacks are never written back into storage.

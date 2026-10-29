@@ -25,6 +25,27 @@ function collection_definition(string $collection): array
             'translation_fields' => array('caption', 'alt'),
             'required_ar' => array('caption', 'alt'),
         ),
+        'sections' => array(
+            'label' => 'محتوى الصفحات',
+            'singular' => 'حقل محتوى',
+            'prefix' => 'section',
+            'translation_fields' => array('text'),
+            'required_ar' => array('text'),
+        ),
+        'products' => array(
+            'label' => 'منتجات المتجر',
+            'singular' => 'منتج',
+            'prefix' => 'product',
+            'translation_fields' => array('title', 'summary', 'availability_label'),
+            'required_ar' => array('title', 'summary'),
+        ),
+        'memory' => array(
+            'label' => 'ذاكرة الصخيرات',
+            'singular' => 'مادة تاريخية',
+            'prefix' => 'memory',
+            'translation_fields' => array('title', 'summary', 'body', 'caption', 'source_label'),
+            'required_ar' => array('title', 'summary'),
+        ),
     );
     if (!isset($definitions[$collection])) {
         throw new InvalidArgumentException('وحدة التحرير غير معروفة.');
@@ -136,6 +157,34 @@ function validate_content_item(string $collection, array $item): void
             throw new InvalidArgumentException('تاريخ النشر غير صالح.');
         }
     }
+    if ($collection === 'sections') {
+        if (!in_array((string)($item['group'] ?? ''), array('about','services','eco-school','islamic-tools','footer','seo','shop'), true)) {
+            throw new InvalidArgumentException('مجموعة محتوى الصفحة غير صالحة.');
+        }
+        if (!preg_match('/^[a-z0-9][a-z0-9_-]{2,119}$/', (string)($item['binding_key'] ?? ''))) {
+            throw new InvalidArgumentException('مفتاح الربط الثابت غير صالح.');
+        }
+        if (!in_array((string)($item['binding_kind'] ?? ''), array('text','attribute'), true)) {
+            throw new InvalidArgumentException('نوع ربط المحتوى غير صالح.');
+        }
+        if (!validate_http_or_local_url((string)($item['url'] ?? ''))) {
+            throw new InvalidArgumentException('رابط المحتوى غير صالح.');
+        }
+    }
+    if ($collection === 'products') {
+        if (!in_array((string)($item['currency'] ?? ''), array('MAD','EUR','USD'), true)) {
+            throw new InvalidArgumentException('عملة المنتج غير صالحة.');
+        }
+        if ((float)($item['price'] ?? 0) < 0) throw new InvalidArgumentException('سعر المنتج لا يمكن أن يكون سالباً.');
+    }
+    if ($collection === 'memory') {
+        if (!in_array((string)($item['content_type'] ?? ''), array('article','person','place','timeline','gallery'), true)) {
+            throw new InvalidArgumentException('نوع المادة التاريخية غير صالح.');
+        }
+        if (!validate_http_or_local_url((string)($item['source_url'] ?? ''))) throw new InvalidArgumentException('رابط المصدر غير صالح.');
+        $eventDate = (string)($item['event_date'] ?? '');
+        if ($eventDate !== '' && DateTime::createFromFormat('Y-m-d', $eventDate) === false) throw new InvalidArgumentException('تاريخ المادة غير صالح.');
+    }
 }
 
 function content_item_from_post(string $collection, ?array $existing = null): array
@@ -162,6 +211,25 @@ function content_item_from_post(string $collection, ?array $existing = null): ar
         $item['published_at'] = request_value('published_at');
     } elseif ($collection === 'gallery') {
         $item['page_ref'] = request_value('page_ref', 'index');
+    } elseif ($collection === 'sections') {
+        $item['page'] = request_value('page', 'index.html');
+        $item['group'] = request_value('group', 'about');
+        $item['binding_key'] = request_value('binding_key', (string)$id);
+        $item['binding_kind'] = request_value('binding_kind', 'text');
+        $item['url'] = request_value('url');
+    } elseif ($collection === 'products') {
+        $item['kind'] = request_value('kind', 'product');
+        $item['product_code'] = request_value('product_code', (string)$id);
+        $item['price'] = max(0, (float)request_value('price', '0'));
+        $item['currency'] = request_value('currency', 'MAD');
+        $item['sizes'] = array_values(array_filter(array_map('trim', explode(',', request_value('sizes')))));
+        $item['colors'] = array_values(array_filter(array_map('trim', explode(',', request_value('colors')))));
+        $item['available'] = request_value('available') === '1';
+    } elseif ($collection === 'memory') {
+        $item['content_type'] = request_value('content_type', 'article');
+        $item['source_url'] = request_value('source_url');
+        $item['event_date'] = request_value('event_date');
+        $item['page_ref'] = request_value('page_ref', 'skhirat-memory');
     }
     validate_content_item($collection, $item);
     return $item;
