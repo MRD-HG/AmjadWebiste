@@ -1,0 +1,303 @@
+<?php
+declare(strict_types=1);
+
+function collection_definition(string $collection): array
+{
+    $definitions = array(
+        'programs' => array(
+            'label' => 'البرامج والمشاريع',
+            'singular' => 'برنامج',
+            'prefix' => 'program',
+            'translation_fields' => array('title', 'summary', 'body', 'cta_text'),
+            'required_ar' => array('title', 'summary'),
+        ),
+        'news' => array(
+            'label' => 'الأخبار',
+            'singular' => 'خبر',
+            'prefix' => 'article',
+            'translation_fields' => array('title', 'summary', 'body'),
+            'required_ar' => array('title', 'summary'),
+        ),
+        'gallery' => array(
+            'label' => 'مجلة الصور',
+            'singular' => 'صورة',
+            'prefix' => 'gallery',
+            'translation_fields' => array('caption', 'alt'),
+            'required_ar' => array('caption', 'alt'),
+        ),
+    );
+    if (!isset($definitions[$collection])) {
+        throw new InvalidArgumentException('وحدة التحرير غير معروفة.');
+    }
+    return $definitions[$collection];
+}
+
+function empty_translations(array $fields): array
+{
+    $translations = array();
+    foreach (array('ar', 'fr', 'en') as $language) {
+        $translations[$language] = array_fill_keys($fields, '');
+    }
+    return $translations;
+}
+
+function normalize_translations(array $source, array $fields): array
+{
+    $result = empty_translations($fields);
+    foreach (array('ar', 'fr', 'en') as $language) {
+        foreach ($fields as $field) {
+            $result[$language][$field] = trim((string)($source[$language][$field] ?? ''));
+        }
+    }
+    return $result;
+}
+
+function translations_from_post(array $fields): array
+{
+    $result = empty_translations($fields);
+    foreach (array('ar', 'fr', 'en') as $language) {
+        foreach ($fields as $field) {
+            $result[$language][$field] = trim((string)($_POST[$field . '_' . $language] ?? ''));
+        }
+    }
+    return $result;
+}
+
+function translated_value(array $item, string $field, string $language = 'ar'): string
+{
+    $translations = (array)($item['translations'] ?? array());
+    $value = trim((string)($translations[$language][$field] ?? ''));
+    if ($value === '' && $language !== 'ar') {
+        return trim((string)($translations['ar'][$field] ?? ''));
+    }
+    return $value;
+}
+
+function stable_id_is_valid(string $id): bool
+{
+    return (bool)preg_match('/^[a-z0-9][a-z0-9-]{2,79}$/', $id);
+}
+
+function new_stable_id(string $prefix): string
+{
+    return $prefix . '-' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(3));
+}
+
+function find_content_item(array $items, string $id): ?array
+{
+    foreach ($items as $item) {
+        if (is_array($item) && (string)($item['id'] ?? '') === $id) {
+            return $item;
+        }
+    }
+    return null;
+}
+
+function content_item_index(array $items, string $id): int
+{
+    foreach ($items as $index => $item) {
+        if (is_array($item) && (string)($item['id'] ?? '') === $id) {
+            return (int)$index;
+        }
+    }
+    return -1;
+}
+
+function validate_content_item(string $collection, array $item): void
+{
+    $definition = collection_definition($collection);
+    if (!stable_id_is_valid((string)($item['id'] ?? ''))) {
+        throw new InvalidArgumentException('المعرّف الثابت غير صالح. استخدم حروفاً لاتينية صغيرة وأرقاماً وشرطات فقط.');
+    }
+    if (!valid_status((string)($item['status'] ?? ''))) {
+        throw new InvalidArgumentException('حالة النشر غير صالحة.');
+    }
+    $translations = normalize_translations((array)($item['translations'] ?? array()), $definition['translation_fields']);
+    foreach ($definition['required_ar'] as $field) {
+        if ($translations['ar'][$field] === '') {
+            throw new InvalidArgumentException('الحقول العربية الأساسية مطلوبة.');
+        }
+    }
+    if ($collection === 'programs') {
+        if (!in_array((string)($item['family_id'] ?? ''), array('education', 'social'), true)) {
+            throw new InvalidArgumentException('عائلة البرنامج غير صالحة.');
+        }
+        $detail = (string)($item['detail_view_id'] ?? '');
+        if ($detail !== '' && !preg_match('/^[a-z0-9][a-z0-9-]{1,79}$/', $detail)) {
+            throw new InvalidArgumentException('معرّف صفحة التفاصيل غير صالح.');
+        }
+    }
+    if ($collection === 'news') {
+        if (!in_array((string)($item['category'] ?? ''), array('news', 'events', 'announcements', 'programs'), true)) {
+            throw new InvalidArgumentException('تصنيف الخبر غير صالح.');
+        }
+        $date = (string)($item['published_at'] ?? '');
+        if ($date !== '' && DateTime::createFromFormat('Y-m-d', $date) === false) {
+            throw new InvalidArgumentException('تاريخ النشر غير صالح.');
+        }
+    }
+}
+
+function content_item_from_post(string $collection, ?array $existing = null): array
+{
+    $definition = collection_definition($collection);
+    $now = date(DATE_ATOM);
+    $providedId = strtolower(trim((string)($_POST['stable_id'] ?? '')));
+    $id = $existing['id'] ?? ($providedId !== '' ? $providedId : new_stable_id($definition['prefix']));
+    $item = $existing ?: array();
+    $item['id'] = (string)$id;
+    $item['translations'] = translations_from_post($definition['translation_fields']);
+    $item['status'] = request_value('save_status', request_value('status', 'draft'));
+    $item['order'] = max(0, (int)request_value('order', '0'));
+    $item['image_id'] = request_value('image_id');
+    $item['created_at'] = (string)($existing['created_at'] ?? $now);
+    $item['updated_at'] = $now;
+    $item['revision'] = (int)($existing['revision'] ?? 0) + 1;
+
+    if ($collection === 'programs') {
+        $item['family_id'] = request_value('family_id', 'education');
+        $item['detail_view_id'] = request_value('detail_view_id');
+    } elseif ($collection === 'news') {
+        $item['category'] = request_value('category', 'news');
+        $item['published_at'] = request_value('published_at');
+    } elseif ($collection === 'gallery') {
+        $item['page_ref'] = request_value('page_ref', 'index');
+    }
+    validate_content_item($collection, $item);
+    return $item;
+}
+
+function save_content_item(string $collection, int $expectedCollectionRevision, int $expectedItemRevision = 0): array
+{
+    $document = read_collection($collection);
+    $id = strtolower(trim((string)($_POST['id'] ?? '')));
+    $index = $id === '' ? -1 : content_item_index($document['items'], $id);
+    $existing = $index >= 0 ? $document['items'][$index] : null;
+    if ($existing !== null && (int)($existing['revision'] ?? 0) !== $expectedItemRevision) {
+        throw new ContentConflictException('هذا السجل عُدّل في جلسة أخرى. أعد تحميل الصفحة قبل الحفظ.');
+    }
+    $item = content_item_from_post($collection, $existing);
+    if ($existing === null && find_content_item($document['items'], $item['id']) !== null) {
+        throw new InvalidArgumentException('المعرّف الثابت مستخدم مسبقاً.');
+    }
+    if ($index >= 0) {
+        $document['items'][$index] = $item;
+    } else {
+        $document['items'][] = $item;
+    }
+    usort($document['items'], static function ($left, $right): int {
+        return ((int)($left['order'] ?? 0) <=> (int)($right['order'] ?? 0)) ?: strcmp((string)($left['id'] ?? ''), (string)($right['id'] ?? ''));
+    });
+    write_collection($collection, $document['items'], $expectedCollectionRevision, $existing ? 'update' : 'create');
+    audit_event($existing ? 'update-item' : 'create-item', $collection, $item['id'], array('status' => $item['status']));
+    return $item;
+}
+
+function archive_content_item(string $collection, string $id, int $expectedCollectionRevision, int $expectedItemRevision): void
+{
+    $document = read_collection($collection);
+    $index = content_item_index($document['items'], $id);
+    if ($index < 0) {
+        throw new RuntimeException('السجل غير موجود.');
+    }
+    if ((int)($document['items'][$index]['revision'] ?? 0) !== $expectedItemRevision) {
+        throw new ContentConflictException('السجل عُدّل قبل طلب الأرشفة.');
+    }
+    $document['items'][$index]['status'] = 'archived';
+    $document['items'][$index]['updated_at'] = date(DATE_ATOM);
+    $document['items'][$index]['revision'] = $expectedItemRevision + 1;
+    write_collection($collection, $document['items'], $expectedCollectionRevision, 'archive');
+    audit_event('archive-item', $collection, $id);
+}
+
+function page_definition(string $pageId): array
+{
+    $definitions = array(
+        'hero' => array('label' => 'الواجهة الرئيسية', 'translation_fields' => array('title', 'subtitle', 'cta_text', 'text_block')),
+        'president' => array('label' => 'كلمة الرئيس', 'translation_fields' => array('name', 'role', 'organization', 'motto', 'message', 'vision', 'mission')),
+        'contact' => array('label' => 'معلومات الاتصال', 'translation_fields' => array('address', 'opening_hours')),
+    );
+    if (!isset($definitions[$pageId])) {
+        throw new InvalidArgumentException('صفحة المحتوى غير معروفة.');
+    }
+    return $definitions[$pageId];
+}
+
+function empty_page_item(string $pageId): array
+{
+    $definition = page_definition($pageId);
+    return array(
+        'id' => $pageId,
+        'translations' => empty_translations($definition['translation_fields']),
+        'status' => 'draft',
+        'image_id' => '',
+        'settings' => array(),
+        'created_at' => date(DATE_ATOM),
+        'updated_at' => date(DATE_ATOM),
+        'revision' => 0,
+    );
+}
+
+function save_page_item(string $pageId, int $expectedCollectionRevision, int $expectedItemRevision): array
+{
+    $definition = page_definition($pageId);
+    $document = read_collection('pages');
+    $index = content_item_index($document['items'], $pageId);
+    $existing = $index >= 0 ? $document['items'][$index] : empty_page_item($pageId);
+    if ((int)($existing['revision'] ?? 0) !== $expectedItemRevision) {
+        throw new ContentConflictException('تم تعديل هذه الصفحة في جلسة أخرى.');
+    }
+    $item = $existing;
+    $item['translations'] = translations_from_post($definition['translation_fields']);
+    $item['status'] = request_value('save_status', request_value('status', 'draft'));
+    $item['image_id'] = request_value('image_id');
+    $item['updated_at'] = date(DATE_ATOM);
+    $item['revision'] = $expectedItemRevision + 1;
+    $settings = array();
+    if ($pageId === 'hero') {
+        $settings = array(
+            'cta_link' => request_value('cta_link'),
+            'years' => max(0, (int)request_value('years', '0')),
+            'volunteers' => max(0, (int)request_value('volunteers', '0')),
+            'beneficiaries' => max(0, (int)request_value('beneficiaries', '0')),
+        );
+        if (!validate_http_or_local_url($settings['cta_link'])) {
+            throw new InvalidArgumentException('رابط زر الواجهة غير صالح.');
+        }
+    } elseif ($pageId === 'contact') {
+        $settings = array(
+            'phone' => request_value('phone'),
+            'email' => request_value('email'),
+            'secondary_email' => request_value('secondary_email'),
+            'map_url' => request_value('map_url'),
+            'facebook' => request_value('facebook'),
+            'instagram' => request_value('instagram'),
+            'x' => request_value('x'),
+            'youtube' => request_value('youtube'),
+            'tiktok' => request_value('tiktok'),
+            'linkedin' => request_value('linkedin'),
+        );
+        foreach (array('email', 'secondary_email') as $emailField) {
+            if ($settings[$emailField] !== '' && filter_var($settings[$emailField], FILTER_VALIDATE_EMAIL) === false) {
+                throw new InvalidArgumentException('صيغة البريد الإلكتروني غير صالحة.');
+            }
+        }
+        foreach (array('map_url', 'facebook', 'instagram', 'x', 'youtube', 'tiktok', 'linkedin') as $urlField) {
+            if (!validate_http_or_local_url($settings[$urlField])) {
+                throw new InvalidArgumentException('أحد الروابط الرسمية غير صالح.');
+            }
+        }
+    }
+    $item['settings'] = $settings;
+    if (!valid_status($item['status'])) {
+        throw new InvalidArgumentException('حالة النشر غير صالحة.');
+    }
+    if ($index >= 0) {
+        $document['items'][$index] = $item;
+    } else {
+        $document['items'][] = $item;
+    }
+    write_collection('pages', $document['items'], $expectedCollectionRevision, 'update-page');
+    audit_event('update-page', 'pages', $pageId, array('status' => $item['status']));
+    return $item;
+}
