@@ -184,6 +184,11 @@ function public_item_projection(string $collection, array $item): array
 
 function published_projection(string $collection, array $document): array
 {
+    $managedIds = array_values(array_unique(array_filter(array_map(static function ($item): string {
+        if (!is_array($item)) return '';
+        $id = (string)($item['id'] ?? '');
+        return preg_match('/^[a-z0-9][a-z0-9-]{2,79}$/', $id) ? $id : '';
+    }, $document['items']))));
     $items = array_values(array_filter($document['items'], static function ($item): bool {
         return is_array($item) && ($item['status'] ?? '') === 'published';
     }));
@@ -192,9 +197,12 @@ function published_projection(string $collection, array $document): array
     }, $items);
     return array(
         '_meta' => array(
+            'collection' => $collection,
             'schema_version' => (int)($document['_meta']['schema_version'] ?? AMJAD_SCHEMA_VERSION),
             'revision' => (int)($document['_meta']['revision'] ?? 0),
             'generated_at' => date(DATE_ATOM),
+            'ownership_version' => 1,
+            'managed_ids' => $managedIds,
         ),
         'items' => $items,
     );

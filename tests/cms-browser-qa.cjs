@@ -77,7 +77,9 @@ function assert(value, message) { if (!value) throw new Error(message); }
     await page.click('button[name="save_status"][value="draft"]');
     await page.waitForURL('**/admin/news.php');
     const unpublished = await context.request.get(`${base}/data/cms/news.json`);
-    assert(!(await unpublished.text()).includes(itemId), 'Unpublished draft leaked into public projection.');
+    const unpublishedDocument = await unpublished.json();
+    assert(!unpublishedDocument.items.some((item) => item.id === itemId), 'Unpublished draft leaked into public projection.');
+    assert(unpublishedDocument._meta.managed_ids.includes(itemId), 'Unpublished ownership tombstone is missing.');
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${base}/admin/dashboard.php`, { waitUntil: 'domcontentloaded' });

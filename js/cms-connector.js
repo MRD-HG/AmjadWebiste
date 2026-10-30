@@ -30,6 +30,37 @@
         return documentData.items.filter((item) => item && item.status === 'published' && typeof item.id === 'string');
     }
 
+    function managedIds(name) {
+        const meta = state[name] && state[name]._meta;
+        if (!meta || meta.ownership_version !== 1 || !Array.isArray(meta.managed_ids)) return null;
+        return new Set(meta.managed_ids.filter((id) => typeof id === 'string' && /^[a-z0-9][a-z0-9-]{2,79}$/.test(id)));
+    }
+
+    function reconcileManagedCards(name, selector) {
+        const managed = managedIds(name);
+        if (!managed) return;
+        const published = new Set(publishedItems(name).map((item) => item.id));
+        document.querySelectorAll(selector).forEach((node) => {
+            const id = node.dataset.cmsId;
+            if (!managed.has(id)) return;
+            node.hidden = !published.has(id);
+            node.dataset.cmsPublication = published.has(id) ? 'published' : 'unpublished';
+        });
+    }
+
+    function reconcileManagedDetails(name) {
+        const managed = managedIds(name);
+        if (!managed) return;
+        const published = new Set(publishedItems(name).map((item) => item.id));
+        managed.forEach((id) => {
+            const detail = document.getElementById(id + '-detail');
+            if (!detail) return;
+            const isPublished = published.has(id);
+            detail.dataset.cmsPublication = isPublished ? 'published' : 'unpublished';
+            if (!isPublished) { detail.hidden = true; detail.classList.add('hidden'); }
+        });
+    }
+
     function mediaUrl(imageId) {
         if (!imageId) return '';
         const item = publishedItems('media').find((media) => media.id === imageId);
@@ -124,7 +155,10 @@
         const settings = item.settings || {};
         const address = translated(item, 'address');
         document.querySelectorAll('[data-translate="index_footer_address"]').forEach((node) => setText(node, address));
-        if (settings.email) document.querySelectorAll('a[href^="mailto:"]').forEach((node) => { node.href = 'mailto:' + settings.email; setText(node, settings.email); });
+        if (settings.email && window.setAmjadContactEmail && window.setAmjadContactEmail(settings.email)) {
+            document.querySelectorAll('a[href^="mailto:"]').forEach((node) => { node.href = 'mailto:' + settings.email; setText(node, settings.email); });
+            document.querySelectorAll('[data-amjad="contact-email"]').forEach((node) => setText(node, settings.email));
+        }
         if (settings.phone) document.querySelectorAll('a[href^="tel:"]').forEach((node) => { node.href = 'tel:' + settings.phone.replace(/[^+0-9]/g, ''); setText(node, settings.phone); });
         const networks = { facebook: 'facebook.com', instagram: 'instagram.com', x: 'x.com', youtube: 'youtube.com', tiktok: 'tiktok.com', linkedin: 'linkedin.com' };
         Object.keys(networks).forEach((name) => {
@@ -143,6 +177,7 @@
     }
 
     function updateProgramCard(card, item) {
+        card.dataset.programFamily = item.family_id;
         setText(card.querySelector('h4'), translated(item, 'title'));
         setText(card.querySelector('.project-card__content p'), translated(item, 'summary'));
         const image = mediaUrl(item.image_id);
@@ -172,6 +207,7 @@
     }
 
     function updateProgramDetail(detail, item) {
+        detail.dataset.programFamily = item.family_id;
         setText(detail.querySelector('h2'), translated(item, 'title'));
         const body = translated(item, 'body') || translated(item, 'summary');
         const paragraph = detail.querySelector('.prose p, .p-8 p, p');
@@ -193,16 +229,21 @@
     function renderPrograms() {
         if (currentPage() !== 'programs.html') return;
         document.querySelectorAll('[data-cms-generated="true"].project-card, [data-cms-generated="true"].program-detail').forEach((node) => node.remove());
+        reconcileManagedCards('programs', '.project-card[data-cms-id]');
+        reconcileManagedDetails('programs');
         const detailHost = document.querySelector('.program-detail') && document.querySelector('.program-detail').parentElement;
         publishedItems('programs').forEach((item) => {
             const card = document.querySelector('.project-card[data-cms-id="' + CSS.escape(item.id) + '"]');
             const finalCard = card || createProgramCard(item);
-            if (!card) document.querySelector('[data-family-panel="' + (item.family_id === 'social' ? 'social' : 'education') + '"]')?.append(finalCard);
+            const family = ['education', 'social'].includes(item.family_id) ? item.family_id : '';
+            if (!family) return;
+            if (!card) document.querySelector('[data-family-panel="' + family + '"]')?.append(finalCard);
             updateProgramCard(finalCard, item);
             const detailId = String(item.detail_view_id || item.id).replace(/[^a-z0-9-]/g, '');
             let detail = document.getElementById(detailId + '-detail');
             if (!detail && detailHost) { detail = createProgramDetail(item); detailHost.append(detail); }
             if (detail) updateProgramDetail(detail, item);
+            if (window.registerProgramFamily) window.registerProgramFamily(detailId, family);
         });
         const hash = location.hash.slice(1).replace(/-detail$/, '');
         if (hash && document.getElementById(hash + '-detail') && window.showProgramDetail) window.showProgramDetail(hash, false);
@@ -262,11 +303,13 @@
     function renderNews() {
         if (currentPage() !== 'news.html') return;
         document.querySelectorAll('[data-cms-generated="true"].news-card, #news-modal [data-cms-generated="true"]').forEach((node) => node.remove());
+        reconcileManagedCards('news', '.news-card[data-cms-id]');
+        reconcileManagedDetails('news');
         const grid = document.getElementById('news-grid'); const host = document.querySelector('#news-modal .news-detail');
         publishedItems('news').forEach((item) => {
             let card = document.querySelector('.news-card[data-cms-id="' + CSS.escape(item.id) + '"]');
             if (!card && grid) { card = createNewsCard(item); grid.append(card); }
-            if (card) updateNewsCard(card, item);
+            if (card) { card.hidden = false; updateNewsCard(card, item); if (window.registerAmjadAnimatedContent) window.registerAmjadAnimatedContent(card); }
             let detail = document.getElementById(item.id + '-detail');
             if (!detail && host) { detail = createNewsDetail(item); host.append(detail); }
             if (detail) updateNewsDetail(detail, item);
@@ -278,11 +321,19 @@
 
     function updateProductCard(card, item) {
         card.dataset.kind = item.kind || 'product'; card.dataset.product = item.product_code || item.id;
+        card.dataset.available = item.available === false ? 'false' : 'true';
+        card.dataset.price = String(Number(item.price) || 0); card.dataset.currency = item.currency || 'MAD';
+        card.dataset.sizes = Array.isArray(item.sizes) ? item.sizes.join(',') : ''; card.dataset.colors = Array.isArray(item.colors) ? item.colors.join(',') : '';
         setText(card.querySelector('h3'), translated(item, 'title')); setText(card.querySelector('.product-body > p'), translated(item, 'summary'));
         setText(card.querySelector('.product-badge'), translated(item, 'availability_label'));
         const image = mediaUrl(item.image_id); const media = card.querySelector('.product-media');
         if (media && image) { media.style.backgroundImage = "url('" + image.replace(/'/g, '%27') + "')"; media.style.backgroundSize = 'cover'; media.style.backgroundPosition = 'center'; }
         card.hidden = item.available === false;
+        let price = card.querySelector('.product-price');
+        if (!price) { price = document.createElement('p'); price.className = 'product-price'; card.querySelector('.product-body')?.insertBefore(price, card.querySelector('.select-product')); }
+        if (price) price.textContent = new Intl.NumberFormat(language(), { style: 'currency', currency: item.currency || 'MAD' }).format(Number(item.price) || 0);
+        const button = card.querySelector('.select-product');
+        if (button) button.disabled = item.available === false;
     }
 
     function createProductCard(item) {
@@ -297,13 +348,15 @@
     function renderProducts() {
         if (currentPage() !== 'shop.html') return;
         document.querySelectorAll('[data-cms-generated="true"].product-card-v2').forEach((node) => node.remove());
+        reconcileManagedCards('products', '.product-card-v2[data-cms-id]');
         const host = document.getElementById('shop-products');
-        publishedItems('products').forEach((item) => {
+        const products = publishedItems('products');
+        products.forEach((item) => {
             let card = document.querySelector('.product-card-v2[data-cms-id="' + CSS.escape(item.id) + '"]');
             if (!card && host) { card = createProductCard(item); host.append(card); }
-            if (card) updateProductCard(card, item);
+            if (card) { updateProductCard(card, item); if (window.registerAmjadAnimatedContent) window.registerAmjadAnimatedContent(card); }
         });
-        document.dispatchEvent(new CustomEvent('amjad:productsrendered'));
+        document.dispatchEvent(new CustomEvent('amjad:productsrendered', { detail: { products } }));
     }
 
     function memoryContainer(type) {
@@ -318,11 +371,18 @@
             const image = document.createElement('img'); image.src = mediaUrl(item.image_id); image.alt = translated(item, 'caption') || titleText; image.loading = 'lazy';
             const caption = document.createElement('span'); caption.textContent = translated(item, 'caption') || titleText; link.href = image.src; link.append(image, caption); return image.src ? link : null;
         }
-        const article = document.createElement('article'); article.className = 'memory-card memory-' + type; article.dataset.cmsGenerated = 'true';
+        const article = document.createElement('article'); article.className = 'memory-card memory-' + type; article.dataset.cmsGenerated = 'true'; article.id = 'memory-' + item.id;
         if (type === 'place') { const mark = document.createElement('div'); mark.className = 'memory-place-mark'; mark.textContent = String(index + 1).padStart(2, '0'); article.append(mark); }
         if (type === 'person') { const avatar = document.createElement('div'); avatar.className = 'memory-avatar'; const imageUrl = mediaUrl(item.image_id); if (imageUrl) { const image = document.createElement('img'); image.src = imageUrl; image.alt = titleText; avatar.append(image); } else { const icon = document.createElement('i'); icon.className = 'fas fa-user'; icon.setAttribute('aria-hidden', 'true'); avatar.append(icon); } article.append(avatar); }
         const title = document.createElement('h3'); title.textContent = titleText; const summary = document.createElement('p'); summary.textContent = summaryText; article.append(title, summary);
         if (item.event_date) { const time = document.createElement('time'); time.dateTime = item.event_date; time.textContent = item.event_date; article.prepend(time); }
+        const bodyText = translated(item, 'body');
+        if (bodyText && ['article', 'person', 'place'].includes(type)) {
+            const reader = document.createElement('details'); reader.className = 'memory-reader';
+            const toggle = document.createElement('summary'); toggle.textContent = language() === 'fr' ? 'Lire le texte complet' : language() === 'en' ? 'Read full article' : 'قراءة المادة كاملة';
+            const body = document.createElement('div'); body.className = 'memory-reader__body'; body.textContent = bodyText;
+            reader.append(toggle, body); article.append(reader);
+        }
         const source = safeLink(item.source_url); if (source) { const link = document.createElement('a'); link.href = source; link.rel = 'noopener'; link.textContent = translated(item, 'source_label') || 'المصدر'; article.append(link); }
         return article;
     }
@@ -333,6 +393,14 @@
         publishedItems('memory').filter((item) => !item.page_ref || item.page_ref === 'skhirat-memory').forEach((item, index) => {
             const container = memoryContainer(item.content_type); const node = createMemoryItem(item, index); if (container && node) container.append(node);
         });
+        let target = null;
+        try {
+            const hashId = decodeURIComponent(location.hash.slice(1));
+            if (/^memory-[a-z0-9][a-z0-9-]{2,79}$/.test(hashId)) target = document.getElementById(hashId);
+        } catch (_) {
+            target = null;
+        }
+        if (target) target.querySelector('details')?.setAttribute('open', '');
     }
 
     function renderGallery() {

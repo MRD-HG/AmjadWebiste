@@ -17,7 +17,7 @@ function browserPath() {
 }
 function assert(value, message) { if (!value) throw new Error(message); }
 const translations = (values) => ({ ar: values.ar, fr: values.fr || {}, en: values.en || {} });
-const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at: new Date().toISOString() }, items });
+const doc = (items, managedIds = items.map((item) => item.id)) => ({ _meta: { schema_version: 1, revision: 1, generated_at: new Date().toISOString(), ownership_version: 1, managed_ids: managedIds }, items });
 
 (async () => {
   const root = path.resolve(__dirname, '..');
@@ -37,11 +37,14 @@ const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at:
       common('contact', { translations: translations({ ar: { address: 'عنوان CMS', opening_hours: '09:00–17:00' }, fr: { address: 'Adresse CMS', opening_hours: '' } }), settings: { email: 'cms@example.org', phone: '+212500000000', facebook: 'https://facebook.com/amjad.qa', instagram: '', x: '', youtube: '', tiktok: '', linkedin: '', map_url: '', secondary_email: '' } })
     ]),
     sections: doc([common('section-about-who-title', { translations: translations({ ar: { text: 'عنوان تعريفي منشور' }, fr: { text: 'Titre institutionnel publié' } }), page: 'about.html', group: 'about', binding_key: 'about_who_title', binding_kind: 'text', url: '' })]),
-    programs: doc([common('academy', { image_id: 'qa-image', translations: translations({ ar: { title: 'أكاديمية أمجاد المحدثة', summary: 'ملخص البطاقة المحدث', body: 'تفاصيل البرنامج المنشورة', cta_text: 'اكتشف' }, fr: { title: 'Académie Amjad actualisée', summary: 'Résumé actualisé', body: 'Détails publiés', cta_text: 'Découvrir' } }), family_id: 'education', detail_view_id: 'academy' })]),
+    programs: doc([
+      common('academy', { image_id: 'qa-image', translations: translations({ ar: { title: 'أكاديمية أمجاد المحدثة', summary: 'ملخص البطاقة المحدث', body: 'تفاصيل البرنامج المنشورة', cta_text: 'اكتشف' }, fr: { title: 'Académie Amjad actualisée', summary: 'Résumé actualisé', body: 'Détails publiés', cta_text: 'Découvrir' } }), family_id: 'education', detail_view_id: 'academy' }),
+      common('qa-social', { translations: translations({ ar: { title: 'مبادرة اجتماعية', summary: 'ملخص اجتماعي', body: 'تفاصيل اجتماعية', cta_text: 'اكتشف' } }), family_id: 'social', detail_view_id: 'qa-social' })
+    ]),
     news: doc([
       common('qa-news', { image_id: 'qa-image', translations: translations({ ar: { title: '<img src=x onerror=window.__cmsXss=1> خبر آمن', summary: 'خبر قابل للبحث', body: 'تفاصيل الخبر المنشور' }, fr: { title: 'Actualité de test', summary: 'Actualité recherchable', body: 'Détails publiés' } }), category: 'events', published_at: '2026-10-29' }),
       { ...common('draft-leak', { translations: translations({ ar: { title: 'مسودة سرية', summary: 'لا تظهر', body: '' } }), category: 'news', published_at: '2026-10-29' }), status: 'draft' }
-    ]),
+    ], ['qa-news', 'draft-leak', 'news7']),
     products: doc([common('qa-bag', { translations: translations({ ar: { title: 'حقيبة أمجاد', summary: 'منتج جديد', availability_label: 'متوفر' }, fr: { title: 'Sac Amjad', summary: 'Nouveau produit', availability_label: 'Disponible' } }), kind: 'bag', product_code: 'AMJAD-BAG', price: 100, currency: 'MAD', sizes: [], colors: ['Green'], available: true })]),
     memory: doc([common('memory-qa', { image_id: 'qa-image', translations: translations({ ar: { title: 'حكاية من الصخيرات', summary: 'ملخص الذاكرة', body: 'النص', caption: '', source_label: 'المصدر' }, fr: { title: 'Récit de Skhirat', summary: 'Résumé mémoire', body: '', caption: '', source_label: 'Source' } }), content_type: 'article', source_url: 'https://example.org/source', event_date: '2020-01-01', page_ref: 'skhirat-memory' })]),
     gallery: doc([])
@@ -64,6 +67,7 @@ const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at:
   const page = await context.newPage(); const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   try {
+    assert((await fetch(`${base}/`)).ok, 'The local root route did not resolve index.html.');
     await page.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('html[data-cms="ready"]');
     assert(await page.locator('[data-cms-hero="title"]').innerText() === 'واجهة أمجاد المنشورة', 'Published hero did not render.');
@@ -82,10 +86,14 @@ const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at:
     assert(await page.locator('[data-cms-id="academy"] h4').innerText() === 'أكاديمية أمجاد المحدثة', 'Program card did not update.');
     assert(await page.locator('#academy-detail').isVisible(), 'Program hash detail did not open.');
     assert((await page.locator('#academy-detail').innerText()).includes('تفاصيل البرنامج المنشورة'), 'Program detail did not update.');
+    await page.evaluate(() => showProgramDetail('qa-social', false));
+    assert(await page.locator('#social-projects').isVisible(), 'CMS social program opened in the wrong family.');
+    assert(await page.locator('#qa-social-detail').isVisible(), 'CMS social program detail did not open.');
 
     await page.goto(`${base}/news.html#qa-news`, { waitUntil: 'domcontentloaded' }); await page.waitForSelector('html[data-cms="ready"]');
     assert(await page.locator('[data-cms-id="qa-news"]').count() === 1, 'New published news card was not created.');
     assert(await page.locator('[data-cms-id="draft-leak"]').count() === 0, 'Draft record rendered publicly.');
+    assert(await page.locator('[data-cms-id="news7"]').isHidden(), 'Unpublished CMS-owned static news remained visible.');
     assert(await page.locator('[data-cms-id="qa-news"] h3 img').count() === 0 && !(await page.evaluate(() => window.__cmsXss)), 'CMS text executed as HTML.');
     assert(await page.locator('#news-modal').isVisible(), 'News hash did not open the modal.');
     await page.evaluate(() => closeNewsModal());
@@ -98,9 +106,20 @@ const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at:
     assert(await page.locator('[data-cms-id="qa-bag"]').count() === 1, 'Published product card was not created.');
     await page.locator('[data-cms-id="qa-bag"] .select-product').click();
     assert(await page.locator('#shop-product').inputValue() === 'AMJAD-BAG', 'Generated product did not integrate with order selection.');
+    assert(await page.locator('#shop-size').inputValue() === 'OneSize', 'CMS product sizes did not drive order variants.');
+    assert(await page.locator('#shop-color').inputValue() === 'Green', 'CMS product colors did not drive order variants.');
+    assert((await page.locator('#selected-price').innerText()).includes('100'), 'CMS price did not reach the order summary.');
+    await page.fill('#shop-name', 'QA User'); await page.fill('#shop-city', 'Skhirat'); await page.click('#shop-order-btn');
+    const orderHref = await page.locator('.form-status a').getAttribute('href');
+    assert(orderHref.includes('cms@example.org') && orderHref.includes('AMJAD-BAG') && orderHref.includes('100'), 'Order email did not use CMS contact/product data.');
+    await page.screenshot({ path: path.join(screenshots, 'shop-cms-product.png'), fullPage: true });
 
     await page.goto(`${base}/resources/skhirat-memory.html`, { waitUntil: 'domcontentloaded' }); await page.waitForSelector('html[data-cms="ready"]');
     assert((await page.locator('[data-amjad-list="memory-articles"]').innerText()).includes('حكاية من الصخيرات'), 'Memory article did not render.');
+    assert(await page.locator('#memory-memory-qa .memory-reader').count() === 1, 'Memory full article reader did not render.');
+    await page.locator('#memory-memory-qa summary').click();
+    assert((await page.locator('#memory-memory-qa .memory-reader__body').innerText()) === 'النص', 'Memory full body was not readable.');
+    await page.screenshot({ path: path.join(screenshots, 'memory-full-reader.png'), fullPage: true });
 
     for (const width of [390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 }); await page.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' }); await page.waitForSelector('html[data-cms="ready"]');
@@ -113,7 +132,17 @@ const doc = (items) => ({ _meta: { schema_version: 1, revision: 1, generated_at:
     await fallback.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' }); await fallback.waitForSelector('html[data-cms="ready"]');
     const fallbackTitle = await fallback.locator('[data-cms-hero="title"]').innerText();
     assert(fallbackTitle.length > 5 && fallbackTitle !== 'واجهة أمجاد المنشورة', 'Static fallback disappeared when endpoints failed.');
+    await fallback.goto(`${base}/news.html`, { waitUntil: 'domcontentloaded' }); await fallback.waitForSelector('html[data-cms="ready"]');
+    assert(await fallback.locator('[data-cms-id="news7"]').isVisible(), 'Static news fallback disappeared when the endpoint failed.');
     await fallback.close();
+
+    const motionContext = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
+    const motionPage = await motionContext.newPage();
+    await motionPage.goto(`${base}/news.html`, { waitUntil: 'domcontentloaded' }); await motionPage.waitForSelector('html[data-cms="ready"]');
+    await motionPage.locator('[data-cms-id="qa-news"]').scrollIntoViewIfNeeded();
+    await motionPage.waitForFunction(() => document.querySelector('[data-cms-id="qa-news"]')?.classList.contains('animate-fade-in'));
+    assert(await motionPage.locator('[data-cms-id="qa-news"]').isVisible(), 'Dynamic news stayed hidden with normal motion.');
+    await motionContext.close();
     assert(errors.length === 0, `Browser page errors: ${errors.join(' | ')}`);
     console.log('CMS frontend E2E passed: projections, fallback, AR/FR/EN, components, XSS, hashes, filters, products, memory, responsive layouts.');
     console.log(`Screenshots: ${screenshots}`);

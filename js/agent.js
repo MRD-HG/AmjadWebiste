@@ -74,9 +74,9 @@
     },
     contact: {
       kw: ["تواصل","اتصال","contact","adresse","email","phone","هاتف","بريد"],
-      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: contact@associationamjad.ma",
-      en: "Contact: open the Contact page. Email: contact@associationamjad.ma",
-      fr: "Contact : ouvrez la page Contact. E-mail : contact@associationamjad.ma"
+      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: {email}",
+      en: "Contact: open the Contact page. Email: {email}",
+      fr: "Contact : ouvrez la page Contact. E-mail : {email}"
     }
   };
 
@@ -95,7 +95,9 @@
       const item = ANSWERS[k];
       if(item.kw.some(w => text.includes(w.toLowerCase()))){
         const lang = getLang();
-        return item[lang] || item.ar;
+        const answer = item[lang] || item.ar;
+        const email = window.getAmjadContactEmail ? window.getAmjadContactEmail() : 'contact@associationamjad.ma';
+        return answer.replace('{email}', email);
       }
     }
     const lang = getLang();

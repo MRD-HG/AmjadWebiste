@@ -1,4 +1,4 @@
-param([string]$Version = (Get-Date -Format 'yyyyMMdd-HHmmss'))
+param([string]$Version = (Get-Date -Format 'yyyyMMdd-HHmmss'), [switch]$AuditOnly)
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
@@ -10,7 +10,7 @@ New-Item -ItemType Directory -Path $staging | Out-Null
 try {
     $tracked = git -C $projectRoot ls-files
     if ($LASTEXITCODE -ne 0) { throw 'git ls-files failed' }
-    $excluded = '^(tests/|artifacts/|release/|admin/storage/|\.git/|deployment/build-release\.ps1$)'
+    $excluded = '^(tests/|artifacts/|release/|admin/storage/|admin/bin/|\.git/|\.playwright/|\.gitignore$|deployment/build-release\.ps1$)|\.zip$'
     foreach ($relative in $tracked) {
         $normalized = $relative -replace '\\','/'
         if ($normalized -match $excluded) { continue }
@@ -23,14 +23,25 @@ try {
 
     $entries = Get-ChildItem -LiteralPath $staging -Recurse -File | Sort-Object FullName | ForEach-Object {
         [ordered]@{
-            path = $_.FullName.Substring($staging.Length + 1).Replace('\\','/')
+            path = $_.FullName.Substring($staging.Length + 1).Replace('\','/')
             sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
             bytes = $_.Length
         }
     }
-    $manifest = [ordered]@{ release = "amjad-cms-milestone-2-$Version"; created_at = (Get-Date).ToString('o'); files = @($entries) }
+    $paths = @($entries | ForEach-Object { $_.path })
+    foreach ($required in @('admin/.htaccess', 'admin/includes/.htaccess', 'images/uploads/.htaccess')) {
+        if ($required -notin $paths) { throw "Required protection file missing from release: $required" }
+    }
+    if ($paths | Where-Object { $_ -match '^(tests/|artifacts/|release/|admin/storage/|admin/bin/)|\.zip$' }) {
+        throw 'Forbidden private or nested release content reached staging.'
+    }
+    $manifest = [ordered]@{ release = "amjad-website-v9-$Version"; created_at = (Get-Date).ToString('o'); files = @($entries) }
     $manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $staging 'DEPLOYMENT_MANIFEST.json') -Encoding UTF8
-    $zip = Join-Path $releaseDirectory "amjad-cms-milestone-2-$Version.zip"
+    if ($AuditOnly) {
+        Write-Output "Audit passed: $($entries.Count) public files staged; no archive created."
+        return
+    }
+    $zip = Join-Path $releaseDirectory "amjad-website-v9-$Version.zip"
     Compress-Archive -Path (Join-Path $staging '*') -DestinationPath $zip -CompressionLevel Optimal
     $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash.ToLowerInvariant()
     Write-Output "Package: $zip"

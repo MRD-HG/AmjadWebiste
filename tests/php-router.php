@@ -23,7 +23,11 @@ if (preg_match('#^/images/uploads/(.+)$#', $uri, $match) && $uploadDirectory !==
     }
     http_response_code(404); echo 'Not found'; return true;
 }
-$candidate = realpath($root . str_replace('/', DIRECTORY_SEPARATOR, $uri));
-if ($candidate && strpos($candidate, $root) === 0 && is_file($candidate)) return false;
-if ($candidate && is_dir($candidate) && is_file($candidate . DIRECTORY_SEPARATOR . 'index.php')) { require $candidate . DIRECTORY_SEPARATOR . 'index.php'; return true; }
+$insideRoot = static function (string $candidate, string $base): bool {
+    return $candidate === $base || str_starts_with($candidate, $base . DIRECTORY_SEPARATOR);
+};
+$requestPath = $uri === '/' ? '/index.html' : $uri;
+$candidate = realpath($root . str_replace('/', DIRECTORY_SEPARATOR, $requestPath));
+if ($candidate && $insideRoot($candidate, $root) && is_file($candidate)) return false;
+if ($candidate && $insideRoot($candidate, $root) && is_dir($candidate) && is_file($candidate . DIRECTORY_SEPARATOR . 'index.php')) { require $candidate . DIRECTORY_SEPARATOR . 'index.php'; return true; }
 http_response_code(404); echo 'Not found'; return true;

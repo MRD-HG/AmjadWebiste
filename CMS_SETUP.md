@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- PHP 7.4 or newer with `json`, `session`, `fileinfo`, and image metadata support.
+- PHP 8.2 or newer with `json`, `session`, `fileinfo`, and image metadata support.
 - `gd` is optional; when present the media library creates thumbnails.
 - Apache with `mod_rewrite`/`mod_headers`, or an equivalent server configuration that denies `admin/storage`, `admin/includes`, and `admin/bin`.
 - HTTPS in production. Session cookies automatically use `Secure` on HTTPS.
@@ -12,8 +12,11 @@
 No username, password, or fallback hash is committed. From the project root run:
 
 ```powershell
+php admin/bin/check-environment.php
 php admin/bin/setup.php
 ```
+
+The environment check is read-only and never prints credentials.
 
 For protected automation, provide `AMJAD_SETUP_USERNAME` and `AMJAD_SETUP_PASSWORD` as process environment variables. Do not put a password on the command line or in version control. `--force` intentionally rotates an existing file-based account.
 

@@ -196,6 +196,32 @@ function updateLanguage(lang) {
     }));
 }
 
+let fadeObserver = null;
+
+function registerAmjadAnimatedContent(root = document) {
+    const elements = root.matches && root.matches('.fade-in')
+        ? [root]
+        : Array.from(root.querySelectorAll?.('.fade-in') || []);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        elements.forEach(element => element.classList.add('animate-fade-in'));
+        return;
+    }
+    if (!fadeObserver) {
+        fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('animate-fade-in');
+                fadeObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.1 });
+    }
+    elements.forEach(element => {
+        if (!element.classList.contains('animate-fade-in')) fadeObserver.observe(element);
+    });
+}
+window.registerAmjadAnimatedContent = registerAmjadAnimatedContent;
+
 // Initialize animations
 function initializeAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -236,23 +262,7 @@ function initializeAnimations() {
     });
     
     // Fade in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-        fadeElements.forEach(element => element.classList.add('animate-fade-in'));
-        return;
-    }
-
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in');
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    fadeElements.forEach(element => {
-        fadeObserver.observe(element);
-    });
+    registerAmjadAnimatedContent(document);
 }
 
 // Initialize scroll effects
@@ -304,7 +314,22 @@ function initializeFormAccessibility() {
     });
 }
 
-const CONTACT_EMAIL = 'contact@associationamjad.ma';
+const DEFAULT_CONTACT_EMAIL = 'contact@associationamjad.ma';
+let contactEmail = DEFAULT_CONTACT_EMAIL;
+
+function setAmjadContactEmail(value) {
+    const candidate = String(value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate)) return false;
+    contactEmail = candidate;
+    document.dispatchEvent(new CustomEvent('amjad:contactchange', { detail: { email: contactEmail } }));
+    return true;
+}
+
+function getAmjadContactEmail() {
+    return contactEmail;
+}
+window.setAmjadContactEmail = setAmjadContactEmail;
+window.getAmjadContactEmail = getAmjadContactEmail;
 
 function getFallbackCopy() {
     if (currentLanguage === 'en') {
@@ -362,8 +387,9 @@ function renderEmailFallback(form, subject, body) {
     message.textContent = copy.notice;
 
     const link = document.createElement('a');
-    link.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || copy.subject)}&body=${encodeURIComponent(body || '')}`;
-    link.textContent = `${copy.link} — ${CONTACT_EMAIL}`;
+    const email = getAmjadContactEmail();
+    link.href = `mailto:${email}?subject=${encodeURIComponent(subject || copy.subject)}&body=${encodeURIComponent(body || '')}`;
+    link.textContent = `${copy.link} — ${email}`;
 
     status.append(message, link);
     form.appendChild(status);

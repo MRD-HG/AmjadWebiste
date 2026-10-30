@@ -26,6 +26,8 @@ $first = write_collection('programs',array($program),0,'test-create');
 $assert($first['_meta']['revision'] === 1, 'collection revision increments');
 $public = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/programs.json'),true);
 $assert(count($public['items']) === 0, 'draft excluded from public projection');
+$assert(($public['_meta']['managed_ids'] ?? array()) === array('education-support'), 'draft ownership ID is published without draft content');
+$assert(($public['_meta']['ownership_version'] ?? 0) === 1, 'ownership projection version is explicit');
 $program['status']='published'; $program['revision']=2; $program['internal_secret']='must-not-publish';
 $second = write_collection('programs',array($program),1,'test-publish');
 $public = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/programs.json'),true);
@@ -53,6 +55,7 @@ $product += array('kind'=>'bag','product_code'=>'QA-BAG','price'=>90,'currency'=
 validate_content_item('products',$product); write_collection('products',array($product),0,'test-product-draft');
 $productPublic = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/products.json'),true);
 $assert(count($productPublic['items']) === 0,'draft product excluded from projection');
+$assert(($productPublic['_meta']['managed_ids'] ?? array()) === array('product-qa'),'draft product ownership excludes private fields');
 $product['status']='published'; write_collection('products',array($product),1,'test-product-publish');
 $productPublic = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/products.json'),true);
 $assert(($productPublic['items'][0]['product_code'] ?? '') === 'QA-BAG','published product projection includes allowlisted fields');

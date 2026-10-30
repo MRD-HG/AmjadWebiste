@@ -742,7 +742,7 @@
                         <p><i class="fas fa-phone ml-2"></i> <span
                                 data-translate="programs_footer_phone">الهاتف: سيتم الإعلان عن الرقم الرسمي للجمعية
                                 قريبًا</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> contact@associationamjad.ma</p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
 
@@ -809,6 +809,12 @@
             zakat: 'social'
         };
 
+        window.registerProgramFamily = function (programId, family) {
+            if (typeof programId !== 'string' || !['education', 'social'].includes(family)) return false;
+            programFamilies[programId] = family;
+            return true;
+        };
+
         function showProgramFamily(family, focusTab = false) {
             const tabs = Array.from(document.querySelectorAll('[data-program-family]'));
             const panels = document.querySelectorAll('[data-family-panel]');
@@ -835,8 +841,10 @@
             details.forEach(detail => detail.classList.add('hidden'));
 
             const target = document.getElementById(programId + '-detail');
-            if (!target) return;
-            showProgramFamily(programFamilies[programId] || 'education');
+            if (!target || target.dataset.cmsPublication === 'unpublished') return;
+            const family = target.dataset.programFamily || programFamilies[programId];
+            if (!['education', 'social'].includes(family)) return;
+            showProgramFamily(family);
             target.classList.remove('hidden');
             target.tabIndex = -1;
 

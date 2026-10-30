@@ -555,7 +555,7 @@
                                 data-translate="news_footer_address">الصخيرات المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> <span data-translate="news_footer_phone">الهاتف: سيتم الإعلان
                                 عن الرقم الرسمي للجمعية قريبًا</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> contact@associationamjad.ma</p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
 
@@ -621,6 +621,10 @@
             const searchInput = document.getElementById('news-search');
             const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
             document.querySelectorAll('.news-card').forEach(card => {
+                if (card.dataset.cmsPublication === 'unpublished') {
+                    card.hidden = true;
+                    return;
+                }
                 const categoryMatches = activeNewsCategory === 'all' || card.dataset.category === activeNewsCategory;
                 const searchMatches = !searchTerm || card.textContent.toLowerCase().includes(searchTerm);
                 card.hidden = !(categoryMatches && searchMatches);
@@ -643,7 +647,7 @@
             details.forEach(detail => detail.classList.add('hidden'));
 
             const selected = document.getElementById(newsId + '-detail');
-            if (!selected) {
+            if (!selected || selected.dataset.cmsPublication === 'unpublished') {
                 alert(currentLanguage === 'ar' ? 'تفاصيل هذا الخبر ستتم إضافتها قريباً.' :
                     currentLanguage === 'en' ? 'Details will be added soon.' :
                         'Les détails seront ajoutés bientôt.');

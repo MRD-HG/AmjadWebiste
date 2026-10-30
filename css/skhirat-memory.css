@@ -456,3 +456,19 @@ html {
         font-size: 1.8rem;
     }
 }
+.memory-reader{
+    margin-top: 1rem;
+    border-top: 1px solid rgba(15, 118, 110, .16);
+    padding-top: .75rem;
+}
+.memory-reader summary{
+    color: #0f766e;
+    cursor: pointer;
+    font-weight: 800;
+}
+.memory-reader__body{
+    margin-top: .85rem;
+    color: #374151;
+    line-height: 2;
+    white-space: pre-line;
+}

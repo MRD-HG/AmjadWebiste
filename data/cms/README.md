@@ -1,3 +1,3 @@
 # CMS public projections
 
-The CMS writes only published, explicitly whitelisted fields here. `admin/bin/setup.php` creates empty projections so the Milestone 2 connector starts without missing endpoints; static HTML remains the fallback.
+The CMS writes published, explicitly whitelisted fields here. Projection metadata may also contain stable managed IDs (never draft text or status) so unpublishing a CMS-owned legacy card removes it safely. Empty or unavailable projections preserve static HTML fallback.
