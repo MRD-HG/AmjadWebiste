@@ -186,6 +186,7 @@ function published_projection(string $collection, array $document): array
 {
     $managedIds = array_values(array_unique(array_filter(array_map(static function ($item): string {
         if (!is_array($item)) return '';
+        if (($item['owns_frontend'] ?? true) === false) return '';
         $id = (string)($item['id'] ?? '');
         return preg_match('/^[a-z0-9][a-z0-9-]{2,79}$/', $id) ? $id : '';
     }, $document['items']))));

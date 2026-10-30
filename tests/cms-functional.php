@@ -83,6 +83,40 @@ $linked['image_id']=$replacement['id'];
 write_collection('programs',array($linked),(int)$currentPrograms['_meta']['revision'],'test-link');
 try { archive_media($replacement['id'],2); $assert(false,'referenced media archive blocked'); } catch (RuntimeException $expected) { $assert(true,'referenced media archive blocked'); }
 
+$analysis = frontend_import_analysis();
+$newsCandidates = $analysis['candidates']['news'];
+$assert(count($newsCandidates) === 7, 'all seven static news items recovered');
+$assert(count($analysis['candidates']['programs']) === 11, 'all eleven static programs recovered');
+$assert(strlen($newsCandidates['news1']['translations']['ar']['body']) > strlen($newsCandidates['news1']['translations']['ar']['summary']) * 3, 'complete news body recovered instead of intro only');
+$assert($newsCandidates['news7']['published_at'] === '', 'unverified news date is not fabricated');
+$assert($newsCandidates['news2']['image_id'] === 'static-donationblood', 'static news image registered by stable media ID');
+$assert(($analysis['candidates']['media']['static-donationblood']['path'] ?? '') === '/images/donationblood.jpg', 'original static media path retained without copying');
+$selected = array_values(array_map(static fn(array $item): string => $item['key'], array_filter($analysis['items'], static fn(array $item): bool => $item['state'] === 'needs_import')));
+$importResult = frontend_import_apply($selected);
+$assert(count($importResult['added']) === count($selected), 'selected frontend records imported once');
+$assert(is_file($importResult['backup_manifest']), 'pre-import backup manifest created');
+$secondAnalysis = frontend_import_analysis();
+$secondSelected = array_values(array_map(static fn(array $item): string => $item['key'], array_filter($secondAnalysis['items'], static fn(array $item): bool => $item['state'] === 'needs_import')));
+$assert(count($secondSelected) === 0, 'second import is idempotent');
+$importedNewsProjection = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/news.json'), true);
+$assert(!in_array('news1', $importedNewsProjection['_meta']['managed_ids'] ?? array(), true), 'imported draft leaves static frontend visible until explicit editorial save');
+
+$newsDocument = read_collection('news');
+$newsIndex = content_item_index($newsDocument['items'], 'news1');
+$managedNews = $newsDocument['items'][$newsIndex];
+$managedNews['status'] = 'published'; $managedNews['owns_frontend'] = true; $managedNews['revision']++;
+$newsDocument['items'][$newsIndex] = $managedNews;
+$newsDocument = write_collection('news', $newsDocument['items'], (int)$newsDocument['_meta']['revision'], 'test-import-publish');
+$assert(in_array('news1', json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/news.json'), true)['_meta']['managed_ids'], true), 'explicit publish transfers frontend ownership');
+$newsIndex = content_item_index($newsDocument['items'], 'news1');
+$newsRevision = (int)$newsDocument['items'][$newsIndex]['revision'];
+archive_content_item('news', 'news1', (int)$newsDocument['_meta']['revision'], $newsRevision);
+$newsDocument = read_collection('news'); $newsIndex = content_item_index($newsDocument['items'], 'news1');
+delete_news_item('news1', (int)$newsDocument['_meta']['revision'], (int)$newsDocument['items'][$newsIndex]['revision'], 'news1');
+$deletedProjection = json_decode((string)file_get_contents(AMJAD_PUBLIC_DATA_DIR . '/news.json'), true);
+$assert(in_array('news1', $deletedProjection['_meta']['managed_ids'], true) && !array_filter($deletedProjection['items'], static fn(array $item): bool => $item['id'] === 'news1'), 'deleted news tombstone prevents static fallback resurrection');
+$assert(media_item('static-jam3') !== null, 'deleting news does not delete referenced original media');
+
 $login = login_admin('cms-test-admin','A-strong-test-password-2026'); $assert($login['ok'] === true,'correct login accepted');
 $_SESSION['last_activity_at'] = time() - AMJAD_SESSION_IDLE - 1;
 $assert(session_is_valid() === false,'expired session rejected');

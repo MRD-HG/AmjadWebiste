@@ -50,6 +50,36 @@ function assert(value, message) { if (!value) throw new Error(message); }
     assert(await page.locator('h1').filter({ hasText: 'لوحة التحكم' }).count() === 1, 'Dashboard not reached.');
     if (screenshotDir) await page.screenshot({ path: `${screenshotDir}/cms-desktop.png`, fullPage: true });
 
+    await page.goto(`${base}/admin/import.php`, { waitUntil: 'domcontentloaded' });
+    assert(await page.locator('input[name="selected[]"]').count() >= 190, 'Static content review did not expose expected import candidates.');
+    if (screenshotDir) await page.screenshot({ path: `${screenshotDir}/cms-import-review.png`, fullPage: true });
+    await page.getByRole('button', { name: 'استيراد العناصر المختارة كمسودات' }).click();
+    await page.waitForURL('**/admin/import.php?run=*');
+    assert(await page.locator('.alert--success').count() === 1, 'Import completion was not reported.');
+    assert(await page.locator('input[name="selected[]"]').count() === 0, 'Second import review still offers duplicate records.');
+
+    const importedBodyMarker = 'QA imported body update';
+    await page.goto(`${base}/admin/news.php?action=edit&id=news1`, { waitUntil: 'domcontentloaded' });
+    const importedBody = await page.locator('[name="body_ar"]').inputValue();
+    assert(importedBody.length > 500, 'Imported old news body is incomplete.');
+    await page.fill('[name="body_ar"]', `${importedBody}\n\n${importedBodyMarker}`);
+    await page.selectOption('[name="image_id"]', 'static-clone');
+    await page.click('button[name="save_status"][value="published"]');
+    await page.waitForURL('**/admin/news.php');
+    await page.goto(`${base}/news.html#news1`, { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('html[data-cms="ready"]');
+    assert((await page.locator('[data-cms-id="news1"] img').getAttribute('src')).includes('clone.jpeg'), 'Existing-news image replacement did not reach the public card.');
+    assert((await page.locator('#news1-detail .prose').innerText()).includes(importedBodyMarker), 'Existing-news full body edit did not reach the public detail.');
+    await page.goto(`${base}/admin/news.php?action=edit&id=news1`, { waitUntil: 'domcontentloaded' });
+    await page.click('button[name="save_status"][value="draft"]');
+    await page.waitForURL('**/admin/news.php');
+    await page.goto(`${base}/news.html`, { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('html[data-cms="ready"]');
+    assert(await page.locator('[data-cms-id="news1"]').isHidden(), 'Unpublished imported news fell back to the legacy static card.');
+    await page.goto(`${base}/admin/news.php?action=edit&id=news1`, { waitUntil: 'domcontentloaded' });
+    await page.click('button[name="save_status"][value="published"]');
+    await page.waitForURL('**/admin/news.php');
+
     const badCsrf = await context.request.post(`${base}/admin/logout.php`, { form: {} });
     assert(badCsrf.status() === 403, 'Missing CSRF token was not rejected.');
 
@@ -99,6 +129,14 @@ function assert(value, message) { if (!value) throw new Error(message); }
     page.once('dialog', (dialog) => dialog.accept());
     await row.getByRole('button', { name: 'أرشفة' }).click();
     await page.waitForURL('**/admin/news.php');
+    const archivedRow = page.locator('tr', { hasText: itemId });
+    await archivedRow.getByRole('link', { name: 'حذف' }).click();
+    await page.fill('[name="confirmation"]', itemId);
+    await page.getByRole('button', { name: 'حذف الخبر' }).click();
+    await page.waitForURL('**/admin/news.php');
+    assert(await page.locator('tr', { hasText: itemId }).count() === 0, 'Deleted news remained in the active admin list.');
+    const deletedProjection = await (await context.request.get(`${base}/data/cms/news.json`)).json();
+    assert(deletedProjection._meta.managed_ids.includes(itemId) && !deletedProjection.items.some((item) => item.id === itemId), 'Delete tombstone did not block static fallback safely.');
     await page.goto(`${base}/admin/dashboard.php`, { waitUntil: 'domcontentloaded' });
     await page.locator('.sidebar-footer form button').click();
     await page.waitForURL('**/admin/login.php');

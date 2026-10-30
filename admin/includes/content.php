@@ -202,6 +202,10 @@ function content_item_from_post(string $collection, ?array $existing = null): ar
     $item['created_at'] = (string)($existing['created_at'] ?? $now);
     $item['updated_at'] = $now;
     $item['revision'] = (int)($existing['revision'] ?? 0) + 1;
+    // An imported draft does not take ownership of the legacy frontend until an
+    // editor explicitly saves it. From then on publish/unpublish/archive/delete
+    // are authoritative and the legacy HTML must not silently reappear.
+    $item['owns_frontend'] = true;
 
     if ($collection === 'programs') {
         $item['family_id'] = request_value('family_id', 'education');
@@ -272,10 +276,43 @@ function archive_content_item(string $collection, string $id, int $expectedColle
         throw new ContentConflictException('السجل عُدّل قبل طلب الأرشفة.');
     }
     $document['items'][$index]['status'] = 'archived';
+    $document['items'][$index]['owns_frontend'] = true;
     $document['items'][$index]['updated_at'] = date(DATE_ATOM);
     $document['items'][$index]['revision'] = $expectedItemRevision + 1;
     write_collection($collection, $document['items'], $expectedCollectionRevision, 'archive');
     audit_event('archive-item', $collection, $id);
+}
+
+function delete_news_item(string $id, int $expectedCollectionRevision, int $expectedItemRevision, string $confirmation): void
+{
+    if ($confirmation !== $id) {
+        throw new InvalidArgumentException('اكتب المعرّف الثابت للخبر لتأكيد الحذف.');
+    }
+    $document = read_collection('news');
+    $index = content_item_index($document['items'], $id);
+    if ($index < 0) {
+        throw new RuntimeException('الخبر غير موجود.');
+    }
+    $existing = $document['items'][$index];
+    if (($existing['status'] ?? '') !== 'archived') {
+        throw new InvalidArgumentException('يجب أرشفة الخبر قبل حذفه.');
+    }
+    if ((int)($existing['revision'] ?? 0) !== $expectedItemRevision) {
+        throw new ContentConflictException('تم تعديل الخبر قبل طلب الحذف. أعد تحميل الصفحة.');
+    }
+    $now = date(DATE_ATOM);
+    $document['items'][$index] = array(
+        'id' => $id,
+        'status' => 'deleted',
+        'owns_frontend' => true,
+        'created_at' => (string)($existing['created_at'] ?? $now),
+        'updated_at' => $now,
+        'revision' => $expectedItemRevision + 1,
+        'deleted_at' => $now,
+        'deleted_by' => (string)($_SESSION['admin_username'] ?? 'system'),
+    );
+    write_collection('news', $document['items'], $expectedCollectionRevision, 'delete-news');
+    audit_event('delete-item', 'news', $id, array('recoverable_from_revisions' => true));
 }
 
 function page_definition(string $pageId): array
@@ -321,6 +358,7 @@ function save_page_item(string $pageId, int $expectedCollectionRevision, int $ex
     $item['image_id'] = request_value('image_id');
     $item['updated_at'] = date(DATE_ATOM);
     $item['revision'] = $expectedItemRevision + 1;
+    $item['owns_frontend'] = true;
     $settings = array();
     if ($pageId === 'hero') {
         $settings = array(

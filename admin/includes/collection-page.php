@@ -16,6 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($intent === 'archive') {
             archive_content_item($collection, request_value('id'), (int)request_value('collection_revision'), (int)request_value('item_revision'));
             set_flash('success', 'تمت أرشفة السجل مع الاحتفاظ بتاريخه.');
+        } elseif ($intent === 'delete') {
+            if ($collection !== 'news') throw new InvalidArgumentException('الحذف النهائي متاح للأخبار فقط.');
+            delete_news_item(request_value('id'), (int)request_value('collection_revision'), (int)request_value('item_revision'), request_value('confirmation'));
+            set_flash('success', 'تم حذف الخبر من الإدارة والواجهة. يمكن استعادته من النسخ السابقة.');
         } else {
             save_content_item($collection, (int)request_value('collection_revision'), (int)request_value('item_revision'));
             set_flash('success', 'تم حفظ المحتوى بنجاح.');
@@ -30,8 +34,30 @@ $document = read_collection($collection);
 $action = request_value('action');
 $editId = request_value('id');
 $editing = $action === 'new' ? null : ($editId !== '' ? find_content_item($document['items'], $editId) : null);
-$showForm = $action === 'new' || $editing !== null || ($_SERVER['REQUEST_METHOD'] === 'POST' && request_value('intent') !== 'archive');
+$showForm = $action === 'new' || ($editing !== null && $action !== 'delete') || ($_SERVER['REQUEST_METHOD'] === 'POST' && !in_array(request_value('intent'), array('archive', 'delete'), true));
 $mediaItems = array_values(array_filter(read_collection('media')['items'], static function ($item): bool { return ($item['status'] ?? '') === 'published'; }));
+
+if ($collection === 'news' && $action === 'delete' && $editing !== null) {
+    if (($editing['status'] ?? '') !== 'archived') {
+        set_flash('error', 'يجب أرشفة الخبر قبل حذفه.');
+        redirect_to('news.php');
+    }
+    admin_header('حذف الخبر', 'حذف آمن مع إبقاء نسخة قابلة للاستعادة في سجل المراجعات');
+    if ($error !== ''): ?><div class="alert alert--error" role="alert"><?= e($error) ?></div><?php endif; ?>
+    <section class="panel danger-zone">
+        <div class="panel-header"><div><h2>تأكيد حذف الخبر</h2><p>لن تُحذف الصورة الأصلية. سيبقى معرّف محجوزاً لمنع ظهور النسخة القديمة من HTML، ويمكن استعادة المحتوى من النسخ السابقة.</p></div></div>
+        <form method="post">
+            <?= csrf_field() ?>
+            <input type="hidden" name="intent" value="delete">
+            <input type="hidden" name="id" value="<?= e((string)$editing['id']) ?>">
+            <input type="hidden" name="collection_revision" value="<?= (int)$document['_meta']['revision'] ?>">
+            <input type="hidden" name="item_revision" value="<?= (int)$editing['revision'] ?>">
+            <div class="field"><label for="confirmation">اكتب المعرّف <bdi dir="ltr"><?= e((string)$editing['id']) ?></bdi> للتأكيد</label><input id="confirmation" name="confirmation" type="text" dir="ltr" required autocomplete="off"></div>
+            <div class="form-actions"><button class="btn btn--danger" type="submit">حذف الخبر</button><a class="btn btn--secondary" href="news.php">إلغاء</a></div>
+        </form>
+    </section>
+    <?php admin_footer(); return;
+}
 
 if ($showForm) {
     $item = $editing ?: array(
@@ -119,6 +145,7 @@ if ($showForm) {
 $query = trim(request_value('q'));
 $statusFilter = request_value('status_filter');
 $items = array_values(array_filter($document['items'], static function ($item) use ($query, $statusFilter): bool {
+    if (($item['status'] ?? '') === 'deleted') return false;
     if ($statusFilter !== '' && ($item['status'] ?? '') !== $statusFilter) return false;
     if ($query === '') return true;
     $haystack = strtolower((string)($item['id'] ?? '') . ' ' . translated_value($item, 'title') . ' ' . translated_value($item, 'caption') . ' ' . translated_value($item, 'text'));
@@ -128,6 +155,6 @@ admin_header($definition['label'], 'إدارة المحتوى بثلاث لغا�
 ?>
 <section class="panel">
     <div class="toolbar"><form method="get"><div class="field"><label for="q">بحث</label><input id="q" name="q" type="search" value="<?= e($query) ?>" placeholder="العنوان أو المعرّف"></div><div class="field"><label for="status_filter">الحالة</label><select id="status_filter" name="status_filter"><option value="">الكل</option><?php foreach (array('draft','published','archived') as $status): ?><option value="<?= e($status) ?>" <?= $statusFilter === $status ? 'selected' : '' ?>><?= e(status_text($status)) ?></option><?php endforeach; ?></select></div><button class="btn btn--secondary" type="submit">تصفية</button></form><a class="btn" href="<?= e($collection) ?>.php?action=new">إضافة <?= e($definition['singular']) ?></a></div>
-    <?php if (!$items): ?><div class="empty-state">لا توجد سجلات مطابقة. ابدأ بإضافة محتوى جديد.</div><?php else: ?><div class="table-wrap"><table class="data-table"><thead><tr><th>المحتوى</th><th>الحالة</th><th>الترتيب</th><th>آخر تحديث</th><th>الإجراءات</th></tr></thead><tbody><?php foreach ($items as $item): $titleField = $collection === 'gallery' ? 'caption' : ($collection === 'sections' ? 'text' : 'title'); ?><tr><td><div class="row-title"><strong><?= e(translated_value($item, $titleField)) ?></strong><small><?= e((string)$item['id']) ?></small></div></td><td><span class="badge badge--<?= e((string)$item['status']) ?>"><?= e(status_text((string)$item['status'])) ?></span></td><td><?= (int)($item['order'] ?? 0) ?></td><td><?= e(date('d/m/Y H:i', strtotime((string)($item['updated_at'] ?? 'now')))) ?></td><td><div class="row-actions"><a class="btn btn--secondary" href="<?= e($collection) ?>.php?action=edit&id=<?= e((string)$item['id']) ?>">تعديل</a><a class="btn btn--secondary" href="preview.php?collection=<?= e($collection) ?>&id=<?= e((string)$item['id']) ?>" target="_blank" rel="noopener">معاينة</a><?php if ($item['status'] !== 'archived'): ?><form method="post" data-confirm="أرشفة هذا السجل؟ يمكن استعادته من النسخ السابقة."><?= csrf_field() ?><input type="hidden" name="intent" value="archive"><input type="hidden" name="id" value="<?= e((string)$item['id']) ?>"><input type="hidden" name="collection_revision" value="<?= (int)$document['_meta']['revision'] ?>"><input type="hidden" name="item_revision" value="<?= (int)$item['revision'] ?>"><button class="btn btn--danger" type="submit">أرشفة</button></form><?php endif; ?></div></td></tr><?php endforeach; ?></tbody></table></div><?php endif; ?>
+    <?php if (!$items): ?><div class="empty-state">لا توجد سجلات مطابقة. ابدأ بإضافة محتوى جديد.</div><?php else: ?><div class="table-wrap"><table class="data-table"><thead><tr><th>المحتوى</th><th>الحالة</th><th>الترتيب</th><th>آخر تحديث</th><th>الإجراءات</th></tr></thead><tbody><?php foreach ($items as $item): $titleField = $collection === 'gallery' ? 'caption' : ($collection === 'sections' ? 'text' : 'title'); ?><tr><td><div class="row-title"><strong><?= e(translated_value($item, $titleField)) ?></strong><small><?= e((string)$item['id']) ?></small></div></td><td><span class="badge badge--<?= e((string)$item['status']) ?>"><?= e(status_text((string)$item['status'])) ?></span></td><td><?= (int)($item['order'] ?? 0) ?></td><td><?= e(date('d/m/Y H:i', strtotime((string)($item['updated_at'] ?? 'now')))) ?></td><td><div class="row-actions"><a class="btn btn--secondary" href="<?= e($collection) ?>.php?action=edit&id=<?= e((string)$item['id']) ?>">تعديل</a><a class="btn btn--secondary" href="preview.php?collection=<?= e($collection) ?>&id=<?= e((string)$item['id']) ?>" target="_blank" rel="noopener">معاينة</a><?php if ($item['status'] !== 'archived'): ?><form method="post" data-confirm="أرشفة هذا السجل؟ يمكن استعادته من النسخ السابقة."><?= csrf_field() ?><input type="hidden" name="intent" value="archive"><input type="hidden" name="id" value="<?= e((string)$item['id']) ?>"><input type="hidden" name="collection_revision" value="<?= (int)$document['_meta']['revision'] ?>"><input type="hidden" name="item_revision" value="<?= (int)$item['revision'] ?>"><button class="btn btn--danger" type="submit">أرشفة</button></form><?php elseif ($collection === 'news'): ?><a class="btn btn--danger" href="news.php?action=delete&amp;id=<?= e((string)$item['id']) ?>">حذف</a><?php endif; ?></div></td></tr><?php endforeach; ?></tbody></table></div><?php endif; ?>
 </section>
 <?php admin_footer();

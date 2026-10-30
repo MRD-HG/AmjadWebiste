@@ -13,6 +13,7 @@ function admin_navigation(): array
         'products.php' => array('منتجات المتجر', 'fa-store'),
         'memory.php' => array('ذاكرة الصخيرات', 'fa-landmark'),
         'media.php' => array('مكتبة الوسائط', 'fa-photo-film'),
+        'import.php' => array('استيراد محتوى الموقع', 'fa-file-import'),
         'president.php' => array('كلمة الرئيس', 'fa-quote-right'),
         'contact.php' => array('الاتصال', 'fa-address-book'),
         'revisions.php' => array('النسخ السابقة', 'fa-clock-rotate-left'),

@@ -67,7 +67,8 @@
         if (!item || typeof item.path !== 'string') return '';
         try {
             const url = new URL(item.path, document.baseURI);
-            if (url.origin !== window.location.origin || !url.pathname.startsWith('/images/uploads/')) return '';
+            const decodedPath = decodeURIComponent(url.pathname);
+            if (url.origin !== window.location.origin || !decodedPath.startsWith('/images/') || decodedPath.includes('..') || !/^\/images\/[A-Za-z0-9._%/-]+$/.test(url.pathname)) return '';
             return url.href;
         } catch (_) {
             return '';
@@ -146,6 +147,13 @@
         Object.keys(bindings).forEach((field) => {
             document.querySelectorAll('[data-translate="' + bindings[field] + '"]').forEach((node) => setText(node, translated(item, field)));
         });
+        const message = translated(item, 'message');
+        const messageNodes = Array.from(document.querySelectorAll('[data-translate^="index_president_paragraph_"]'));
+        if (message && messageNodes.length) {
+            messageNodes[0].textContent = message;
+            messageNodes[0].style.whiteSpace = 'pre-line';
+            messageNodes.slice(1).forEach((node) => { node.hidden = true; });
+        }
         const image = mediaUrl(item.image_id);
         const portrait = document.querySelector('[data-translate="index_president_alt"]');
         if (portrait && image) portrait.src = image;
@@ -154,7 +162,14 @@
     function renderContact(item) {
         const settings = item.settings || {};
         const address = translated(item, 'address');
-        document.querySelectorAll('[data-translate="index_footer_address"]').forEach((node) => setText(node, address));
+        document.querySelectorAll('[data-translate="index_footer_address"], [data-translate="contact_footer_address"]').forEach((node) => setText(node, address));
+        if (address && currentPage() === 'contact.html') {
+            const city = document.querySelector('[data-translate="contact_address_city"]');
+            setText(city, address); if (city) city.style.whiteSpace = 'pre-line';
+            document.querySelectorAll('[data-translate="contact_address_street"], [data-translate="contact_address_landmark"]').forEach((node) => { node.hidden = true; });
+        }
+        const openingHours = translated(item, 'opening_hours');
+        document.querySelectorAll('[data-translate="contact_phone_hours"], [data-translate="contact_extra_hours"]').forEach((node) => setText(node, openingHours));
         if (settings.email && window.setAmjadContactEmail && window.setAmjadContactEmail(settings.email)) {
             document.querySelectorAll('a[href^="mailto:"]').forEach((node) => { node.href = 'mailto:' + settings.email; setText(node, settings.email); });
             document.querySelectorAll('[data-amjad="contact-email"]').forEach((node) => setText(node, settings.email));
@@ -210,8 +225,15 @@
         detail.dataset.programFamily = item.family_id;
         setText(detail.querySelector('h2'), translated(item, 'title'));
         const body = translated(item, 'body') || translated(item, 'summary');
-        const paragraph = detail.querySelector('.prose p, .p-8 p, p');
-        setText(paragraph, body);
+        const editorialColumn = detail.querySelector('.p-8 .grid > div:first-child');
+        if (editorialColumn && body) {
+            const paragraph = document.createElement('p'); paragraph.className = 'text-gray-600 whitespace-pre-line'; paragraph.textContent = body;
+            editorialColumn.replaceChildren(paragraph);
+        } else {
+            const paragraph = detail.querySelector('.prose p, .p-8 p, p');
+            setText(paragraph, body);
+            if (paragraph) paragraph.style.whiteSpace = 'pre-line';
+        }
         const image = mediaUrl(item.image_id);
         const cover = detail.querySelector('.program-image');
         if (cover && image) cover.style.backgroundImage = "url('" + image.replace(/'/g, '%27') + "')";
@@ -279,7 +301,12 @@
         setText(detail.querySelector('h2'), translated(item, 'title'));
         setText(detail.querySelector('.category-badge'), (categoryLabels[language()] || categoryLabels.ar)[item.category] || item.category);
         setText(detail.querySelector('time, .news-overlay p'), item.published_at || '');
-        setText(detail.querySelector('.prose p'), translated(item, 'body') || translated(item, 'summary'));
+        const bodyText = translated(item, 'body') || translated(item, 'summary');
+        const prose = detail.querySelector('.prose');
+        if (prose && bodyText) {
+            const paragraph = document.createElement('p'); paragraph.className = 'text-lg text-gray-600 mb-6 whitespace-pre-line'; paragraph.textContent = bodyText;
+            prose.replaceChildren(paragraph);
+        }
         const image = mediaUrl(item.image_id); const cover = detail.querySelector('.news-image');
         if (cover && image) cover.style.backgroundImage = "url('" + image.replace(/'/g, '%27') + "')";
     }

@@ -7,6 +7,7 @@ require_once __DIR__ . '/storage.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/content.php';
 require_once __DIR__ . '/media.php';
+require_once __DIR__ . '/frontend-import.php';
 
 send_admin_security_headers();
 start_secure_session();
