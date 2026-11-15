@@ -8,6 +8,7 @@ function admin_navigation(): array
         'hero.php' => array('الواجهة الرئيسية', 'fa-wand-magic-sparkles'),
         'programs.php' => array('البرامج', 'fa-diagram-project'),
         'news.php' => array('الأخبار', 'fa-newspaper'),
+        'evaluations.php' => array('نتائج التقييم', 'fa-route'),
         'gallery.php' => array('مجلة الصور', 'fa-images'),
         'sections.php' => array('محتوى الصفحات', 'fa-pen-to-square'),
         'products.php' => array('منتجات المتجر', 'fa-store'),

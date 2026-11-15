@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#123f34">
+    <title>رحلة أمجاد 2021–2026 | التقييم المؤسساتي</title>
+    <meta name="description" content="استبيان تفاعلي مجهول لتقييم تجربة جمعية أمجاد بين 2021 و2026 عبر عشر محطات قصيرة.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/evaluation.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="جمعية أمجاد">
+    <meta property="og:title" content="رحلة أمجاد — عشر محطات لصناعة المستقبل">
+    <meta property="og:description" content="شارك بصورة طوعية ومجهولة في التقييم المؤسساتي لجمعية أمجاد 2021–2026.">
+    <meta property="og:image" content="images/og-image.png">
+</head>
+<body class="evaluation-page">
+    <a class="skip-link" href="#evaluation-main">تجاوز إلى محتوى الاستبيان</a>
+
+    <nav class="evaluation-navbar" aria-label="التنقل الرئيسي">
+        <div class="evaluation-navbar__inner">
+            <a href="index.html" class="evaluation-brand" aria-label="جمعية أمجاد — الرئيسية">
+                <img src="images/logoamjad.png" alt="شعار جمعية أمجاد">
+            </a>
+            <div class="evaluation-navbar__links" id="evaluation-desktop-nav">
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html">عن الجمعية</a>
+                <a href="services.html">الخدمات الإلكترونية</a>
+                <a href="programs.html">البرامج</a>
+                <a href="news.html">الأخبار</a>
+                <a href="shop.html">متجر أمجاد</a>
+                <a href="evaluation.html" class="is-current" aria-current="page">رحلة التقييم</a>
+                <a href="contact.html">الاتصال</a>
+            </div>
+            <div class="evaluation-navbar__actions">
+                <span class="language-pill"><i class="fa-solid fa-language" aria-hidden="true"></i> العربية</span>
+                <button class="evaluation-menu-toggle" type="button" aria-controls="evaluation-mobile-nav" aria-expanded="false">
+                    <span class="sr-only">فتح القائمة</span>
+                    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="evaluation-mobile-nav" id="evaluation-mobile-nav" hidden>
+            <a href="index.html">الرئيسية</a>
+            <a href="about.html">عن الجمعية</a>
+            <a href="services.html">الخدمات الإلكترونية</a>
+            <a href="programs.html">البرامج والخدمات</a>
+            <a href="news.html">الأخبار</a>
+            <a href="shop.html">متجر أمجاد</a>
+            <a href="evaluation.html" aria-current="page">رحلة التقييم</a>
+            <a href="contact.html">الاتصال</a>
+        </div>
+    </nav>
+
+    <main id="evaluation-main">
+        <noscript><div class="evaluation-noscript">تحتاج رحلة التقييم إلى JavaScript لعرض الأسئلة وحفظ المسودة. يرجى تفعيله ثم إعادة تحميل الصفحة.</div></noscript>
+        <section class="evaluation-hero" id="evaluation-intro" aria-labelledby="evaluation-title">
+            <div class="evaluation-container evaluation-hero__grid">
+                <div class="evaluation-hero__copy">
+                    <span class="evaluation-eyebrow"><i class="fa-solid fa-compass" aria-hidden="true"></i> التقييم المؤسساتي والتشاركي <bdi dir="ltr">2021–2026</bdi></span>
+                    <h1 id="evaluation-title">رحلة أمجاد<br><span>عشر محطات لصناعة المستقبل</span></h1>
+                    <p>أخبرنا بما عايشته فعلاً. كل إجابة تساعد الجمعية على فهم التجربة وتصحيح المسار، من دون أسماء أو منافسة أو إجابات «صحيحة».</p>
+                    <div class="evaluation-hero__facts" aria-label="معلومات عن الاستبيان">
+                        <span><strong>40</strong> سؤالاً اختيارياً</span>
+                        <span><strong>10</strong> محطات</span>
+                        <span><strong dir="ltr">12–18</strong> دقيقة تقريباً</span>
+                    </div>
+                    <div class="evaluation-hero__actions">
+                        <button class="button button--primary" type="button" data-action="start-journey">
+                            ابدأ الرحلة <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button class="button button--ghost" type="button" data-action="open-privacy">
+                            كيف نحمي إجاباتك؟
+                        </button>
+                    </div>
+                    <p class="draft-resume" id="draft-resume" hidden>
+                        <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+                        عثرنا على مسودة في علامة التبويب الحالية.
+                        <button type="button" data-action="resume-draft">متابعة من حيث توقفت</button>
+                    </p>
+                </div>
+
+                <div class="mission-world mission-world--hero" aria-labelledby="mission-map-title">
+                    <div class="mission-world__header">
+                        <div>
+                            <span>الخريطة التفاعلية</span>
+                            <h2 id="mission-map-title">كل محطة تبني جزءاً من المشهد</h2>
+                        </div>
+                        <span class="mission-world__counter" id="hero-mission-counter" dir="ltr">0 / 10</span>
+                    </div>
+                    <p class="mission-world__explanation">العناصر العشرة هي محاور الاستبيان نفسها. استخدمها للتنقل، ويكتمل المشهد كلما أنهيت محطة بصرف النظر عن نوع إجاباتك.</p>
+                    <div class="mission-world__viewport">
+                        <div class="mission-world__sky" aria-hidden="true"><span></span><span></span><span></span></div>
+                        <div class="mission-world__board" id="hero-mission-map" aria-label="خريطة محطات التقييم"></div>
+                    </div>
+                    <div class="mission-world__legend"><span><i class="legend-dot legend-dot--current"></i> المحطة الحالية</span><span><i class="legend-dot legend-dot--done"></i> محطة منجزة</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="privacy-strip" id="privacy-summary" aria-labelledby="privacy-title">
+            <div class="evaluation-container privacy-strip__grid">
+                <div class="privacy-strip__icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <span>قبل أن تبدأ</span>
+                    <h2 id="privacy-title">تقييم التجربة، لا الأشخاص</h2>
+                    <p>لا نطلب الاسم أو الهاتف أو البريد الإلكتروني. لا تذكر أسماء أشخاص أو تفاصيل تكشف هويتك في الإجابات المفتوحة. تحفظ المسودة مؤقتاً داخل علامة التبويب الحالية، ولا تُرسل الإجابات إلى الجمعية إلا بعد مراجعتها والضغط على «إرسال مجهول».</p>
+                </div>
+                <button class="privacy-strip__button" type="button" data-action="open-privacy">التفاصيل والخصوصية</button>
+            </div>
+        </section>
+
+        <section class="journey" id="journey" hidden aria-label="أسئلة التقييم">
+            <div class="evaluation-container journey__layout">
+                <aside class="journey-sidebar" aria-label="حالة الرحلة والتنقل بين المحطات">
+                    <div class="journey-sidebar__top">
+                        <a href="#evaluation-intro" class="journey-sidebar__brand"><img src="images/logoamjad.png" alt=""><span>رحلة أمجاد</span></a>
+                        <button type="button" class="icon-button" data-action="close-journey" aria-label="العودة إلى مقدمة الصفحة" title="العودة إلى المقدمة"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="journey-progress">
+                        <div class="journey-progress__labels"><span id="journey-progress-label">السؤال 1 من 40</span><strong id="journey-progress-percent">0%</strong></div>
+                        <div class="journey-progress__track" role="progressbar" aria-label="تقدم الرحلة" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" id="journey-progress-track"><span id="journey-progress-fill"></span></div>
+                        <p><span id="answered-count">0</span> إجابة محفوظة مؤقتاً · يمكن تجاوز أي سؤال</p>
+                    </div>
+                    <div class="mission-world mission-world--compact">
+                        <div class="mission-world__header">
+                            <div><span>مشهد الرحلة</span><h2>المحطات العشر</h2></div>
+                            <span class="mission-world__counter" id="compact-mission-counter" dir="ltr">0 / 10</span>
+                        </div>
+                        <div class="mission-world__viewport"><div class="mission-world__board" id="compact-mission-map" aria-label="انتقل إلى إحدى محطات التقييم"></div></div>
+                    </div>
+                    <button type="button" class="sidebar-review" data-action="show-review"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>مراجعة الإجابات</span><strong id="sidebar-answered-count" dir="ltr">0/40</strong></button>
+                    <p class="session-note"><i class="fa-solid fa-lock" aria-hidden="true"></i> المسودة تبقى في علامة التبويب هذه فقط حتى ترسلها أو تمسحها.</p>
+                    <button class="sidebar-clear" type="button" data-action="clear-draft"><i class="fa-regular fa-trash-can" aria-hidden="true"></i> مسح المسودة من هذا التبويب</button>
+                </aside>
+
+                <div class="journey-content">
+                    <div class="journey-status" role="status" aria-live="polite" id="journey-live-status"></div>
+
+                    <section class="question-screen" id="question-screen" aria-labelledby="question-title">
+                        <header class="question-screen__header">
+                            <div>
+                                <span class="mission-label" id="mission-label">بوابة الانطلاق</span>
+                                <p id="mission-purpose"></p>
+                            </div>
+                            <span class="question-position" id="question-position" dir="ltr">1 / 3</span>
+                        </header>
+                        <article class="question-card" id="question-card">
+                            <div class="question-card__number" id="question-number">س01</div>
+                            <p class="question-card__optional"><i class="fa-regular fa-circle-check" aria-hidden="true"></i> سؤال اختياري</p>
+                            <h2 id="question-title" tabindex="-1"></h2>
+                            <p class="question-help" id="question-help"></p>
+                            <div class="answer-area" id="answer-area"></div>
+                        </article>
+                        <div class="question-actions">
+                            <button class="button button--secondary" type="button" data-action="previous-question"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> السابق</button>
+                            <button class="button button--text" type="button" data-action="skip-question">تجاوز هذا السؤال</button>
+                            <button class="button button--primary" type="button" data-action="next-question">التالي <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <section class="mission-complete" id="mission-complete" hidden aria-labelledby="mission-complete-title">
+                        <div class="mission-complete__visual" aria-hidden="true">
+                            <div class="mission-key"><i class="fa-solid fa-key"></i></div>
+                            <span class="mission-complete__rings"></span>
+                        </div>
+                        <span class="mission-complete__eyebrow">محطة أُنجزت</span>
+                        <h2 id="mission-complete-title" tabindex="-1">شكراً لمساهمتك</h2>
+                        <p id="mission-complete-text"></p>
+                        <div class="mission-complete__note"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><span>إتمام المحطة يحتفل بالمشاركة فقط؛ لا توجد نقاط ولا تقييم لإجاباتك.</span></div>
+                        <button class="button button--primary" type="button" data-action="continue-after-mission">متابعة الرحلة <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                    </section>
+
+                    <section class="review-screen" id="review-screen" hidden aria-labelledby="review-title">
+                        <header class="review-screen__header">
+                            <div><span>الخطوة الأخيرة</span><h2 id="review-title" tabindex="-1">راجع إجاباتك قبل الإرسال</h2><p>يمكنك تعديل أي سؤال. الأسئلة غير المجاب عنها ستبقى فارغة، وهذا مقبول.</p></div>
+                            <div class="review-score"><strong id="review-answered-count">0</strong><span>من 40 سؤالاً</span></div>
+                        </header>
+                        <div class="review-list" id="review-list"></div>
+                        <div class="submission-panel">
+                            <div class="submission-panel__copy">
+                                <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+                            <div><h3>موافقة واعية قبل الإرسال</h3><p>ستصل الإجابات إلى إدارة الجمعية من دون حقول تعريف مباشرة. قد يحتفظ مزود الاستضافة بسجلات تقنية وفق إعداداته، لذلك تجنب أي تفاصيل تكشف الهوية في النصوص المفتوحة.</p></div>
+                            </div>
+                            <label class="consent-check"><input type="checkbox" id="submission-consent"><span>قرأت توضيح الخصوصية وأوافق طوعاً على إرسال إجاباتي لأغراض تقييم وتطوير عمل الجمعية.</span></label>
+                            <div class="submission-status" id="submission-status" role="status" aria-live="polite"></div>
+                            <div class="submission-actions">
+                                <button class="button button--secondary" type="button" data-action="back-to-questions"><i class="fa-solid fa-pen" aria-hidden="true"></i> متابعة التعديل</button>
+                                <button class="button button--secondary" type="button" data-action="download-copy"><i class="fa-solid fa-download" aria-hidden="true"></i> تنزيل نسخة محلية</button>
+                                <button class="button button--primary" type="button" data-action="submit-evaluation"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> إرسال مجهول</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="success-screen" id="success-screen" hidden aria-labelledby="success-title">
+                        <div class="success-scene" aria-hidden="true">
+                            <i class="fa-solid fa-seedling"></i><i class="fa-solid fa-house-chimney-window"></i><i class="fa-solid fa-tree"></i>
+                        </div>
+                        <span>اكتملت رحلة التقييم</span>
+                        <h2 id="success-title" tabindex="-1">شكراً لأنك ساهمت في بناء المرحلة المقبلة</h2>
+                        <p>تم استلام إجاباتك بنجاح. لم نطلب اسماً أو بريداً إلكترونياً أو رقم هاتف.</p>
+                        <div class="confirmation-code"><span>رمز التأكيد</span><strong id="confirmation-code">—</strong></div>
+                        <div class="success-actions"><a class="button button--primary" href="index.html">العودة إلى الموقع</a><button class="button button--secondary" type="button" data-action="start-new-response">بدء استجابة جديدة</button></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="journey-principles" aria-labelledby="principles-title">
+            <div class="evaluation-container">
+                <div class="journey-principles__heading"><span>تجربة مريحة وموثوقة</span><h2 id="principles-title">اللعب في طريقة العرض، والجدية في البيانات</h2></div>
+                <div class="journey-principles__grid">
+                    <article><i class="fa-solid fa-route" aria-hidden="true"></i><h3>محطات قصيرة</h3><p>محور واضح في كل محطة وسؤال واحد في الشاشة لتقليل التشتت.</p></article>
+                    <article><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><h3>من دون تحيز</h3><p>لا نقاط ولا ترتيب ولا احتفال بإجابة إيجابية؛ المشهد يتقدم فقط عند إنهاء المحطة.</p></article>
+                    <article><i class="fa-solid fa-universal-access" aria-hidden="true"></i><h3>متاح للجميع</h3><p>أزرار كبيرة، تنقل بلوحة المفاتيح، نصوص واضحة، واحترام تفضيل تقليل الحركة.</p></article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="evaluation-footer">
+        <div class="evaluation-container evaluation-footer__inner">
+            <div><img src="images/logoamjad.png" alt="شعار جمعية أمجاد"><p>جمعية أمجاد للتربية والأعمال الاجتماعية</p></div>
+            <div><a href="index.html">الرئيسية</a><a href="about.html">عن الجمعية</a><a href="contact.html">الاتصال</a></div>
+            <p>التقييم المؤسساتي والتشاركي · <bdi dir="ltr">2021–2026</bdi></p>
+        </div>
+    </footer>
+
+    <dialog class="privacy-dialog" id="privacy-dialog" aria-labelledby="privacy-dialog-title">
+        <form method="dialog">
+            <button class="privacy-dialog__close" value="close" aria-label="إغلاق"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <span class="privacy-dialog__icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+            <h2 id="privacy-dialog-title">خصوصيتك خلال رحلة التقييم</h2>
+            <ul>
+                <li><strong>لا حقول تعريف مباشرة:</strong> لا اسم، لا هاتف، ولا بريد إلكتروني.</li>
+                <li><strong>كل الأسئلة اختيارية:</strong> يمكنك تجاوز أي سؤال أو اختيار «لا تتوفر لدي معلومات كافية».</li>
+                <li><strong>المسودة مؤقتة:</strong> تحفظ في علامة التبويب الحالية فقط لمساعدتك عند التحديث العرضي، وتُمسح بعد الإرسال أو عند إغلاق التبويب.</li>
+                <li><strong>الإرسال بقرارك:</strong> لن تصل الإجابات إلى الجمعية قبل المراجعة والموافقة والضغط على زر الإرسال.</li>
+                <li><strong>النصوص المفتوحة:</strong> تجنب أسماء الأشخاص أو أي تفاصيل قد تكشف هويتك أو هوية غيرك.</li>
+                <li><strong>السجلات التقنية:</strong> لا يحفظ النموذج عنوان IP أو نوع الجهاز داخل ملف الاستجابة، لكن قد توجد سجلات وصول تقنية لدى مزود الاستضافة.</li>
+                <li><strong>مدة الاحتفاظ:</strong> لا توجد مدة حذف تلقائي مفعلة حالياً؛ تبقى الاستجابة في التخزين الخاص إلى أن تطبق الإدارة سياسة الاحتفاظ المعتمدة.</li>
+            </ul>
+            <button class="button button--primary" value="close">فهمت، شكراً</button>
+        </form>
+    </dialog>
+
+    <div class="evaluation-toast" id="evaluation-toast" role="status" aria-live="polite"></div>
+    <script src="js/evaluation-data.js"></script>
+    <script src="js/evaluation.js"></script>
+</body>
+</html>

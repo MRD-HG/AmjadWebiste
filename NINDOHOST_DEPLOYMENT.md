@@ -5,7 +5,7 @@ Do not deploy until the real document root, PHP version/extensions, HTTPS behavi
 1. Create a full host backup of the current document root, database (if any), existing uploads, and historical CMS JSON. Verify the backup before changing files.
 2. Rotate any password found in a historical archive. Remove public `admin.zip`/backup archives and invalidate old CMS sessions.
 3. Confirm PHP 8.2+ with `json`, `session`, `fileinfo`, and image metadata support. Run `php admin/bin/check-environment.php` from the protected source checkout before packaging. `gd` is optional. Confirm Apache deny rules/headers or reproduce them in Nginx/LiteSpeed.
-4. Extract the release into staging. Point `AMJAD_STORAGE_DIR` to a backed-up directory outside the document root. Configure the other paths from `deployment/env.example`.
+4. Extract the release into staging. Point `AMJAD_STORAGE_DIR` to a backed-up directory outside the document root. Questionnaire responses are written under `AMJAD_STORAGE_DIR/evaluations/responses`; include that directory in protected backups and approve a retention/deletion policy because automatic deletion is not enabled. Configure the other paths from `deployment/env.example`.
 5. Create the first administrator from the protected source checkout with `php admin/bin/setup.php`, or configure environment username/password hash. Public release packages exclude all setup/import utilities. Never upload a local credential file.
 6. Ensure the web-server user can write only private storage, `data/cms`, and `images/uploads`; application source should not be writable.
 7. Run legacy import and frontend reconciliation in dry-run mode. Review conflicts, facts, dates, translations, links, and image rights before applying drafts.
