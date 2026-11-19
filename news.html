@@ -29,6 +29,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 
 <body class="rtl">
@@ -41,30 +42,31 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-4">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
                 <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -73,6 +75,7 @@
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
                 <a href="index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
@@ -100,15 +103,15 @@
 
             <!-- Filter Buttons -->
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterNews('all', this)"
+                <button type="button" class="filter-btn active" onclick="filterNews('all', this)"
                     data-translate="news_filter_all">الكل</button>
-                <button class="filter-btn" onclick="filterNews('news', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('news', this)"
                     data-translate="news_filter_news">الأخبار</button>
-                <button class="filter-btn" onclick="filterNews('events', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('events', this)"
                     data-translate="news_filter_events">الفعاليات</button>
-                <button class="filter-btn" onclick="filterNews('programs', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('programs', this)"
                     data-translate="news_filter_programs">البرامج</button>
-                <button class="filter-btn" onclick="filterNews('announcements', this)"
+                <button type="button" class="filter-btn" onclick="filterNews('announcements', this)"
                     data-translate="news_filter_announcements">الإعلانات</button>
             </div>
         </div>
@@ -120,7 +123,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid">
 
                 <!-- News Item 7 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="news">
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="news" data-cms-id="news7">
                     <img src="images/jam3.jpeg" alt="الجمع العام" class="w-full h-48 object-cover"
                         data-translate="news_card7_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -133,7 +136,7 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card7_desc">
                             محطة تنظيمية لتقييم المسار، والمصادقة على التقريرين الأدبي والمالي، واعتماد البرنامج السنوي ضمن رؤية تطوير العمل الجمعوي.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news7')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news7')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -142,7 +145,7 @@
 
                 <!-- News Item 4 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
-                    data-category="events">
+                    data-category="events" data-cms-id="news4">
                     <img src="images/clone.jpeg" alt="إنجاز الجمعية" class="w-full h-48 object-cover"
                         data-translate="news_card4_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -159,14 +162,14 @@
                             بدار الشباب الصخيرات المركز
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news4')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news4')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 5 -->
                 <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in"
-                    data-category="announcements">
+                    data-category="announcements" data-cms-id="news5">
                     <img src="images/masa2.jpg" alt="إعلان جديد" class="w-full h-48 object-cover"
                         data-translate="news_card5_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -183,12 +186,12 @@
                             للتربية والأعمال الإجتماعية أمسية التنشيط التربوي
 
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news5')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news5')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
                 <!-- News Item 1 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
+                <div id="news1" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events" data-cms-id="news1">
                     <img src="images/jam3.jpeg" alt="احتفالية الذكرى الرابعة" class="w-full h-48 object-cover"
                         data-translate="news_card1_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -203,13 +206,13 @@
                             احتفلت جمعية أمجاد للتربية والأعمال الاجتماعية بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
                             من العطاء... وباقين مستمرين".
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news1')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news1')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 2 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
+                <div id="news2" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs" data-cms-id="news2">
                     <img src="images/donationblood.jpg" alt="نشاط زكاة الصحة" class="w-full h-48 object-cover"
                         data-translate="news_card2_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -222,13 +225,13 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card2_desc">
                             نظمت جمعية أمجاد حملة التبرع بالدم في نسختها الثامنة بمدينة الصخيرات، بشراكة مع الجهات الصحية المختصة، بمشاركة حوالي 45 متبرعاً ومتطوعة.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news2')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news2')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
 
                 <!-- News Item 3 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs">
+                <div id="news3" class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="programs" data-cms-id="news3">
                     <img src="images/dokhol.jpeg" alt="حفل الدخول المدرسي" class="w-full h-48 object-cover"
                         data-translate="news_card3_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -242,12 +245,12 @@
                         <p class="text-gray-600 mb-4" data-translate="news_card3_desc">
                             نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news3')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news3')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
                 <!-- News Item 6 -->
-                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events">
+                <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden fade-in" data-category="events" data-cms-id="news6">
                     <img src="images/Siyam.jpg" alt="فعالية المجتمع" class="w-full h-48 object-cover"
                         data-translate="news_card6_alt" data-translate-attr="alt">
                     <div class="p-6">
@@ -261,7 +264,7 @@
                             إفطار الخير، هو حملة يتم من خلالها توزيع وجبة إفطار على الصائمين
                             الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،
                         </p>
-                        <button class="btn-primary" onclick="showNewsDetail('news6')"
+                        <button type="button" class="btn-primary" onclick="showNewsDetail('news6')"
                             data-translate="news_read_more">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -270,14 +273,15 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
+                <button type="button" class="btn-secondary text-lg px-8 py-3" onclick="loadMoreNews()"
                     data-translate="news_load_more">عرض المزيد من الأخبار</button>
             </div>
         </div>
     </section>
 
     <!-- News Detail Modal -->
-    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+        role="dialog" aria-modal="true" aria-label="تفاصيل الخبر" tabindex="-1">
         <div class="news-detail max-w-4xl w-full max-h-full overflow-y-auto">
             <div id="news1-detail" class="hidden">
                 <div class="news-image" style="background-image: url('images/jam3.jpeg');">
@@ -347,7 +351,7 @@
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -378,11 +382,11 @@
                         <p class="text-gray-600 mb-6" data-translate="news_detail2_p4">وتتقدم جمعية أمجاد بجزيل الشكر
                             والتقدير لكافة المتبرعين والمتطوعين، وكذا للأطر الصحية والإدارية والجهات الشريكة على تعاونهم
                             ومجهوداتهم لإنجاح هذه المبادرة.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -406,11 +410,11 @@
                             في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail3_p2">تفاصيل إضافية حول هذه الفعالية
                             سيتم نشرها قريباً على موقع الجمعية.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -434,11 +438,11 @@
                             صبحية البهلوان وذلك يوم بدار الشباب الصخيرات المركز</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail4_p2">سيتم تحديث هذا الخبر بالتفاصيل
                             والصور الكاملة قريباً.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -463,11 +467,11 @@
                             أمسية التنشيط التربوي</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail5_p2">تابعوا صفحة الأخبار للاطلاع على
                             التقرير الكامل والتفاصيل قريباً.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -491,11 +495,11 @@
                             توزيع وجبة إفطار على الصائمين الذين شاءت الظروف أن يكونوا ساعة الإفطار خارج منازلهم،</p>
                         <p class="text-gray-600 mb-6" data-translate="news_detail6_p2">تفاصيل البرنامج (أماكن/مواعيد)
                             سيتم الإعلان عنها عند توفرها.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -527,11 +531,11 @@
                         <p class="text-gray-600 mb-6" data-translate="news_detail7_p4">وتضمن برنامج الجمع العام لحفل مرور
                             أربع سنوات تم خلاله تكريم بعض أطر الجمعية، واختتم بالتأكيد على أهمية التخطيط الاستراتيجي
                             وضرورة تضافر الجهود لتنزيل مضامين الخطة على أرض الواقع.</p>
-                        
+
                     </div>
 
                     <div class="flex justify-center mt-8">
-                        <button class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
+                        <button type="button" class="btn-secondary px-6 py-2" onclick="closeNewsModal()"
                             data-translate="news_close_cta">إغلاق</button>
                     </div>
                 </div>
@@ -553,7 +557,7 @@
                                 data-translate="news_footer_address">الصخيرات المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> <span data-translate="news_footer_phone">الهاتف: سيتم الإعلان
                                 عن الرقم الرسمي للجمعية قريبًا</span></p>
-                        <p><i class="fas fa-envelope ml-2"></i> a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
 
@@ -570,7 +574,7 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -581,27 +585,23 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -617,21 +617,30 @@
 
     <!-- Additional JavaScript for News -->
     <script>
+        let activeNewsCategory = 'all';
+
+        function applyNewsVisibility() {
+            const searchInput = document.getElementById('news-search');
+            const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            document.querySelectorAll('.news-card').forEach(card => {
+                if (card.dataset.cmsPublication === 'unpublished') {
+                    card.hidden = true;
+                    return;
+                }
+                const categoryMatches = activeNewsCategory === 'all' || card.dataset.category === activeNewsCategory;
+                const searchMatches = !searchTerm || card.textContent.toLowerCase().includes(searchTerm);
+                card.hidden = !(categoryMatches && searchMatches);
+            });
+        }
+
         function filterNews(category, btn) {
             // Update active filter button
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
 
-            // Filter news cards
-            const cards = document.querySelectorAll('.news-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            activeNewsCategory = category;
+            applyNewsVisibility();
         }
 
         function showNewsDetail(newsId) {
@@ -640,7 +649,7 @@
             details.forEach(detail => detail.classList.add('hidden'));
 
             const selected = document.getElementById(newsId + '-detail');
-            if (!selected) {
+            if (!selected || selected.dataset.cmsPublication === 'unpublished') {
                 alert(currentLanguage === 'ar' ? 'تفاصيل هذا الخبر ستتم إضافتها قريباً.' :
                     currentLanguage === 'en' ? 'Details will be added soon.' :
                         'Les détails seront ajoutés bientôt.');
@@ -649,7 +658,9 @@
 
             // Show selected news detail
             selected.classList.remove('hidden');
-            document.getElementById('news-modal').classList.remove('hidden');
+            const modal = document.getElementById('news-modal');
+            modal.classList.remove('hidden');
+            modal.focus();
 
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
@@ -661,26 +672,17 @@
         }
 
         function loadMoreNews() {
-            alert(currentLanguage === 'ar' ? 'سيتم تحميل المزيد من الأخبار قريبًا!' :
-                currentLanguage === 'en' ? 'More news will be loaded soon!' :
-                    'Plus d\'actualités seront chargées bientôt!');
+            const button = document.querySelector('[onclick="loadMoreNews()"]');
+            if (!button) return;
+            button.disabled = true;
+            button.textContent = currentLanguage === 'ar' ? 'كل الأخبار المنشورة معروضة' :
+                currentLanguage === 'en' ? 'All published news is displayed' :
+                    'Toutes les actualités publiées sont affichées';
         }
 
         // Search functionality
         document.getElementById('news-search').addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.news-card');
-
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const content = card.querySelector('p').textContent.toLowerCase();
-
-                if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            applyNewsVisibility();
         });
 
         // Close modal on outside click
@@ -689,11 +691,25 @@
                 closeNewsModal();
             }
         });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !document.getElementById('news-modal').classList.contains('hidden')) {
+                closeNewsModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const newsId = window.location.hash.slice(1);
+            if (/^news\d+$/.test(newsId) && document.getElementById(newsId + '-detail')) {
+                showNewsDetail(newsId);
+            }
+        });
     </script>
 
     <!-- Main JavaScript -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cms-connector.js"></script>
     <script src="js/agent.js" defer></script>
 </body>
 

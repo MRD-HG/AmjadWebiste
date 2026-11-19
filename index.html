@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/index.css">
-  
+
     <link rel="icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -31,6 +31,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 
 <body>
@@ -43,30 +44,31 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-4">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
                 <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -75,15 +77,15 @@
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
                 <a href="index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section (100vh - Redesigned) -->
+    <!-- Homepage cover -->
     <section class="hero-section relative min-h-screen overflow-hidden text-white">
-        <!-- Background overlay -->
-          <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/60"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/40"></div>
 
         <!-- Decorative glow -->
         <div
@@ -93,18 +95,37 @@
             class="pointer-events-none absolute -bottom-28 -left-28 w-[520px] h-[520px] rounded-full bg-amber-300/18 blur-3xl">
         </div>
 
-        <!-- Content wrapper (centers content within 100vh while respecting navbar) -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4">
-            <!-- This div makes the hero exactly 100vh and centers content -->
-            <div class="min-h-screen flex items-center">
-                <!-- add top padding to avoid navbar overlap -->
-               
-                <img src="./images/ramadan2.png" alt="" class="hero-ramadan-img mx-auto">
+        <div class="hero-content-shell relative z-10 max-w-7xl mx-auto px-4">
+            <div class="hero-copy-card">
+                <p class="hero-reference" data-cms-hero="text" data-translate="index_hero_badge">جمعية مدنية غير ربحية · التربية · العمل الاجتماعي</p>
+                <h1 data-cms-hero="title" data-translate="heroTitle">جمعية أمجاد للتربية والأعمال الاجتماعية</h1>
+                <p class="hero-lead" data-cms-hero="subtitle" data-translate="index_hero_subtitle">نقود برامج تربوية واجتماعية، ونحوّل التطوع المنظّم إلى أثر ملموس داخل المجتمع.</p>
+                <div class="hero-actions">
+                    <a class="hero-primary-action" data-cms-hero="cta" data-translate="index_hero_cta" href="contact.html">تواصلوا معنا</a>
+                    <a class="hero-secondary-action" href="programs.html" data-translate="programsTitle">اكتشفوا برامجنا</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Institutional evaluation invitation -->
+    <section class="evaluation-invite" aria-labelledby="evaluation-invite-title">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="evaluation-invite__card">
+                <div class="evaluation-invite__icon" aria-hidden="true"><i class="fas fa-route"></i></div>
+                <div class="evaluation-invite__copy">
+                    <span><span data-translate="index_evaluation_kicker">التقييم المؤسساتي</span> <bdi dir="ltr">2021–2026</bdi></span>
+                    <h2 id="evaluation-invite-title" data-translate="index_evaluation_title">شارك في رحلة أمجاد لصناعة المرحلة المقبلة</h2>
+                    <p data-translate="index_evaluation_body">عشر محطات قصيرة و40 سؤالاً اختيارياً، من دون اسم أو نقاط أو إجابات صحيحة وخاطئة.</p>
+                </div>
+                <div class="evaluation-invite__progress" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <a href="evaluation.html" data-translate="index_evaluation_cta">ابدأ التقييم المجهول <i class="fas fa-arrow-left" aria-hidden="true"></i></a>
             </div>
         </div>
     </section>
-
-
 
 
     <!-- Statistics Section -->
@@ -129,100 +150,26 @@
     </section>
 
 
-    <!-- Zakat Calculator & Prayer Times -->
-    <section id="islamic-tools" class="section-padding bg-white">
+    <!-- Compact Islamic Tools Gateway -->
+    <section class="islamic-gateway" aria-labelledby="islamic-gateway-title">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-translate="home_tools_subtitle">أدوات سريعة تساعدك في حساب زكاتك ومعرفة مواقيت الصلاة في مدينتك.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-8 items-start">
-                <!-- Prayer Times -->
-                <div class="feature-card p-6 md:p-8 shadow-lg fade-in">
-                    <div class="flex items-center justify-between gap-3 flex-wrap">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800" data-translate="pt_title">مواقيت الصلاة (المغرب)</h3>
-                            <p class="text-gray-600 mt-1 text-sm" data-translate="pt_subtitle">اختر المدينة ثم اعرض مواقيت اليوم.</p>
-                        </div>
-                        <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1 rounded-full text-xs">
-                            <i class="fas fa-clock"></i>
-                            <span data-translate="pt_badge">تحديث سريع</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2" id="pt-city-label" data-translate="pt_city_label">اختر المدينة</label>
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <select id="pt-city" class="border rounded-xl px-3 py-2 flex-1"></select>
-                            <button id="pt-fetch" class="btn-primary btn-sm sm:w-auto" type="button" data-translate="pt_fetch">جلب أوقات اليوم</button>
-                        </div>
-                        <div id="pt-status" class="text-sm text-gray-500 mt-3"></div>
-
-                        <div id="pt-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5"></div>
-
-                        <p class="text-xs text-gray-500 mt-4" data-translate="pt_note">* المواقيت تقديرية وقد تختلف حسب تقويم مدينتك.</p>
-                    </div>
+            <div class="islamic-gateway__card fade-in">
+                <div class="islamic-gateway__identity" aria-hidden="true">
+                    <span><i class="fas fa-mosque"></i></span>
+                    <span><i class="fas fa-scale-balanced"></i></span>
                 </div>
-
-                <!-- Zakat Calculator -->
-                <div class="feature-card p-6 md:p-8 shadow-lg fade-in">
-                    <div class="flex items-center justify-between gap-3 flex-wrap">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800" data-translate="zakat_title">حاسبة الزكاة (زكاة المال)</h3>
-                            <p class="text-gray-600 mt-1 text-sm" data-translate="zakat_subtitle">احسب 2.5% إذا بلغ مالك النصاب بعد خصم الديون.</p>
-                        </div>
-                        <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-xs">
-                            <i class="fas fa-calculator"></i>
-                            <span data-translate="zakat_badge">تقدير تقريبي</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-5 grid gap-3">
-                        <div class="grid sm:grid-cols-2 gap-3">
-                            <input id="z-assets" placeholder="المجموع (نقد/مدخرات/مداخيل...)" data-translate="z_assets_ph" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2" />
-                            <input id="z-debts" placeholder="الديون المستحقة" data-translate="z_debts_ph" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2" />
-                        </div>
-
-                        <div class="bg-gray-50 border rounded-2xl p-4">
-                            <div class="flex items-center justify-between flex-wrap gap-3">
-                                <div class="font-semibold text-gray-800" data-translate="z_nisab_label">حساب النصاب حسب</div>
-                                <div class="flex gap-2">
-                                    <label class="inline-flex items-center gap-2 px-3 py-1 rounded-full border bg-white text-sm cursor-pointer">
-                                        <input type="radio" name="z-nisab-base" value="gold" checked>
-                                        <span data-translate="z_gold">الذهب</span>
-                                    </label>
-                                    <label class="inline-flex items-center gap-2 px-3 py-1 rounded-full border bg-white text-sm cursor-pointer">
-                                        <input type="radio" name="z-nisab-base" value="silver">
-                                        <span data-translate="z_silver">الفضة</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="grid sm:grid-cols-2 gap-3 mt-3">
-                                <div>
-                                    <label class="block text-xs text-gray-600 mb-1" data-translate="z_grams_label">عدد الغرامات</label>
-                                    <input id="z-grams" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2 w-full" />
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-gray-600 mb-1" data-translate="z_price_label">سعر الغرام (درهم)</label>
-                                    <input id="z-price" type="number" min="0" step="0.01" class="border rounded-xl px-3 py-2 w-full" />
-                                </div>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2" data-translate="z_hint">💡 أدخل سعر الغرام الحالي لتحصل على قيمة النصاب بدقة.</p>
-                        </div>
-
-                        <button id="z-compute" class="btn-primary btn-sm w-full" type="button" data-translate="z_compute">احسب</button>
-
-                        <div id="z-result" class=""></div>
-
-                        <p class="text-xs text-gray-500" data-translate="z_note">* هذه الحاسبة للتقدير فقط. للاستفسار الشرعي تواصل مع أهل العلم.</p>
-                    </div>
+                <div class="islamic-gateway__copy">
+                    <p class="islamic-gateway__eyebrow" data-translate="home_tools_gateway_eyebrow">خدمات عملية بمعلومات واضحة</p>
+                    <h2 id="islamic-gateway-title" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
+                    <p data-translate="home_tools_gateway_desc">مواقيت محسوبة حسب المدينة، وحاسبة تقديرية تحترم خصوصية معطياتك.</p>
+                </div>
+                <div class="islamic-gateway__links">
+                    <a href="#prayer-times"><i class="fas fa-clock" aria-hidden="true"></i><span data-translate="home_tools_gateway_prayer">عرض مواقيت الصلاة</span></a>
+                    <a href="#zakat-calculator"><i class="fas fa-calculator" aria-hidden="true"></i><span data-translate="home_tools_gateway_zakat">فتح حاسبة الزكاة</span></a>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Programs Section -->
     <section class="section-padding programs-bg">
         <div class="max-w-7xl mx-auto px-4">
@@ -245,8 +192,8 @@
                         مبادرة إنسانية تهدف إلى نشر ثقافة التبرع بالدم، إيمانًا منا بأن الحفاظ على حياة الآخرين هو أسمى
                         صور العطاء.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='services.html#zakat'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='services.html#zakat-form'">المزيد</button>
                 </div>
 
                 <!-- Iftar Al-Khair -->
@@ -258,8 +205,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_iftar_desc">
                         برنامج رمضاني يهدف إلى إفطار الصائمين وتقديم وجبات غذائية للأسر المحتاجة خلال شهر رمضان المبارك.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#iftar'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='programs.html#iftar-detail'">المزيد</button>
                 </div>
 
                 <!-- Shop -->
@@ -269,9 +216,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-3" data-translate="home_shop_card_title">متجر أمجاد</h3>
                     <p class="text-gray-600 mb-4" data-translate="home_shop_card_desc">
-                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — الطلب يتم مباشرة عبر واتساب.
+                        اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — أكمل الطلب عبر البريد الإلكتروني.
                     </p>
-                    <button class="btn-primary w-full" data-translate="home_shop_card_cta"
+                    <button type="button" class="btn-primary w-full" data-translate="home_shop_card_cta"
                         onclick="window.location.href='shop.html'">اذهب إلى المتجر</button>
                 </div>
 
@@ -284,8 +231,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_city_desc">
                         نحتفل بمسيرة مدينتنا وإنجازاتها، ونستحضر تاريخها العريق بروح الفخر والانتماء.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href ='resources/skhirat.html'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='resources/skhirat-memory.html'">المزيد</button>
                 </div>
 
                 <!-- Amjad Academy -->
@@ -297,8 +244,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_academy_desc">
                         برامج تعليمية وتدريبية مصممة لتنمية مهارات الشباب وتعزيز قدراتهم في مختلف المجالات.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#academy'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='programs.html#academy-detail'">المزيد</button>
                 </div>
 
                 <!-- Medrasti Al-Hilwa -->
@@ -310,8 +257,8 @@
                     <p class="text-gray-600 mb-4" data-translate="index_program_school_desc">
                         أنشطة مدرسية ونوادي للأطفال تهدف إلى تعزيز التعليم وتنمية المواهب منذ الصغر.
                     </p>
-                    <button class="btn-primary w-full" data-translate="index_program_more"
-                        onclick="window.location.href='programs.html#school'">المزيد</button>
+                    <button type="button" class="btn-primary w-full" data-translate="index_program_more"
+                        onclick="window.location.href='programs.html#school-detail'">المزيد</button>
                 </div>
             </div>
         </div>
@@ -340,7 +287,7 @@
                             احتفلت جمعية أمجاد بمرور أربع سنوات على تأسيسها تحت شعار "سنوات
                             من العطاء... وباقين مستمرين".
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news1'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news1'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -356,7 +303,7 @@
                             نظمت الجمعية حملة للتبرع بالدم شارك فيها العشرات من المتطوعين والمتبرعين من مختلف شرائح
                             المجتمع.
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news2'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news2'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
@@ -371,14 +318,14 @@
                         <p class="text-gray-600 mb-4" data-translate="index_news3_desc">
                             نظمت الجمعية حفل الدخول المدرسي في مدرسة المرابطين، بحضور عدد من أولياء الأمور والمعلمين.
                         </p>
-                        <button class="btn-primary" onclick="window.location.href='news.html#news3'"
+                        <button type="button" class="btn-primary" onclick="window.location.href='news.html#news3'"
                             data-translate="readMore">إقرأ المزيد</button>
                     </div>
                 </div>
             </div>
 
             <div class="text-center mt-12">
-                <button class="btn-secondary text-lg px-8 py-3" onclick="window.location.href='news.html'"
+                <button type="button" class="btn-secondary text-lg px-8 py-3" onclick="window.location.href='news.html'"
                     data-translate="index_news_all">عرض جميع الأخبار</button>
             </div>
         </div>
@@ -549,7 +496,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="index-gallery-grid">
                 <img src="images/image.jpeg" alt="أنشطة التطوع" data-translate="index_gallery_alt_1"
                     data-translate-attr="alt"
                     class="gallery-image rounded-lg shadow-md h-48 w-full object-cover">
@@ -578,8 +525,93 @@
         </div>
     </section>
 
+    <!-- Prayer Times & Zakat Calculator -->
+    <section id="islamic-tools" class="section-padding islamic-tools" aria-labelledby="islamic-tools-title">
+        <div class="max-w-7xl mx-auto px-4">
+            <header class="islamic-tools__intro fade-in">
+                <p class="islamic-tools__eyebrow" data-translate="home_tools_eyebrow">أدوات إرشادية واضحة وشفافة</p>
+                <h2 id="islamic-tools-title" data-translate="home_tools_title">الزكاة وأوقات الصلاة</h2>
+                <p data-translate="home_tools_subtitle">اطّلع على مواقيت الصلاة المحسوبة لمدينتك، وقدّر زكاة المال وفق المعطيات التي تدخلها.</p>
+            </header>
+
+            <div class="islamic-tools__grid">
+                <!-- Prayer Times -->
+                <article id="prayer-times" class="islamic-card prayer-dashboard fade-in" aria-labelledby="pt-title">
+                    <header class="islamic-card__header">
+                        <div><p class="islamic-card__number">01</p><h3 id="pt-title" data-translate="pt_title">مواقيت الصلاة في المغرب</h3><p data-translate="pt_subtitle">مواقيت محسوبة بحسب المدينة والتاريخ المحلي.</p></div>
+                        <i class="fas fa-mosque" aria-hidden="true"></i>
+                    </header>
+
+                    <div class="prayer-controls">
+                        <label for="pt-city" data-translate="pt_city_label">المدينة</label>
+                        <div class="prayer-controls__row">
+                            <select id="pt-city" aria-describedby="pt-city-context"></select>
+                            <button id="pt-fetch" class="prayer-refresh" type="button"><i class="fas fa-rotate" aria-hidden="true"></i><span data-translate="pt_refresh">تحديث</span></button>
+                        </div>
+                        <p id="pt-city-context"><span data-translate="pt_city_context">المواقيت المعروضة تخص</span> <strong id="pt-city-name">—</strong></p>
+                    </div>
+
+                    <div id="pt-status" class="prayer-status" role="status" aria-live="polite"></div>
+
+                    <div id="pt-content" hidden>
+                        <div class="prayer-date-row"><div><span data-translate="pt_today_label">تاريخ اليوم</span><strong id="pt-date">—</strong></div><div><span data-translate="pt_data_date_label">تاريخ البيانات</span><strong id="pt-data-date">—</strong></div></div>
+
+                        <div class="next-prayer" id="pt-next"><div><span data-translate="pt_next_label">الصلاة القادمة</span><strong id="pt-next-name">—</strong></div><div class="next-prayer__countdown"><span data-translate="pt_remaining_label">الوقت المتبقي</span><strong id="pt-countdown">—</strong></div></div>
+
+                        <div id="pt-grid" class="prayer-grid" aria-label="الصلوات الخمس" data-translate="pt_grid_label" data-translate-attr="aria-label"></div>
+                        <div id="pt-sunrise" class="sunrise-row"></div>
+                        <div class="prayer-update"><span><span data-translate="pt_last_update_label">آخر تحديث ناجح</span>: <strong id="pt-last-update">—</strong></span></div>
+                    </div>
+
+                    <p class="prayer-method-note" data-translate="pt_note">المصدر: AlAdhan، طريقة الحساب المغربية رقم 21، بتوقيت Africa/Casablanca. هذه حسابات تقريبية وليست مواقيت رسمية منشورة من وزارة الأوقاف والشؤون الإسلامية.</p>
+                </article>
+
+                <!-- Zakat Calculator -->
+                <article id="zakat-calculator" class="islamic-card zakat-calculator fade-in" aria-labelledby="zakat-title">
+                    <header class="islamic-card__header">
+                        <div><p class="islamic-card__number">02</p><h3 id="zakat-title" data-translate="zakat_title">حاسبة تقديرية لزكاة المال</h3><p data-translate="zakat_subtitle">أدخل معطياتك المالية لمراجعة تقدير مبسط بنسبة 2.5%.</p></div>
+                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                    </header>
+
+                    <form id="zakat-form" novalidate>
+                        <fieldset class="zakat-step">
+                            <legend><span>1</span><strong data-translate="z_step_assets">أدخل الأموال والموجودات المؤهلة</strong></legend>
+                            <label for="z-assets" data-translate="z_assets_label">إجمالي الموجودات</label>
+                            <div class="money-input"><input id="z-assets" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-assets-help z-assets-error"><span>MAD</span></div>
+                            <p id="z-assets-help" class="field-help" data-translate="z_assets_help">أدخل المبلغ الإجمالي الذي ترى أنه يدخل في وعاء الزكاة.</p><p id="z-assets-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <fieldset class="zakat-step">
+                            <legend><span>2</span><strong data-translate="z_step_debts">أدخل الديون القابلة للخصم</strong></legend>
+                            <label for="z-debts" data-translate="z_debts_label">الديون ذات الصلة</label>
+                            <div class="money-input"><input id="z-debts" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-debts-help z-debts-error"><span>MAD</span></div>
+                            <p id="z-debts-help" class="field-help" data-translate="z_debts_help">أدخل فقط الديون التي تعتمدها في هذا التقدير.</p><p id="z-debts-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <fieldset class="zakat-step">
+                            <legend><span>3</span><strong data-translate="z_step_nisab">حدد مرجع النصاب وسعر الغرام</strong></legend>
+                            <div class="nisab-selector" role="radiogroup" aria-label="مرجع النصاب" data-translate="z_nisab_group_label" data-translate-attr="aria-label">
+                                <label><input type="radio" name="z-nisab-base" value="gold" checked><span><strong data-translate="z_gold">الذهب</strong><small data-translate="z_gold_weight">85 غراماً</small></span></label>
+                                <label><input type="radio" name="z-nisab-base" value="silver"><span><strong data-translate="z_silver">الفضة</strong><small data-translate="z_silver_weight">595 غراماً</small></span></label>
+                            </div>
+                            <label for="z-price" data-translate="z_price_label">سعر الغرام الذي أدخلته</label>
+                            <div class="money-input"><input id="z-price" inputmode="decimal" type="number" min="0" step="0.01" autocomplete="off" aria-describedby="z-price-help z-price-error"><span>MAD</span></div>
+                            <p id="z-price-help" class="field-help" data-translate="z_price_help">لا تجلب الحاسبة سعراً مباشراً للذهب أو الفضة؛ استخدم سعراً موثوقاً وحديثاً من اختيارك.</p><p id="z-price-error" class="field-error" aria-live="polite"></p>
+                        </fieldset>
+
+                        <div class="zakat-review"><span>4</span><div><strong data-translate="z_step_review">راجع التقدير والافتراضات</strong><p data-translate="z_review_help">يعتمد التقدير على صافي المبلغ ومرجع النصاب المحدد فقط.</p></div></div>
+                        <button id="z-compute" class="zakat-compute" type="submit" data-translate="z_compute">احسب التقدير</button>
+                    </form>
+
+                    <div id="z-result" class="zakat-result" role="status" aria-live="polite" hidden></div>
+                    <div class="zakat-guidance"><p data-translate="z_note">هذا تقدير معلوماتي وليس فتوى. تتوقف الزكاة على شروط شرعية أخرى، ومنها تحقق الحول القمري عند انطباقه. استشر أهل العلم في حالتك.</p><p><span data-translate="z_health_distinction">هذه الحاسبة تخص زكاة المال، وهي منفصلة عن مبادرة الجمعية «زكاة الصحة» للتبرع بالدم.</span> <a href="programs.html#zakat-detail" data-translate="z_health_link">تعرّف على المبادرة</a></p><p data-translate="z_privacy_note">لا تُحفظ المدخلات المالية أو تُرسل إلى الجمعية.</p></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Newsletter Section -->
-    <section class="section-padding Newsletter text-white">
+    <section class="section-padding Newsletter text-white" id="newsletter">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="fade-in">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" data-translate="index_newsletter_title">اشترك في نشرتنا
@@ -588,13 +620,14 @@
                     تابع آخر أخبار الجمعية وأنشطتها اول بأول
                 </p>
 
-                <div class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto" onsubmit="subscribeNewsletter(event)">
+                    <label class="sr-only" for="newsletter-email" data-translate="index_newsletter_placeholder">أدخل بريدك الإلكتروني</label>
                     <input type="email" id="newsletter-email" placeholder="أدخل بريدك الإلكتروني"
-                        data-translate="index_newsletter_placeholder"
+                        name="email" required data-translate="index_newsletter_placeholder"
                         class="flex-1 px-4 py-3 rounded-lg text-gray-800">
-                    <button class="btn-secondary" onclick="subscribeNewsletter()"
+                    <button type="submit" class="btn-secondary"
                         data-translate="index_newsletter_cta">اشترك</button>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -610,7 +643,7 @@
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span data-translate="index_footer_address">الصخيرات
                                 المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> </p>
-                        <p><i class="fas fa-envelope ml-2"></i>  a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
 
@@ -626,7 +659,9 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    
+                        <a href="evaluation.html" class="block hover:text-green-400 transition-colors"
+                            data-translate="nav_evaluation">تقييم أمجاد</a>
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -637,27 +672,23 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -673,6 +704,7 @@
     <!-- Main JavaScript -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cms-connector.js"></script>
     <script src="js/islamic-tools.js" defer></script>
     <script src="js/agent.js" defer></script>
 </body>

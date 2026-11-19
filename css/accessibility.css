@@ -1,0 +1,42 @@
+/* Shared, low-impact accessibility refinements. */
+:where(a, button, input, select, textarea, summary):focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 3px;
+}
+
+:where(button, [role="button"], input, select, textarea) {
+    min-height: 44px;
+}
+
+.form-status {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #f59e0b;
+    border-radius: 0.75rem;
+    background: #fffbeb;
+    color: #78350f;
+    line-height: 1.7;
+}
+
+.form-status a {
+    color: #065f46;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

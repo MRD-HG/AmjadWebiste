@@ -1,0 +1,14 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:storage|includes|bin)(?:/|$) - [F,L]
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+</IfModule>
+<FilesMatch "(?:config\.php|\.json|\.jsonl|\.lock|\.rollback)$">
+    Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "no-referrer"
+</IfModule>

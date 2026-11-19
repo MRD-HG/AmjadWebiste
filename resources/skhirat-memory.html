@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذاكرة الصخيرات - جمعية أمجاد</title>
+    <meta name="description" content="ذاكرة الصخيرات: مقالات وصور وحكايات وشهادات تحفظ أثر المكان والإنسان في مدينة الصخيرات.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/content-architecture.css">
+    <link rel="stylesheet" href="../css/skhirat-memory.css">
+    <link rel="stylesheet" href="../css/agent.css">
+    <link rel="stylesheet" href="../css/accessibility.css">
+    <link rel="icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="جمعية أمجاد">
+    <meta property="og:image" content="../images/og-image.png">
+</head>
+
+<body class="rtl memory-page">
+    <nav class="navbar fixed top-0 w-full z-50 px-4 py-3 bg-white">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3">
+                <img src="../images/logoamjad.png" alt="شعار جمعية أمجاد" class="h-12 w-auto" data-translate="logo_alt" data-translate-attr="alt">
+            </a>
+
+            <div class="hidden xl:flex items-center gap-4">
+                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
+                <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
+                <a href="../services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="../programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
+                <a href="../news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
+                <a href="../shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="../evaluation.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_evaluation">تقييم أمجاد</a>
+                <a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="../index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
+                <a href="../about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
+                <a href="../services.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="services">الخدمات الإلكترونية</a>
+                <a href="../programs.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="programs">الخدمات والبرامج</a>
+                <a href="../news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
+                <a href="../shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="../evaluation.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_evaluation">تقييم أمجاد</a>
+                <a href="../contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="memory-hero">
+        <div class="memory-hero__content">
+            <span class="memory-eyebrow">أرشيف محلي مفتوح للتوثيق</span>
+            <h1>ذاكرة الصخيرات</h1>
+            <p>رحلة في ذاكرة مدينة تجمع بين البحر، التاريخ، الإنسان، والحكايات.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="memory-section memory-intro">
+            <div class="memory-container">
+                <div class="memory-intro-card">
+                    <div>
+                        <span class="memory-kicker"><i class="fas fa-book-open"></i> تقديم</span>
+                        <h2>ذاكرة الصخيرات</h2>
+                        <p data-amjad="memory-intro">هذه الصفحة فضاء لتوثيق ذاكرة الصخيرات، من خلال مقالات وصور وحكايات وشهادات تحفظ أثر المكان والإنسان.</p>
+                    </div>
+                    <div class="memory-seal" aria-hidden="true">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-compass"></i> أبواب التوثيق</span>
+                    <h2>محاور الذاكرة</h2>
+                    <p>تصنيفات تساعد على ترتيب المحتوى القادم: مقالات، صور، شهادات، ومواد أرشيفية قابلة للتحديث لاحقاً.</p>
+                </div>
+                <div class="memory-grid memory-grid-3">
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-scroll"></i>
+                        <h3>تاريخ المدينة</h3>
+                        <p>مدخل للمقالات التي تتناول تحولات المدينة وذاكرتها العامة دون أحكام أو مبالغات.</p>
+                        <a href="#memory-articles">استكشف</a>
+                    </article>
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-user"></i>
+                        <h3>شخصيات من الذاكرة</h3>
+                        <p>مساحة مستقبلية لتوثيق وجوه تركت أثراً في المدينة أو في أحيائها ومؤسساتها.</p>
+                        <a href="#memory-figures">استكشف</a>
+                    </article>
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-map-location-dot"></i>
+                        <h3>أماكن وفضاءات</h3>
+                        <p>قراءة للمدينة من خلال المدرسة، الشاطئ، الأحياء، والساحات التي تحفظ الحكايات.</p>
+                        <a href="#memory-places">استكشف</a>
+                    </article>
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-images"></i>
+                        <h3>صور قديمة</h3>
+                        <p>أرشيف بصري ينتظر مساهمات السكان والفاعلين لجمع صور موثوقة ومؤرخة.</p>
+                        <a href="#memory-gallery">استكشف</a>
+                    </article>
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-comments"></i>
+                        <h3>حكايات السكان</h3>
+                        <p>شهادات وحكايات شخصية تحفظ الذاكرة اليومية للمدينة بلغة قريبة ومسؤولة.</p>
+                        <a href="#share-memory">استكشف</a>
+                    </article>
+                    <article class="memory-card memory-axis">
+                        <i class="fas fa-school"></i>
+                        <h3>المدرسة والجمعيات</h3>
+                        <p>زاوية لتوثيق دور المدرسة والعمل الجمعوي في بناء روابط المجتمع المحلي.</p>
+                        <a href="#memory-timeline">استكشف</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section-light" id="memory-articles">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-newspaper"></i> مواد تحريرية</span>
+                    <h2>مقالات مختارة</h2>
+                    <p>بطاقات أولية في انتظار المقالات النهائية والصور المعتمدة.</p>
+                </div>
+                <div class="memory-grid memory-grid-3" data-amjad-list="memory-articles">
+                    <article class="memory-card memory-article">
+                        <div class="memory-article-image placeholder-sea"><i class="fas fa-water"></i></div>
+                        <span>تاريخ المدينة</span>
+                        <h3>الصخيرات بين البحر والذاكرة</h3>
+                        <p>مقال تمهيدي حول علاقة المدينة بالبحر والذكريات المرتبطة بالمكان.</p>
+                        <time>قيد الإعداد</time>
+                        <a href="../contact.html">قراءة المقال</a>
+                    </article>
+                    <article class="memory-card memory-article">
+                        <div class="memory-article-image placeholder-figures"><i class="fas fa-user-group"></i></div>
+                        <span>شخصيات من الذاكرة</span>
+                        <h3>شخصيات صنعت أثراً في المدينة</h3>
+                        <p>ملف مخصص لتقديم سير موجزة ومحترمة لشخصيات سيتم توثيقها لاحقاً.</p>
+                        <time>قيد التوثيق</time>
+                        <a href="../contact.html">قراءة المقال</a>
+                    </article>
+                    <article class="memory-card memory-article">
+                        <div class="memory-article-image placeholder-school"><i class="fas fa-school"></i></div>
+                        <span>المدرسة والجمعيات</span>
+                        <h3>المدرسة في ذاكرة أجيال الصخيرات</h3>
+                        <p>مادة مستقبلية حول المدرسة كفضاء للتعلم والصداقة وبناء الذاكرة المشتركة.</p>
+                        <time>قيد التحرير</time>
+                        <a href="../contact.html">قراءة المقال</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section" id="memory-timeline">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-timeline"></i> سرد زمني</span>
+                    <h2>رحلة عبر الزمن</h2>
+                    <p>محطات عامة بصياغة محايدة إلى حين توفير المعطيات التاريخية الدقيقة.</p>
+                </div>
+                <div class="memory-timeline">
+                    <article><strong>البدايات</strong><p>مرحلة مفتوحة للتوثيق اعتماداً على الشهادات والصور والمواد المتاحة.</p></article>
+                    <article><strong>المدينة والبحر</strong><p>زاوية لتوثيق علاقة السكان بالبحر والفضاءات الساحلية بعبارات دقيقة ومحايدة.</p></article>
+                    <article><strong>المدرسة والطفولة</strong><p>محور يجمع ذكريات الدراسة والأنشطة والأجيال التي مرت من فضاءات التعلم.</p></article>
+                    <article><strong>العمل الجمعوي</strong><p>مسار لتوثيق المبادرات المحلية التي ساهمت في خدمة القرب والتضامن.</p></article>
+                    <article><strong>الصخيرات اليوم</strong><p>قراءة حاضرة للمدينة في انتظار مواد موثقة من السكان والفاعلين.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section-light" id="memory-places">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-location-dot"></i> جغرافيا الذاكرة</span>
+                    <h2>أماكن من الذاكرة</h2>
+                    <p>بطاقات لا تدعي تاريخاً غير موثق، بل تفتح الباب لتجميع الحكايات والصور المرتبطة بالأماكن.</p>
+                </div>
+                <div class="memory-grid memory-grid-3" data-amjad-list="memory-places">
+                    <article class="memory-card memory-place"><div class="memory-place-mark">01</div><h3>الشاطئ</h3><p>فضاء للقاء والهدوء وذكريات العائلات، في انتظار صور وشهادات موثقة.</p></article>
+                    <article class="memory-card memory-place"><div class="memory-place-mark">02</div><h3>المدرسة</h3><p>مكان يحتفظ بذاكرة الطفولة والتعلم والعلاقات التي رافقت أجيالاً متعددة.</p></article>
+                    <article class="memory-card memory-place"><div class="memory-place-mark">03</div><h3>الأحياء</h3><p>حياة يومية وجوار وحكايات صغيرة تشكل جزءاً أساسياً من ذاكرة المدينة.</p></article>
+                    <article class="memory-card memory-place"><div class="memory-place-mark">04</div><h3>دار الشباب</h3><p>فضاء يمكن أن يحفظ ذاكرة الأنشطة واللقاءات والمبادرات الشبابية.</p></article>
+                    <article class="memory-card memory-place"><div class="memory-place-mark">05</div><h3>الفضاءات الثقافية</h3><p>أماكن للتعبير والتبادل والتوثيق المستقبلي للأنشطة المحلية.</p></article>
+                    <article class="memory-card memory-place"><div class="memory-place-mark">06</div><h3>الملاعب والساحات</h3><p>مساحات لعب ولقاء تحمل ذكريات رياضية واجتماعية قابلة للجمع والتوثيق.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section" id="memory-figures">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-user-pen"></i> سير وشهادات</span>
+                    <h2>شخصيات من الذاكرة</h2>
+                    <p>تصميم مهيأ لنشر ملفات شخصية بعد التحقق من الأسماء والمعلومات والموافقة على النشر.</p>
+                </div>
+                <div class="memory-grid memory-grid-3" data-amjad-list="memory-figures">
+                    <article class="memory-card memory-figure">
+                        <div class="memory-avatar"><i class="fas fa-user"></i></div>
+                        <h3>اسم الشخصية</h3>
+                        <span>الدور أو المساهمة</span>
+                        <p>مساحة مخصصة لقصة موجزة ومحترمة بعد توفير المعطيات الموثقة.</p>
+                    </article>
+                    <article class="memory-card memory-figure">
+                        <div class="memory-avatar"><i class="fas fa-user"></i></div>
+                        <h3>اسم الشخصية</h3>
+                        <span>الدور أو المساهمة</span>
+                        <p>يمكن إضافة صورة وسيرة قصيرة وشهادة مرتبطة بالمدينة لاحقاً.</p>
+                    </article>
+                    <article class="memory-card memory-figure">
+                        <div class="memory-avatar"><i class="fas fa-user"></i></div>
+                        <h3>اسم الشخصية</h3>
+                        <span>الدور أو المساهمة</span>
+                        <p>بطاقة جاهزة للنشر عند توفر المحتوى الرسمي أو الشهادة المعتمدة.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section memory-section-light" id="memory-gallery">
+            <div class="memory-container">
+                <div class="memory-section-head">
+                    <span class="memory-kicker"><i class="fas fa-images"></i> أرشيف بصري</span>
+                    <h2>ألبوم الذاكرة</h2>
+                    <p>هيكلة جاهزة لصور قديمة وحديثة ومقارنات قبل/بعد عند توفر المواد الأصلية.</p>
+                </div>
+                <div class="memory-gallery" data-amjad-list="memory-gallery">
+                    <a href="../images/skhirat.jpg" class="memory-photo memory-photo-large" aria-label="عرض صورة من الصخيرات">
+                        <img src="../images/skhirat.jpg" alt="صورة حديثة من الصخيرات">
+                        <span>صورة حديثة</span>
+                    </a>
+                    <a href="../images/school.jpeg" class="memory-photo" aria-label="عرض صورة مدرسية">
+                        <img src="../images/school.jpeg" alt="فضاء مدرسي">
+                        <span>المدرسة</span>
+                    </a>
+                    <a href="../images/event.jpg" class="memory-photo" aria-label="عرض صورة نشاط">
+                        <img src="../images/event.jpg" alt="نشاط محلي">
+                        <span>نشاط محلي</span>
+                    </a>
+                    <a href="../images/jam3.jpeg" class="memory-photo" aria-label="عرض صورة أرشيفية">
+                        <img src="../images/jam3.jpeg" alt="توثيق جمعوي">
+                        <span>توثيق جمعوي</span>
+                    </a>
+                    <div class="memory-photo memory-before-after">
+                        <span>قبل / بعد</span>
+                        <p>مكان مخصص لمقارنة بصرية عند توفر الصور.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="memory-section" id="share-memory">
+            <div class="memory-container">
+                <div class="memory-share">
+                    <div>
+                        <span class="memory-kicker"><i class="fas fa-paper-plane"></i> دعوة للمساهمة</span>
+                        <h2>شاركنا الذاكرة</h2>
+                        <p>هل لديك صورة قديمة أو حكاية عن الصخيرات؟ شاركها معنا لنحافظ معاً على ذاكرة المدينة.</p>
+                    </div>
+                    <div class="memory-actions">
+                        <a href="../contact.html">إرسال صورة</a>
+                        <a href="../contact.html">إرسال حكاية</a>
+                        <a href="../contact.html">التواصل معنا</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="contactInfo">معلومات الاتصال</h3>
+                    <div class="space-y-2">
+                        <p><i class="fas fa-map-marker-alt ml-2"></i> <span>الصخيرات المغرب</span></p>
+                        <p><i class="fas fa-phone ml-2"></i> <span data-amjad="contact-phone">الهاتف: سيتم الإعلان عن الرقم الرسمي قريباً</span></p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <div class="space-y-2">
+                        <a href="../about.html" class="block hover:text-green-400 transition-colors">عن الجمعية</a>
+                        <a href="../programs.html" class="block hover:text-green-400 transition-colors">البرامج والخدمات</a>
+                        <a href="../news.html" class="block hover:text-green-400 transition-colors">الأخبار</a>
+                        <a href="../contact.html" class="block hover:text-green-400 transition-colors">الاتصال</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
+                    <div class="flex gap-4 justify-center">
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-facebook"></i></a>
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2026 جمعية أمجاد للتربية والأعمال الاجتماعية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/translations.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/cms-connector.js"></script>
+    <script src="../js/agent.js" defer></script>
+</body>
+
+</html>

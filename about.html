@@ -27,7 +27,7 @@
     />
     <link rel="stylesheet" href="css/about.css">
     <!-- Custom Styles -->
-    
+
       <link rel="icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -37,6 +37,7 @@
     <meta property="og:site_name" content="جمعية أمجاد">
     <meta property="og:image" content="images/og-image.png">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
   <body class="rtl">
     <!-- Navigation -->
@@ -48,30 +49,31 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-4">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
                 <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -80,6 +82,7 @@
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
                 <a href="index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
@@ -117,9 +120,9 @@
               خلق بيئة محفزة للنمو والإبداع، من خلال برامجنا المتنوعة التي تهدف
               إلى تعزيز قيم المواطنة والتعاون والمسؤولية الاجتماعية.
             </p>
-            <button
+            <button type="button"
               class="btn-primary"
-              onclick="window.location.href='services.html#join'"
+              onclick="window.location.href='services.html#membership-form'"
               data-translate="about_who_cta"
             >
               انضم إلينا
@@ -294,8 +297,8 @@
                 <span class="text-green-600 font-semibold">2023</span>
               </div>
               <p class="text-gray-600" data-translate="about_timeline_3_text">
-                توسيع نطاق البرامج ليشمل أكاديمية أمجاد، وإفطار الخير، وزيادة
-                عدد المتطوعين إلى أكثر من 100 متطوع.
+                توسيع نطاق البرامج ليشمل أكاديمية أمجاد وإفطار الخير، وتوسيع
+                قاعدة المشاركة التطوعية.
               </p>
             </div>
           </div>
@@ -303,12 +306,11 @@
           <div class="timeline-item fade-in">
             <div class="bg-white rounded-lg p-6 shadow-lg">
               <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_4_title">التميز والتكريم</h3>
+                <h3 class="text-xl font-bold text-gray-800" data-translate="about_timeline_4_title">التطوير والاستمرار</h3>
                 <span class="text-green-600 font-semibold">2024</span>
               </div>
               <p class="text-gray-600" data-translate="about_timeline_4_text">
-                تكريم الجمعية من قبل السلطات المحلية، ووصول عدد المستفيدين إلى
-                أكثر من 2500 شخص، وإطلاق مبادرة رياضية مجتمعية.
+                توسيع الأنشطة التربوية والاجتماعية وإطلاق مبادرة رياضية مجتمعية.
               </p>
             </div>
           </div>
@@ -352,19 +354,19 @@
               <li class="flex items-start">
                 <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
                 <span class="text-gray-600" data-translate="about_goals_short_1"
-                  >زيادة عدد المستفيدين من برامجنا إلى 5000 شخص</span
+                  >توسيع الوصول إلى المستفيدين من برامجنا</span
                 >
               </li>
               <li class="flex items-start">
                 <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
                 <span class="text-gray-600" data-translate="about_goals_short_2"
-                  >توسيع شبكة المتطوعين إلى 300 متطوع</span
+                  >توسيع شبكة المتطوعين وتعزيز تأطيرهم</span
                 >
               </li>
               <li class="flex items-start">
                 <i class="fas fa-check-circle text-green-600 mt-1 ml-3"></i>
                 <span class="text-gray-600" data-translate="about_goals_short_3"
-                  >إطلاق 5 برامج جديدة في مجالات متنوعة</span
+                  >تطوير برامج جديدة في مجالات متنوعة</span
                 >
               </li>
               <li class="flex items-start">
@@ -384,7 +386,7 @@
               <li class="flex items-start">
                 <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
                 <span class="text-gray-600" data-translate="about_goals_long_1"
-                  >الوصول إلى 10,000 مستفيد سنويًا</span
+                  >توسيع الأثر المجتمعي للبرامج بشكل مستدام</span
                 >
               </li>
               <li class="flex items-start">
@@ -402,7 +404,7 @@
               <li class="flex items-start">
                 <i class="fas fa-star text-yellow-600 mt-1 ml-3"></i>
                 <span class="text-gray-600" data-translate="about_goals_long_4"
-                  >الحصول على الاعتمادات الدولية في مجال العمل الاجتماعي</span
+                  >تعزيز جودة العمل الاجتماعي وبناء شراكات مستدامة</span
                 >
               </li>
             </ul>
@@ -424,16 +426,16 @@
           </p>
 
           <div class="flex flex-wrap justify-center gap-4">
-            <button
+            <button type="button"
               class="btn-secondary text-lg px-8 py-3"
-              onclick="window.location.href='services.html#volunteer'"
+              onclick="window.location.href='services.html#volunteer-form'"
               data-translate="about_join_volunteer"
             >
               تطوع معنا
             </button>
-            <button
+            <button type="button"
               class="bg-white text-green-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-lg font-semibold transition-colors"
-              onclick="window.location.href='services.html#join'"
+              onclick="window.location.href='services.html#membership-form'"
               data-translate="about_join_cta"
             >
               انضم إلينا
@@ -461,7 +463,7 @@
               </p>
               <p>
                 <i class="fas fa-envelope ml-2"></i>
-               a.amjad.eos@gmail.com
+               <span data-amjad="contact-email">contact@associationamjad.ma</span>
               </p>
             </div>
           </div>
@@ -494,7 +496,7 @@
                 data-translate="news"
                 >الأخبار</a
               >
-            
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -507,41 +509,35 @@
               تابعونا
             </h3>
             <div class="flex gap-4 justify-center">
-              <a
+              <a aria-label="Facebook"
                 href="https://www.facebook.com/association.amjad"
                 class="text-2xl hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-facebook"></i>
               </a>
-              <a
+              <a aria-label="Instagram"
                 href="https://www.instagram.com/association_amjad"
                 class="text-2xl hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-instagram"></i>
               </a>
-              <a
+              <a aria-label="X"
                 href="https://x.com/associatioAmjad"
                 class="text-2xl hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-x"></i>
               </a>
-              <a
+              <a aria-label="YouTube"
                 href="https://youtube.com/@association_amjad"
                 class="text-2xl hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-youtube"></i>
               </a>
-              <a
+              <a aria-label="TikTok"
                 href="https://tiktok.com/@amjad_association"
                 class="text-2xl hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-tiktok"></i>
-              </a>
-              <a
-                href=""
-                class="text-2xl hover:text-green-400 transition-colors"
-              >
-                <i class="fab fa-linkedin"></i>
               </a>
             </div>
           </div>
@@ -559,6 +555,7 @@
     <!-- Main JavaScript -->
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cms-connector.js"></script>
       <script src="js/agent.js" defer></script>
 </body>
-</html> 
+</html>

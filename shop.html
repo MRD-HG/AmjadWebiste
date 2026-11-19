@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="shop_title">متجر أمجاد | جمعية أمجاد</title>
-    <meta name="description" content="متجر داعم لجمعية أمجاد: تيشرتات وقبعات — الطلب عبر واتساب." data-translate="shop_meta_description" data-translate-attr="content">
+    <meta name="description" content="متجر داعم لجمعية أمجاد: تيشرتات وقبعات — الطلب عبر البريد الإلكتروني." data-translate="shop_meta_description" data-translate-attr="content">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/shop.css">
     <link rel="stylesheet" href="css/agent.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 <link rel="icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -35,30 +36,31 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
+            <div class="hidden xl:flex items-center gap-4">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="about">عن الجمعية</a>
                 <a href="services.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="services">الخدمات الإلكترونية</a>
                 <a href="programs.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="programs">الخدمات والبرامج</a>
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="news">الأخبار</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium transition-colors" data-translate="contact">الاتصال</a>
             </div>
 
             <!-- Language Switcher + Mobile -->
             <div class="flex items-center gap-3">
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
-                <button class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors active" data-lang="ar">العربية</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="en">EN</button>
+                <button type="button" class="lang-btn px-3 py-1 rounded text-sm font-medium transition-colors" data-lang="fr">FR</button>
 
-                <button class="md:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
+                <button class="xl:hidden ml-4 text-gray-800" onclick="toggleMobileMenu()" type="button" aria-label="Open menu" title="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+        <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
             <div class="flex flex-col space-y-3">
                 <a href="index.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="home">الرئيسية</a>
                 <a href="about.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="about">عن الجمعية</a>
@@ -67,6 +69,7 @@
                 <a href="news.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="news">الأخبار</a>
                 <a href="index.html#islamic-tools" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_islamic">الخدمات الإسلامية</a>
                 <a href="shop.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_shop">متجر أمجاد</a>
+                <a href="evaluation.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="nav_evaluation">تقييم أمجاد</a>
 <a href="contact.html" class="text-gray-800 hover:text-green-600 font-medium" data-translate="contact">الاتصال</a>
             </div>
         </div>
@@ -78,7 +81,7 @@
         <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         <div class="relative z-10 text-center max-w-4xl mx-auto px-4 fade-in">
             <h1 class="text-4xl md:text-5xl font-bold mb-4" data-translate="shop_h1">متجر أمجاد</h1>
-            <p class="text-xl md:text-2xl" data-translate="shop_p">اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — الطلب يتم مباشرة عبر واتساب.</p>
+            <p class="text-xl md:text-2xl" data-translate="shop_p">اطلب تيشرت أو قبعة لدعم أنشطة الجمعية — أكمل الطلب عبر البريد الإلكتروني.</p>
         </div>
     </section>
 
@@ -89,7 +92,7 @@
                 <div class="trust-item"><i class="fas fa-hand-holding-heart"></i><span data-translate="shop_trust_support">دعم مباشر للبرامج</span></div>
                 <div class="trust-item"><i class="fas fa-shield-alt"></i><span data-translate="shop_trust_transparent">شفافية ووضوح</span></div>
                 <div class="trust-item"><i class="fas fa-truck"></i><span data-translate="shop_trust_delivery">تسليم محلي</span></div>
-                <div class="trust-item"><i class="fab fa-whatsapp"></i><span data-translate="shop_trust_whatsapp">طلب سريع عبر واتساب</span></div>
+                <div class="trust-item"><i class="fas fa-envelope"></i><span data-translate="shop_trust_email">طلب واضح عبر البريد الإلكتروني</span></div>
             </div>
         </div>
     </section>
@@ -110,7 +113,7 @@
                         <div class="flex flex-col sm:flex-row gap-3">
                             <div class="relative flex-1">
                                 <i class="fas fa-search shop-search-icon"></i>
-                                <input id="shop-search" class="border rounded-xl pr-10 pl-3 py-2 w-full" data-translate="shop_search_ph" placeholder="ابحث عن منتج..." />
+                                <input type="search" id="shop-search" class="border rounded-xl pr-10 pl-3 py-2 w-full" data-translate="shop_search_ph" placeholder="ابحث عن منتج..." />
                             </div>
                             <select id="shop-filter" class="border rounded-xl px-3 py-2 w-full sm:w-44">
                                 <option value="all" data-translate="shop_filter_all">الكل</option>
@@ -122,7 +125,7 @@
 
                     <div class="grid sm:grid-cols-2 gap-6" id="shop-products">
                         <!-- Product: T-shirt -->
-                        <article class="product-card-v2 fade-in" data-kind="tshirt" data-product="T-shirt">
+                        <article class="product-card-v2 fade-in" data-kind="tshirt" data-product="T-shirt" data-cms-id="tshirt" data-price="0" data-currency="MAD" data-sizes="S,M,L,XL" data-colors="Black,White,Green" data-available="true">
                             <div class="product-media">
                                 <div class="product-badge" data-translate="shop_badge_best">الأكثر طلباً</div>
                                 <div class="product-icon"><i class="fas fa-shirt"></i></div>
@@ -142,7 +145,7 @@
                         </article>
 
                         <!-- Product: Cap -->
-                        <article class="product-card-v2 fade-in" data-kind="cap" data-product="Cap">
+                        <article class="product-card-v2 fade-in" data-kind="cap" data-product="Cap" data-cms-id="cap" data-price="0" data-currency="MAD" data-sizes="OneSize" data-colors="Black,White,Green" data-available="true">
                             <div class="product-media">
                                 <div class="product-badge secondary" data-translate="shop_badge_new">متوفر الآن</div>
                                 <div class="product-icon"><i class="fas fa-hat-cowboy"></i></div>
@@ -177,13 +180,13 @@
                         <h3 class="text-2xl font-bold text-gray-800 mb-4" data-translate="shop_faq_title">أسئلة شائعة</h3>
                         <div class="faq">
                             <button class="faq-q" type="button"><span data-translate="shop_faq_q1">كيف يتم الطلب؟</span><i class="fas fa-chevron-down"></i></button>
-                            <div class="faq-a" data-translate="shop_faq_a1">تختار المنتج والمقاس/اللون والكمية، ثم نجهز رسالة واتساب جاهزة للإرسال.</div>
+                            <div class="faq-a" data-translate="shop_faq_a1">اختر المنتج والمقاس واللون والكمية، ثم راجع رسالة البريد الجاهزة وأرسلها بنفسك.</div>
 
                             <button class="faq-q" type="button"><span data-translate="shop_faq_q2">هل هناك توصيل؟</span><i class="fas fa-chevron-down"></i></button>
                             <div class="faq-a" data-translate="shop_faq_a2">نرتب التوصيل حسب المدينة والتوفر. اذكر مدينتك وسنتواصل لتأكيد التفاصيل.</div>
 
                             <button class="faq-q" type="button"><span data-translate="shop_faq_q3">كيف أعرف أن مساهمتي وصلت؟</span><i class="fas fa-chevron-down"></i></button>
-                            <div class="faq-a" data-translate="shop_faq_a3">نؤكد الطلب عبر واتساب، ونشارك توثيق الأنشطة وتقارير مختصرة عند توفرها.</div>
+                            <div class="faq-a" data-translate="shop_faq_a3">يبدأ تأكيد الطلب بعد إرسال رسالتك إلى البريد الرسمي للجمعية.</div>
                         </div>
                     </div>
 
@@ -192,11 +195,11 @@
                 <!-- Right: Order panel -->
                 <aside class="order-panel feature-card p-6 md:p-8 shadow-lg fade-in">
                     <div class="flex items-center justify-between gap-3 flex-wrap">
-                        <h2 class="text-2xl font-bold text-gray-800" data-translate="shop_order_title">طلب عبر واتساب</h2>
-                        <span class="order-badge"><i class="fab fa-whatsapp"></i><span data-translate="shop_order_badge">جاهز للإرسال</span></span>
+                        <h2 class="text-2xl font-bold text-gray-800" data-translate="shop_order_title">طلب عبر البريد الإلكتروني</h2>
+                        <span class="order-badge"><i class="fas fa-envelope"></i><span data-translate="shop_order_badge">جاهز للمراجعة</span></span>
                     </div>
 
-                    <p class="text-gray-600 mt-2" data-translate="shop_order_p">املأ البيانات واختر المنتج وسيتم تجهيز رسالة جاهزة لإرسالها عبر واتساب.</p>
+                    <p class="text-gray-600 mt-2" data-translate="shop_order_p">املأ البيانات واختر المنتج، ثم راجع رسالة البريد وأرسلها إلى الجمعية.</p>
 
                     <div class="order-summary mt-4">
                         <div class="flex items-center justify-between">
@@ -220,9 +223,12 @@
                     </div>
 
                     <form id="amjad-shop-form" class="grid gap-3 mt-5">
-                        <input id="shop-name" name="name" class="border rounded-xl px-3 py-2" required />
-                        <input id="shop-city" name="city" class="border rounded-xl px-3 py-2" required />
-                        <input id="shop-phone" name="phone" class="border rounded-xl px-3 py-2" />
+                        <label class="sr-only" for="shop-name">الاسم الكامل</label>
+                        <input type="text" id="shop-name" name="name" class="border rounded-xl px-3 py-2" required />
+                        <label class="sr-only" for="shop-city">المدينة</label>
+                        <input type="text" id="shop-city" name="city" class="border rounded-xl px-3 py-2" required />
+                        <label class="sr-only" for="shop-phone">رقم الهاتف (اختياري)</label>
+                        <input type="tel" id="shop-phone" name="phone" class="border rounded-xl px-3 py-2" />
 
                         <!-- Variant controls -->
                         <div class="variant-grid">
@@ -256,19 +262,22 @@
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-3">
+                            <label class="sr-only" for="shop-support">مبلغ دعم إضافي (اختياري)</label>
                             <input id="shop-support" name="support" type="number" min="0" step="1" class="border rounded-xl px-3 py-2" data-translate="shop_support_ph" placeholder="مبلغ دعم إضافي (اختياري)" />
-                            <input id="shop-delivery" name="delivery" class="border rounded-xl px-3 py-2" data-translate="shop_delivery_ph" placeholder="عنوان/ملاحظة للتسليم (اختياري)" />
+                            <label class="sr-only" for="shop-delivery">عنوان أو ملاحظة للتسليم (اختياري)</label>
+                            <input type="text" id="shop-delivery" name="delivery" class="border rounded-xl px-3 py-2" data-translate="shop_delivery_ph" placeholder="عنوان/ملاحظة للتسليم (اختياري)" />
                         </div>
 
+                        <label class="sr-only" for="shop-note">ملاحظة إضافية</label>
                         <textarea id="shop-note" name="note" rows="3" class="border rounded-xl px-3 py-2"></textarea>
 
-                        <!-- Hidden values used for WhatsApp message -->
+                        <!-- Hidden values used to prepare the order email -->
                         <input type="hidden" id="shop-product" name="product" value="T-shirt" />
                         <input type="hidden" id="shop-size" name="size" value="M" />
                         <input type="hidden" id="shop-color" name="color" value="Black" />
                         <input type="hidden" id="shop-qty" name="qty" value="1" />
 
-                        <button id="shop-order-btn" type="submit" class="btn-primary btn-sm w-full"></button>
+                        <button id="shop-order-btn" type="submit" class="btn-primary btn-sm w-full">متابعة الطلب عبر البريد الإلكتروني</button>
 
                         <div class="mt-2 bg-white border rounded-2xl p-4">
                             <p class="text-sm text-gray-700" data-translate="shop_order_tip">💡 نصيحة: ضع ملاحظة عن اللون/المقاس/الكمية لتسريع تجهيز الطلب.</p>
@@ -293,7 +302,7 @@
                         <p><i class="fas fa-map-marker-alt ml-2"></i> <span data-translate="index_footer_address">الصخيرات
                                 المغرب</span></p>
                         <p><i class="fas fa-phone ml-2"></i> </p>
-                        <p><i class="fas fa-envelope ml-2"></i>  a.amjad.eos@gmail.com</p>
+                        <p><i class="fas fa-envelope ml-2"></i> <span data-amjad="contact-email">contact@associationamjad.ma</span></p>
                     </div>
                 </div>
 
@@ -309,7 +318,7 @@
                             data-translate="programs">البرامج والخدمات</a>
                         <a href="news.html" class="block hover:text-green-400 transition-colors"
                             data-translate="news">الأخبار</a>
-                    
+
                         <a href="index.html#islamic-tools" class="block hover:text-green-400 transition-colors" data-translate="nav_islamic">الخدمات الإسلامية</a>
                         <a href="shop.html" class="block hover:text-green-400 transition-colors" data-translate="nav_shop">متجر أمجاد</a>
 <a href="contact.html" class="block hover:text-green-400 transition-colors" data-translate="contact">الاتصال</a>
@@ -320,27 +329,23 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4" data-translate="followUs">تابعونا</h3>
                     <div class="flex gap-4 justify-center">
-                        <a href="https://www.facebook.com/association.amjad"
+                        <a aria-label="Facebook" href="https://www.facebook.com/association.amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/association_amjad"
+                        <a aria-label="Instagram" href="https://www.instagram.com/association_amjad"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="X" href="https://x.com/associatioAmjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-x"></i>
                         </a>
-                        <a href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
+                        <a aria-label="YouTube" href="https://youtube.com/@association_amjad" class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://tiktok.com/@amjad_association"
+                        <a aria-label="TikTok" href="https://tiktok.com/@amjad_association"
                             class="text-2xl hover:text-green-400 transition-colors">
                             <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href=""
-                            class="text-2xl hover:text-green-400 transition-colors">
-                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -355,6 +360,7 @@
 
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cms-connector.js"></script>
     <script src="js/shop.js" defer></script>
     <script src="js/agent.js" defer></script>
 </body>

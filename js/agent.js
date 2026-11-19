@@ -62,9 +62,9 @@
     },
     shop: {
       kw: ["متجر","shop","boutique","t-shirt","cap","قبعة","تيشرت","تي شيرت"],
-      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس/اللون والكمية، ثم اضغط «طلب عبر واتساب».",
-      en: "Amjad Shop: open the Shop page, choose product/size/color/qty, then “Order via WhatsApp”.",
-      fr: "Boutique Amjad : ouvrez la page Boutique, choisissez produit/taille/couleur/quantité, puis “Commander via WhatsApp”."
+      ar: "متجر أمجاد: افتح صفحة «متجر أمجاد»، اختر المنتج والمقاس واللون والكمية، ثم تابع الطلب عبر البريد الإلكتروني.",
+      en: "Amjad Shop: open the Shop page, choose the product, size, color and quantity, then continue the order by email.",
+      fr: "Boutique Amjad : ouvrez la boutique, choisissez le produit, la taille, la couleur et la quantité, puis continuez la commande par e-mail."
     },
     sponsorship: {
       kw: ["رعاية","شراكة","sponsor","sponsorship","partenariat","sponsoring","csr"],
@@ -74,9 +74,9 @@
     },
     contact: {
       kw: ["تواصل","اتصال","contact","adresse","email","phone","هاتف","بريد"],
-      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: a.amjad.eos@gmail.com",
-      en: "Contact: open the Contact page. Email: a.amjad.eos@gmail.com",
-      fr: "Contact : ouvrez la page Contact. E-mail : a.amjad.eos@gmail.com"
+      ar: "للتواصل: افتح صفحة «الاتصال». يمكنك مراسلتنا على: {email}",
+      en: "Contact: open the Contact page. Email: {email}",
+      fr: "Contact : ouvrez la page Contact. E-mail : {email}"
     }
   };
 
@@ -95,7 +95,9 @@
       const item = ANSWERS[k];
       if(item.kw.some(w => text.includes(w.toLowerCase()))){
         const lang = getLang();
-        return item[lang] || item.ar;
+        const answer = item[lang] || item.ar;
+        const email = window.getAmjadContactEmail ? window.getAmjadContactEmail() : 'contact@associationamjad.ma';
+        return answer.replace('{email}', email);
       }
     }
     const lang = getLang();

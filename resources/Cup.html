@@ -28,6 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="../css/accessibility.css" />
 
     <!-- 🌿 CSS مدموج خاص بهذه الصفحة -->
     <style>
@@ -210,7 +211,7 @@
           />
         </div>
 
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden xl:flex items-center gap-4">
           <a
             href="../index.html"
             class="text-gray-800 hover:text-green-600 font-medium transition-colors"
@@ -242,10 +243,10 @@
             >الأخبار</a
           >
           <a
-            href="Cup.html"
-            class="text-green-600 font-semibold border-b-2 border-green-600"
-            data-translate="nav_afcon_2025"
-            >كأس إفريقيا 2025</a
+            href="../evaluation.html"
+            class="text-gray-800 hover:text-green-600 font-medium transition-colors"
+            data-translate="nav_evaluation"
+            >تقييم أمجاد</a
           >
           <a
             href="../contact.html"
@@ -271,7 +272,7 @@
           </button>
 
           <button
-            class="md:hidden ml-4 text-gray-800"
+            class="xl:hidden ml-4 text-gray-800"
             type="button"
             onclick="toggleMobileMenu && toggleMobileMenu()"
             aria-label="Open menu"
@@ -282,7 +283,7 @@
         </div>
       </div>
 
-      <div class="mobile-menu hidden md:hidden mt-4 pb-4">
+      <div class="mobile-menu hidden xl:hidden mt-4 pb-4">
         <div class="flex flex-col space-y-3 px-4">
           <a
             href="../index.html"
@@ -315,10 +316,10 @@
             >الأخبار</a
           >
           <a
-            href="Cup.html"
-            class="text-green-600 font-semibold"
-            data-translate="nav_afcon_2025"
-            >كأس إفريقيا 2025</a
+            href="../evaluation.html"
+            class="text-gray-800 hover:text-green-600 font-medium"
+            data-translate="nav_evaluation"
+            >تقييم أمجاد</a
           >
           <a
             href="../contact.html"
@@ -686,7 +687,7 @@
               <p><i class="fas fa-phone ml-2"></i></p>
               <p>
                 <i class="fas fa-envelope ml-2"></i>
-                a.amjad.eos@gmail.com
+                contact@associationamjad.ma
               </p>
             </div>
           </div>
@@ -728,31 +729,31 @@
               تابعونا
             </h3>
             <div class="flex gap-4 justify-center text-2xl">
-              <a
+              <a aria-label="Facebook"
                 href="https://www.facebook.com/association.amjad"
                 class="hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-facebook"></i>
               </a>
-              <a
+              <a aria-label="Instagram"
                 href="https://www.instagram.com/association_amjad"
                 class="hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-instagram"></i>
               </a>
-              <a
+              <a aria-label="X"
                 href="https://x.com/associatioAmjad"
                 class="hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-x"></i>
               </a>
-              <a
+              <a aria-label="YouTube"
                 href="https://youtube.com/@association_amjad"
                 class="hover:text-green-400 transition-colors"
               >
                 <i class="fab fa-youtube"></i>
               </a>
-              <a
+              <a aria-label="TikTok"
                 href="https://tiktok.com/@amjad_association"
                 class="hover:text-green-400 transition-colors"
               >

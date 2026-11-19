@@ -28,6 +28,7 @@ function normalizeLanguage(lang) {
 }
 
 function setDocumentDirection(lang) {
+    document.documentElement.lang = lang;
     if (lang === 'ar') {
         document.documentElement.dir = 'rtl';
         document.body.classList.add('rtl');
@@ -52,8 +53,10 @@ let currentLanguage = normalizeLanguage(getStoredLanguage() || DEFAULT_LANGUAGE)
 document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
     initializeLanguageSwitcher();
+    initializeNavigationAccessibility();
+    initializeIconLinkAccessibility();
     initializeScrollEffects();
-    initializeForms();
+    initializeFormAccessibility();
     initializePhotoGallery();
     
     // Set initial language
@@ -70,11 +73,46 @@ function initializeLanguageSwitcher() {
             const lang = this.dataset.lang;
             currentLanguage = normalizeLanguage(lang);
             storeLanguage(currentLanguage);
-            updateLanguage(lang);
-            
             setActiveLangButton(currentLanguage);
             setDocumentDirection(currentLanguage);
+            updateLanguage(currentLanguage);
         });
+    });
+}
+
+function initializeNavigationAccessibility() {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const toggle = document.querySelector('button[onclick*="toggleMobileMenu"]');
+    if (!mobileMenu || !toggle) return;
+
+    if (!mobileMenu.id) mobileMenu.id = 'mobile-navigation';
+    toggle.setAttribute('aria-controls', mobileMenu.id);
+    toggle.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden')));
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
+
+function initializeIconLinkAccessibility() {
+    const labels = {
+        'fa-facebook': 'Facebook',
+        'fa-instagram': 'Instagram',
+        'fa-x': 'X',
+        'fa-twitter': 'X',
+        'fa-youtube': 'YouTube',
+        'fa-tiktok': 'TikTok'
+    };
+
+    document.querySelectorAll('a').forEach(link => {
+        if (link.textContent.trim() || link.hasAttribute('aria-label')) return;
+        const icon = link.querySelector('i');
+        if (!icon) return;
+        const name = Object.keys(labels).find(className => icon.classList.contains(className));
+        if (name) link.setAttribute('aria-label', labels[name]);
     });
 }
 
@@ -152,14 +190,50 @@ function updateLanguage(lang) {
             titleElement.textContent = titleElement.dataset.originalText || titleElement.textContent;
         }
     }
+
+    document.dispatchEvent(new CustomEvent('amjad:languagechange', {
+        detail: { language: normalizeLanguage(lang) }
+    }));
 }
+
+let fadeObserver = null;
+
+function registerAmjadAnimatedContent(root = document) {
+    const elements = root.matches && root.matches('.fade-in')
+        ? [root]
+        : Array.from(root.querySelectorAll?.('.fade-in') || []);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        elements.forEach(element => element.classList.add('animate-fade-in'));
+        return;
+    }
+    if (!fadeObserver) {
+        fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('animate-fade-in');
+                fadeObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.1 });
+    }
+    elements.forEach(element => {
+        if (!element.classList.contains('animate-fade-in')) fadeObserver.observe(element);
+    });
+}
+window.registerAmjadAnimatedContent = registerAmjadAnimatedContent;
 
 // Initialize animations
 function initializeAnimations() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Animate statistics counters
     const counters = document.querySelectorAll('.counter');
     counters.forEach(counter => {
         const target = parseInt(counter.dataset.target);
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            counter.textContent = target;
+            return;
+        }
         const duration = 2000;
         const increment = target / (duration / 16);
         let current = 0;
@@ -188,18 +262,7 @@ function initializeAnimations() {
     });
     
     // Fade in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in');
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    fadeElements.forEach(element => {
-        fadeObserver.observe(element);
-    });
+    registerAmjadAnimatedContent(document);
 }
 
 // Initialize scroll effects
@@ -212,7 +275,7 @@ function initializeScrollEffects() {
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 target.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
                     block: 'start'
                 });
             }
@@ -232,45 +295,149 @@ function initializeScrollEffects() {
     }
 }
 
-// Initialize forms
-function initializeForms() {
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'alert alert-success mt-4';
-            successMessage.textContent = currentLanguage === 'ar' ? 'تم إرسال النموذج بنجاح!' : 
-                                       currentLanguage === 'en' ? 'Form submitted successfully!' :
-                                       'Formulaire soumis avec succès!';
-            
-            form.appendChild(successMessage);
-            
-            // Reset form after delay
-            setTimeout(() => {
-                form.reset();
-                successMessage.remove();
-            }, 3000);
-        });
+// Associate existing labels with their controls and provide stable field names.
+function initializeFormAccessibility() {
+    let generatedId = 0;
+    document.querySelectorAll('form label').forEach(label => {
+        if (label.htmlFor || label.querySelector('input, select, textarea')) return;
+
+        const group = label.parentElement;
+        const control = group && group.querySelector('input, select, textarea');
+        if (!control) return;
+
+        if (!control.id) {
+            generatedId += 1;
+            control.id = `form-field-${generatedId}`;
+        }
+        if (!control.name) control.name = control.id;
+        label.htmlFor = control.id;
     });
+}
+
+const DEFAULT_CONTACT_EMAIL = 'contact@associationamjad.ma';
+let contactEmail = DEFAULT_CONTACT_EMAIL;
+
+function setAmjadContactEmail(value) {
+    const candidate = String(value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate)) return false;
+    contactEmail = candidate;
+    document.dispatchEvent(new CustomEvent('amjad:contactchange', { detail: { email: contactEmail } }));
+    return true;
+}
+
+function getAmjadContactEmail() {
+    return contactEmail;
+}
+window.setAmjadContactEmail = setAmjadContactEmail;
+window.getAmjadContactEmail = getAmjadContactEmail;
+
+function getFallbackCopy() {
+    if (currentLanguage === 'en') {
+        return {
+            notice: 'This website does not send forms directly. Use the email link below to review and send your information.',
+            link: 'Continue by email',
+            subject: 'Website request'
+        };
+    }
+    if (currentLanguage === 'fr') {
+        return {
+            notice: "Ce site n’envoie pas les formulaires directement. Utilisez le lien ci-dessous pour vérifier et envoyer vos informations.",
+            link: 'Continuer par e-mail',
+            subject: 'Demande depuis le site'
+        };
+    }
+    return {
+        notice: 'الموقع لا يرسل النماذج مباشرة. استخدم رابط البريد أدناه لمراجعة معلوماتك وإرسالها.',
+        link: 'المتابعة عبر البريد الإلكتروني',
+        subject: 'طلب من موقع جمعية أمجاد'
+    };
+}
+
+function collectFormLines(form) {
+    const lines = [];
+    form.querySelectorAll('input, select, textarea').forEach(control => {
+        if (control.type === 'submit' || control.type === 'button' || control.type === 'hidden') return;
+        if ((control.type === 'checkbox' || control.type === 'radio') && !control.checked) return;
+
+        const explicitLabel = control.id ? form.querySelector(`label[for="${CSS.escape(control.id)}"]`) : null;
+        const wrappingLabel = control.closest('label');
+        const groupLabel = control.parentElement && control.parentElement.querySelector('.form-label, .variant-label');
+        const label = explicitLabel || wrappingLabel || groupLabel;
+        const labelText = label ? label.textContent.trim() : (control.placeholder || control.name || control.type);
+        const value = control.type === 'checkbox' || control.type === 'radio'
+            ? (wrappingLabel ? wrappingLabel.textContent.trim() : control.value)
+            : control.value.trim();
+
+        if (value) lines.push(`${labelText}: ${value}`);
+    });
+    return lines;
+}
+
+function renderEmailFallback(form, subject, body) {
+    const copy = getFallbackCopy();
+    const previous = form.querySelector('.form-status');
+    if (previous) previous.remove();
+
+    const status = document.createElement('div');
+    status.className = 'form-status';
+    status.setAttribute('role', 'status');
+    status.tabIndex = -1;
+
+    const message = document.createElement('p');
+    message.textContent = copy.notice;
+
+    const link = document.createElement('a');
+    const email = getAmjadContactEmail();
+    link.href = `mailto:${email}?subject=${encodeURIComponent(subject || copy.subject)}&body=${encodeURIComponent(body || '')}`;
+    link.textContent = `${copy.link} — ${email}`;
+
+    status.append(message, link);
+    form.appendChild(status);
+    status.focus();
+    return link;
+}
+
+function submitEmailFallback(event, formType) {
+    event.preventDefault();
+    const form = event.currentTarget || event.target;
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+    }
+
+    const copy = getFallbackCopy();
+    const type = formType ? ` — ${formType}` : '';
+    const body = collectFormLines(form).join('\n');
+    if (!body) return false;
+    renderEmailFallback(form, `${copy.subject}${type}`, body);
+    return false;
 }
 
 // Initialize photo gallery
 function initializePhotoGallery() {
     const galleryImages = document.querySelectorAll('.gallery-image');
     galleryImages.forEach(image => {
+        image.tabIndex = 0;
+        image.setAttribute('role', 'button');
         image.addEventListener('click', function() {
-            // Simple lightbox effect
             const lightbox = document.createElement('div');
             lightbox.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
-            lightbox.innerHTML = `
-                <div class="relative max-w-4xl max-h-full p-4">
-                    <img src="${this.src}" alt="${this.alt}" class="max-w-full max-h-full object-contain">
-                    <button class="absolute top-2 right-2 text-white text-2xl hover:text-gray-300" onclick="this.parentElement.parentElement.remove()">&times;</button>
-                </div>
-            `;
+            lightbox.setAttribute('role', 'dialog');
+            lightbox.setAttribute('aria-modal', 'true');
+            const frame = document.createElement('div');
+            frame.className = 'relative max-w-4xl max-h-full p-4';
+            const expanded = document.createElement('img');
+            expanded.src = this.src;
+            expanded.alt = this.alt;
+            expanded.className = 'max-w-full max-h-full object-contain';
+            const close = document.createElement('button');
+            close.type = 'button';
+            close.setAttribute('aria-label', currentLanguage === 'ar' ? 'إغلاق الصورة' : currentLanguage === 'fr' ? 'Fermer l’image' : 'Close image');
+            close.className = 'absolute top-2 right-2 text-white text-2xl hover:text-gray-300';
+            close.textContent = '×';
+            close.addEventListener('click', () => lightbox.remove());
+            frame.append(expanded, close);
+            lightbox.append(frame);
             document.body.appendChild(lightbox);
             
             // Close on background click
@@ -279,6 +446,17 @@ function initializePhotoGallery() {
                     lightbox.remove();
                 }
             });
+
+            close.focus();
+            lightbox.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') lightbox.remove();
+            });
+        });
+        image.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                image.click();
+            }
         });
     });
 }
@@ -296,16 +474,12 @@ function toggleMobileMenu() {
     const mobileMenu = document.querySelector('.mobile-menu');
     if (mobileMenu) {
         mobileMenu.classList.toggle('hidden');
+        const button = document.querySelector('button[onclick*="toggleMobileMenu"]');
+        if (button) button.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden')));
     }
 }
 
 // Newsletter subscription
-function subscribeNewsletter() {
-    const email = document.querySelector('#newsletter-email').value;
-    if (email) {
-        alert(currentLanguage === 'ar' ? 'شكراً للاشتراك في نشرتنا الإخبارية!' :
-              currentLanguage === 'en' ? 'Thank you for subscribing to our newsletter!' :
-              'Merci de vous être abonné à notre newsletter!');
-        document.querySelector('#newsletter-email').value = '';
-    }
+function subscribeNewsletter(event) {
+    return submitEmailFallback(event, 'newsletter');
 }
