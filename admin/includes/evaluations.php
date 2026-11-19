@@ -92,7 +92,7 @@ function evaluation_privacy_summary(): array
         'ip_address_stored_with_response' => false,
         'user_agent_stored_with_response' => false,
         'session_id_stored_with_response' => false,
-        'stored' => array('submission_id', 'submitted_at', 'survey_version', 'answered_count', 'responses'),
+        'stored' => array('schema_version', 'response_id', 'submission_id', 'submitted_at', 'survey_version', 'answered_count', 'content_hash', 'responses', 'other_details'),
         'free_text_notice' => 'تُحفظ الإجابات الكتابية كما يرسلها المشارك؛ يُرجى عدم ذكر أسماء الأشخاص أو معلومات الاتصال.',
         'contact_details_policy' => 'تُرفض الإجابة إذا رصد النظام بريداً إلكترونياً أو رقماً هاتفياً واضحاً داخل النص الحر.',
         'retention_notice' => 'لا توجد مدة حذف تلقائي مفعلة حالياً؛ تبقى الإجابة في التخزين الخاص إلى أن يطبق المسؤول سياسة الاحتفاظ المعتمدة.',
@@ -185,9 +185,21 @@ function evaluation_clean_text(string $value, int $maxLength, string $field): ?s
     return $value;
 }
 
+function evaluation_normalize_response_id($value): string
+{
+    if (!is_string($value)) {
+        throw new EvaluationRequestException('معرّف الاستجابة غير صالح. ابدأ استجابة جديدة وحاول مرة أخرى.', 422, 'invalid_response_id');
+    }
+    $responseId = strtolower(trim($value));
+    if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $responseId)) {
+        throw new EvaluationRequestException('معرّف الاستجابة غير صالح. ابدأ استجابة جديدة وحاول مرة أخرى.', 422, 'invalid_response_id');
+    }
+    return $responseId;
+}
+
 function evaluation_validate_payload(array $payload): array
 {
-    $allowedTopLevel = array('survey_version', 'responses', 'other_details', 'website');
+    $allowedTopLevel = array('survey_version', 'response_id', 'responses', 'other_details', 'website');
     foreach (array_keys($payload) as $key) {
         if (!is_string($key) || !in_array($key, $allowedTopLevel, true)) {
             throw new EvaluationRequestException('يتضمن الطلب حقلاً غير معروف.', 422, 'unknown_field');
@@ -196,6 +208,7 @@ function evaluation_validate_payload(array $payload): array
     if (($payload['survey_version'] ?? '') !== evaluation_survey_version()) {
         throw new EvaluationRequestException('نسخة الاستمارة غير مدعومة.', 422, 'unsupported_version');
     }
+    $responseId = evaluation_normalize_response_id($payload['response_id'] ?? null);
     if (!array_key_exists('responses', $payload) || !is_array($payload['responses'])) {
         throw new EvaluationRequestException('بنية الإجابات غير صالحة.', 422, 'invalid_responses');
     }
@@ -245,7 +258,11 @@ function evaluation_validate_payload(array $payload): array
             }
             $choices[] = $choice;
         }
-        $normalized[$questionId] = $choices === array() ? null : $choices;
+        $normalized[$questionId] = $choices === array()
+            ? null
+            : array_values(array_filter($definition['options'], static function (string $option) use ($choices): bool {
+                return in_array($option, $choices, true);
+            }));
     }
 
     $incomingOther = $payload['other_details'] ?? array();
@@ -268,13 +285,15 @@ function evaluation_validate_payload(array $payload): array
         if (!$selectedOther) {
             throw new EvaluationRequestException('أُرسل توضيح دون اختيار خانة «آخر» في ' . $questionId . '.', 422, 'orphan_other_detail');
         }
-        $cleaned = evaluation_clean_text($detail, 1000, 'توضيح ' . $questionId);
+        $cleaned = evaluation_clean_text($detail, 400, 'توضيح ' . $questionId);
         if ($cleaned !== null) {
             $normalizedOther[$questionId] = $cleaned;
         }
     }
+    ksort($normalizedOther, SORT_NATURAL);
 
     return array(
+        'response_id' => $responseId,
         'responses' => $normalized,
         'other_details' => $normalizedOther,
         'answered_count' => count(array_filter($normalized, static function ($answer): bool {
@@ -283,23 +302,41 @@ function evaluation_validate_payload(array $payload): array
     );
 }
 
-function evaluation_assert_submission_guard(array $payload, string $providedToken): void
+function evaluation_assert_submission_rate_limit(): void
+{
+    $lastSubmitAt = (int)($_SESSION['evaluation_last_submit_at'] ?? 0);
+    if ($lastSubmitAt > 0 && time() - $lastSubmitAt < evaluation_rate_limit_seconds()) {
+        throw new EvaluationRequestException('تم استلام إجابة من هذه الجلسة قبل قليل. حاول لاحقاً.', 429, 'rate_limited');
+    }
+}
+
+function evaluation_assert_submission_guard(array $payload, string $providedToken, bool $includeRateLimit = true): void
 {
     $honeypot = $payload['website'] ?? '';
     if (!is_string($honeypot) || trim($honeypot) !== '') {
         throw new EvaluationRequestException('تعذر قبول الإرسال.', 400, 'invalid_submission');
     }
     $expectedToken = (string)($_SESSION['evaluation_csrf_token'] ?? '');
-    if ($providedToken === '' || $expectedToken === '' || !hash_equals($expectedToken, $providedToken)) {
+    $currentTokenMatches = $providedToken !== '' && $expectedToken !== '' && hash_equals($expectedToken, $providedToken);
+    $previousToken = (string)($_SESSION['evaluation_previous_csrf_token'] ?? '');
+    $previousResponseId = (string)($_SESSION['evaluation_previous_response_id'] ?? '');
+    $rawResponseId = is_string($payload['response_id'] ?? null) ? strtolower(trim((string)$payload['response_id'])) : '';
+    $previousTokenMatches = $providedToken !== ''
+        && $previousToken !== ''
+        && hash_equals($previousToken, $providedToken)
+        && $rawResponseId !== ''
+        && $previousResponseId !== ''
+        && hash_equals($previousResponseId, $rawResponseId)
+        && (int)($_SESSION['evaluation_previous_csrf_expires_at'] ?? 0) >= time();
+    if (!$currentTokenMatches && !$previousTokenMatches) {
         throw new EvaluationRequestException('انتهت صلاحية جلسة الاستمارة. أعد تحميل الصفحة وحاول مرة أخرى.', 403, 'csrf_failed');
     }
     $startedAt = (int)($_SESSION['evaluation_started_at'] ?? 0);
-    if ($startedAt === 0 || time() - $startedAt < evaluation_minimum_duration_seconds()) {
+    if (!$previousTokenMatches && ($startedAt === 0 || time() - $startedAt < evaluation_minimum_duration_seconds())) {
         throw new EvaluationRequestException('تم الإرسال بسرعة غير متوقعة. انتظر لحظات ثم حاول مرة أخرى.', 429, 'submitted_too_quickly');
     }
-    $lastSubmitAt = (int)($_SESSION['evaluation_last_submit_at'] ?? 0);
-    if ($lastSubmitAt > 0 && time() - $lastSubmitAt < evaluation_rate_limit_seconds()) {
-        throw new EvaluationRequestException('تم استلام إجابة من هذه الجلسة قبل قليل. حاول لاحقاً.', 429, 'rate_limited');
+    if ($includeRateLimit) {
+        evaluation_assert_submission_rate_limit();
     }
 }
 
@@ -342,24 +379,87 @@ function evaluation_request_is_same_origin(): bool
     return $fetchSite === 'same-origin';
 }
 
+function evaluation_canonical_payload_hash(array $validated): string
+{
+    $canonical = array(
+        'survey_version' => evaluation_survey_version(),
+        'responses' => (array)($validated['responses'] ?? array()),
+        'other_details' => (array)($validated['other_details'] ?? array()),
+    );
+    $json = json_encode($canonical, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+        throw new RuntimeException('تعذر إنشاء بصمة ثابتة للاستجابة.');
+    }
+    return hash('sha256', $json);
+}
+
+function evaluation_response_path(string $responseId): string
+{
+    return evaluation_response_directory() . '/' . evaluation_normalize_response_id($responseId) . '.json';
+}
+
+function evaluation_idempotency_lock_path(string $responseId): string
+{
+    return AMJAD_LOCK_DIR . '/evaluation-response-' . hash('sha256', evaluation_normalize_response_id($responseId)) . '.lock';
+}
+
+function evaluation_submit_idempotently(array $validated, ?callable $beforeCreate = null): array
+{
+    $responseId = evaluation_normalize_response_id($validated['response_id'] ?? null);
+    $contentHash = evaluation_canonical_payload_hash($validated);
+    initialize_storage_directories();
+    ensure_private_directory(evaluation_response_directory());
+    $lock = fopen(evaluation_idempotency_lock_path($responseId), 'c+');
+    if ($lock === false || !flock($lock, LOCK_EX)) {
+        if (is_resource($lock)) {
+            fclose($lock);
+        }
+        throw new RuntimeException('تعذر قفل الاستجابة للحفظ الآمن.');
+    }
+
+    try {
+        $path = evaluation_response_path($responseId);
+        if (is_file($path)) {
+            $record = evaluation_read_submission($path);
+            if ($record === null
+                || !isset($record['response_id'], $record['content_hash'])
+                || !hash_equals($responseId, (string)$record['response_id'])
+                || !preg_match('/^[0-9a-f]{64}$/', (string)$record['content_hash'])) {
+                throw new RuntimeException('سجل الاستجابة المتكررة غير صالح.');
+            }
+            if (!hash_equals((string)$record['content_hash'], $contentHash)) {
+                throw new EvaluationRequestException('استُخدم معرّف الاستجابة نفسه مع إجابات مختلفة. ابدأ استجابة جديدة أو أعد إرسال المسودة الأصلية.', 409, 'response_id_conflict');
+            }
+            return array('record' => $record, 'idempotent_replay' => true);
+        }
+
+        if ($beforeCreate !== null) {
+            $beforeCreate();
+        }
+        $record = array(
+            'schema_version' => 2,
+            'survey_version' => evaluation_survey_version(),
+            'response_id' => $responseId,
+            'submission_id' => bin2hex(random_bytes(16)),
+            'submitted_at' => gmdate('c'),
+            'answered_count' => (int)$validated['answered_count'],
+            'content_hash' => $contentHash,
+            'responses' => $validated['responses'],
+        );
+        if (!empty($validated['other_details'])) {
+            $record['other_details'] = $validated['other_details'];
+        }
+        atomic_write_file($path, encode_json($record), 0600);
+        return array('record' => $record, 'idempotent_replay' => false);
+    } finally {
+        flock($lock, LOCK_UN);
+        fclose($lock);
+    }
+}
+
 function evaluation_store_submission(array $validated): array
 {
-    ensure_private_directory(evaluation_response_directory());
-    $submissionId = bin2hex(random_bytes(16));
-    $record = array(
-        'schema_version' => 1,
-        'survey_version' => evaluation_survey_version(),
-        'submission_id' => $submissionId,
-        'submitted_at' => gmdate('c'),
-        'answered_count' => (int)$validated['answered_count'],
-        'responses' => $validated['responses'],
-    );
-    if (!empty($validated['other_details'])) {
-        $record['other_details'] = $validated['other_details'];
-    }
-    $filename = gmdate('Ymd\THis\Z') . '-' . $submissionId . '.json';
-    atomic_write_file(evaluation_response_directory() . '/' . $filename, encode_json($record), 0600);
-    return $record;
+    return evaluation_submit_idempotently($validated)['record'];
 }
 
 function evaluation_response_files(): array
@@ -369,7 +469,11 @@ function evaluation_response_files(): array
         return array();
     }
     $files = glob($directory . '/*.json') ?: array();
-    rsort($files, SORT_STRING);
+    usort($files, static function (string $left, string $right): int {
+        $leftTime = (int)(filemtime($left) ?: 0);
+        $rightTime = (int)(filemtime($right) ?: 0);
+        return $rightTime <=> $leftTime ?: strcmp($right, $left);
+    });
     return $files;
 }
 
@@ -475,13 +579,14 @@ function evaluation_stream_csv_export(): void
     fwrite($output, "\xEF\xBB\xBF");
     $questionIds = array_keys(evaluation_question_schema());
     $otherIds = array_keys(evaluation_other_options());
-    fputcsv($output, array_merge(array('submission_id', 'submitted_at', 'survey_version', 'answered_count'), $questionIds, array_map(static fn(string $id): string => $id . '_other', $otherIds)), ',', '"', '\\');
+    fputcsv($output, array_merge(array('response_id', 'submission_id', 'submitted_at', 'survey_version', 'answered_count'), $questionIds, array_map(static fn(string $id): string => $id . '_other', $otherIds)), ',', '"', '\\');
     foreach (evaluation_response_files() as $path) {
         $record = evaluation_read_submission($path);
         if ($record === null) {
             continue;
         }
         $row = array(
+            evaluation_safe_csv_cell($record['response_id'] ?? ''),
             evaluation_safe_csv_cell($record['submission_id'] ?? ''),
             evaluation_safe_csv_cell($record['submitted_at'] ?? ''),
             evaluation_safe_csv_cell($record['survey_version'] ?? ''),

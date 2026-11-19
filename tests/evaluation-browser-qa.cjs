@@ -86,15 +86,21 @@ async function layoutAudit(browser, viewport) {
   const context = await browser.newContext({ viewport, locale: 'ar-MA', reducedMotion: 'reduce' });
   const page = await context.newPage();
   const pageErrors = [];
+  const externalRequests = [];
   page.on('pageerror', error => pageErrors.push(error.message));
+  page.on('request', request => {
+    const url = new URL(request.url());
+    const base = new URL(baseUrl);
+    if (url.origin !== base.origin) externalRequests.push(request.url());
+  });
   await page.goto(`${baseUrl}/evaluation.html`, { waitUntil: 'domcontentloaded' });
-  await page.locator('#hero-mission-map .mission-node').first().waitFor();
+  await page.locator('#hero-mission-map .mission-tile').first().waitFor();
 
-  assert(await page.locator('#hero-mission-map .mission-node').count() === 10, `${viewport.name}: hero map must expose ten mission buttons`);
+  assert(await page.locator('#hero-mission-map .mission-tile').count() === 10, `${viewport.name}: hero dashboard must expose ten mission buttons`);
   assert(await page.locator('h1').textContent().then(text => text.includes('رحلة أمجاد')), `${viewport.name}: page heading is missing`);
   assert(!await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), `${viewport.name}: page has horizontal overflow`);
 
-  const heroNodeTargets = await page.locator('#hero-mission-map .mission-node').evaluateAll(nodes => nodes.map(node => {
+  const heroNodeTargets = await page.locator('#hero-mission-map .mission-tile').evaluateAll(nodes => nodes.map(node => {
     const rectangle = node.getBoundingClientRect();
     return { width: rectangle.width, height: rectangle.height };
   }));
@@ -112,9 +118,26 @@ async function layoutAudit(browser, viewport) {
     assert(await page.locator('#evaluation-desktop-nav a[aria-current="page"]').isVisible(), `${viewport.name}: current evaluation link is missing from desktop navigation`);
   }
 
-  const animationDurations = await page.locator('.mission-world__sky span').first().evaluate(element => getComputedStyle(element).animationDuration);
-  assert(Number.parseFloat(animationDurations) <= 0.001, `${viewport.name}: reduced-motion preference is not respected`);
+  const motion = await page.locator('.mission-tile').first().evaluate(element => ({
+    animation: getComputedStyle(element).animationDuration,
+    transition: getComputedStyle(element).transitionDuration
+  }));
+  assert(Number.parseFloat(motion.animation) <= 0.001 && Number.parseFloat(motion.transition) <= 0.001, `${viewport.name}: reduced-motion preference is not respected`);
+  assert(externalRequests.length === 0, `${viewport.name}: anonymous evaluation made third-party requests: ${externalRequests.join(', ')}`);
   await page.screenshot({ path: path.join(artifactDirectory, `${viewport.name}-hero.png`), fullPage: true });
+
+  await page.locator('[data-action="start-journey"]').click();
+  assert(await page.locator('body').getAttribute('class').then(value => value.includes('is-journey-active')), `${viewport.name}: starting did not enter focused journey mode`);
+  assert(await page.locator('#question-title').isVisible(), `${viewport.name}: focused journey does not show the question`);
+  if (viewport.width < 1024) {
+    await page.locator('.journey-toolbar__missions').click();
+    assert(await page.locator('#journey-sidebar.is-open').isVisible(), `${viewport.name}: mobile mission drawer did not open`);
+    assert(await page.locator('#compact-mission-map .mission-tile').count() === 10, `${viewport.name}: mobile journey has no direct mission navigation`);
+    await page.locator('#compact-mission-map [data-mission-section="1"]').click();
+    assert((await page.locator('#question-number').textContent()).trim() === 'س04', `${viewport.name}: mobile mission navigation did not open its axis`);
+  }
+  assert(!await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), `${viewport.name}: focused journey has horizontal overflow`);
+  await page.screenshot({ path: path.join(artifactDirectory, `${viewport.name}-journey.png`), fullPage: false });
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   await context.close();
 }
@@ -144,12 +167,17 @@ async function functionalAudit(browser) {
   assert((await page.locator('#question-title').textContent()).includes('المصدر الأساسي'), 'Journey did not start on Q1');
   assert(await page.locator('#answer-area fieldset').count() === 1, 'Radio question lacks fieldset grouping');
   await page.locator('#answer-area input[type="radio"]').first().check();
-  assert(await page.evaluate(() => Boolean(sessionStorage.getItem('amjad_evaluation_draft_v1'))), 'Draft was not saved in sessionStorage');
+  assert(await page.evaluate(() => Boolean(sessionStorage.getItem('amjad_evaluation_draft_v2'))), 'Versioned draft was not saved in sessionStorage');
+  assert(await page.locator('#answer-clear').isVisible(), 'Answered optional question does not expose a clear-answer control');
+  await page.locator('#answer-clear').click();
+  assert(await page.locator('#answer-area input[type="radio"]:checked').count() === 0, 'Clear-answer control did not return the optional question to blank');
+  await page.locator('#answer-area input[type="radio"]').first().check();
 
   await page.reload({ waitUntil: 'domcontentloaded' });
   assert(await page.locator('#draft-resume:not([hidden])').isVisible(), 'Reload did not offer to resume the tab draft');
-  await page.locator('[data-action="resume-draft"]').click();
+  await page.locator('#draft-resume [data-action="resume-draft"]').click();
   assert(await page.locator('#answer-area input[type="radio"]:checked').count() === 1, 'Q1 answer was not restored after reload');
+  assert(await page.evaluate(() => /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(JSON.parse(sessionStorage.getItem('amjad_evaluation_draft_v2')).responseId)), 'Draft lacks a stable UUIDv4 response reference');
 
   await page.locator('#compact-mission-map [data-mission-section="1"]').click();
   assert((await page.locator('#question-number').textContent()).trim() === 'س04', 'Mission map did not navigate to Q4');
@@ -160,10 +188,9 @@ async function functionalAudit(browser) {
   await page.locator('[data-action="skip-question"]').click();
   await page.locator('#answer-area textarea').fill('تجربة مفيدة من دون ذكر أسماء.');
   await page.locator('[data-action="next-question"]').click();
-  assert(await page.locator('#mission-complete:not([hidden])').isVisible(), 'Finishing an axis did not show the neutral completion screen');
+  assert((await page.locator('#question-number').textContent()).trim() === 'س08', 'Ordinary mission completion should continue without a blocking celebration');
   assert(await page.locator('#compact-mission-map [data-mission-section="1"]').getAttribute('class').then(value => value.includes('is-complete')), 'Completed mission did not update the useful 3D map');
 
-  await page.locator('[data-action="continue-after-mission"]').click();
   await page.locator('#compact-mission-map [data-mission-section="4"]').click();
   assert((await page.locator('#question-number').textContent()).trim() === 'س16', 'Direct mission navigation did not open axis four');
   await page.locator('[data-action="skip-question"]').click();
@@ -176,11 +203,18 @@ async function functionalAudit(browser) {
   assert(await page.locator('#answer-area input[type="checkbox"]:checked').count() === 2, 'Q18 allowed more than two choices');
   assert(await page.locator('#evaluation-toast.is-visible').isVisible(), 'Q18 limit did not announce feedback');
 
-  await page.locator('[data-action="show-review"]').click();
+  await page.locator('.journey-toolbar__review').click();
   assert(await page.locator('.review-answer').count() === 40, 'Review does not contain all 40 questions');
+  await page.locator('#review-unanswered-only').check();
+  assert(await page.locator('.review-answer').count() < 40, 'Unanswered-only review filter did not reduce the review list');
+  await page.locator('#review-unanswered-only').uncheck();
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.locator('#draft-resume [data-action="resume-draft"]').click();
+  assert(await page.locator('#review-screen').isVisible(), 'Reloading a review draft did not restore the review screen');
+  assert(!await page.locator('#submission-consent').isChecked(), 'Submission consent must not be restored from a draft');
   await page.locator('[data-edit-question="7"]').click();
   await page.locator('#answer-area textarea').fill('راسلوني على member@example.com');
-  await page.locator('[data-action="show-review"]').click();
+  await page.locator('.journey-toolbar__review').click();
   await page.locator('#submission-consent').check();
   await page.waitForTimeout(8500);
   await page.locator('[data-action="submit-evaluation"]').click();
@@ -190,11 +224,11 @@ async function functionalAudit(browser) {
 
   await page.locator('[data-edit-question="7"]').click();
   await page.locator('#answer-area textarea').fill('تجربة مفيدة ومقترح عام لتحسين المشاركة.');
-  await page.locator('[data-action="show-review"]').click();
+  await page.locator('.journey-toolbar__review').click();
   await page.locator('[data-action="submit-evaluation"]').click();
   await page.locator('#success-screen:not([hidden])').waitFor();
   assert((await page.locator('#confirmation-code').textContent()).trim().length >= 8, 'Successful submission lacks a confirmation code');
-  assert(!await page.evaluate(() => sessionStorage.getItem('amjad_evaluation_draft_v1')), 'Successful submission did not clear the tab draft');
+  assert(!await page.evaluate(() => sessionStorage.getItem('amjad_evaluation_draft_v2')), 'Successful submission did not clear the tab draft');
   await page.screenshot({ path: path.join(artifactDirectory, 'desktop-success.png'), fullPage: true });
   assert(pageErrors.length === 0, `Functional flow page errors: ${pageErrors.join(' | ')}`);
 

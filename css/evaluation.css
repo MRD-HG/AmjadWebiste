@@ -352,3 +352,1156 @@ a { color: inherit; }
     .review-screen__header p, .review-screen__header span { color: #333; }
     .review-answer { break-inside: avoid; }
 }
+
+/* Keep the horizontally scrollable mission rail from widening the mobile hero grid. */
+.evaluation-hero__grid,
+.evaluation-hero__copy,
+.mission-world--hero,
+.mission-world--hero .mission-world__viewport,
+#hero-mission-map {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#hero-mission-map {
+    width: 100%;
+}
+
+/* ========================================================================== */
+/* Focused evaluation journey                                                 */
+/* These overrides are activated by JS only after the visitor starts/resumes. */
+/* ========================================================================== */
+
+:root {
+    --journey-toolbar-height: 4.75rem;
+    --journey-surface: #f4f8f6;
+    --journey-focus: #7d1d43;
+}
+
+body.is-journey-active {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body.is-journey-active .evaluation-navbar,
+body.is-journey-active .evaluation-hero,
+body.is-journey-active .privacy-strip,
+body.is-journey-active .journey-principles,
+body.is-journey-active .evaluation-footer {
+    display: none !important;
+}
+
+body.is-journey-active #journey {
+    position: fixed;
+    z-index: 190;
+    inset: 0;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    height: 100dvh;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 100% 0, rgba(13, 118, 88, .09), transparent 34rem),
+        var(--journey-surface);
+    isolation: isolate;
+}
+
+.journey-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    min-height: var(--journey-toolbar-height);
+    flex: 0 0 auto;
+    align-items: center;
+    gap: .8rem;
+    border-bottom: 1px solid var(--eval-line);
+    padding: .65rem max(1rem, calc((100vw - 94rem) / 2));
+    color: var(--eval-forest);
+    background: rgba(255, 255, 255, .97);
+    box-shadow: 0 10px 30px rgba(18, 63, 52, .07);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+}
+
+.journey-toolbar__brand {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: .65rem;
+    color: var(--eval-forest);
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.journey-toolbar__brand img {
+    width: auto;
+    height: 2.45rem;
+}
+
+.journey-toolbar__brand span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.journey-toolbar__summary {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    color: var(--eval-muted);
+    font-size: .76rem;
+}
+
+.journey-toolbar__summary strong {
+    color: var(--eval-green);
+    font-size: .82rem;
+}
+
+.journey-toolbar__actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: .45rem;
+}
+
+.journey-toolbar__missions,
+.journey-toolbar__review {
+    display: inline-flex;
+    min-height: 2.75rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    border: 1px solid var(--eval-line);
+    border-radius: .85rem;
+    padding: .55rem .75rem;
+    color: var(--eval-forest);
+    background: #fff;
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 900;
+}
+
+.journey-toolbar__missions:hover,
+.journey-toolbar__review:hover {
+    border-color: #9bc8b5;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+}
+
+.journey-toolbar__missions {
+    display: none;
+}
+
+.journey-toolbar__current {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    line-height: 1.35;
+}
+
+.journey-toolbar__current span {
+    color: var(--eval-muted);
+    font-size: .62rem;
+    font-weight: 700;
+}
+
+.journey-toolbar__current strong {
+    overflow: hidden;
+    color: var(--eval-forest);
+    font-size: .82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.journey-toolbar__review strong {
+    border-radius: 999px;
+    padding: .14rem .4rem;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+    font-size: .62rem;
+}
+
+.journey-toolbar__close {
+    flex: 0 0 auto;
+}
+
+.journey-toolbar__menu,
+.journey-toolbar__action {
+    display: inline-grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--eval-line);
+    border-radius: .85rem;
+    color: var(--eval-forest);
+    background: #fff;
+}
+
+.journey-toolbar__menu {
+    display: none;
+}
+
+.journey-toolbar__menu:hover,
+.journey-toolbar__action:hover {
+    border-color: #a7cdbd;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+}
+
+.journey-toolbar :is(button, a):focus-visible,
+.mission-tile:focus-visible,
+.question-stepper button:focus-visible,
+.answer-clear:focus-visible,
+.review-filter button:focus-visible {
+    outline: 3px solid var(--journey-focus);
+    outline-offset: 3px;
+}
+
+body.is-journey-active #journey .journey__layout {
+    display: grid;
+    width: min(100%, 96rem);
+    min-height: 0;
+    flex: 1 1 auto;
+    align-items: stretch;
+    gap: 1rem;
+    margin-inline: auto;
+    padding: 1rem;
+}
+
+body.is-journey-active #journey .journey-sidebar {
+    position: relative;
+    top: auto;
+    min-width: 0;
+    height: 100%;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #b8cec4 transparent;
+}
+
+body.is-journey-active #journey .journey-content {
+    min-width: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 .25rem 3rem;
+    scroll-padding-block: 1rem 7rem;
+    scrollbar-width: thin;
+    scrollbar-color: #b8cec4 transparent;
+}
+
+body.is-journey-active .journey-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+body.is-journey-active .question-screen,
+body.is-journey-active .mission-complete,
+body.is-journey-active .review-screen,
+body.is-journey-active .success-screen {
+    width: min(100%, 62rem);
+    margin-inline: auto;
+}
+
+body.is-journey-active .question-screen {
+    display: flex;
+    min-height: min(47rem, calc(100dvh - var(--journey-toolbar-height) - 2rem));
+    flex-direction: column;
+}
+
+body.is-journey-active .question-card {
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+body.is-journey-active .question-actions {
+    flex: 0 0 auto;
+    background: rgba(255, 255, 255, .98);
+}
+
+.journey-sidebar-backdrop {
+    position: fixed;
+    z-index: 34;
+    inset: var(--journey-toolbar-height) 0 0;
+    border: 0;
+    padding: 0;
+    background: rgba(4, 31, 24, .58);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .2s ease, visibility .2s ease;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+/* Ordered mission tiles replace the decorative, position-based map nodes. */
+.mission-world__viewport {
+    min-height: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    perspective: none;
+}
+
+.mission-world__viewport > .mission-world__sky {
+    display: none;
+}
+
+#hero-mission-map,
+#compact-mission-map {
+    position: static;
+    display: grid;
+    inset: auto;
+    gap: .65rem;
+}
+
+#hero-mission-map::before,
+#hero-mission-map::after,
+#compact-mission-map::before,
+#compact-mission-map::after {
+    display: none;
+}
+
+#hero-mission-map {
+    grid-template-columns: none;
+    grid-auto-columns: minmax(12.5rem, 14rem);
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: .15rem .1rem .7rem;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: thin;
+}
+
+#compact-mission-map {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.mission-tile {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 7rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "top top"
+        "title status"
+        "progress progress";
+    align-items: center;
+    gap: .5rem .7rem;
+    border: 1px solid var(--eval-line);
+    border-radius: 1rem;
+    padding: .8rem;
+    color: var(--eval-ink);
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(18, 63, 52, .055);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.mission-tile:hover {
+    border-color: #9bc8b5;
+    background: #fbfefc;
+    box-shadow: 0 12px 28px rgba(18, 63, 52, .1);
+    transform: translateY(-1px);
+}
+
+#hero-mission-map .mission-tile {
+    scroll-snap-align: start;
+}
+
+.mission-tile__top {
+    grid-area: top;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem;
+}
+
+.mission-tile__number {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    color: var(--eval-burgundy);
+    font-size: .68rem;
+    font-weight: 900;
+}
+
+.mission-tile__icon {
+    grid-area: icon;
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    border-radius: .8rem;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+    font-size: 1rem;
+}
+
+.mission-tile__title {
+    grid-area: title;
+    min-width: 0;
+    color: var(--eval-forest);
+    font-size: .79rem;
+    font-weight: 900;
+    line-height: 1.45;
+}
+
+.mission-tile__progress {
+    grid-area: progress;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    color: var(--eval-muted);
+    font-size: .66rem;
+}
+
+.mission-tile__bar {
+    display: block;
+    min-width: 3rem;
+    height: .36rem;
+    flex: 1 1 auto;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #dce9e3;
+}
+
+.mission-tile__bar > span,
+.mission-tile__bar > i {
+    display: block;
+    width: var(--mission-progress, 0%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--eval-green);
+    transition: width .25s ease;
+}
+
+.mission-tile__bar > i {
+    width: 0;
+}
+
+.mission-tile__status {
+    grid-area: status;
+    display: inline-flex;
+    min-height: 1.6rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: .2rem .5rem;
+    color: var(--eval-muted);
+    background: #f0f4f2;
+    font-size: .6rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.mission-tile.is-current,
+.mission-tile[aria-current="step"] {
+    border-color: var(--eval-burgundy);
+    background: var(--eval-burgundy-soft);
+    box-shadow: 0 0 0 2px rgba(134, 31, 71, .08), 0 12px 28px rgba(134, 31, 71, .1);
+}
+
+.mission-tile.is-current .mission-tile__status,
+.mission-tile[aria-current="step"] .mission-tile__status {
+    color: #fff;
+    background: var(--eval-burgundy);
+}
+
+.mission-tile.is-visited:not(.is-current) .mission-tile__status {
+    color: #6c531d;
+    background: #fff2c9;
+}
+
+.mission-tile.is-answered,
+.mission-tile.is-complete {
+    border-color: #9bc8b5;
+}
+
+.mission-tile.is-answered .mission-tile__icon,
+.mission-tile.is-complete .mission-tile__icon,
+.mission-tile.is-answered .mission-tile__status,
+.mission-tile.is-complete .mission-tile__status {
+    color: #fff;
+    background: var(--eval-green);
+}
+
+body.is-journey-active .mission-world--compact {
+    display: block;
+    margin-top: .85rem;
+}
+
+body.is-journey-active .mission-world--compact .mission-world__viewport {
+    min-height: 0;
+}
+
+/* Question location remains available without turning answers into a score. */
+.question-stepper {
+    display: grid;
+    grid-auto-columns: 2.75rem;
+    grid-auto-flow: column;
+    gap: .45rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: .2rem .15rem .55rem;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: thin;
+}
+
+.question-stepper button {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--eval-line);
+    border-radius: .78rem;
+    color: var(--eval-muted);
+    background: #fff;
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 900;
+    scroll-snap-align: center;
+}
+
+.question-stepper button:hover {
+    border-color: #9bc8b5;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+}
+
+.question-stepper button.is-answered {
+    border-color: #9bc8b5;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+}
+
+.question-stepper button.is-current,
+.question-stepper button[aria-current="step"] {
+    border-color: var(--eval-burgundy);
+    color: #fff;
+    background: var(--eval-burgundy);
+    box-shadow: 0 7px 18px rgba(134, 31, 71, .2);
+}
+
+.answer-save-state {
+    display: inline-flex;
+    min-height: 2rem;
+    align-items: center;
+    gap: .4rem;
+    border-radius: 999px;
+    padding: .28rem .65rem;
+    color: var(--eval-muted);
+    background: #f2f5f4;
+    font-size: .66rem;
+    font-weight: 800;
+}
+
+.answer-save-state::before {
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background: #9eaaa5;
+}
+
+.answer-save-state.is-saved {
+    color: #075c43;
+    background: var(--eval-mint);
+}
+
+.answer-save-state.is-saved::before {
+    background: var(--eval-green);
+}
+
+.answer-save-state.is-warning {
+    color: #7b4f0b;
+    background: #fff1c7;
+}
+
+.answer-save-state.is-warning::before {
+    background: #b8750b;
+}
+
+.answer-clear {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: .35rem;
+    border: 0;
+    border-radius: .7rem;
+    padding: .45rem .65rem;
+    color: #795362;
+    background: transparent;
+    font: inherit;
+    font-size: .68rem;
+    font-weight: 800;
+}
+
+.answer-clear:hover {
+    color: var(--eval-burgundy);
+    background: var(--eval-burgundy-soft);
+}
+
+.answer-clear:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.answer-choice__mark:empty {
+    display: none;
+}
+
+.mission-complete__stats {
+    display: grid;
+    width: min(100%, 38rem);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: .65rem;
+    margin: 1.2rem auto;
+}
+
+.mission-complete__stats > * {
+    border: 1px solid var(--eval-line);
+    border-radius: .95rem;
+    padding: .75rem;
+    color: var(--eval-muted);
+    background: #f9fbfa;
+    font-size: .66rem;
+}
+
+.mission-complete__stats strong {
+    display: block;
+    margin-bottom: .1rem;
+    color: var(--eval-forest);
+    font-size: 1.15rem;
+}
+
+.mission-progress-collection {
+    display: grid;
+    width: min(100%, 38rem);
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: .35rem;
+    margin: 1rem auto 1.4rem;
+}
+
+.mission-progress-collection > * {
+    display: grid;
+    min-width: 2.25rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid var(--eval-line);
+    border-radius: .65rem;
+    color: var(--eval-muted);
+    background: #f2f5f4;
+    font-size: .68rem;
+    font-weight: 900;
+}
+
+.mission-progress-collection > .is-current {
+    border-color: var(--eval-burgundy);
+    color: #fff;
+    background: var(--eval-burgundy);
+}
+
+.mission-progress-collection > .is-answered,
+.mission-progress-collection > .is-complete {
+    border-color: var(--eval-green);
+    color: #fff;
+    background: var(--eval-green);
+}
+
+.review-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .75rem;
+    margin: 1rem 0;
+}
+
+.review-dashboard > * {
+    border: 1px solid var(--eval-line);
+    border-radius: 1rem;
+    padding: .85rem;
+    color: var(--eval-muted);
+    background: #fff;
+    font-size: .68rem;
+}
+
+.review-dashboard strong,
+.review-dashboard__value {
+    display: block;
+    color: var(--eval-forest);
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.review-filter {
+    display: flex;
+    gap: .45rem;
+    overflow-x: auto;
+    margin: .8rem 0 1rem;
+    padding: .15rem 0 .45rem;
+    scrollbar-width: thin;
+}
+
+.review-filter button {
+    min-height: 2.6rem;
+    flex: 0 0 auto;
+    border: 1px solid var(--eval-line);
+    border-radius: 999px;
+    padding: .45rem .85rem;
+    color: var(--eval-muted);
+    background: #fff;
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 800;
+}
+
+.review-filter button:hover {
+    border-color: #9bc8b5;
+    color: var(--eval-green);
+    background: var(--eval-mint);
+}
+
+.review-filter button.is-active,
+.review-filter button[aria-pressed="true"] {
+    border-color: var(--eval-green);
+    color: #fff;
+    background: var(--eval-green);
+}
+
+.review-filter label {
+    display: inline-flex;
+    min-height: 2.6rem;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: .45rem;
+    border: 1px solid var(--eval-line);
+    border-radius: 999px;
+    padding: .45rem .8rem;
+    color: var(--eval-muted);
+    background: #fff;
+    font-size: .7rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.review-filter label:focus-within {
+    outline: 3px solid var(--journey-focus);
+    outline-offset: 3px;
+}
+
+.review-filter input {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--eval-green);
+}
+
+.question-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+}
+
+.question-card__meta > div {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+}
+
+.scale-endpoints {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: .55rem;
+    color: var(--eval-muted);
+    font-size: .7rem;
+    font-weight: 800;
+}
+
+.mission-complete__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .65rem;
+}
+
+/* Scale labels must remain legible; they are deliberately not reduced to icons. */
+.scale-choice span {
+    font-size: .68rem;
+}
+
+@media (min-width: 1024px) {
+    body.is-journey-active #journey .journey__layout {
+        grid-template-columns: 300px minmax(0, 1fr);
+    }
+
+    body.is-journey-active #journey .journey-sidebar {
+        display: block;
+    }
+
+    body.is-journey-active #journey .journey-content {
+        padding-inline: .35rem;
+    }
+
+    .journey-sidebar-backdrop {
+        display: none;
+    }
+}
+
+@media (max-width: 1023px) {
+    :root {
+        --journey-toolbar-height: 4.35rem;
+    }
+
+    .journey-toolbar {
+        padding: .55rem .75rem;
+    }
+
+    .journey-toolbar__menu {
+        display: inline-grid;
+    }
+
+    .journey-toolbar__missions {
+        display: inline-flex;
+    }
+
+    .journey-toolbar__summary {
+        justify-content: flex-start;
+    }
+
+    .journey-toolbar .answer-save-state {
+        width: 2.4rem;
+        min-height: 2.4rem;
+        flex: 0 0 2.4rem;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .journey-toolbar .answer-save-state::before,
+    .journey-toolbar .answer-save-state span {
+        display: none;
+    }
+
+    body.is-journey-active #journey .journey__layout {
+        display: block;
+        width: 100%;
+        padding: .65rem .5rem 0;
+    }
+
+    body.is-journey-active #journey .journey-content {
+        width: 100%;
+        padding: 0 0 max(1rem, env(safe-area-inset-bottom));
+    }
+
+    body.is-journey-active #journey .journey-sidebar {
+        position: fixed;
+        z-index: 36;
+        top: var(--journey-toolbar-height);
+        right: 0;
+        bottom: 0;
+        left: auto;
+        width: min(88vw, 22rem);
+        height: auto;
+        max-height: none;
+        border: 0;
+        border-left: 1px solid var(--eval-line);
+        border-radius: 0;
+        padding: 1rem;
+        box-shadow: -24px 0 55px rgba(5, 37, 28, .22);
+        transform: translateX(105%);
+        visibility: hidden;
+        transition: transform .22s ease, visibility .22s ease;
+    }
+
+    body.is-journey-active #journey .journey-sidebar.is-open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    body.is-mission-drawer-open #journey .journey-sidebar-backdrop,
+    body.is-journey-active #journey:has(.journey-sidebar.is-open) .journey-sidebar-backdrop,
+    body.is-journey-active #journey .journey-sidebar-backdrop.is-open,
+    body.is-journey-active #journey .journey-sidebar-backdrop.is-visible,
+    body.is-journey-active #journey .journey-sidebar-backdrop[data-open="true"] {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    body.is-journey-active .mission-world--compact {
+        display: block;
+    }
+
+    body.is-journey-active #compact-mission-map,
+    #hero-mission-map {
+        display: grid;
+        grid-template-columns: none;
+        grid-auto-columns: minmax(12.5rem, 76vw);
+        grid-auto-flow: column;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        padding: .15rem .1rem .65rem;
+        scroll-snap-type: inline proximity;
+        scrollbar-width: thin;
+    }
+
+    .mission-tile {
+        scroll-snap-align: start;
+    }
+
+    body.is-journey-active .question-screen {
+        min-height: calc(100dvh - var(--journey-toolbar-height) - .65rem);
+    }
+
+    body.is-journey-active .question-actions {
+        position: sticky;
+        z-index: 12;
+        bottom: 0;
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        box-shadow: 0 -12px 28px rgba(18, 63, 52, .1);
+    }
+}
+
+@media (max-width: 699px) {
+    .journey-toolbar__brand span,
+    .journey-toolbar__summary span {
+        display: none;
+    }
+
+    .journey-toolbar__summary {
+        font-size: .7rem;
+    }
+
+    .journey-toolbar__missions,
+    .journey-toolbar__review {
+        width: 2.55rem;
+        min-height: 2.55rem;
+        padding: 0;
+    }
+
+    .journey-toolbar__missions span,
+    .journey-toolbar__review span {
+        display: none;
+    }
+
+    .journey-toolbar__review strong {
+        position: absolute;
+        top: .2rem;
+        left: .15rem;
+        border: 2px solid #fff;
+        padding: .05rem .25rem;
+        font-size: .52rem;
+    }
+
+    .journey-toolbar__review {
+        position: relative;
+    }
+
+    body.is-journey-active #journey .journey__layout {
+        padding-inline: .35rem;
+    }
+
+    body.is-journey-active .question-screen,
+    body.is-journey-active .mission-complete,
+    body.is-journey-active .review-screen,
+    body.is-journey-active .success-screen {
+        border-radius: 1.15rem;
+    }
+
+    body.is-journey-active .question-card {
+        padding: 1.15rem 1rem 1.5rem;
+    }
+
+    body.is-journey-active .question-actions {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: .5rem;
+        padding-inline: .75rem;
+    }
+
+    body.is-journey-active .question-actions .button--text {
+        grid-row: auto;
+        grid-column: auto;
+        min-height: 2.5rem;
+        padding-inline: .5rem;
+        font-size: .7rem;
+    }
+
+    .answer-choice {
+        min-height: 3.5rem;
+        padding: .82rem .8rem;
+        font-size: .9rem;
+    }
+
+    .scale-options {
+        gap: .28rem;
+    }
+
+    .scale-choice {
+        min-height: 6.35rem;
+        padding: .35rem .12rem;
+    }
+
+    .scale-choice strong {
+        font-size: 1.12rem;
+    }
+
+    .scale-choice span {
+        font-size: .68rem;
+        line-height: 1.25;
+    }
+
+    .scale-endpoints {
+        font-size: .68rem;
+    }
+
+    .mission-complete__stats,
+    .review-dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mission-progress-collection {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 420px) {
+    .journey-toolbar__action:not(:last-child) {
+        display: none;
+    }
+
+    .mission-complete__stats,
+    .review-dashboard {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Local, font-free icon glyphs. Keep all decorative icons monochrome/inherited. */
+.fa-solid,
+.fa-regular {
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    font-family: "Segoe UI Symbol", "Segoe UI", sans-serif;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    text-rendering: geometricPrecision;
+    vertical-align: -.08em;
+}
+
+.fa-solid::before,
+.fa-regular::before {
+    display: block;
+    color: inherit;
+    line-height: 1;
+}
+
+.fa-arrow-left::before { content: "\2190"; }
+.fa-arrow-right::before { content: "\2192"; }
+.fa-bars::before { content: "\2261"; }
+.fa-binoculars::before { content: "\221E"; }
+.fa-book-open::before { content: "\25A4"; }
+.fa-bullhorn::before { content: "\25C1"; }
+.fa-circle-check::before { content: "\2713"; }
+.fa-circle-notch::before { content: "\25CC"; }
+.fa-clock-rotate-left::before { content: "\21B6"; }
+.fa-cloud::before { content: "\2601\FE0E"; }
+.fa-comments::before { content: "\2026"; }
+.fa-compass::before { content: "\2316"; }
+.fa-download::before { content: "\21E9"; }
+.fa-eraser::before { content: "\232B"; }
+.fa-fingerprint::before { content: "\25C9"; }
+.fa-hand-holding-heart::before { content: "\2665\FE0E"; }
+.fa-house-chimney-window::before { content: "\2302"; }
+.fa-key::before { content: "\26BF"; }
+.fa-language::before { content: "\6587"; }
+.fa-list-check::before { content: "\2637"; }
+.fa-location-arrow::before { content: "\2316"; }
+.fa-lock::before { content: "\229F"; }
+.fa-paper-plane::before { content: "\27A4\FE0E"; }
+.fa-pen::before { content: "\270E"; }
+.fa-people-group::before { content: "\2022\2022\2022"; font-size: .72em; letter-spacing: -.08em; }
+.fa-route::before { content: "\219D"; }
+.fa-scale-balanced::before { content: "\2696\FE0E"; }
+.fa-seedling::before { content: "\2667"; }
+.fa-shapes::before { content: "\25C7"; }
+.fa-shield-halved::before { content: "\25C8"; }
+.fa-shield-heart::before { content: "\25C6"; }
+.fa-trash-can::before { content: "\2327"; }
+.fa-tree::before { content: "\2660\FE0E"; }
+.fa-universal-access::before { content: "\2295"; }
+.fa-xmark::before { content: "\00D7"; }
+
+@keyframes evaluation-glyph-spin {
+    to { transform: rotate(1turn); }
+}
+
+.fa-spin::before {
+    animation: evaluation-glyph-spin .85s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journey-sidebar,
+    .journey-sidebar-backdrop,
+    .mission-tile,
+    .mission-tile__bar > span,
+    .mission-tile__bar > i {
+        transition: none !important;
+    }
+
+    .fa-spin::before {
+        animation: none !important;
+    }
+}
+
+@media print {
+    body.is-journey-active {
+        overflow: visible;
+    }
+
+    body.is-journey-active #journey {
+        position: static;
+        display: block;
+        width: auto;
+        min-height: 0;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .journey-toolbar,
+    .journey-sidebar-backdrop,
+    .question-stepper,
+    .answer-save-state,
+    .answer-clear,
+    .review-filter {
+        display: none !important;
+    }
+}

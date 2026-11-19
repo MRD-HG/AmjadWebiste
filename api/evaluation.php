@@ -38,6 +38,7 @@ try {
                 'max_payload_bytes' => evaluation_max_payload_bytes(),
                 'minimum_duration_seconds' => evaluation_minimum_duration_seconds(),
                 'rate_limit_seconds' => evaluation_rate_limit_seconds(),
+                'response_id_format' => 'uuidv4',
             ),
             'privacy' => evaluation_privacy_summary(),
         ));
@@ -64,22 +65,35 @@ try {
     }
 
     $providedToken = trim((string)($_SERVER['HTTP_X_CSRF_TOKEN'] ?? ''));
-    evaluation_assert_submission_guard($payload, $providedToken);
+    evaluation_assert_submission_guard($payload, $providedToken, false);
     $validated = evaluation_validate_payload($payload);
-    $record = evaluation_store_submission($validated);
+    $submission = evaluation_submit_idempotently($validated, static function (): void {
+        evaluation_assert_submission_rate_limit();
+    });
+    $record = $submission['record'];
+    $idempotentReplay = (bool)$submission['idempotent_replay'];
 
-    $_SESSION['evaluation_last_submit_at'] = time();
-    $_SESSION['evaluation_csrf_token'] = bin2hex(random_bytes(32));
-    unset($_SESSION['evaluation_started_at']);
+    if (!$idempotentReplay) {
+        $_SESSION['evaluation_last_submit_at'] = time();
+        $_SESSION['evaluation_previous_csrf_token'] = $providedToken;
+        $_SESSION['evaluation_previous_response_id'] = $validated['response_id'];
+        $_SESSION['evaluation_previous_csrf_expires_at'] = time() + 120;
+        $_SESSION['evaluation_csrf_token'] = bin2hex(random_bytes(32));
+        unset($_SESSION['evaluation_started_at']);
+    }
 
     evaluation_json_response(array(
         'ok' => true,
+        'response_id' => $record['response_id'],
         'submission_id' => $record['submission_id'],
         'submitted_at' => $record['submitted_at'],
         'answered_count' => $record['answered_count'],
-        'message' => 'تم حفظ إجابتك بنجاح. شكراً لمساهمتك في تقييم تجربة جمعية أمجاد.',
+        'idempotent_replay' => $idempotentReplay,
+        'message' => $idempotentReplay
+            ? 'سبق حفظ هذه الإجابة بنجاح؛ أُعيد تأكيد الاستلام من دون إنشاء نسخة مكررة.'
+            : 'تم حفظ إجابتك بنجاح. شكراً لمساهمتك في تقييم تجربة جمعية أمجاد.',
         'privacy' => evaluation_privacy_summary(),
-    ), 201);
+    ), $idempotentReplay ? 200 : 201);
 } catch (EvaluationRequestException $error) {
     evaluation_json_response(array('ok' => false, 'error' => array('code' => $error->errorCode(), 'message' => $error->getMessage())), $error->httpStatus());
 } catch (Throwable $error) {

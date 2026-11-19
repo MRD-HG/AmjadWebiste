@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#123f34">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
     <title>رحلة أمجاد 2021–2026 | التقييم المؤسساتي</title>
     <meta name="description" content="استبيان تفاعلي مجهول لتقييم تجربة جمعية أمجاد بين 2021 و2026 عبر عشر محطات قصيرة.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/evaluation.css">
     <link rel="stylesheet" href="css/accessibility.css">
     <link rel="icon" href="images/favicon.ico">
@@ -80,24 +79,24 @@
                             كيف نحمي إجاباتك؟
                         </button>
                     </div>
-                    <p class="draft-resume" id="draft-resume" hidden>
+                    <div class="draft-resume" id="draft-resume" hidden>
                         <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-                        عثرنا على مسودة في علامة التبويب الحالية.
-                        <button type="button" data-action="resume-draft">متابعة من حيث توقفت</button>
-                    </p>
+                        <div><strong>لديك رحلة غير مكتملة</strong><span id="draft-summary">يمكنك المتابعة من حيث توقفت.</span></div>
+                        <button type="button" data-action="resume-draft">متابعة</button>
+                        <button type="button" data-action="discard-and-start">بدء استجابة جديدة</button>
+                    </div>
                 </div>
 
                 <div class="mission-world mission-world--hero" aria-labelledby="mission-map-title">
                     <div class="mission-world__header">
                         <div>
-                            <span>الخريطة التفاعلية</span>
-                            <h2 id="mission-map-title">كل محطة تبني جزءاً من المشهد</h2>
+                            <span>لوحة المهمات التفاعلية</span>
+                            <h2 id="mission-map-title">اعرف المحاور وانتقل بينها بثقة</h2>
                         </div>
                         <span class="mission-world__counter" id="hero-mission-counter" dir="ltr">0 / 10</span>
                     </div>
-                    <p class="mission-world__explanation">العناصر العشرة هي محاور الاستبيان نفسها. استخدمها للتنقل، ويكتمل المشهد كلما أنهيت محطة بصرف النظر عن نوع إجاباتك.</p>
+                    <p class="mission-world__explanation">كل بطاقة تمثل محوراً حقيقياً وتعرض عدد إجاباتك فيه. أثناء الرحلة يمكنك فتح أي محطة مباشرة والعودة إلى الأسئلة الفارغة.</p>
                     <div class="mission-world__viewport">
-                        <div class="mission-world__sky" aria-hidden="true"><span></span><span></span><span></span></div>
                         <div class="mission-world__board" id="hero-mission-map" aria-label="خريطة محطات التقييم"></div>
                     </div>
                     <div class="mission-world__legend"><span><i class="legend-dot legend-dot--current"></i> المحطة الحالية</span><span><i class="legend-dot legend-dot--done"></i> محطة منجزة</span></div>
@@ -118,8 +117,9 @@
         </section>
 
         <section class="journey" id="journey" hidden aria-label="أسئلة التقييم">
+            <button class="journey-sidebar-backdrop" type="button" data-action="toggle-missions" aria-label="إغلاق قائمة المحطات" tabindex="-1"></button>
             <div class="evaluation-container journey__layout">
-                <aside class="journey-sidebar" aria-label="حالة الرحلة والتنقل بين المحطات">
+                <aside class="journey-sidebar" id="journey-sidebar" aria-label="حالة الرحلة والتنقل بين المحطات">
                     <div class="journey-sidebar__top">
                         <a href="#evaluation-intro" class="journey-sidebar__brand"><img src="images/logoamjad.png" alt=""><span>رحلة أمجاد</span></a>
                         <button type="button" class="icon-button" data-action="close-journey" aria-label="العودة إلى مقدمة الصفحة" title="العودة إلى المقدمة"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="mission-world mission-world--compact">
                         <div class="mission-world__header">
-                            <div><span>مشهد الرحلة</span><h2>المحطات العشر</h2></div>
+                            <div><span>لوحة الرحلة</span><h2>المحطات العشر</h2></div>
                             <span class="mission-world__counter" id="compact-mission-counter" dir="ltr">0 / 10</span>
                         </div>
                         <div class="mission-world__viewport"><div class="mission-world__board" id="compact-mission-map" aria-label="انتقل إلى إحدى محطات التقييم"></div></div>
@@ -142,6 +142,13 @@
                 </aside>
 
                 <div class="journey-content">
+                    <header class="journey-toolbar">
+                        <button class="journey-toolbar__missions" type="button" data-action="toggle-missions" aria-controls="journey-sidebar" aria-expanded="false"><i class="fa-solid fa-route" aria-hidden="true"></i><span>المحطات</span></button>
+                        <div class="journey-toolbar__current"><span>المحطة الحالية</span><strong id="current-mission-title">بوابة الانطلاق</strong></div>
+                        <div class="answer-save-state" id="answer-save-status" role="status" aria-live="polite"><i class="fa-solid fa-cloud" aria-hidden="true"></i><span>المسودة محفوظة في هذا التبويب</span></div>
+                        <button class="journey-toolbar__review" type="button" data-action="show-review"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>المراجعة</span><strong id="toolbar-answered-count" dir="ltr">0/40</strong></button>
+                        <button class="icon-button journey-toolbar__close" type="button" data-action="close-journey" aria-label="إيقاف الرحلة مؤقتاً والعودة للمقدمة"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    </header>
                     <div class="journey-status" role="status" aria-live="polite" id="journey-live-status"></div>
 
                     <section class="question-screen" id="question-screen" aria-labelledby="question-title">
@@ -150,11 +157,11 @@
                                 <span class="mission-label" id="mission-label">بوابة الانطلاق</span>
                                 <p id="mission-purpose"></p>
                             </div>
-                            <span class="question-position" id="question-position" dir="ltr">1 / 3</span>
-                        </header>
+                             <span class="question-position" id="question-position" dir="ltr">1 / 3</span>
+                         </header>
+                        <nav class="question-stepper" id="mission-question-nav" aria-label="أسئلة المحطة الحالية"></nav>
                         <article class="question-card" id="question-card">
-                            <div class="question-card__number" id="question-number">س01</div>
-                            <p class="question-card__optional"><i class="fa-regular fa-circle-check" aria-hidden="true"></i> سؤال اختياري</p>
+                            <div class="question-card__meta"><div><div class="question-card__number" id="question-number">س01</div><p class="question-card__optional"><i class="fa-regular fa-circle-check" aria-hidden="true"></i> سؤال اختياري</p></div><button class="answer-clear" id="answer-clear" type="button" data-action="clear-answer" hidden><i class="fa-solid fa-eraser" aria-hidden="true"></i> مسح الإجابة</button></div>
                             <h2 id="question-title" tabindex="-1"></h2>
                             <p class="question-help" id="question-help"></p>
                             <div class="answer-area" id="answer-area"></div>
@@ -174,8 +181,10 @@
                         <span class="mission-complete__eyebrow">محطة أُنجزت</span>
                         <h2 id="mission-complete-title" tabindex="-1">شكراً لمساهمتك</h2>
                         <p id="mission-complete-text"></p>
+                        <div class="mission-complete__stats" id="mission-complete-stats"></div>
+                        <div class="mission-progress-collection" id="mission-progress-collection" aria-label="المحطات المنجزة"></div>
                         <div class="mission-complete__note"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><span>إتمام المحطة يحتفل بالمشاركة فقط؛ لا توجد نقاط ولا تقييم لإجاباتك.</span></div>
-                        <button class="button button--primary" type="button" data-action="continue-after-mission">متابعة الرحلة <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                        <div class="mission-complete__actions"><button class="button button--secondary" type="button" data-action="return-to-mission"><i class="fa-solid fa-pen" aria-hidden="true"></i> مراجعة المحطة</button><button class="button button--primary" type="button" data-action="continue-after-mission">متابعة الرحلة <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button></div>
                     </section>
 
                     <section class="review-screen" id="review-screen" hidden aria-labelledby="review-title">
@@ -183,6 +192,12 @@
                             <div><span>الخطوة الأخيرة</span><h2 id="review-title" tabindex="-1">راجع إجاباتك قبل الإرسال</h2><p>يمكنك تعديل أي سؤال. الأسئلة غير المجاب عنها ستبقى فارغة، وهذا مقبول.</p></div>
                             <div class="review-score"><strong id="review-answered-count">0</strong><span>من 40 سؤالاً</span></div>
                         </header>
+                        <div class="review-dashboard">
+                            <div><span>أجبت عن</span><strong id="review-dashboard-answered" dir="ltr">0 / 40</strong></div>
+                            <div><span>متروك اختيارياً</span><strong id="review-unanswered-count">40</strong></div>
+                            <div><span>محطات زرتها</span><strong id="review-mission-count" dir="ltr">0 / 10</strong></div>
+                        </div>
+                        <div class="review-filter"><button type="button" data-action="first-unanswered"><i class="fa-solid fa-location-arrow" aria-hidden="true"></i> أول سؤال غير مجاب</button><label><input type="checkbox" id="review-unanswered-only"> عرض الأسئلة غير المجاب عنها فقط</label></div>
                         <div class="review-list" id="review-list"></div>
                         <div class="submission-panel">
                             <div class="submission-panel__copy">
@@ -206,7 +221,7 @@
                         <span>اكتملت رحلة التقييم</span>
                         <h2 id="success-title" tabindex="-1">شكراً لأنك ساهمت في بناء المرحلة المقبلة</h2>
                         <p>تم استلام إجاباتك بنجاح. لم نطلب اسماً أو بريداً إلكترونياً أو رقم هاتف.</p>
-                        <div class="confirmation-code"><span>رمز التأكيد</span><strong id="confirmation-code">—</strong></div>
+                        <div class="confirmation-code"><span>مرجع الاستلام</span><strong id="confirmation-code">—</strong><button type="button" data-action="copy-confirmation">نسخ المرجع</button></div>
                         <div class="success-actions"><a class="button button--primary" href="index.html">العودة إلى الموقع</a><button class="button button--secondary" type="button" data-action="start-new-response">بدء استجابة جديدة</button></div>
                     </section>
                 </div>
@@ -241,7 +256,7 @@
             <ul>
                 <li><strong>لا حقول تعريف مباشرة:</strong> لا اسم، لا هاتف، ولا بريد إلكتروني.</li>
                 <li><strong>كل الأسئلة اختيارية:</strong> يمكنك تجاوز أي سؤال أو اختيار «لا تتوفر لدي معلومات كافية».</li>
-                <li><strong>المسودة مؤقتة:</strong> تحفظ في علامة التبويب الحالية فقط لمساعدتك عند التحديث العرضي، وتُمسح بعد الإرسال أو عند إغلاق التبويب.</li>
+                <li><strong>المسودة مؤقتة:</strong> تحفظ في جلسة علامة التبويب الحالية لمساعدتك عند التحديث العرضي، وتُمسح بعد الإرسال أو عند مسحها يدوياً. قد يعيد بعض المتصفحات جلسة التبويب بعد إغلاقه، لذلك وفرنا زر المسح الصريح.</li>
                 <li><strong>الإرسال بقرارك:</strong> لن تصل الإجابات إلى الجمعية قبل المراجعة والموافقة والضغط على زر الإرسال.</li>
                 <li><strong>النصوص المفتوحة:</strong> تجنب أسماء الأشخاص أو أي تفاصيل قد تكشف هويتك أو هوية غيرك.</li>
                 <li><strong>السجلات التقنية:</strong> لا يحفظ النموذج عنوان IP أو نوع الجهاز داخل ملف الاستجابة، لكن قد توجد سجلات وصول تقنية لدى مزود الاستضافة.</li>
