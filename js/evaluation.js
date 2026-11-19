@@ -8,6 +8,10 @@
     const LEGACY_STORAGE_KEY = 'amjad_evaluation_draft_v1';
     const DRAFT_SCHEMA_VERSION = 2;
     const API_URL = 'api/evaluation.php';
+    const AUTO_ADVANCE_MS = 900;
+    // Brand accents cycled across stations (forest/emerald, burgundy, gold, deep forest).
+    const ACCENTS = ['#0d7658', '#861f47', '#b7862b', '#1d5f4c'];
+    const CONFETTI_COLORS = ['#10b981', '#0d7658', '#861f47', '#d8b060', '#f3dca6', '#123f34'];
     const sections = survey.sections;
     const allQuestions = sections.flatMap((section, sectionIndex) => section.questions.map((question, sectionPosition) => ({
         ...question,
@@ -15,6 +19,7 @@
         sectionPosition,
         sectionLength: section.questions.length
     })));
+    const sectionStart = sections.map((section, index) => allQuestions.findIndex(question => question.sectionIndex === index));
 
     const elements = {};
     let state = defaultState();
@@ -24,6 +29,13 @@
     let apiPromise = null;
     let storageAvailable = true;
     let activeCompletionSection = 0;
+    let advanceTimer = 0;
+    let burstTimer = 0;
+    let boardObserver = null;
+    let lastRenderedQuestion = -1;
+
+    const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const accentFor = sectionIndex => sectionIndex === 0 ? '#b7862b' : ACCENTS[(sectionIndex - 1) % ACCENTS.length];
 
     function createResponseId() {
         if (window.crypto?.randomUUID) return window.crypto.randomUUID();
@@ -48,24 +60,27 @@
             journeyStarted: false,
             currentScreen: 'question',
             pendingNextIndex: 0,
-            completionSection: 0
+            completionSection: 0,
+            autoAdvance: true
         };
     }
 
     function cacheElements() {
         [
             'evaluation-mobile-nav', 'privacy-dialog', 'draft-resume', 'journey',
-            'hero-mission-map', 'compact-mission-map', 'hero-mission-counter', 'compact-mission-counter',
+            'hero-mission-map', 'hero-board-stage', 'compact-mission-map', 'hero-mission-counter', 'compact-mission-counter',
             'journey-progress-label', 'journey-progress-percent', 'journey-progress-track', 'journey-progress-fill',
+            'passport-progress-fill', 'hud-milestones', 'hud-runner', 'hud-stamps', 'hud-station-icon',
             'answered-count', 'sidebar-answered-count', 'toolbar-answered-count', 'journey-live-status', 'question-screen',
-            'mission-label', 'mission-purpose', 'question-position', 'question-card', 'question-number',
+            'mission-label', 'mission-purpose', 'question-position', 'question-card', 'question-number', 'station-icon',
             'question-title', 'question-help', 'answer-area', 'answer-clear', 'answer-save-status', 'mission-question-nav',
-            'current-mission-title', 'journey-sidebar', 'mission-complete', 'mission-complete-title',
+            'current-mission-title', 'journey-sidebar', 'mission-complete', 'mission-complete-title', 'mission-complete-stamp',
             'mission-complete-text', 'mission-complete-stats', 'mission-progress-collection',
-            'review-screen', 'review-title', 'review-answered-count', 'review-dashboard-answered',
+            'review-screen', 'review-title', 'review-answered-count', 'review-dashboard-answered', 'review-stamps',
             'review-unanswered-count', 'review-mission-count', 'review-unanswered-only', 'review-list',
-            'submission-consent', 'submission-status', 'success-screen', 'success-title', 'confirmation-code',
-            'evaluation-toast', 'draft-summary'
+            'submission-consent', 'submission-status', 'success-screen', 'success-title', 'success-stamps', 'confirmation-code',
+            'evaluation-toast', 'draft-summary', 'auto-advance-toggle', 'auto-advance-meter', 'asil-bubble',
+            'stamp-burst', 'stamp-burst-title', 'stamp-burst-count', 'confetti-layer'
         ].forEach(id => { elements[id] = document.getElementById(id); });
     }
 
@@ -104,7 +119,8 @@
             journeyStarted: Boolean(draft.journeyStarted),
             currentScreen: ['question', 'review', 'complete'].includes(draft.currentScreen) ? draft.currentScreen : 'question',
             pendingNextIndex: Number.isInteger(Number(draft.pendingNextIndex)) ? Number(draft.pendingNextIndex) : 0,
-            completionSection: Number.isInteger(Number(draft.completionSection)) ? Math.max(0, Math.min(10, Number(draft.completionSection))) : 0
+            completionSection: Number.isInteger(Number(draft.completionSection)) ? Math.max(0, Math.min(10, Number(draft.completionSection))) : 0,
+            autoAdvance: draft.autoAdvance !== false
         };
         sanitizeDraft();
         return state.journeyStarted || countAnswered() > 0 || state.completedMissions.length > 0;
@@ -207,7 +223,7 @@
         status.classList.toggle('is-saved', Boolean(justSaved && storageAvailable));
         const text = status.querySelector('span');
         if (text) text.textContent = storageAvailable
-            ? (justSaved ? 'حُفظت الإجابة في هذا التبويب' : 'المسودة محفوظة في هذا التبويب')
+            ? (justSaved ? 'حُفظت الإجابة' : 'المسودة محفوظة')
             : 'تعذر حفظ المسودة في هذا المتصفح';
         if (justSaved && storageAvailable) window.setTimeout(() => status.classList.remove('is-saved'), 1100);
     }
@@ -216,50 +232,226 @@
         return allQuestions[state.currentQuestion]?.sectionIndex ?? 0;
     }
 
-    function renderMissionMap(container) {
+    /* ------------------------------------------------------------ Board */
+
+    function nextStationIndex() {
+        if (state.journeyStarted && state.currentScreen !== 'review') {
+            const current = currentSectionIndex();
+            if (current > 0) return current;
+        }
+        for (let index = 1; index < sections.length; index += 1) {
+            if (!state.completedMissions.includes(index)) return index;
+        }
+        return sections.length - 1;
+    }
+
+    function stationStatus(sectionIndex) {
+        const sectionQuestions = questionsForSection(sectionIndex);
+        const answered = sectionQuestions.filter(isAnswered).length;
+        const complete = state.completedMissions.includes(sectionIndex);
+        return {
+            answered,
+            total: sectionQuestions.length,
+            complete,
+            progress: sectionQuestions.length ? Math.round((answered / sectionQuestions.length) * 100) : 0,
+            label: complete ? 'طابع محصّل' : answered ? `${answered} من ${sectionQuestions.length} إجابات` : 'بانتظارك'
+        };
+    }
+
+    function renderBoard(container) {
         if (!container) return;
-        const current = currentSectionIndex();
+        const next = nextStationIndex();
+        const current = state.journeyStarted ? currentSectionIndex() : -1;
         container.innerHTML = sections.slice(1).map((section, index) => {
             const sectionIndex = index + 1;
-            const complete = state.completedMissions.includes(sectionIndex);
-            const active = state.journeyStarted && current === sectionIndex;
+            const status = stationStatus(sectionIndex);
+            const classes = ['mission-tile', 'board-node'];
+            if (status.complete) classes.push('is-complete');
+            if (sectionIndex === next) classes.push('is-next');
+            if (sectionIndex === current) classes.push('is-current');
             const label = section.shortTitle || section.title;
-            const sectionQuestions = questionsForSection(sectionIndex);
-            const answered = sectionQuestions.filter(isAnswered).length;
-            const progress = sectionQuestions.length ? Math.round((answered / sectionQuestions.length) * 100) : 0;
-            const status = complete ? 'تمت زيارتها' : answered ? `${answered} من ${sectionQuestions.length} إجابات` : 'جاهزة للبدء';
-            return `<button type="button" class="mission-tile${complete ? ' is-complete' : ''}${active ? ' is-current' : ''}" data-mission-section="${sectionIndex}" aria-label="${escapeHtml(section.name)}: ${escapeHtml(section.title)}، ${escapeHtml(status)}"${active ? ' aria-current="step"' : ''}><span class="mission-tile__top"><span class="mission-tile__number" dir="ltr">${String(index + 1).padStart(2, '0')}</span><span class="mission-tile__icon"><i class="fa-solid ${escapeHtml(section.icon)}" aria-hidden="true"></i></span></span><strong class="mission-tile__title">${escapeHtml(label)}</strong><span class="mission-tile__progress"><span class="mission-tile__bar"><i style="width:${progress}%"></i></span><span dir="ltr">${answered}/${sectionQuestions.length}</span></span><span class="mission-tile__status">${escapeHtml(status)}</span></button>`;
+            return `<button type="button" class="${classes.join(' ')}" style="--node-accent:${accentFor(sectionIndex)}" data-mission-section="${sectionIndex}" data-board-index="${index}" aria-label="${escapeHtml(section.name)}: ${escapeHtml(section.title)}، ${escapeHtml(status.label)}"${sectionIndex === current ? ' aria-current="step"' : ''}>`
+                + `<span class="board-node__disc" style="--p:${status.complete ? 100 : status.progress}"><i class="fa-solid ${escapeHtml(section.icon)}" aria-hidden="true"></i><span class="board-node__num" dir="ltr">${sectionIndex}</span>${status.complete ? '<span class="board-node__check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>' : ''}${sectionIndex === 10 ? '<span class="board-node__flag" aria-hidden="true"><i class="fa-solid fa-flag-checkered"></i></span>' : ''}</span>`
+                + `<span class="board-node__title">${escapeHtml(label)}</span><span class="board-node__meta" dir="ltr">${status.answered}/${status.total}</span></button>`;
+        }).join('');
+        layoutBoard();
+    }
+
+    function boardColumns(width) {
+        if (width < 340) return 3;
+        if (width < 470) return 4;
+        return 5;
+    }
+
+    function smoothPath(points) {
+        if (!points.length) return '';
+        if (points.length === 1) return `M${points[0].x},${points[0].y}`;
+        let d = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+        for (let i = 0; i < points.length - 1; i += 1) {
+            const p0 = points[i - 1] || points[i];
+            const p1 = points[i];
+            const p2 = points[i + 1];
+            const p3 = points[i + 2] || p2;
+            const c1x = p1.x + (p2.x - p0.x) / 6;
+            const c1y = p1.y + (p2.y - p0.y) / 6;
+            const c2x = p2.x - (p3.x - p1.x) / 6;
+            const c2y = p2.y - (p3.y - p1.y) / 6;
+            d += ` C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+        }
+        return d;
+    }
+
+    function layoutBoard() {
+        const stage = elements['hero-board-stage'];
+        const board = elements['hero-mission-map'];
+        if (!stage || !board || !board.children.length) return;
+        const columns = boardColumns(board.clientWidth);
+        board.style.setProperty('--board-cols', String(columns));
+        [...board.children].forEach((node, index) => {
+            const row = Math.floor(index / columns);
+            const position = index % columns;
+            node.style.gridRow = String(row + 1);
+            node.style.gridColumn = String(row % 2 === 0 ? position + 1 : columns - position);
+        });
+
+        const stageBox = stage.getBoundingClientRect();
+        const points = [...board.querySelectorAll('.board-node__disc')].map(disc => {
+            const box = disc.getBoundingClientRect();
+            return { x: box.left - stageBox.left + box.width / 2, y: box.top - stageBox.top + box.height / 2, size: box.width };
+        });
+        if (!points.length) return;
+        const next = nextStationIndex();
+        const allDone = state.completedMissions.length >= 10;
+        const progressPoints = points.slice(0, allDone ? points.length : Math.max(1, next));
+        const width = stage.clientWidth;
+        const height = stage.clientHeight;
+        let svg = stage.querySelector('.game-board__path');
+        if (!svg) {
+            svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'game-board__path');
+            svg.setAttribute('aria-hidden', 'true');
+            svg.setAttribute('focusable', 'false');
+            stage.prepend(svg);
+        }
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        const route = smoothPath(points);
+        svg.innerHTML = `<path class="path-base" d="${route}"></path><path class="path-progress" d="${smoothPath(progressPoints)}"></path><path class="path-dash" d="${route}"></path>`;
+        if (progressPoints.length < 2) svg.querySelector('.path-progress')?.remove();
+
+        let avatar = stage.querySelector('.game-board__avatar');
+        if (!avatar) {
+            avatar = document.createElement('span');
+            avatar.className = 'game-board__avatar';
+            avatar.setAttribute('aria-hidden', 'true');
+            avatar.innerHTML = '<img src="images/asil-avatar.webp" alt="" width="46" height="46">';
+            stage.appendChild(avatar);
+        }
+        const target = points[Math.max(0, Math.min(points.length - 1, next - 1))];
+        const size = Math.min(46, target.size - 8);
+        avatar.style.width = `${size}px`;
+        avatar.style.height = `${size}px`;
+        avatar.style.transform = `translate(${(target.x - size / 2).toFixed(1)}px, ${(target.y - size / 2).toFixed(1)}px)`;
+        avatar.style.left = '0';
+        avatar.style.top = '0';
+    }
+
+    function watchBoard() {
+        if (boardObserver || !('ResizeObserver' in window) || !elements['hero-board-stage']) return;
+        let frame = 0;
+        boardObserver = new ResizeObserver(() => {
+            window.cancelAnimationFrame(frame);
+            frame = window.requestAnimationFrame(layoutBoard);
+        });
+        boardObserver.observe(elements['hero-board-stage']);
+    }
+
+    /* --------------------------------------------------------- Passport */
+
+    function renderPassport(container) {
+        if (!container) return;
+        const current = state.journeyStarted ? currentSectionIndex() : -1;
+        container.innerHTML = sections.slice(1).map((section, index) => {
+            const sectionIndex = index + 1;
+            const status = stationStatus(sectionIndex);
+            const active = sectionIndex === current && state.currentScreen === 'question';
+            const label = section.shortTitle || section.title;
+            return `<button type="button" class="mission-tile stamp-tile${status.complete ? ' is-complete' : ''}${active ? ' is-current' : ''}" style="--node-accent:${accentFor(sectionIndex)}" data-mission-section="${sectionIndex}" aria-label="${escapeHtml(section.name)}: ${escapeHtml(section.title)}، ${escapeHtml(status.label)}"${active ? ' aria-current="step"' : ''}>`
+                + `<span class="stamp-tile__num" dir="ltr">${pad(sectionIndex)}</span><span class="stamp-tile__icon"><i class="fa-solid ${escapeHtml(section.icon)}" aria-hidden="true"></i></span>`
+                + `<span class="stamp-tile__title">${escapeHtml(label)}</span><span class="stamp-tile__meta"><span class="stamp-tile__bar"><i style="width:${status.progress}%"></i></span><span dir="ltr">${status.answered}/${status.total}</span></span></button>`;
+        }).join('');
+    }
+
+    function miniStamps(currentIndex) {
+        return sections.slice(1).map((section, index) => {
+            const sectionIndex = index + 1;
+            const complete = state.completedMissions.includes(sectionIndex);
+            return `<span class="mini-stamp${complete ? ' is-complete' : ''}${currentIndex === sectionIndex ? ' is-current' : ''}" style="--node-accent:${accentFor(sectionIndex)};--i:${index}" title="${escapeHtml(section.name)}" aria-label="${escapeHtml(section.name)}${complete ? ' — طابع محصّل' : ''}"><i class="fa-solid ${escapeHtml(section.icon)}" aria-hidden="true"></i></span>`;
         }).join('');
     }
 
     function renderMaps() {
-        renderMissionMap(elements['hero-mission-map']);
-        renderMissionMap(elements['compact-mission-map']);
+        renderBoard(elements['hero-mission-map']);
+        renderPassport(elements['compact-mission-map']);
         const completed = state.completedMissions.length;
         elements['hero-mission-counter'].textContent = `${completed} / 10`;
         elements['compact-mission-counter'].textContent = `${completed} / 10`;
+        if (elements['hud-stamps']) elements['hud-stamps'].textContent = `${completed}/10`;
+    }
+
+    /* -------------------------------------------------------------- HUD */
+
+    function renderHudMilestones() {
+        const holder = elements['hud-milestones'];
+        if (!holder) return;
+        const last = allQuestions.length - 1;
+        holder.innerHTML = sections.slice(1).map((section, index) => {
+            const sectionIndex = index + 1;
+            const position = (sectionStart[sectionIndex] / last) * 100;
+            return `<i class="${state.completedMissions.includes(sectionIndex) ? 'is-complete' : ''}" style="right:${position.toFixed(2)}%"></i>`;
+        }).join('');
     }
 
     function updateProgress() {
         const answered = countAnswered();
         const displayIndex = Math.min(state.currentQuestion + 1, allQuestions.length);
         const percent = Math.round((answered / allQuestions.length) * 100);
+        const reviewing = state.currentScreen === 'review';
+        const position = reviewing ? 100 : (state.currentQuestion / (allQuestions.length - 1)) * 100;
         elements['journey-progress-label'].textContent = `السؤال ${displayIndex} من ${allQuestions.length}`;
         elements['journey-progress-percent'].textContent = `${percent}%`;
-        elements['journey-progress-fill'].style.width = `${percent}%`;
+        if (elements['passport-progress-fill']) elements['passport-progress-fill'].style.width = `${percent}%`;
+        elements['journey-progress-fill'].style.width = `${position}%`;
+        if (elements['hud-runner']) elements['hud-runner'].style.setProperty('--pos', String(position / 100));
         elements['journey-progress-track'].setAttribute('aria-valuenow', String(answered));
         elements['journey-progress-track'].setAttribute('aria-valuetext', `أجبت عن ${answered} من ${allQuestions.length} سؤالاً اختيارياً`);
         elements['answered-count'].textContent = String(answered);
         elements['sidebar-answered-count'].textContent = `${answered}/40`;
         if (elements['toolbar-answered-count']) elements['toolbar-answered-count'].textContent = `${answered}/40`;
+        renderHudMilestones();
         renderMaps();
     }
 
-    function answerChoice(question, option, index, checkbox) {
+    function setStationTheme(sectionIndex) {
+        const section = sections[sectionIndex];
+        const accent = accentFor(sectionIndex);
+        document.querySelector('.journey')?.style.setProperty('--accent', accent);
+        const icon = `<i class="fa-solid ${escapeHtml(section.icon)}"></i>`;
+        if (elements['station-icon']) elements['station-icon'].innerHTML = icon;
+        if (elements['hud-station-icon']) elements['hud-station-icon'].innerHTML = icon;
+    }
+
+    /* ---------------------------------------------------------- Answers */
+
+    function keyBadge(number) {
+        return `<span class="answer-choice__key" aria-hidden="true" dir="ltr">${number}</span>`;
+    }
+
+    function answerChoice(question, option, index, checkbox, extraClass) {
         const answer = answerFor(question);
         const selected = checkbox ? Array.isArray(answer) && answer.includes(option) : answer === option;
         const type = checkbox ? 'checkbox' : 'radio';
-        return `<label class="answer-choice${selected ? ' is-selected' : ''}"><input type="${type}" name="q${question.id}" value="${escapeHtml(option)}" data-answer-id="${question.id}"${selected ? ' checked' : ''}><span class="answer-choice__mark" aria-hidden="true"></span><span>${escapeHtml(option)}</span></label>`;
+        const key = index + 1 <= 9 ? keyBadge(index + 1) : '';
+        return `<label class="answer-choice${checkbox ? ' answer-choice--checkbox' : ''}${extraClass ? ` ${extraClass}` : ''}${selected ? ' is-selected' : ''}" data-key="${index + 1}"><input type="${type}" name="q${question.id}" value="${escapeHtml(option)}" data-answer-id="${question.id}"${selected ? ' checked' : ''}>${key}<span class="answer-choice__text">${escapeHtml(option)}</span><i class="fa-solid fa-circle-check answer-choice__tick" aria-hidden="true"></i></label>`;
     }
 
     function renderRadio(question) {
@@ -267,15 +459,19 @@
         return `<fieldset><legend>اختر إجابة واحدة، أو اترك السؤال من دون إجابة.</legend><div class="answer-options${optionsClass}">${question.options.map((option, index) => answerChoice(question, option, index, false)).join('')}</div>${renderOther(question)}</fieldset>`;
     }
 
+    function selectionDots(question, count) {
+        return Array.from({ length: question.max }, (item, index) => `<i class="${index < count ? 'is-filled' : ''}"></i>`).join('');
+    }
+
     function renderCheckbox(question) {
         const answer = Array.isArray(answerFor(question)) ? answerFor(question) : [];
-        return `<fieldset><legend>يمكنك اختيار ${question.max} إجابات كحد أقصى.</legend><div class="selection-limit"><span>عدد الاختيارات الحالية</span><strong id="selection-count-${question.id}" dir="ltr">${answer.length} / ${question.max}</strong></div><div class="answer-options answer-options--two">${question.options.map((option, index) => answerChoice(question, option, index, true)).join('')}</div>${renderOther(question)}</fieldset>`;
+        return `<fieldset><legend>يمكنك اختيار ${question.max} إجابات كحد أقصى.</legend><div class="selection-limit"><span>اختياراتك: <strong id="selection-count-${question.id}" dir="ltr">${answer.length} / ${question.max}</strong></span><span class="selection-limit__dots" id="selection-dots-${question.id}" aria-hidden="true">${selectionDots(question, answer.length)}</span></div><div class="answer-options answer-options--two">${question.options.map((option, index) => answerChoice(question, option, index, true)).join('')}</div>${renderOther(question)}</fieldset>`;
     }
 
     function renderScale(question) {
         const answer = answerFor(question);
-        const main = survey.scale.slice(0, 5).map(option => `<label class="scale-choice${answer === option.value ? ' is-selected' : ''}" title="${escapeHtml(option.label)}"><input type="radio" name="q${question.id}" value="${escapeHtml(option.value)}" data-answer-id="${question.id}" aria-label="${escapeHtml(option.label)}"${answer === option.value ? ' checked' : ''}><strong>${option.value}</strong><span>${escapeHtml(option.short)}</span></label>`).join('');
-        const alternatives = survey.scale.slice(5).map((option, index) => answerChoice(question, option.value, index, false)).join('');
+        const main = survey.scale.slice(0, 5).map(option => `<label class="scale-choice${answer === option.value ? ' is-selected' : ''}" title="${escapeHtml(option.label)}" data-key="${option.value}"><input type="radio" name="q${question.id}" value="${escapeHtml(option.value)}" data-answer-id="${question.id}" aria-label="${escapeHtml(option.label)}"${answer === option.value ? ' checked' : ''}><strong>${option.value}</strong><span>${escapeHtml(option.short)}</span></label>`).join('');
+        const alternatives = survey.scale.slice(5).map((option, index) => answerChoice(question, option.value, index + 5, false, 'answer-choice--quiet')).join('');
         return `<fieldset><legend>اختر درجة من 1 إلى 5، أو أحد الخيارين الإضافيين عند الحاجة.</legend><div class="scale-endpoints" aria-hidden="true"><span>1 · لا أوافق إطلاقاً</span><span>5 · أوافق تماماً</span></div><div class="scale-options">${main}</div><div class="scale-alternatives">${alternatives}</div></fieldset>`;
     }
 
@@ -303,6 +499,104 @@
         return renderText(question);
     }
 
+    /* ------------------------------------------------------- Asil guide */
+
+    function guideLine(question) {
+        const section = sections[question.sectionIndex];
+        const first = question.sectionPosition === 0;
+        const last = question.sectionPosition === question.sectionLength - 1;
+        if (question.id === 1) return 'أهلاً بك! أنا أصيل، سأرافقك في الرحلة. ثلاثة أسئلة تمهيدية ثم ننطلق.';
+        if (first && question.sectionIndex === 6) return `تجاوزنا منتصف الطريق! مرحباً بك في ${section.name}.`;
+        if (first && question.sectionIndex > 0) return `وصلنا إلى ${section.name}: ${section.shortTitle || section.title}. ${question.sectionLength} أسئلة قصيرة.`;
+        if (last && question.sectionIndex > 0) return 'آخر سؤال في هذه المحطة، ثم يُختم جوازك بطابعها.';
+        if (question.type === 'scale') return 'اختر الرقم الأقرب لتجربتك. لا توجد إجابة صحيحة أو خاطئة.';
+        if (question.type === 'checkbox') return `اختر حتى ${question.max}، أو أقل إن رغبت.`;
+        if (question.type === 'text') return 'اكتب بحرية وباختصار، ومن دون ذكر أسماء الأشخاص.';
+        return 'اختيار واحد يكفي، ويمكنك دائماً تجاوز السؤال.';
+    }
+
+    function setGuide(text) {
+        const bubble = elements['asil-bubble'];
+        if (!bubble || bubble.textContent === text) return;
+        bubble.textContent = text;
+        bubble.classList.remove('is-new');
+        void bubble.offsetWidth;
+        bubble.classList.add('is-new');
+    }
+
+    /* ------------------------------------------------------ Auto-advance */
+
+    function cancelAutoAdvance() {
+        window.clearTimeout(advanceTimer);
+        advanceTimer = 0;
+        elements['auto-advance-meter']?.classList.remove('is-running');
+    }
+
+    function scheduleAutoAdvance(question) {
+        cancelAutoAdvance();
+        if (!state.autoAdvance || state.currentScreen !== 'question') return;
+        const meter = elements['auto-advance-meter'];
+        if (meter) {
+            meter.style.setProperty('--advance-ms', `${AUTO_ADVANCE_MS}ms`);
+            void meter.offsetWidth;
+            meter.classList.add('is-running');
+        }
+        const index = state.currentQuestion;
+        advanceTimer = window.setTimeout(() => {
+            advanceTimer = 0;
+            meter?.classList.remove('is-running');
+            if (state.currentQuestion !== index || state.currentScreen !== 'question' || !isAnswered(question) || otherIsSelected(question)) return;
+            if (elements.journey.hidden) return;
+            moveForward(false);
+        }, AUTO_ADVANCE_MS);
+    }
+
+    /* --------------------------------------------------------- Effects */
+
+    function confetti(amount) {
+        const layer = elements['confetti-layer'];
+        if (!layer || reducedMotion()) return;
+        const pieces = [];
+        for (let i = 0; i < amount; i += 1) {
+            const piece = document.createElement('span');
+            piece.className = 'confetti-piece';
+            piece.style.left = `${Math.random() * 100}%`;
+            piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+            piece.style.setProperty('--dx', `${(Math.random() - .5) * 220}px`);
+            piece.style.setProperty('--rot', `${(Math.random() > .5 ? 1 : -1) * (360 + Math.random() * 540)}deg`);
+            piece.style.setProperty('--fall', `${1.4 + Math.random() * 1.2}s`);
+            piece.style.animationDelay = `${Math.random() * .35}s`;
+            if (Math.random() > .6) piece.style.borderRadius = '50%';
+            pieces.push(piece);
+        }
+        layer.append(...pieces);
+        window.setTimeout(() => pieces.forEach(piece => piece.remove()), 3200);
+    }
+
+    function showStampBurst(sectionIndex) {
+        const burst = elements['stamp-burst'];
+        if (!burst) return;
+        const section = sections[sectionIndex];
+        burst.style.setProperty('--burgundy', accentFor(sectionIndex));
+        burst.querySelector('.stamp-burst__stamp').innerHTML = `<i class="fa-solid ${escapeHtml(section.icon)}"></i>`;
+        elements['stamp-burst-title'].textContent = `${section.name} · ${section.shortTitle || section.title}`;
+        elements['stamp-burst-count'].textContent = `${state.completedMissions.length} من 10 طوابع في جوازك`;
+        burst.classList.remove('is-visible');
+        void burst.offsetWidth;
+        burst.classList.add('is-visible');
+        window.clearTimeout(burstTimer);
+        burstTimer = window.setTimeout(() => burst.classList.remove('is-visible'), 2600);
+        const pill = document.querySelector('.game-hud__pill');
+        if (pill) {
+            pill.classList.remove('is-bumped');
+            void pill.offsetWidth;
+            pill.classList.add('is-bumped');
+        }
+        confetti(36);
+    }
+
+    /* --------------------------------------------------------- Screens */
+
     function setVisibleScreen(screenName) {
         const mapping = {
             question: 'question-screen',
@@ -310,6 +604,7 @@
             review: 'review-screen',
             success: 'success-screen'
         };
+        if (screenName !== 'question') cancelAutoAdvance();
         Object.values(mapping).forEach(id => { elements[id].hidden = id !== mapping[screenName]; });
         if (screenName !== 'success') state.currentScreen = screenName;
     }
@@ -317,8 +612,7 @@
     function focusAfterRender(element) {
         window.requestAnimationFrame(() => {
             element?.focus({ preventScroll: true });
-            const content = document.querySelector('.journey-content');
-            if (content) content.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+            window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
         });
     }
 
@@ -329,15 +623,17 @@
             const globalIndex = allQuestions.findIndex(candidate => candidate.id === item.id);
             const current = item.id === question.id;
             const answered = isAnswered(item);
-            return `<button type="button" class="question-step${current ? ' is-current' : ''}${answered ? ' is-answered' : ''}" data-question-index="${globalIndex}" aria-label="السؤال ${item.sectionPosition + 1} من ${item.sectionLength}${answered ? '، تمت الإجابة' : '، دون إجابة'}"${current ? ' aria-current="step"' : ''}><span>${item.sectionPosition + 1}</span></button>`;
+            return `<button type="button" class="question-step${current ? ' is-current' : ''}${answered ? ' is-answered' : ''}" data-question-index="${globalIndex}" aria-label="السؤال ${item.sectionPosition + 1} من ${item.sectionLength}${answered ? '، تمت الإجابة' : '، دون إجابة'}"${current ? ' aria-current="step"' : ''}>${answered && !current ? '<i class="fa-solid fa-check" aria-hidden="true"></i>' : `<span>${item.sectionPosition + 1}</span>`}</button>`;
         }).join('');
     }
 
     function renderQuestion(options = {}) {
         const question = allQuestions[state.currentQuestion];
         if (!question) return;
+        cancelAutoAdvance();
         const section = sections[question.sectionIndex];
         setVisibleScreen('question');
+        setStationTheme(question.sectionIndex);
         if (elements['current-mission-title']) elements['current-mission-title'].textContent = sectionIndexLabel(question.sectionIndex);
         elements['mission-label'].textContent = `${section.name} · ${section.title}`;
         elements['mission-purpose'].textContent = section.purpose;
@@ -347,13 +643,23 @@
         elements['question-help'].textContent = question.hint || (question.type === 'scale' ? '1 تعني «لا أوافق إطلاقاً» و5 تعني «أوافق تماماً».' : 'يمكنك الإجابة أو تجاوز السؤال من دون أي إلزام.');
         elements['answer-area'].innerHTML = renderAnswerArea(question);
         renderQuestionStepper(question);
+        setGuide(guideLine(question));
         if (elements['answer-clear']) elements['answer-clear'].hidden = !isAnswered(question);
         const previousButton = document.querySelector('[data-action="previous-question"]');
         if (previousButton) previousButton.disabled = state.currentQuestion === 0;
         const nextButton = document.querySelector('[data-action="next-question"]');
         if (nextButton) {
             const lastInSection = question.sectionPosition === question.sectionLength - 1;
-            nextButton.innerHTML = `${lastInSection ? 'إنهاء المحطة' : 'التالي'} <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>`;
+            const label = !lastInSection ? 'التالي' : question.sectionIndex === 0 ? 'انطلق' : 'اختم المحطة';
+            const icon = lastInSection && question.sectionIndex > 0 ? 'fa-stamp' : 'fa-arrow-left';
+            nextButton.innerHTML = `${label} <i class="fa-solid ${icon}" aria-hidden="true"></i>`;
+        }
+        if (lastRenderedQuestion !== state.currentQuestion) {
+            const card = elements['question-card'];
+            card.classList.remove('is-entering');
+            void card.offsetWidth;
+            card.classList.add('is-entering');
+            lastRenderedQuestion = state.currentQuestion;
         }
         updateProgress();
         saveDraft();
@@ -370,15 +676,19 @@
         elements.journey.hidden = false;
         document.body.classList.add('is-journey-active');
         document.querySelector('.journey-toolbar__missions')?.setAttribute('aria-expanded', 'false');
+        if (elements['auto-advance-toggle']) elements['auto-advance-toggle'].checked = state.autoAdvance;
     }
 
     function closeJourney() {
+        cancelAutoAdvance();
         document.body.classList.remove('is-journey-active');
         closeMissionDrawer();
         elements.journey.hidden = true;
         elements['draft-resume'].hidden = false;
         updateDraftSummary();
         updateHeroStartButton(true);
+        renderMaps();
+        window.scrollTo({ top: 0 });
         document.querySelector('[data-action="resume-draft"]')?.focus({ preventScroll: true });
     }
 
@@ -394,6 +704,7 @@
     }
 
     function moveForward(skipped) {
+        cancelAutoAdvance();
         const question = allQuestions[state.currentQuestion];
         if (!question) return;
         const lastInSection = question.sectionPosition === question.sectionLength - 1;
@@ -414,8 +725,11 @@
         if (!wasComplete && milestone) showMissionComplete(question.sectionIndex);
         else {
             saveDraft();
-            if (!wasComplete && question.sectionIndex > 0) toast(`اكتملت ${sections[question.sectionIndex].name}. أُضيئت بطاقتها في لوحة المهمات.`);
             continueAfterMission();
+            if (!wasComplete && question.sectionIndex > 0) {
+                showStampBurst(question.sectionIndex);
+                announce(`حصلت على طابع ${sections[question.sectionIndex].name}. ${state.completedMissions.length} من 10 طوابع.`);
+            }
         }
     }
 
@@ -426,23 +740,33 @@
         state.pendingNextIndex = pendingNextIndex || state.pendingNextIndex;
         setVisibleScreen('complete');
         saveDraft();
-        const icon = elements['mission-complete'].querySelector('.mission-key i');
-        if (icon) icon.className = sectionIndex === 0 ? 'fa-solid fa-compass' : 'fa-solid fa-key';
-        elements['mission-complete-title'].textContent = sectionIndex === 0 ? 'أصبحت مستعداً للمحطات العشر' : `اكتملت ${section.name}`;
+        const stamp = elements['mission-complete-stamp'];
+        if (stamp) {
+            stamp.style.setProperty('--burgundy', accentFor(sectionIndex));
+            stamp.innerHTML = `<i class="fa-solid ${sectionIndex === 0 ? 'fa-flag' : escapeHtml(section.icon)}"></i>`;
+        }
+        elements['mission-complete-title'].textContent = sectionIndex === 0
+            ? 'انطلقت الرحلة!'
+            : sectionIndex === 5 ? `طابع ${section.name}… ونصف الطريق!` : 'اكتمل جواز الرحلة!';
         elements['mission-complete-text'].textContent = sectionIndex === 0
-            ? 'شكراً لتوضيح طبيعة تجربتك. تبدأ الآن محاور التقييم، ويمكنك تجاوز أي سؤال لا ينطبق عليك.'
+            ? 'شكراً لتوضيح طبيعة تجربتك. أمامك الآن عشر محطات، ولكل محطة طابع يُختم في جوازك عند إنهائها، سواء أجبت أو تجاوزت.'
             : sectionIndex === 5
-                ? 'وصلت إلى منتصف الرحلة. بطاقات المحطات تعرض ما أجبت عنه وما تركته اختيارياً، ويمكنك العودة إلى أي منها.'
-                : 'اكتملت المحطات العشر. بقيت لك مراجعة هادئة قبل أن تقرر إرسال الإجابات إلى الجمعية.';
+                ? 'وصلت إلى منتصف الرحلة. جوازك يعرض ما أجبت عنه وما تركته اختيارياً، ويمكنك العودة إلى أي محطة في أي وقت.'
+                : 'زرت المحطات العشر. بقيت لك مراجعة هادئة قبل أن تقرر إرسال الإجابات إلى الجمعية.';
         const answered = answeredInSection(sectionIndex);
         const total = questionsForSection(sectionIndex).length;
-        elements['mission-complete-stats'].innerHTML = `<div><strong dir="ltr">${answered}/${total}</strong><span>إجابات في هذه المحطة</span></div><div><strong dir="ltr">${countAnswered()}/40</strong><span>إجابات في الرحلة</span></div>`;
-        elements['mission-progress-collection'].innerHTML = sections.slice(1).map((item, index) => `<span class="${state.completedMissions.includes(index + 1) ? 'is-complete' : ''}${sectionIndex === index + 1 ? ' is-current' : ''}" aria-label="${escapeHtml(item.name)}${state.completedMissions.includes(index + 1) ? ' مكتملة' : ''}">${index + 1}</span>`).join('');
+        elements['mission-complete-stats'].innerHTML = `<div><strong dir="ltr">${answered}/${total}</strong><span>إجابات في هذه المحطة</span></div><div><strong dir="ltr">${countAnswered()}/40</strong><span>إجابات في الرحلة</span></div><div><strong dir="ltr">${state.completedMissions.length}/10</strong><span>طوابع في جوازك</span></div>`;
+        elements['mission-progress-collection'].innerHTML = miniStamps(sectionIndex);
         const continueButton = elements['mission-complete'].querySelector('[data-action="continue-after-mission"]');
-        if (continueButton) continueButton.innerHTML = sectionIndex >= 10 ? 'مراجعة الإجابات <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>' : `متابعة إلى ${sectionIndex === 0 ? 'المحطة الأولى' : sections[Math.min(sectionIndex + 1, 10)].name} <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>`;
+        if (continueButton) continueButton.innerHTML = sectionIndex >= 10 ? 'مراجعة الجواز والإرسال <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>' : `متابعة إلى ${sectionIndex === 0 ? 'المحطة الأولى' : sections[Math.min(sectionIndex + 1, 10)].name} <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>`;
+        const returnButton = elements['mission-complete'].querySelector('[data-action="return-to-mission"]');
+        if (returnButton) returnButton.hidden = sectionIndex === 0;
         updateProgress();
-        if (!restoring) focusAfterRender(elements['mission-complete-title']);
-        announce(sectionIndex === 0 ? 'اكتملت بوابة الانطلاق.' : `اكتملت ${section.name} من عشر محطات.`);
+        if (!restoring) {
+            focusAfterRender(elements['mission-complete-title']);
+            confetti(sectionIndex === 10 ? 90 : 60);
+        }
+        announce(sectionIndex === 0 ? 'اكتملت بوابة الانطلاق.' : `اكتملت ${section.name}. ${state.completedMissions.length} من 10 طوابع.`);
     }
 
     function continueAfterMission() {
@@ -517,13 +841,16 @@
         openJourneyShell();
         closeMissionDrawer();
         setVisibleScreen('review');
-        if (elements['current-mission-title']) elements['current-mission-title'].textContent = 'مراجعة الرحلة قبل الإرسال';
+        if (elements['current-mission-title']) elements['current-mission-title'].textContent = 'مراجعة الجواز قبل الإرسال';
+        if (elements['hud-station-icon']) elements['hud-station-icon'].innerHTML = '<i class="fa-solid fa-passport"></i>';
         renderReviewList();
         const answered = countAnswered();
         elements['review-answered-count'].textContent = String(answered);
+        elements['review-answered-count'].parentElement?.style.setProperty('--score', String(Math.round((answered / 40) * 100)));
         if (elements['review-dashboard-answered']) elements['review-dashboard-answered'].textContent = `${answered} / 40`;
         if (elements['review-unanswered-count']) elements['review-unanswered-count'].textContent = String(40 - answered);
         if (elements['review-mission-count']) elements['review-mission-count'].textContent = `${state.completedMissions.length} / 10`;
+        if (elements['review-stamps']) elements['review-stamps'].innerHTML = miniStamps(-1);
         elements['submission-status'].textContent = '';
         elements['submission-status'].className = 'submission-status';
         updateProgress();
@@ -554,6 +881,7 @@
 
     function clearCurrentAnswer() {
         const question = allQuestions[state.currentQuestion];
+        cancelAutoAdvance();
         if (!question || !isAnswered(question)) return;
         const key = questionKey(question);
         delete state.answers[key];
@@ -564,15 +892,19 @@
         announce(`مُسحت إجابة السؤال ${question.id}.`);
     }
 
-    function updateChoiceClasses(question) {
+    function updateChoiceClasses(question, changedInput) {
         elements['answer-area'].querySelectorAll('.answer-choice, .scale-choice').forEach(label => {
             const input = label.querySelector('input');
-            label.classList.toggle('is-selected', Boolean(input?.checked));
+            const selected = Boolean(input?.checked);
+            label.classList.toggle('is-selected', selected);
+            label.classList.toggle('just-picked', selected && input === changedInput && !reducedMotion());
         });
         if (question.type === 'checkbox') {
             const count = Array.isArray(answerFor(question)) ? answerFor(question).length : 0;
             const counter = document.getElementById(`selection-count-${question.id}`);
             if (counter) counter.textContent = `${count} / ${question.max}`;
+            const dots = document.getElementById(`selection-dots-${question.id}`);
+            if (dots) dots.innerHTML = selectionDots(question, count);
         }
     }
 
@@ -604,16 +936,19 @@
         if (question.other && otherWasSelected !== otherNowSelected) {
             elements['answer-area'].innerHTML = renderAnswerArea(question);
             const matchingInput = [...elements['answer-area'].querySelectorAll('[data-answer-id]')].find(candidate => candidate.value === input.value);
-            matchingInput?.focus({ preventScroll: true });
+            if (otherNowSelected) document.getElementById(`other-answer-${question.id}`)?.focus({ preventScroll: true });
+            else matchingInput?.focus({ preventScroll: true });
         } else {
-            updateChoiceClasses(question);
+            updateChoiceClasses(question, input);
         }
         updateProgress();
         saveDraft();
         updateSaveStatus(true);
-        if (elements['answer-clear']) elements['answer-clear'].hidden = false;
+        if (elements['answer-clear']) elements['answer-clear'].hidden = !isAnswered(question);
         renderQuestionStepper(question);
         announce(`حُفظت إجابة السؤال ${question.id} مؤقتاً.`);
+        if ((question.type === 'scale' || question.type === 'radio') && !otherNowSelected) scheduleAutoAdvance(question);
+        else cancelAutoAdvance();
     }
 
     function handleTextInput(target) {
@@ -639,6 +974,28 @@
             saveDraft();
             updateSaveStatus(true);
         }
+    }
+
+    function handleShortcut(event) {
+        if (!document.body.classList.contains('is-journey-active') || elements['question-screen'].hidden) return;
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (document.body.classList.contains('is-mission-drawer-open') || elements['privacy-dialog']?.open) return;
+        const target = event.target;
+        const typing = target instanceof HTMLTextAreaElement || (target instanceof HTMLInputElement && ['text', 'search', 'email'].includes(target.type));
+        if (typing) return;
+        if (event.key === 'Enter') {
+            if (target instanceof Element && target.closest('button, a, summary, dialog')) return;
+            event.preventDefault();
+            moveForward(false);
+            return;
+        }
+        const digit = event.key.replace(/[٠-٩]/g, d => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)));
+        if (!/^[1-9]$/.test(digit)) return;
+        const option = elements['answer-area'].querySelector(`[data-key="${digit}"] input`);
+        if (!option) return;
+        event.preventDefault();
+        option.click();
+        option.focus({ preventScroll: true });
     }
 
     async function ensureApiSession(force) {
@@ -744,6 +1101,11 @@
             csrfToken = '';
             setVisibleScreen('success');
             elements['confirmation-code'].textContent = String(data.submission_id || '').slice(0, 12).toUpperCase() || 'تم الاستلام';
+            if (elements['success-stamps']) elements['success-stamps'].innerHTML = miniStamps(-1);
+            if (elements['current-mission-title']) elements['current-mission-title'].textContent = 'اكتملت الرحلة';
+            elements['journey-progress-fill'].style.width = '100%';
+            if (elements['hud-runner']) elements['hud-runner'].style.setProperty('--pos', '1');
+            confetti(110);
             focusAfterRender(elements['success-title']);
             announce('تم استلام إجاباتك بنجاح. شكراً لمساهمتك.');
         } catch (error) {
@@ -795,9 +1157,10 @@
         clearDraft();
         elements['submission-consent'].checked = false;
         elements['draft-resume'].hidden = true;
+        lastRenderedQuestion = -1;
         renderMaps();
         startJourney(false);
-        toast('بدأت استجابة جديدة وفارغة.');
+        toast('بدأت رحلة جديدة وفارغة.');
     }
 
     function discardAndStart() {
@@ -807,6 +1170,7 @@
 
     function clearCurrentDraft() {
         if (!window.confirm('هل تريد مسح كل الإجابات والتقدم المحفوظ في علامة التبويب هذه؟ لا يمكن التراجع عن ذلك.')) return;
+        cancelAutoAdvance();
         state = defaultState();
         csrfToken = '';
         clearDraft();
@@ -831,7 +1195,7 @@
         const button = document.querySelector('.evaluation-hero__actions button[data-action]');
         if (!button) return;
         button.dataset.action = hasDraft ? 'resume-draft' : 'start-journey';
-        button.innerHTML = `${hasDraft ? 'فتح المسودة' : 'ابدأ الرحلة'} <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>`;
+        button.innerHTML = `${hasDraft ? 'متابعة الرحلة' : 'ابدأ الرحلة'} <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>`;
     }
 
     function toggleMissionDrawer() {
@@ -841,7 +1205,10 @@
         sidebar.classList.toggle('is-open', opening);
         document.body.classList.toggle('is-mission-drawer-open', opening);
         document.querySelector('.journey-toolbar__missions')?.setAttribute('aria-expanded', String(opening));
-        if (opening) sidebar.querySelector('[data-mission-section]')?.focus({ preventScroll: true });
+        if (opening) {
+            cancelAutoAdvance();
+            sidebar.querySelector('[data-mission-section]')?.focus({ preventScroll: true });
+        }
     }
 
     function closeMissionDrawer() {
@@ -907,6 +1274,7 @@
                 else if (action === 'start-new-response') resetJourney();
                 else if (action === 'clear-draft') clearCurrentDraft();
                 else if (action === 'copy-confirmation') copyConfirmation();
+                else if (action === 'lang-unavailable') toast('رحلة التقييم متاحة حالياً باللغة العربية فقط.');
             }
             const missionButton = event.target.closest('[data-mission-section]');
             if (missionButton) jumpToSection(Number(missionButton.dataset.missionSection));
@@ -920,6 +1288,13 @@
         });
 
         document.addEventListener('change', event => {
+            if (event.target === elements['auto-advance-toggle']) {
+                state.autoAdvance = elements['auto-advance-toggle'].checked;
+                if (!state.autoAdvance) cancelAutoAdvance();
+                saveDraft();
+                toast(state.autoAdvance ? 'سينتقل أصيل بك تلقائياً بعد كل اختيار.' : 'أُوقف الانتقال التلقائي؛ استخدم زر «التالي».');
+                return;
+            }
             const input = event.target.closest('[data-answer-id]');
             if (input instanceof HTMLInputElement) handleAnswerChange(input);
             if (event.target === elements['review-unanswered-only']) renderReviewList();
@@ -940,8 +1315,12 @@
             if (event.key === 'Escape' && document.body.classList.contains('is-mission-drawer-open')) {
                 closeMissionDrawer();
                 document.querySelector('.journey-toolbar__missions')?.focus();
+                return;
             }
+            handleShortcut(event);
         });
+        document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAutoAdvance(); });
+        window.addEventListener('resize', () => window.requestAnimationFrame(layoutBoard));
     }
 
     function initialize() {
@@ -954,6 +1333,8 @@
         }
         bindEvents();
         renderMaps();
+        watchBoard();
+        if (document.fonts?.ready) document.fonts.ready.then(layoutBoard).catch(() => {});
         updateSaveStatus();
         ensureApiSession().catch(() => {
             // The visitor can still answer and download a local copy if the endpoint is unavailable.

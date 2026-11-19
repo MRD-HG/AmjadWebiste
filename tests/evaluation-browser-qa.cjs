@@ -20,6 +20,7 @@ function findChrome() {
   const candidates = [
     process.env.CHROME_PATH,
     'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    '/usr/bin/google-chrome',
     'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
     'C:/Program Files/Microsoft/Edge/Application/msedge.exe'
   ].filter(Boolean);
@@ -97,6 +98,7 @@ async function layoutAudit(browser, viewport) {
   await page.locator('#hero-mission-map .mission-tile').first().waitFor();
 
   assert(await page.locator('#hero-mission-map .mission-tile').count() === 10, `${viewport.name}: hero dashboard must expose ten mission buttons`);
+  assert(await page.evaluate(() => document.fonts.check('16px Cairo')), `${viewport.name}: self-hosted Cairo font is not available`);
   assert(await page.locator('h1').textContent().then(text => text.includes('رحلة أمجاد')), `${viewport.name}: page heading is missing`);
   assert(!await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), `${viewport.name}: page has horizontal overflow`);
 
@@ -235,6 +237,33 @@ async function functionalAudit(browser) {
   await context.close();
 }
 
+async function gameAudit(browser) {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: 'ar-MA' });
+  const page = await context.newPage();
+  const pageErrors = [];
+  page.on('pageerror', error => pageErrors.push(error.message));
+  await page.goto(`${baseUrl}/evaluation.html`, { waitUntil: 'domcontentloaded' });
+  await page.locator('#hero-board-stage .game-board__path').waitFor({ state: 'attached' });
+  assert(await page.locator('#hero-board-stage .game-board__avatar').count() === 1, 'Game board lacks the Asil player token');
+  await page.locator('[data-action="start-journey"]').click();
+  await page.keyboard.press('1');
+  await page.waitForFunction(() => document.getElementById('question-number').textContent.trim() === 'س02', null, { timeout: 4000 });
+  await page.locator('#auto-advance-toggle').uncheck({ force: true });
+  await page.keyboard.press('2');
+  await page.waitForTimeout(1300);
+  assert((await page.locator('#question-number').textContent()).trim() === 'س02', 'Auto-advance toggle did not stop automatic navigation');
+  assert(await page.locator('#answer-area input[type="radio"]:checked').count() === 1, 'Number-key shortcut did not select an option');
+  await page.keyboard.press('Enter');
+  assert((await page.locator('#question-number').textContent()).trim() === 'س03', 'Enter shortcut did not move to the next question');
+  await page.locator('#compact-mission-map [data-mission-section="2"]').click();
+  for (let step = 0; step < 4; step += 1) await page.locator('[data-action="skip-question"]').click();
+  assert(await page.locator('#stamp-burst.is-visible').isVisible(), 'Finishing a station did not show its non-blocking stamp');
+  assert((await page.locator('#question-number').textContent()).trim() === 'س12', 'Stamp celebration blocked the journey');
+  assert((await page.locator('#hud-stamps').textContent()).trim() === '1/10', 'HUD stamp counter did not update');
+  assert(pageErrors.length === 0, `Game flow page errors: ${pageErrors.join(' | ')}`);
+  await context.close();
+}
+
 async function homepageNavigationAudit(browser) {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'ar-MA' });
   const page = await context.newPage();
@@ -284,6 +313,9 @@ async function sitewideNavigationAudit(browser) {
     }
     await functionalAudit(browser);
     evidence.push({ scope: 'evaluation-functional-flow', browser: 'installed Chromium-family', status: 'passed' });
+    await gameAudit(browser);
+    evidence.push({ scope: 'evaluation-game-mechanics', checks: ['board token', 'auto-advance', 'shortcuts', 'stamp'], status: 'passed' });
+    if (process.env.AMJAD_SKIP_SITEWIDE === '1') { process.stdout.write(`${JSON.stringify(evidence, null, 2)}\n`); return; }
     await homepageNavigationAudit(browser);
     evidence.push({ scope: 'homepage-integration', viewport: '390x844', status: 'passed' });
     await sitewideNavigationAudit(browser);
