@@ -1,11 +1,50 @@
 <?php
 declare(strict_types=1);
 
+if (!function_exists('amjad_private_config')) {
+    /**
+     * Optional private configuration file for shared hosting (cPanel/NindoHost) where
+     * environment variables cannot be set. Default location is one level ABOVE the
+     * document root, e.g. /home/USER/amjad-config.php next to public_html, so it is
+     * never reachable from the web. Override with the AMJAD_CONFIG_FILE env variable.
+     */
+    function amjad_private_config(): array
+    {
+        static $config;
+        if (is_array($config)) {
+            return $config;
+        }
+        $config = array();
+        $path = getenv('AMJAD_CONFIG_FILE');
+        if ($path === false || $path === '') {
+            $path = dirname(__DIR__, 3) . '/amjad-config.php';
+        }
+        if (is_file($path) && is_readable($path)) {
+            $loaded = (static function (string $file) {
+                return require $file;
+            })($path);
+            if (is_array($loaded)) {
+                $config = $loaded;
+            }
+        }
+        return $config;
+    }
+}
+
 if (!function_exists('amjad_env')) {
     function amjad_env(string $key, $default = null)
     {
-        $value = getenv($key);
-        return ($value === false || $value === '') ? $default : $value;
+        $candidates = array(getenv($key), $_SERVER[$key] ?? false, $_SERVER['REDIRECT_' . $key] ?? false);
+        foreach ($candidates as $value) {
+            if ($value !== false && $value !== null && $value !== '') {
+                return $value;
+            }
+        }
+        $config = amjad_private_config();
+        if (array_key_exists($key, $config) && $config[$key] !== '' && $config[$key] !== null) {
+            return $config[$key];
+        }
+        return $default;
     }
 }
 

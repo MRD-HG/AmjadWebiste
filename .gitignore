@@ -6,3 +6,6 @@
 /release/
 /*.zip
 /.playwright/
+
+# Private hosting config (never commit)
+amjad-config.php

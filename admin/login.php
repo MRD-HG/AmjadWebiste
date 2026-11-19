@@ -30,7 +30,7 @@ $configured = credential_configured();
     <div class="login-brand"><img src="../images/logoamjad.png" alt="شعار جمعية أمجاد"><div><h1>لوحة إدارة أمجاد</h1><p>إدارة المحتوى والوسائط بأمان</p></div></div>
     <?php if ($flash): ?><div class="alert alert--<?= e($flash['type'] === 'error' ? 'error' : 'success') ?>" role="status"><?= e($flash['message']) ?></div><?php endif; ?>
     <?php if ($error !== ''): ?><div class="alert alert--error" role="alert"><?= e($error) ?></div><?php endif; ?>
-    <?php if (!$configured): ?><div class="alert alert--error" role="alert">لم يتم إعداد حساب المدير بعد. شغّل أمر الإعداد المحلي الموضح في CMS_SETUP.md أو استخدم متغيرات البيئة الآمنة.</div><?php endif; ?>
+    <?php if (!$configured): ?><div class="alert alert--error" role="alert">لم يتم إعداد حساب المدير بعد. افتح <a href="setup.php">صفحة الإعداد الأول</a> (تتطلب رمز الإعداد من ملف amjad-config.php)، أو استخدم أمر الإعداد الموضح في CMS_SETUP.md.</div><?php endif; ?>
     <form method="post" autocomplete="on">
         <?= csrf_field() ?>
         <div class="field"><label for="username">اسم المستخدم</label><input id="username" name="username" type="text" autocomplete="username" required autofocus></div>
