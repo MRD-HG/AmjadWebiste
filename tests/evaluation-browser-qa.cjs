@@ -131,17 +131,29 @@ async function layoutAudit(browser, viewport) {
   await page.locator('[data-action="start-journey"]').click();
   assert(await page.locator('body').getAttribute('class').then(value => value.includes('is-journey-active')), `${viewport.name}: starting did not enter focused journey mode`);
   assert(await page.locator('#question-title').isVisible(), `${viewport.name}: focused journey does not show the question`);
-  if (viewport.width < 1024) {
-    await page.locator('.journey-toolbar__missions').click();
-    assert(await page.locator('#journey-sidebar.is-open').isVisible(), `${viewport.name}: mobile mission drawer did not open`);
-    assert(await page.locator('#compact-mission-map .mission-tile').count() === 10, `${viewport.name}: mobile journey has no direct mission navigation`);
-    await page.locator('#compact-mission-map [data-mission-section="1"]').click();
-    assert((await page.locator('#question-number').textContent()).trim() === 'س04', `${viewport.name}: mobile mission navigation did not open its axis`);
-  }
+  await page.locator('.journey-toolbar__missions').click();
+  assert(await page.locator('#journey-sidebar.is-open').isVisible(), `${viewport.name}: passport drawer did not open`);
+  assert(await page.locator('#compact-mission-map .mission-tile').count() === 10, `${viewport.name}: journey has no direct mission navigation`);
+  await page.locator('#compact-mission-map [data-mission-section="1"]').click();
+  assert((await page.locator('#question-number').textContent()).trim() === 'س04', `${viewport.name}: passport navigation did not open its axis`);
   assert(!await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), `${viewport.name}: focused journey has horizontal overflow`);
   await page.screenshot({ path: path.join(artifactDirectory, `${viewport.name}-journey.png`), fullPage: false });
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   await context.close();
+}
+
+async function openPassport(page) {
+  if (!await page.locator('#journey-sidebar.is-open').count()) {
+    await page.locator('.journey-toolbar__missions').click();
+    await page.locator('#journey-sidebar.is-open').waitFor();
+  }
+}
+
+async function closePassport(page) {
+  if (await page.locator('#journey-sidebar.is-open').count()) {
+    await page.keyboard.press('Escape');
+    await page.locator('#journey-sidebar.is-open').waitFor({ state: 'detached' });
+  }
 }
 
 async function functionalAudit(browser) {
@@ -181,6 +193,7 @@ async function functionalAudit(browser) {
   assert(await page.locator('#answer-area input[type="radio"]:checked').count() === 1, 'Q1 answer was not restored after reload');
   assert(await page.evaluate(() => /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(JSON.parse(sessionStorage.getItem('amjad_evaluation_draft_v2')).responseId)), 'Draft lacks a stable UUIDv4 response reference');
 
+  await openPassport(page);
   await page.locator('#compact-mission-map [data-mission-section="1"]').click();
   assert((await page.locator('#question-number').textContent()).trim() === 'س04', 'Mission map did not navigate to Q4');
   await page.locator('#answer-area input[value="4"]').check();
@@ -193,6 +206,7 @@ async function functionalAudit(browser) {
   assert((await page.locator('#question-number').textContent()).trim() === 'س08', 'Ordinary mission completion should continue without a blocking celebration');
   assert(await page.locator('#compact-mission-map [data-mission-section="1"]').getAttribute('class').then(value => value.includes('is-complete')), 'Completed mission did not update the useful 3D map');
 
+  await openPassport(page);
   await page.locator('#compact-mission-map [data-mission-section="4"]').click();
   assert((await page.locator('#question-number').textContent()).trim() === 'س16', 'Direct mission navigation did not open axis four');
   await page.locator('[data-action="skip-question"]').click();
@@ -248,13 +262,17 @@ async function gameAudit(browser) {
   await page.locator('[data-action="start-journey"]').click();
   await page.keyboard.press('1');
   await page.waitForFunction(() => document.getElementById('question-number').textContent.trim() === 'س02', null, { timeout: 4000 });
-  await page.locator('#auto-advance-toggle').uncheck({ force: true });
+  await openPassport(page);
+  await page.locator('.game-switch').click();
+  assert(!await page.locator('#auto-advance-toggle').isChecked(), 'Auto-advance switch did not turn off');
+  await closePassport(page);
   await page.keyboard.press('2');
   await page.waitForTimeout(1300);
   assert((await page.locator('#question-number').textContent()).trim() === 'س02', 'Auto-advance toggle did not stop automatic navigation');
   assert(await page.locator('#answer-area input[type="radio"]:checked').count() === 1, 'Number-key shortcut did not select an option');
   await page.keyboard.press('Enter');
   assert((await page.locator('#question-number').textContent()).trim() === 'س03', 'Enter shortcut did not move to the next question');
+  await openPassport(page);
   await page.locator('#compact-mission-map [data-mission-section="2"]').click();
   for (let step = 0; step < 4; step += 1) await page.locator('[data-action="skip-question"]').click();
   assert(await page.locator('#stamp-burst.is-visible').isVisible(), 'Finishing a station did not show its non-blocking stamp');
