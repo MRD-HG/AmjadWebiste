@@ -158,3 +158,12 @@ textarea { line-height: 1.7; min-height: 128px; resize: vertical; }
 }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+/* First-run web setup (admin/setup.php) */
+.setup-checks{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.4rem;font-size:.8rem}
+.setup-checks li{display:flex;gap:.5rem;align-items:flex-start}
+.setup-checks b{min-width:1.2rem}
+.setup-ok{color:#155b3e}
+.setup-bad{color:#842235}
+.setup-warn{color:#8a5a00}
+.setup-path{direction:ltr;text-align:left;font-size:.72rem;background:#f4f6f5;border-radius:8px;padding:.5rem;word-break:break-all;margin:0 0 1rem}
