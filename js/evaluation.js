@@ -80,7 +80,7 @@
             'review-unanswered-count', 'review-mission-count', 'review-unanswered-only', 'review-list',
             'submission-consent', 'submission-status', 'success-screen', 'success-title', 'success-stamps', 'confirmation-code',
             'evaluation-toast', 'draft-summary', 'auto-advance-toggle', 'auto-advance-meter', 'asil-bubble',
-            'stamp-burst', 'stamp-burst-title', 'stamp-burst-count', 'confetti-layer'
+            'stamp-burst', 'stamp-burst-title', 'stamp-burst-count', 'confetti-layer', 'hud-progress-label'
         ].forEach(id => { elements[id] = document.getElementById(id); });
     }
 
@@ -418,6 +418,7 @@
         const reviewing = state.currentScreen === 'review';
         const position = reviewing ? 100 : (state.currentQuestion / (allQuestions.length - 1)) * 100;
         elements['journey-progress-label'].textContent = `السؤال ${displayIndex} من ${allQuestions.length}`;
+        if (elements['hud-progress-label']) elements['hud-progress-label'].textContent = reviewing ? 'مراجعة قبل الإرسال' : `السؤال ${displayIndex} من ${allQuestions.length}`;
         elements['journey-progress-percent'].textContent = `${percent}%`;
         if (elements['passport-progress-fill']) elements['passport-progress-fill'].style.width = `${percent}%`;
         elements['journey-progress-fill'].style.width = `${position}%`;
@@ -455,8 +456,8 @@
     }
 
     function renderRadio(question) {
-        const optionsClass = question.options.length >= 6 ? ' answer-options--two' : '';
-        return `<fieldset><legend>اختر إجابة واحدة، أو اترك السؤال من دون إجابة.</legend><div class="answer-options${optionsClass}">${question.options.map((option, index) => answerChoice(question, option, index, false)).join('')}</div>${renderOther(question)}</fieldset>`;
+        const optionsClass = question.options.length >= 6 && question.options.every(option => option.length <= 34) ? ' answer-options--two' : '';
+        return `<fieldset><legend class="sr-only">${escapeHtml(question.q)}</legend><div class="answer-options${optionsClass}">${question.options.map((option, index) => answerChoice(question, option, index, false)).join('')}</div>${renderOther(question)}</fieldset>`;
     }
 
     function selectionDots(question, count) {
@@ -465,14 +466,14 @@
 
     function renderCheckbox(question) {
         const answer = Array.isArray(answerFor(question)) ? answerFor(question) : [];
-        return `<fieldset><legend>يمكنك اختيار ${question.max} إجابات كحد أقصى.</legend><div class="selection-limit"><span>اختياراتك: <strong id="selection-count-${question.id}" dir="ltr">${answer.length} / ${question.max}</strong></span><span class="selection-limit__dots" id="selection-dots-${question.id}" aria-hidden="true">${selectionDots(question, answer.length)}</span></div><div class="answer-options answer-options--two">${question.options.map((option, index) => answerChoice(question, option, index, true)).join('')}</div>${renderOther(question)}</fieldset>`;
+        return `<fieldset><legend class="sr-only">${escapeHtml(question.q)} — حتى ${question.max} اختيارات</legend><div class="selection-limit"><span>اختر حتى ${question.max}: <strong id="selection-count-${question.id}" dir="ltr">${answer.length} / ${question.max}</strong></span><span class="selection-limit__dots" id="selection-dots-${question.id}" aria-hidden="true">${selectionDots(question, answer.length)}</span></div><div class="answer-options${question.options.every(option => option.length <= 34) ? ' answer-options--two' : ''}">${question.options.map((option, index) => answerChoice(question, option, index, true)).join('')}</div>${renderOther(question)}</fieldset>`;
     }
 
     function renderScale(question) {
         const answer = answerFor(question);
         const main = survey.scale.slice(0, 5).map(option => `<label class="scale-choice${answer === option.value ? ' is-selected' : ''}" title="${escapeHtml(option.label)}" data-key="${option.value}"><input type="radio" name="q${question.id}" value="${escapeHtml(option.value)}" data-answer-id="${question.id}" aria-label="${escapeHtml(option.label)}"${answer === option.value ? ' checked' : ''}><strong>${option.value}</strong><span>${escapeHtml(option.short)}</span></label>`).join('');
         const alternatives = survey.scale.slice(5).map((option, index) => answerChoice(question, option.value, index + 5, false, 'answer-choice--quiet')).join('');
-        return `<fieldset><legend>اختر درجة من 1 إلى 5، أو أحد الخيارين الإضافيين عند الحاجة.</legend><div class="scale-endpoints" aria-hidden="true"><span>1 · لا أوافق إطلاقاً</span><span>5 · أوافق تماماً</span></div><div class="scale-options">${main}</div><div class="scale-alternatives">${alternatives}</div></fieldset>`;
+        return `<fieldset><legend class="sr-only">${escapeHtml(question.q)} — من 1 إلى 5</legend><div class="scale-options">${main}</div><div class="scale-alternatives">${alternatives}</div></fieldset>`;
     }
 
     function renderText(question) {
@@ -502,17 +503,16 @@
     /* ------------------------------------------------------- Asil guide */
 
     function guideLine(question) {
-        const section = sections[question.sectionIndex];
         const first = question.sectionPosition === 0;
         const last = question.sectionPosition === question.sectionLength - 1;
-        if (question.id === 1) return 'أهلاً بك! أنا أصيل، سأرافقك في الرحلة. ثلاثة أسئلة تمهيدية ثم ننطلق.';
-        if (first && question.sectionIndex === 6) return `تجاوزنا منتصف الطريق! مرحباً بك في ${section.name}.`;
-        if (first && question.sectionIndex > 0) return `وصلنا إلى ${section.name}: ${section.shortTitle || section.title}. ${question.sectionLength} أسئلة قصيرة.`;
-        if (last && question.sectionIndex > 0) return 'آخر سؤال في هذه المحطة، ثم يُختم جوازك بطابعها.';
-        if (question.type === 'scale') return 'اختر الرقم الأقرب لتجربتك. لا توجد إجابة صحيحة أو خاطئة.';
+        if (question.id === 1) return 'أهلاً! ثلاثة أسئلة تمهيدية ثم ننطلق.';
+        if (first && question.sectionIndex === 6) return 'تجاوزت منتصف الطريق، شكراً لوقتك!';
+        if (first && question.sectionIndex > 0) return `محطة جديدة: ${question.sectionLength} أسئلة قصيرة.`;
+        if (last && question.sectionIndex > 0) return 'آخر سؤال في المحطة، ثم تحصل على طابعها.';
+        if (question.type === 'scale') return '1 = لا أوافق إطلاقاً، 5 = أوافق تماماً.';
         if (question.type === 'checkbox') return `اختر حتى ${question.max}، أو أقل إن رغبت.`;
-        if (question.type === 'text') return 'اكتب بحرية وباختصار، ومن دون ذكر أسماء الأشخاص.';
-        return 'اختيار واحد يكفي، ويمكنك دائماً تجاوز السؤال.';
+        if (question.type === 'text') return 'اكتب باختصار ومن دون ذكر أسماء.';
+        return 'اختر إجابة واحدة، أو تجاوز السؤال.';
     }
 
     function setGuide(text) {
@@ -592,7 +592,6 @@
             void pill.offsetWidth;
             pill.classList.add('is-bumped');
         }
-        confetti(36);
     }
 
     /* --------------------------------------------------------- Screens */
@@ -635,12 +634,12 @@
         setVisibleScreen('question');
         setStationTheme(question.sectionIndex);
         if (elements['current-mission-title']) elements['current-mission-title'].textContent = sectionIndexLabel(question.sectionIndex);
-        elements['mission-label'].textContent = `${section.name} · ${section.title}`;
-        elements['mission-purpose'].textContent = section.purpose;
-        elements['question-position'].textContent = `${question.sectionPosition + 1} / ${question.sectionLength}`;
+        elements['mission-label'].textContent = question.sectionIndex === 0 ? section.title : `${section.name}: ${section.shortTitle || section.title}`;
+        elements['question-position'].textContent = question.sectionIndex === 0 ? `سؤال تمهيدي ${question.sectionPosition + 1} من ${question.sectionLength}` : `السؤال ${question.sectionPosition + 1} من ${question.sectionLength} في هذه المحطة`;
         elements['question-number'].textContent = `س${pad(question.id)}`;
         elements['question-title'].textContent = question.q;
-        elements['question-help'].textContent = question.hint || (question.type === 'scale' ? '1 تعني «لا أوافق إطلاقاً» و5 تعني «أوافق تماماً».' : 'يمكنك الإجابة أو تجاوز السؤال من دون أي إلزام.');
+        elements['question-help'].textContent = question.hint || '';
+        elements['question-help'].hidden = !question.hint;
         elements['answer-area'].innerHTML = renderAnswerArea(question);
         renderQuestionStepper(question);
         setGuide(guideLine(question));
@@ -711,7 +710,6 @@
         if (!lastInSection) {
             state.currentQuestion += 1;
             renderQuestion();
-            if (skipped && !isAnswered(question)) toast('تم تجاوز السؤال؛ يمكنك العودة إليه في أي وقت.');
             return;
         }
         pendingNextIndex = state.currentQuestion + 1;

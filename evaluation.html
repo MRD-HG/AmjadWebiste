@@ -76,7 +76,7 @@
                 <div class="eval-lobby__card">
                     <span class="eval-chip"><i class="fa-solid fa-compass" aria-hidden="true"></i> التقييم المؤسساتي والتشاركي <bdi dir="ltr">2021–2026</bdi></span>
                     <h1 id="evaluation-title">رحلة أمجاد<span>عشر محطات… وطابع في كل محطة</span></h1>
-                    <p class="eval-lobby__lead">رافق «أصيل» في جولة قصيرة عبر محطات الجمعية. أجب بما عايشته فعلاً، واجمع طوابع جواز الرحلة. لا أسماء، لا منافسة، ولا إجابات صحيحة أو خاطئة.</p>
+                    <p class="eval-lobby__lead">رافق «أصيل» عبر عشر محطات قصيرة، وأجب بما عايشته فعلاً. كل الأسئلة اختيارية ومجهولة، ولا توجد إجابة صحيحة أو خاطئة.</p>
                     <ul class="eval-lobby__facts" aria-label="معلومات عن الرحلة">
                         <li><i class="fa-solid fa-circle-question" aria-hidden="true"></i><strong>40</strong> سؤالاً اختيارياً</li>
                         <li><i class="fa-solid fa-stamp" aria-hidden="true"></i><strong>10</strong> طوابع للجمع</li>
@@ -109,11 +109,6 @@
                     <div class="game-board__stage" id="hero-board-stage">
                         <div class="mission-world__board game-board__nodes" id="hero-mission-map" aria-label="خريطة محطات التقييم: اختر محطة للانتقال إليها"></div>
                     </div>
-                    <footer class="game-board__legend" aria-hidden="true">
-                        <span><i class="legend-dot legend-dot--next"></i> محطتك التالية</span>
-                        <span><i class="legend-dot legend-dot--done"></i> طابع محصّل</span>
-                        <span><i class="legend-dot"></i> بانتظارك</span>
-                    </footer>
                 </div>
             </div>
         </section>
@@ -124,13 +119,13 @@
                 <div class="game-rules__heading">
                     <span>قبل أن تبدأ</span>
                     <h2 id="privacy-title">قواعد اللعبة بسيطة</h2>
-                    <p>اللعب في طريقة العرض فقط؛ أما إجاباتك فتُعامل بجدية واحترام. نقيّم التجربة وأساليب العمل، لا الأشخاص.</p>
+                    <p>نقيّم التجربة وأساليب العمل، لا الأشخاص.</p>
                 </div>
                 <div class="game-rules__grid">
-                    <article><span class="game-rules__icon"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span><h3>لا إجابة صحيحة أو خاطئة</h3><p>الطابع يُمنح لإنهاء المحطة، لا لنوع الإجابة. لا نقاط ولا ترتيب.</p></article>
-                    <article><span class="game-rules__icon"><i class="fa-solid fa-forward" aria-hidden="true"></i></span><h3>كل سؤال اختياري</h3><p>تجاوز ما لا ينطبق عليك، أو اختر «لا تتوفر لدي معلومات كافية».</p></article>
-                    <article><span class="game-rules__icon"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span><h3>مجهول تماماً</h3><p>لا اسم ولا هاتف ولا بريد. تجنّب ذكر أسماء الأشخاص في النصوص.</p></article>
-                    <article><span class="game-rules__icon"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i></span><h3>توقف واستأنف</h3><p>تُحفظ مسودتك في هذا التبويب، ولا تُرسل إلا بعد المراجعة وموافقتك.</p></article>
+                    <article><span class="game-rules__icon"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span><h3>لا إجابة صحيحة أو خاطئة</h3><p>الطابع يُمنح لإنهاء المحطة، لا لنوع الإجابة.</p></article>
+                    <article><span class="game-rules__icon"><i class="fa-solid fa-forward" aria-hidden="true"></i></span><h3>كل سؤال اختياري</h3><p>تجاوز ما لا ينطبق على تجربتك.</p></article>
+                    <article><span class="game-rules__icon"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span><h3>مجهول تماماً</h3><p>لا اسم ولا هاتف ولا بريد إلكتروني.</p></article>
+                    <article><span class="game-rules__icon"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i></span><h3>توقف واستأنف</h3><p>تُحفظ مسودتك، ولا تُرسل إلا بموافقتك.</p></article>
                 </div>
                 <button class="game-rules__privacy" type="button" data-action="open-privacy"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> التفاصيل الكاملة للخصوصية</button>
             </div>
@@ -143,14 +138,11 @@
             <header class="game-hud journey-toolbar">
                 <button class="journey-toolbar__missions" type="button" data-action="toggle-missions" aria-controls="journey-sidebar" aria-expanded="false"><i class="fa-solid fa-passport" aria-hidden="true"></i><span>الجواز</span></button>
                 <a class="game-hud__brand" href="index.html" aria-label="جمعية أمجاد — الرئيسية"><img src="images/logoamjad.png" alt=""></a>
-                <div class="game-hud__station">
-                    <span class="game-hud__station-icon" id="hud-station-icon" aria-hidden="true"><i class="fa-solid fa-compass"></i></span>
-                    <div><span>المحطة الحالية</span><strong id="current-mission-title">بوابة الانطلاق</strong></div>
-                </div>
+                <span class="sr-only" id="current-mission-title">بوابة الانطلاق</span>
                 <div class="game-hud__road">
+                    <span class="game-hud__label" id="hud-progress-label" aria-hidden="true">السؤال 1 من 40</span>
                     <div class="game-hud__track" role="progressbar" aria-label="تقدم الرحلة" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" id="journey-progress-track">
                         <span class="game-hud__fill" id="journey-progress-fill"></span>
-                        <span class="game-hud__milestones" id="hud-milestones" aria-hidden="true"></span>
                     </div>
                     <img class="game-hud__runner" id="hud-runner" src="images/asil-avatar.webp" alt="" width="40" height="40">
                 </div>
@@ -190,18 +182,17 @@
                         <header class="station-banner">
                             <span class="station-banner__icon" id="station-icon" aria-hidden="true"><i class="fa-solid fa-compass"></i></span>
                             <div class="station-banner__copy">
+                                <span class="station-banner__kicker" id="question-position">السؤال 1 من 3</span>
                                 <span class="mission-label" id="mission-label">بوابة الانطلاق</span>
-                                <p id="mission-purpose"></p>
                             </div>
-                            <span class="question-position" id="question-position" dir="ltr">1 / 3</span>
+                            <nav class="question-stepper" id="mission-question-nav" aria-label="أسئلة المحطة الحالية"></nav>
                         </header>
-                        <nav class="question-stepper" id="mission-question-nav" aria-label="أسئلة المحطة الحالية"></nav>
 
                         <div class="question-stage">
+                            <p class="asil-tip" id="asil-tip"><img src="images/asil-avatar.webp" alt="" width="36" height="36"><span id="asil-bubble">مرحباً! خذ وقتك، فكل سؤال اختياري.</span></p>
                             <article class="question-card" id="question-card">
                                 <div class="question-card__meta">
                                     <div class="question-card__number" id="question-number">س01</div>
-                                    <p class="question-card__optional"><i class="fa-regular fa-circle-check" aria-hidden="true"></i> سؤال اختياري</p>
                                     <span class="answer-save-state" id="answer-save-status" role="status" aria-live="polite"><i class="fa-solid fa-cloud" aria-hidden="true"></i><span>المسودة محفوظة</span></span>
                                     <button class="answer-clear" id="answer-clear" type="button" data-action="clear-answer" hidden><i class="fa-solid fa-eraser" aria-hidden="true"></i> مسح الإجابة</button>
                                 </div>
@@ -210,10 +201,6 @@
                                 <div class="answer-area" id="answer-area"></div>
                                 <div class="auto-advance-meter" id="auto-advance-meter" aria-hidden="true"><span></span></div>
                             </article>
-                            <aside class="asil-guide" aria-label="ملاحظة من أصيل">
-                                <p class="asil-guide__bubble" id="asil-bubble">مرحباً! خذ وقتك، فكل سؤال اختياري.</p>
-                                <img src="images/asil-guide.webp" alt="أصيل، مرافق الرحلة" width="210" height="315">
-                            </aside>
                         </div>
 
                         <div class="question-actions">
@@ -221,7 +208,6 @@
                             <button class="button button--text" type="button" data-action="skip-question">تجاوز <i class="fa-solid fa-forward" aria-hidden="true"></i></button>
                             <button class="button button--primary" type="button" data-action="next-question">التالي <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
                         </div>
-                        <p class="keyboard-hint" aria-hidden="true"><kbd>1</kbd>–<kbd>9</kbd> للاختيار · <kbd>Enter</kbd> للمتابعة</p>
                     </section>
 
                     <section class="mission-complete" id="mission-complete" hidden aria-labelledby="mission-complete-title">
@@ -248,11 +234,6 @@
                             <div class="review-score"><strong id="review-answered-count">0</strong><span>من 40 سؤالاً</span></div>
                         </header>
                         <div class="review-stamps" id="review-stamps" aria-label="الطوابع المحصلة"></div>
-                        <div class="review-dashboard">
-                            <div><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>أجبت عن</span><strong id="review-dashboard-answered" dir="ltr">0 / 40</strong></div>
-                            <div><i class="fa-solid fa-forward" aria-hidden="true"></i><span>متروك اختيارياً</span><strong id="review-unanswered-count">40</strong></div>
-                            <div><i class="fa-solid fa-stamp" aria-hidden="true"></i><span>طوابع محصّلة</span><strong id="review-mission-count" dir="ltr">0 / 10</strong></div>
-                        </div>
                         <div class="review-filter"><button type="button" data-action="first-unanswered"><i class="fa-solid fa-location-arrow" aria-hidden="true"></i> أول سؤال غير مجاب</button><label><input type="checkbox" id="review-unanswered-only"> عرض الأسئلة غير المجاب عنها فقط</label></div>
                         <div class="review-list" id="review-list"></div>
                         <div class="submission-panel">
