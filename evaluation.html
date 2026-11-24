@@ -230,7 +230,7 @@
 
                     <section class="review-screen" id="review-screen" hidden aria-labelledby="review-title">
                         <header class="review-screen__header">
-                            <div><span>المحطة الأخيرة</span><h2 id="review-title" tabindex="-1">راجع جواز رحلتك قبل الإرسال</h2><p>يمكنك تعديل أي سؤال. الأسئلة غير المجاب عنها ستبقى فارغة، وهذا مقبول تماماً.</p></div>
+                            <div><span>المحطة الأخيرة</span><h2 id="review-title" tabindex="-1">راجع جواز رحلتك قبل الإرسال</h2><p id="review-subtitle">يمكنك تعديل أي سؤال. الأسئلة غير المجاب عنها ستبقى فارغة، وهذا مقبول تماماً.</p></div>
                             <div class="review-score"><strong id="review-answered-count">0</strong><span>من 40 سؤالاً</span></div>
                         </header>
                         <div class="review-stamps" id="review-stamps" aria-label="الطوابع المحصلة"></div>
@@ -254,11 +254,12 @@
                     <section class="success-screen" id="success-screen" hidden aria-labelledby="success-title">
                         <div class="success-scene" aria-hidden="true">
                             <span class="level-scene__rays"></span>
+                            <span class="success-medal"><i class="fa-solid fa-award" aria-hidden="true"></i><b>شارة<br>المشاركة</b></span>
                             <img src="images/asil-guide.webp" alt="" width="170" height="255">
                         </div>
-                        <span class="success-screen__eyebrow">اكتملت رحلة أمجاد</span>
+                        <span class="success-screen__eyebrow">اكتملت رحلة أمجاد · <span id="success-date"></span></span>
                         <h2 id="success-title" tabindex="-1">شكراً لأنك ساهمت في بناء المرحلة المقبلة</h2>
-                        <p>تم استلام إجاباتك بنجاح. لم نطلب اسماً أو بريداً إلكترونياً أو رقم هاتف.</p>
+                        <p>تم استلام إجاباتك بنجاح، وستُقرأ ضمن حصيلة جماعية مجهولة تساعد في رسم المرحلة المقبلة. لم نطلب اسماً أو بريداً إلكترونياً أو رقم هاتف.</p>
                         <div class="review-stamps review-stamps--success" id="success-stamps" aria-label="طوابع جوازك"></div>
                         <div class="confirmation-code"><span>مرجع الاستلام</span><strong id="confirmation-code">—</strong><button type="button" data-action="copy-confirmation"><i class="fa-regular fa-copy" aria-hidden="true"></i> نسخ</button></div>
                         <div class="success-actions"><a class="button button--primary" href="index.html">العودة إلى الموقع</a><button class="button button--secondary" type="button" data-action="start-new-response">بدء استجابة جديدة</button></div>
