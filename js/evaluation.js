@@ -418,7 +418,12 @@
         const reviewing = state.currentScreen === 'review';
         const position = reviewing ? 100 : (state.currentQuestion / (allQuestions.length - 1)) * 100;
         elements['journey-progress-label'].textContent = `السؤال ${displayIndex} من ${allQuestions.length}`;
-        if (elements['hud-progress-label']) elements['hud-progress-label'].textContent = reviewing ? 'مراجعة قبل الإرسال' : `السؤال ${displayIndex} من ${allQuestions.length}`;
+        if (elements['hud-progress-label']) {
+            const sectionIndex = currentSectionIndex();
+            elements['hud-progress-label'].textContent = reviewing
+                ? 'المحطة الأخيرة: المراجعة والإرسال'
+                : sectionIndex === 0 ? 'بوابة الانطلاق' : `المحطة ${sectionIndex} من 10`;
+        }
         elements['journey-progress-percent'].textContent = `${percent}%`;
         if (elements['passport-progress-fill']) elements['passport-progress-fill'].style.width = `${percent}%`;
         elements['journey-progress-fill'].style.width = `${position}%`;
@@ -507,6 +512,8 @@
         const last = question.sectionPosition === question.sectionLength - 1;
         if (question.id === 1) return 'أهلاً! ثلاثة أسئلة تمهيدية ثم ننطلق.';
         if (first && question.sectionIndex === 6) return 'تجاوزت منتصف الطريق، شكراً لوقتك!';
+        if (first && question.sectionIndex === 9) return 'محطتان فقط وتكتمل الرحلة!';
+        if (first && question.sectionIndex === 10) return 'المحطة الأخيرة… أحسنت المرافقة!';
         if (first && question.sectionIndex > 0) return `محطة جديدة: ${question.sectionLength} أسئلة قصيرة.`;
         if (last && question.sectionIndex > 0) return 'آخر سؤال في المحطة، ثم تحصل على طابعها.';
         if (question.type === 'scale') return '1 = لا أوافق إطلاقاً، 5 = أوافق تماماً.';
@@ -635,7 +642,9 @@
         setStationTheme(question.sectionIndex);
         if (elements['current-mission-title']) elements['current-mission-title'].textContent = sectionIndexLabel(question.sectionIndex);
         elements['mission-label'].textContent = question.sectionIndex === 0 ? section.title : `${section.name}: ${section.shortTitle || section.title}`;
-        elements['question-position'].textContent = question.sectionIndex === 0 ? `سؤال تمهيدي ${question.sectionPosition + 1} من ${question.sectionLength}` : `السؤال ${question.sectionPosition + 1} من ${question.sectionLength} في هذه المحطة`;
+        const stationMinutes = question.sectionLength <= 3 ? '≈ دقيقة ونصف' : '≈ دقيقتان';
+        const positionText = question.sectionIndex === 0 ? `سؤال تمهيدي ${question.sectionPosition + 1} من ${question.sectionLength}` : `السؤال ${question.sectionPosition + 1} من ${question.sectionLength} في هذه المحطة`;
+        elements['question-position'].textContent = question.sectionPosition === 0 ? `${positionText} · ${stationMinutes}` : positionText;
         elements['question-number'].textContent = `س${pad(question.id)}`;
         elements['question-title'].textContent = question.q;
         elements['question-help'].textContent = question.hint || '';
@@ -843,6 +852,14 @@
         if (elements['hud-station-icon']) elements['hud-station-icon'].innerHTML = '<i class="fa-solid fa-passport"></i>';
         renderReviewList();
         const answered = countAnswered();
+        const subtitle = document.getElementById('review-subtitle');
+        if (subtitle) {
+            subtitle.textContent = answered === allQuestions.length
+                ? 'أجبت عن جميع الأسئلة — شكراً لكرم وقتك! يمكنك تعديل أي إجابة قبل الإرسال.'
+                : answered >= 25
+                    ? 'تغطية واسعة، شكراً لك! يمكنك تعديل أي سؤال، وترك البقية فارغة مقبول تماماً.'
+                    : 'يمكنك تعديل أي سؤال. الأسئلة غير المجاب عنها ستبقى فارغة، وهذا مقبول تماماً.';
+        }
         elements['review-answered-count'].textContent = String(answered);
         elements['review-answered-count'].parentElement?.style.setProperty('--score', String(Math.round((answered / 40) * 100)));
         if (elements['review-dashboard-answered']) elements['review-dashboard-answered'].textContent = `${answered} / 40`;
@@ -1100,6 +1117,11 @@
             setVisibleScreen('success');
             elements['confirmation-code'].textContent = String(data.submission_id || '').slice(0, 12).toUpperCase() || 'تم الاستلام';
             if (elements['success-stamps']) elements['success-stamps'].innerHTML = miniStamps(-1);
+            const badgeDate = document.getElementById('success-date');
+            if (badgeDate) {
+                try { badgeDate.textContent = new Intl.DateTimeFormat('ar-MA-u-ca-gregory', { dateStyle: 'long' }).format(new Date()); }
+                catch (formatError) { badgeDate.textContent = new Date().toLocaleDateString('ar'); }
+            }
             if (elements['current-mission-title']) elements['current-mission-title'].textContent = 'اكتملت الرحلة';
             elements['journey-progress-fill'].style.width = '100%';
             if (elements['hud-runner']) elements['hud-runner'].style.setProperty('--pos', '1');
